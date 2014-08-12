@@ -23,11 +23,31 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         actionBar.setHomeButtonEnabled( true );
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter( tabsPagerAdapter );
+        viewPager.setAdapter(tabsPagerAdapter);
 
         actionBar.addTab( actionBar.newTab().setText(R.string.section_map ).setTabListener(this) );
         actionBar.addTab( actionBar.newTab().setText(R.string.section_rules).setTabListener(this) );
         actionBar.addTab( actionBar.newTab().setText(R.string.section_twitter).setTabListener(this) );
+
+        registerListenersForSwipedChanges(actionBar);
+    }
+
+    private void registerListenersForSwipedChanges(final ActionBar actionBar) {
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
     }
 
     @Override

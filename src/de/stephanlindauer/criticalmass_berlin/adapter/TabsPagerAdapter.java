@@ -1,8 +1,10 @@
 package de.stephanlindauer.criticalmass_berlin.adapter;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.MotionEvent;
 import de.stephanlindauer.criticalmass_berlin.fragments.MapFragment;
 import de.stephanlindauer.criticalmass_berlin.fragments.RulesFragment;
 import de.stephanlindauer.criticalmass_berlin.fragments.TwitterFragment;
