@@ -1,38 +1,37 @@
 package de.stephanlindauer.criticalmass_berlin;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-public class Main extends Activity {
+public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // show the given tab
-            }
+        actionBar.addTab( actionBar.newTab().setText(R.string.section_map ).setTabListener(this) );
+        actionBar.addTab( actionBar.newTab().setText(R.string.section_rules).setTabListener(this) );
+        actionBar.addTab( actionBar.newTab().setText(R.string.section_twitter).setTabListener(this) );
+    }
 
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
-            }
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        System.out.println("test");
+    }
 
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-            }
-        };
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-        actionBar.addTab( actionBar.newTab().setText("map").setTabListener(tabListener) );
-        actionBar.addTab( actionBar.newTab().setText("regeln").setTabListener(tabListener) );
-        actionBar.addTab( actionBar.newTab().setText("twitter").setTabListener(tabListener) );
-        }
+    }
 
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
+    }
 }

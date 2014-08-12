@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">criticalmass berlin</string>
+    <string name="app_name">Critical Mass Berlin</string>
+    <string name="section_map">map</string>
+    <string name="section_rules">regeln</string>
+    <string name="section_twitter">twitter</string>
 </resources>
