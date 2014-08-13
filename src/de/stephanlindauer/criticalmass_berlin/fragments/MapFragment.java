@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import de.stephanlindauer.criticalmass_berlin.R;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -25,6 +26,20 @@ public class MapFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_settings was selected
+            case R.id.action_settings:
+                System.out.println("fooo");
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 
     @Override
