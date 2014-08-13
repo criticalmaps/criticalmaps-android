@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass_berlin.R;
@@ -24,13 +22,25 @@ public class MapFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.layout.actionbar_buttons, menu);
+    }
+
+    @Override
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
         FragmentActivity mContext = getActivity();
 
         final MapView mapView = new MapView(mContext, null);
 
-        mapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
 
@@ -53,7 +63,5 @@ public class MapFragment extends Fragment {
 
         RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
         RL.addView(mapView);
-
     }
-
 }

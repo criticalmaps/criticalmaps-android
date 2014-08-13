@@ -21,7 +21,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setHomeButtonEnabled(true);
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabsPagerAdapter);
@@ -58,11 +57,9 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
     }
 }

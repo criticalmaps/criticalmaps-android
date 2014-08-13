@@ -4,4 +4,5 @@
     <string name="section_map">map</string>
     <string name="section_rules">regeln</string>
     <string name="section_twitter">twitter</string>
+    <string name="settings">settings</string>
 </resources>

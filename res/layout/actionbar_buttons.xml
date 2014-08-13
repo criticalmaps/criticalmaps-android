@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android=
+              "http://schemas.android.com/apk/res/android"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+        >
+    <item
+            android:id="@+id/add_item"
+            android:icon="@drawable/settings_icon"
+            android:orderInCategory="20"
+            android:showAsAction="ifRoom"
+            android:title="@string/settings"
+            android:layout_height="wrap_content">
+    </item>
+</menu>
