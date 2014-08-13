@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmass_berlin.adapter.TabsPagerAdapter;
+import de.stephanlindauer.criticalmass_berlin.helper.CustomViewPager;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
-    ViewPager viewPager;
+    CustomViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (CustomViewPager) findViewById(R.id.pager);
 
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

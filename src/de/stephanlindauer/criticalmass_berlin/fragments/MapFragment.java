@@ -34,10 +34,9 @@ public class MapFragment extends Fragment {
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
 
-
         GeoPoint point = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
-        mapView.getController().animateTo(point);
-        mapView.getController().setZoom(12);
+        mapView.getController().setCenter(point);
+        mapView.getController().setZoom(11);
 
         new Handler().postDelayed(new Runnable() {
             @Override
