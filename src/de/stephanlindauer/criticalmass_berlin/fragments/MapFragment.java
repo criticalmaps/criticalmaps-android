@@ -9,9 +9,14 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import de.stephanlindauer.criticalmass_berlin.R;
+import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.ArrayList;
 
 public class MapFragment extends Fragment {
 
@@ -75,6 +80,15 @@ public class MapFragment extends Fragment {
         mapView.setBuiltInZoomControls(true);
         mapView.setLayoutParams(new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
+        ArrayList<OverlayItem> overlays = new ArrayList<OverlayItem>();
+        overlays.add(new OverlayItem("New Overlay", "Overlay Description", new GeoPoint((int) (52.468190 * 1E6), (int) (13.426046 * 1E6)) ));
+
+        DefaultResourceProxyImpl resourceProxy = new DefaultResourceProxyImpl(mContext);
+        ItemizedIconOverlay<OverlayItem> myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
+        mapView.getOverlays().add( myLocationOverlay );
+
+        mapView.invalidate();
 
         RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
         RL.addView(mapView);
