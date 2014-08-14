@@ -4,12 +4,10 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
-
     <RelativeLayout android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"
                     android:id="@+id/relativeLayout">
     </RelativeLayout>
-
 </LinearLayout>
