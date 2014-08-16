@@ -11,6 +11,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.osmdroid.util.GeoPoint;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
     private final ICommand callback;
     private final String uniqueDeviceId;
 
-    public RequestTask(String uniqueDeviceId, Location currentLocation, ICommand callback)
+    public RequestTask(String uniqueDeviceId, GeoPoint currentLocation, ICommand callback)
     {
         super();
         this.callback = callback;

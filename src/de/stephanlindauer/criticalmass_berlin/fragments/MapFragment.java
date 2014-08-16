@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmass_berlin.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -24,8 +25,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class MapFragment extends Fragment {
 
@@ -33,11 +33,15 @@ public class MapFragment extends Fragment {
     private static final long LOCATION_REFRESH_TIME = 10000; //milliseconds
 
     private MapView mapView;
-    private ItemizedIconOverlay<OverlayItem> myLocationOverlay;
-
     private FragmentActivity mContext;
-    public Location currentLocation;
 
+    private GeoPoint userLocation = null;
+    private List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
+
+    private GeoPoint initialCenter = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
+    private Timer timerGettingOtherBikers;
+    private TimerTask timerTaskGettingsOtherBikers;
+    private DefaultResourceProxyImpl resourceProxy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,21 +59,19 @@ public class MapFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // action with ID action_settings was selected
             case R.id.action_settings:
                 System.out.println("fooo");
                 break;
             default:
                 break;
         }
-
         return true;
     }
 
     @Override
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.layout.actionbar_buttons, menu);
+//        inflater.inflate(R.layout.actionbar_buttons, menu);
     }
 
     @Override
@@ -77,119 +79,121 @@ public class MapFragment extends Fragment {
         super.onActivityCreated(savedState);
         mContext = getActivity();
 
-        mapView = new MapView(mContext, null);
+        resourceProxy = new DefaultResourceProxyImpl(mContext);
 
+        mapView = new MapView(mContext, null);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
-
-        GeoPoint point = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
-        mapView.getController().setCenter(point);
+        mapView.getController().setCenter(initialCenter);
         mapView.getController().setZoom(11);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GeoPoint point = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
-                mapView.getController().animateTo(point);
-            }
-        }, 200);
-
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
         mapView.setLayoutParams(new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        ArrayList<OverlayItem> overlays = new ArrayList<OverlayItem>();
-
-        overlays.add(new OverlayItem("New Overlay", "Overlay Description", new GeoPoint((int) (52.468190 * 1E6), (int) (13.426046 * 1E6))));
-
-        DefaultResourceProxyImpl resourceProxy = new DefaultResourceProxyImpl(mContext);
-        ItemizedIconOverlay<OverlayItem> myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
-        mapView.getOverlays().add(myLocationOverlay);
-
-        mapView.invalidate();
-
-        startHttpPulling();
-
         RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
         RL.addView(mapView);
 
-        LocationManager mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        timerGettingOtherBikers = new Timer();
+        timerTaskGettingsOtherBikers = new TimerTask() {
+            @Override
+            public void run() {
+                getOtherBikersInfoFromServer();
+            }
+        };
 
+        Timer timerRefreshView = new Timer();
+        TimerTask timerTaskRefreshView = new TimerTask() {
+            @Override
+            public void run() {
+                refreshView();
+            }
+        };
+        timerRefreshView.scheduleAtFixedRate(timerTaskRefreshView, 2000, 5000);
+
+        getOtherBikersInfoFromServer();
+
+        LocationManager mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mapView.getController().animateTo(initialCenter);
+            }
+        }, 200);
     }
 
-    private void startHttpPulling() {
+    private void refreshView()
+    {
+        for ( Overlay element : mapView.getOverlays() ) {
+            mapView.getOverlays().remove( element );
+        }
+
+        if( userLocation != null ) {
+            GeoPoint currentUserLocation = userLocation;
+            ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
+            ownOverlay.add(new OverlayItem("", "", currentUserLocation));
+            ItemizedIconOverlay userLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
+
+            mapView.getOverlays().add(userLocationOverlay);
+        }
+
+        ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
+
+        for (GeoPoint currentOtherUsersLocation : otherUsersLocations)
+        {
+            otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
+        }
+        final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
+
+        mContext.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mapView.getOverlays().add(otherUsersLocationOverlay);
+                mapView.invalidate();
+            }
+        });
+    }
+
+    private void getOtherBikersInfoFromServer() {
         String uniqueDeviceId = Settings.Secure.getString(mContext.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        RequestTask request = new RequestTask(uniqueDeviceId, currentLocation, new ICommand() {
+        RequestTask request = new RequestTask(uniqueDeviceId, userLocation, new ICommand() {
             @Override
             public void execute(String... payload) {
                 try {
-                    JSONObject jsonObject = null;
-                    jsonObject = new JSONObject((String) payload[0]);
-
+                    JSONObject jsonObject = new JSONObject( payload[0] );
                     Iterator<String> keys = jsonObject.keys();
 
-                    ArrayList<OverlayItem> otherCyclistsOverlay = new ArrayList<OverlayItem>();
+                    otherUsersLocations = new ArrayList<GeoPoint>();
+
                     while (keys.hasNext()) {
                         String key = keys.next();
-
                         JSONObject value = jsonObject.getJSONObject(key);
-                        String timestamp = value.getString("timestamp");
-                        double longitude = Double.parseDouble(value.getString("longitude")) * 1E6;
-                        double latitude = Double.parseDouble(value.getString("latitude")) * 1E6;
+                        Integer latitude =  Integer.parseInt( value.getString("latitude"));
+                        Integer longitude = Integer.parseInt( value.getString("longitude"));
 
-                        otherCyclistsOverlay.add(new OverlayItem(key, timestamp, new GeoPoint( latitude, longitude )));
+                        otherUsersLocations.add( new GeoPoint( latitude, longitude ) );
                     }
 
-                    for ( Overlay element : mapView.getOverlays() ) {
-                        if( element != myLocationOverlay )
-                        {
-                            mapView.getOverlays().remove( element );
-                        }
-                    }
-
-                    DefaultResourceProxyImpl resourceProxy = new DefaultResourceProxyImpl( mContext );
-                    ItemizedIconOverlay otherCyclistsLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherCyclistsOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
-
-                    mapView.getOverlays().add(otherCyclistsLocationOverlay);
-                    mapView.invalidate();
-
+                    timerGettingOtherBikers.schedule(timerTaskGettingsOtherBikers, 30 * 1000);
                 } catch (Exception e) {
                     return;
                 }
             }
         });
 
-
         request.execute();
     }
 
     public final LocationListener mLocationListener = new LocationListener() {
-
-        private ItemizedIconOverlay<OverlayItem> myLocationOverlay1;
-
         @Override
         public void onLocationChanged(final Location location) {
-            currentLocation = location;
-
-            GeoPoint currentUserLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-            ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
-            ownOverlay.add(new OverlayItem("", "", currentUserLocation));
-
-            DefaultResourceProxyImpl resourceProxy = new DefaultResourceProxyImpl(mContext);
-
-            ItemizedIconOverlay<OverlayItem> oldMyLocationOverlay = myLocationOverlay;
-            myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
-
-            mapView.getOverlays().add(myLocationOverlay);
-            mapView.getOverlays().remove(oldMyLocationOverlay);
-
-            mapView.invalidate();
+            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
         }
 
         @Override
