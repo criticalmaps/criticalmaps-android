@@ -15,14 +15,17 @@ import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass_berlin.R;
 import de.stephanlindauer.criticalmass_berlin.helper.ICommand;
 import de.stephanlindauer.criticalmass_berlin.helper.RequestTask;
+import org.json.JSONObject;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MapFragment extends Fragment {
 
@@ -103,10 +106,10 @@ public class MapFragment extends Fragment {
 
         DefaultResourceProxyImpl resourceProxy = new DefaultResourceProxyImpl(mContext);
         ItemizedIconOverlay<OverlayItem> myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
-        mapView.getOverlays().add( myLocationOverlay );
+        mapView.getOverlays().add(myLocationOverlay);
 
         mapView.invalidate();
-        
+
         startHttpPulling();
 
         RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
@@ -118,17 +121,50 @@ public class MapFragment extends Fragment {
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
     }
 
-    private void startHttpPulling()
-    {
+    private void startHttpPulling() {
         String uniqueDeviceId = Settings.Secure.getString(mContext.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        RequestTask request = new RequestTask(uniqueDeviceId, new ICommand() {
+        RequestTask request = new RequestTask(uniqueDeviceId, currentLocation, new ICommand() {
             @Override
             public void execute(String... payload) {
-                System.out.println(payload);
+                try {
+                    JSONObject jsonObject = null;
+                    jsonObject = new JSONObject((String) payload[0]);
+
+                    Iterator<String> keys = jsonObject.keys();
+
+                    ArrayList<OverlayItem> otherCyclistsOverlay = new ArrayList<OverlayItem>();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+
+                        JSONObject value = jsonObject.getJSONObject(key);
+                        String timestamp = value.getString("timestamp");
+                        double longitude = Double.parseDouble(value.getString("longitude")) * 1E6;
+                        double latitude = Double.parseDouble(value.getString("latitude")) * 1E6;
+
+                        otherCyclistsOverlay.add(new OverlayItem(key, timestamp, new GeoPoint( latitude, longitude )));
+                    }
+
+                    for ( Overlay element : mapView.getOverlays() ) {
+                        if( element != myLocationOverlay )
+                        {
+                            mapView.getOverlays().remove( element );
+                        }
+                    }
+
+                    DefaultResourceProxyImpl resourceProxy = new DefaultResourceProxyImpl( mContext );
+                    ItemizedIconOverlay otherCyclistsLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherCyclistsOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
+
+                    mapView.getOverlays().add(otherCyclistsLocationOverlay);
+                    mapView.invalidate();
+
+                } catch (Exception e) {
+                    return;
+                }
             }
         });
+
 
         request.execute();
     }
@@ -149,9 +185,9 @@ public class MapFragment extends Fragment {
 
             ItemizedIconOverlay<OverlayItem> oldMyLocationOverlay = myLocationOverlay;
             myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
-            mapView.getOverlays().add(myLocationOverlay);
 
-            mapView.getOverlays().remove( oldMyLocationOverlay );
+            mapView.getOverlays().add(myLocationOverlay);
+            mapView.getOverlays().remove(oldMyLocationOverlay);
 
             mapView.invalidate();
         }

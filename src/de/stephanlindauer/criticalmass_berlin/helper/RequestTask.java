@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmass_berlin.helper;
 
 
+import android.location.Location;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import org.apache.http.HttpResponse;
@@ -19,7 +20,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
     private final ICommand callback;
     private final String uniqueDeviceId;
 
-    public RequestTask(String uniqueDeviceId, ICommand callback)
+    public RequestTask(String uniqueDeviceId, Location currentLocation, ICommand callback)
     {
         super();
         this.callback = callback;
@@ -32,7 +33,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
         HttpResponse response;
         String responseString = null;
         try {
-            response = httpclient.execute(new HttpGet("http://google.de"));
+            response = httpclient.execute(new HttpGet("http://criticalmass.stephanlindauer.de/test.php"));
             StatusLine statusLine = response.getStatusLine();
             if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -51,6 +52,6 @@ public class RequestTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        callback.execute();
+        callback.execute( result );
     }
 }
