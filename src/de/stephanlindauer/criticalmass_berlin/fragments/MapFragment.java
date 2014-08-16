@@ -1,6 +1,5 @@
 package de.stephanlindauer.criticalmass_berlin.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,8 +35,28 @@ public class MapFragment extends Fragment {
     private FragmentActivity mContext;
 
     private GeoPoint userLocation = null;
-    private List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
+    public final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        }
 
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+    private List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
     private GeoPoint initialCenter = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
     private Timer timerGettingOtherBikers;
     private TimerTask timerTaskGettingsOtherBikers;
@@ -126,13 +145,12 @@ public class MapFragment extends Fragment {
         }, 200);
     }
 
-    private void refreshView()
-    {
-        for ( Overlay element : mapView.getOverlays() ) {
-            mapView.getOverlays().remove( element );
+    private void refreshView() {
+        for (Overlay element : mapView.getOverlays()) {
+            mapView.getOverlays().remove(element);
         }
 
-        if( userLocation != null ) {
+        if (userLocation != null) {
             GeoPoint currentUserLocation = userLocation;
             ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
             ownOverlay.add(new OverlayItem("", "", currentUserLocation));
@@ -143,8 +161,7 @@ public class MapFragment extends Fragment {
 
         ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
-        for (GeoPoint currentOtherUsersLocation : otherUsersLocations)
-        {
+        for (GeoPoint currentOtherUsersLocation : otherUsersLocations) {
             otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
@@ -166,7 +183,7 @@ public class MapFragment extends Fragment {
             @Override
             public void execute(String... payload) {
                 try {
-                    JSONObject jsonObject = new JSONObject( payload[0] );
+                    JSONObject jsonObject = new JSONObject(payload[0]);
                     Iterator<String> keys = jsonObject.keys();
 
                     otherUsersLocations = new ArrayList<GeoPoint>();
@@ -174,10 +191,10 @@ public class MapFragment extends Fragment {
                     while (keys.hasNext()) {
                         String key = keys.next();
                         JSONObject value = jsonObject.getJSONObject(key);
-                        Integer latitude =  Integer.parseInt( value.getString("latitude"));
-                        Integer longitude = Integer.parseInt( value.getString("longitude"));
+                        Integer latitude = Integer.parseInt(value.getString("latitude"));
+                        Integer longitude = Integer.parseInt(value.getString("longitude"));
 
-                        otherUsersLocations.add( new GeoPoint( latitude, longitude ) );
+                        otherUsersLocations.add(new GeoPoint(latitude, longitude));
                     }
 
                     timerGettingOtherBikers.schedule(timerTaskGettingsOtherBikers, 30 * 1000);
@@ -189,26 +206,4 @@ public class MapFragment extends Fragment {
 
         request.execute();
     }
-
-    public final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
 }

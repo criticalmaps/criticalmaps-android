@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class CustomViewPager extends ViewPager{
+public class CustomViewPager extends ViewPager {
 
     public CustomViewPager(Context context) {
         super(context);

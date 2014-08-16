@@ -1,9 +1,7 @@
 package de.stephanlindauer.criticalmass_berlin.helper;
 
 
-import android.location.Location;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
@@ -21,8 +19,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
     private final ICommand callback;
     private final String uniqueDeviceId;
 
-    public RequestTask(String uniqueDeviceId, GeoPoint currentLocation, ICommand callback)
-    {
+    public RequestTask(String uniqueDeviceId, GeoPoint currentLocation, ICommand callback) {
         super();
         this.callback = callback;
         this.uniqueDeviceId = uniqueDeviceId;
@@ -53,6 +50,6 @@ public class RequestTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        callback.execute( result );
+        callback.execute(result);
     }
 }
