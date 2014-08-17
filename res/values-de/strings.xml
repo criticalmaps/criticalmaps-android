@@ -4,11 +4,11 @@
 
     <string name="app_name">Critical Mass Berlin</string>
 
-    <string name="section_map">map</string>
-    <string name="section_rules">rules</string>
-    <string name="section_twitter">twitter</string>
+    <string name="section_map">Karte</string>
+    <string name="section_rules">Knigge</string>
+    <string name="section_twitter">Twitter</string>
 
-    <string name="settings">settings</string>
+    <string name="settings">Einstellungen</string>
 
     <string name="rules_corken">Corken!?</string>
     <string name="rules_corken_explain">Schütze Autofahrer vor sich selbst durch corken!</string>

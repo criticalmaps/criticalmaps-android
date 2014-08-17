@@ -90,7 +90,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.layout.actionbar_buttons, menu);
+        inflater.inflate(R.layout.actionbar_buttons, menu);
     }
 
     @Override
@@ -121,6 +121,7 @@ public class MapFragment extends Fragment {
                 getOtherBikersInfoFromServer();
             }
         };
+        timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, 2000);
 
         Timer timerRefreshView = new Timer();
         TimerTask timerTaskRefreshView = new TimerTask() {
@@ -129,7 +130,7 @@ public class MapFragment extends Fragment {
                 refreshView();
             }
         };
-        timerRefreshView.scheduleAtFixedRate(timerTaskRefreshView, 2000, 5000);
+        timerRefreshView.scheduleAtFixedRate(timerTaskRefreshView, 2000, 10 * 1000);
 
         getOtherBikersInfoFromServer();
 
@@ -166,10 +167,11 @@ public class MapFragment extends Fragment {
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
 
+        mapView.getOverlays().add(otherUsersLocationOverlay);
+
         mContext.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mapView.getOverlays().add(otherUsersLocationOverlay);
                 mapView.invalidate();
             }
         });
@@ -196,14 +198,11 @@ public class MapFragment extends Fragment {
 
                         otherUsersLocations.add(new GeoPoint(latitude, longitude));
                     }
-
-                    timerGettingOtherBikers.schedule(timerTaskGettingsOtherBikers, 30 * 1000);
                 } catch (Exception e) {
                     return;
                 }
             }
         });
-
         request.execute();
     }
 }
