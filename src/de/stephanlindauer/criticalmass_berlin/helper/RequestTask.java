@@ -18,11 +18,13 @@ public class RequestTask extends AsyncTask<String, String, String> {
 
     private final ICommand callback;
     private final String uniqueDeviceId;
+    private final GeoPoint currentLocation;
 
     public RequestTask(String uniqueDeviceId, GeoPoint currentLocation, ICommand callback) {
         super();
         this.callback = callback;
         this.uniqueDeviceId = uniqueDeviceId;
+        this.currentLocation = currentLocation;
     }
 
     @Override
@@ -31,7 +33,17 @@ public class RequestTask extends AsyncTask<String, String, String> {
         HttpResponse response;
         String responseString = null;
         try {
-            response = httpclient.execute(new HttpGet("http://criticalmass.stephanlindauer.de/test.php"));
+            String requestUrl = "http://criticalmass.stephanlindauer.de/get.php";
+            requestUrl += "?device=" + uniqueDeviceId;
+
+            if(currentLocation != null)
+            {
+                requestUrl += "&longitude=" + currentLocation.getLongitudeE6();
+                requestUrl += "&latitude=" + currentLocation.getLatitudeE6();
+            }
+
+            response = httpclient.execute(new HttpGet(requestUrl));
+
             StatusLine statusLine = response.getStatusLine();
             if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
                 ByteArrayOutputStream out = new ByteArrayOutputStream();

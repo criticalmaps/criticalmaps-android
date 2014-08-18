@@ -3,7 +3,7 @@
 require("topsykretts.php");
 
 if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    die ("Failed to connect to MySQL:");
 }
 
 $result = mysqli_query($con, "SELECT * FROM Locations WHERE timestamp > (NOW() - INTERVAL 5 MINUTE)");
@@ -26,10 +26,16 @@ while ($row = mysqli_fetch_array($result)) {
     }
 }
 
+if (isset($_GET["device"]) && array_key_exists($_GET["device"], $locationsArray)) {
+    unset($locationsArray[$_GET["device"]]);
+}
+
 echo json_encode($locationsArray);
 
-mysqli_query($con, "INSERT INTO `db539887603`.`Locations` (`id`, `device`, `timestamp`, `longitude`, `latitude`)
-VALUES (NULL, '123123123', CURRENT_TIMESTAMP, '123213', '123213');");
+if (isset($_GET["device"]) && isset($_GET["longitude"]) && isset($_GET["latitude"])) {
+    $query = "INSERT INTO `db539887603`.`Locations` (`id`, `device`, `timestamp`, `longitude`, `latitude`) VALUES (NULL, '" . $_GET['device'] . "', CURRENT_TIMESTAMP, '" . $_GET["longitude"] . "', '" . $_GET["latitude"] . "' );";
+    mysqli_query($con, $query);
+}
 
 mysqli_close($con);
 
