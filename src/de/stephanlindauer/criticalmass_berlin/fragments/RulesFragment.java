@@ -19,12 +19,12 @@ public class RulesFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.rules, container, false);
 
-       return rootView;
+        return rootView;
 
     }
 
     @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         activity = getActivity();

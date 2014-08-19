@@ -1,22 +1,13 @@
 package de.stephanlindauer.criticalmass_berlin.fragments;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass_berlin.R;
-import de.stephanlindauer.criticalmass_berlin.helper.ICommand;
 import de.stephanlindauer.criticalmass_berlin.helper.LocationsManager;
-import de.stephanlindauer.criticalmass_berlin.helper.RequestTask;
-import org.json.JSONObject;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -25,7 +16,9 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MapFragment extends Fragment {
 
@@ -69,11 +62,11 @@ public class MapFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        LocationsManager.getInstance().initialize( getActivity() );
+        LocationsManager.getInstance().initialize(getActivity());
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity());
 
-        mapView = new MapView( getActivity(), null);
+        mapView = new MapView(getActivity(), null);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
@@ -93,8 +86,7 @@ public class MapFragment extends Fragment {
             public void run() {
                 try {
                     refreshView();
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     //meh...
                 }
             }

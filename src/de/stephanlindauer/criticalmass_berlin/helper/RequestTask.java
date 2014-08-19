@@ -36,8 +36,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
             String requestUrl = "http://criticalmass.stephanlindauer.de/get.php";
             requestUrl += "?device=" + uniqueDeviceId;
 
-            if(currentLocation != null)
-            {
+            if (currentLocation != null) {
                 requestUrl += "&longitude=" + currentLocation.getLongitudeE6();
                 requestUrl += "&latitude=" + currentLocation.getLatitudeE6();
             }
