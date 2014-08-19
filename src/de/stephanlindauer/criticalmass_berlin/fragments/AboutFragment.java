@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import de.stephanlindauer.criticalmass_berlin.R;
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends SuperFragment {
 
     private FragmentActivity activity;
 
@@ -19,7 +19,6 @@ public class AboutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.about, container, false);
 
         return rootView;
-
     }
 
     @Override

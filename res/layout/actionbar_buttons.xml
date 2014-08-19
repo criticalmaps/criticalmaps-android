@@ -4,9 +4,19 @@
       android:layout_height="match_parent"
       android:layout_width="match_parent">
     <item android:id="@+id/action_settings"
-          android:title="Settings">
+          android:title="Settings"
+          android:icon="@drawable/ic_launcher"
+            >
     </item>
     <item android:id="@+id/action_settings2"
-          android:title="fooo">
+          android:title="tracking"
+           android:showAsAction="never"
+           android:checkable ="true"
+           android:enabled = "true"
+           android:orderInCategory="9999"
+            >
     </item>
+    <item android:id="@+id/action_close"
+          android:icon="@drawable/ic_action_cancel"
+          android:showAsAction="always"/>
 </menu>

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import de.stephanlindauer.criticalmass_berlin.R;
 
-public class RulesFragment extends Fragment {
+public class RulesFragment extends SuperFragment {
 
     private FragmentActivity activity;
 
@@ -20,7 +20,6 @@ public class RulesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.rules, container, false);
 
         return rootView;
-
     }
 
     @Override

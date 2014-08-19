@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends SuperFragment {
 
     private MapView mapView;
 
@@ -32,30 +32,6 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.relative_layout, container, false);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                System.out.println("fooo");
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.layout.actionbar_buttons, menu);
     }
 
     @Override
