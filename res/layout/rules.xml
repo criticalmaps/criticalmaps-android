@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/root_layout"
               android:layout_width="fill_parent"
@@ -7,84 +8,95 @@
               android:background="#FFFFFFFF"
               android:layout_weight="1"
               android:orientation="vertical">
-    <Button android:id="@+id/btnCorken"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rules_corken"
-            android:textColor="#FFFFFFFF"
-            android:textStyle="bold"
-            android:gravity="center|left"/>
-    <LinearLayout android:id="@+id/panelCorken"
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:background="#FFFFFFFF">
-        <LinearLayout android:id="@+id/panelProfile1"
-                      android:orientation="vertical"
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/root_layout"
                       android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:background="#FFFFFFFF">
-            <TextView android:id="@+id/strName"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/rules_corken_explain"
-                      android:layout_gravity="left|top"
-                      style="@style/explainer_style"/>
-            <ImageView android:layout_width="fill_parent"
-                       android:layout_height="fill_parent"
-                       android:src="@drawable/corken"/>
+                      android:layout_height="fill_parent"
+                      android:background="#FFFFFFFF"
+                      android:layout_weight="1"
+                      android:orientation="vertical">
+            <Button android:id="@+id/btnCorken"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rules_corken"
+                    android:textColor="#FFFFFFFF"
+                    android:textStyle="bold"
+                    android:gravity="center|left"/>
+            <LinearLayout android:id="@+id/panelCorken"
+                          android:orientation="vertical"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:background="#FFFFFFFF">
+                <LinearLayout android:id="@+id/panelProfile1"
+                              android:orientation="vertical"
+                              android:layout_width="fill_parent"
+                              android:layout_height="wrap_content"
+                              android:background="#FFFFFFFF">
+                    <TextView android:id="@+id/strName"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/rules_corken_explain"
+                              android:layout_gravity="left|top"
+                              style="@style/explainer_style"/>
+                    <ImageView android:layout_width="fill_parent"
+                               android:layout_height="fill_parent"
+                               android:src="@drawable/corken"/>
+                </LinearLayout>
+            </LinearLayout>
+            <Button android:id="@+id/btnSettings"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rules_oncoming_traffic"
+                    android:textStyle="bold"
+                    android:gravity="center|left"
+                    android:textColor="#FFFFFFFF"/>
+            <LinearLayout android:id="@+id/panelOncomingTraffic"
+                          android:orientation="vertical"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:background="#FFFFFFFF">
+                <LinearLayout android:orientation="vertical"
+                              android:layout_width="fill_parent"
+                              android:layout_height="wrap_content"
+                              android:background="#FFFFFFFF">
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/rules_oncoming_traffic_explain"
+                              android:layout_gravity="left|top"
+                              style="@style/explainer_style"/>
+                    <ImageView android:layout_width="fill_parent"
+                               android:layout_height="fill_parent"
+                               android:src="@drawable/oncoming_traffic"/>
+                </LinearLayout>
+            </LinearLayout>
+            <Button android:id="@+id/btnPrivacy" android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:text="@string/rules_steady" android:textStyle="bold"
+                    android:gravity="center|left"
+                    android:textColor="#FFFFFFFF"/>
+            <LinearLayout android:id="@+id/panelPrivacy"
+                          android:orientation="vertical"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:background="#FFFFFFFF">
+                <LinearLayout android:orientation="vertical"
+                              android:layout_width="fill_parent"
+                              android:layout_height="wrap_content"
+                              android:background="#FFFFFFFF">
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/rules_steady_explain"
+                              android:layout_gravity="left|top"
+                              style="@style/explainer_style"/>
+                    <ImageView android:layout_width="fill_parent"
+                               android:layout_height="fill_parent"
+                               android:src="@drawable/steady"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <Button android:id="@+id/btnSettings"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rules_oncoming_traffic"
-            android:textStyle="bold"
-            android:gravity="center|left"
-            android:textColor="#FFFFFFFF"/>
-    <LinearLayout android:id="@+id/panelOncomingTraffic"
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:background="#FFFFFFFF">
-        <LinearLayout android:orientation="vertical"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:background="#FFFFFFFF">
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/rules_oncoming_traffic_explain"
-                      android:layout_gravity="left|top"
-                      style="@style/explainer_style"/>
-            <ImageView android:layout_width="fill_parent"
-                       android:layout_height="fill_parent"
-                       android:src="@drawable/oncoming_traffic"/>
-        </LinearLayout>
-    </LinearLayout>
-    <Button android:id="@+id/btnPrivacy" android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:text="@string/rules_steady" android:textStyle="bold"
-            android:gravity="center|left"
-            android:textColor="#FFFFFFFF"/>
-    <LinearLayout android:id="@+id/panelPrivacy"
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:background="#FFFFFFFF">
-        <LinearLayout android:orientation="vertical"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:background="#FFFFFFFF">
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/rules_steady_explain"
-                      android:layout_gravity="left|top"
-                      style="@style/explainer_style"/>
-            <ImageView android:layout_width="fill_parent"
-                       android:layout_height="fill_parent"
-                       android:src="@drawable/steady"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
