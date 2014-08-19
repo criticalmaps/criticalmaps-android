@@ -21,7 +21,7 @@ public class SuperFragment extends Fragment {
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.layout.actionbar_buttons, menu);
+        inflater.inflate(R.menu.actionbar_buttons, menu);
     }
 
     @Override
