@@ -14,6 +14,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass_berlin.R;
 import de.stephanlindauer.criticalmass_berlin.helper.ICommand;
+import de.stephanlindauer.criticalmass_berlin.helper.LocationsManager;
 import de.stephanlindauer.criticalmass_berlin.helper.RequestTask;
 import org.json.JSONObject;
 import org.osmdroid.DefaultResourceProxyImpl;
@@ -28,38 +29,9 @@ import java.util.*;
 
 public class MapFragment extends Fragment {
 
-    private static final float LOCATION_REFRESH_DISTANCE = 5; //meters
-    private static final long LOCATION_REFRESH_TIME = 10000; //milliseconds
-
     private MapView mapView;
-    private FragmentActivity mContext;
 
-    private GeoPoint userLocation = null;
-    public final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
-    private List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
     private GeoPoint initialCenter = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
-    private Timer timerGettingOtherBikers;
-    private TimerTask timerTaskGettingsOtherBikers;
     private DefaultResourceProxyImpl resourceProxy;
 
     @Override
@@ -96,11 +68,12 @@ public class MapFragment extends Fragment {
     @Override
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
-        mContext = getActivity();
 
-        resourceProxy = new DefaultResourceProxyImpl(mContext);
+        LocationsManager.getInstance().initialize( getActivity() );
 
-        mapView = new MapView(mContext, null);
+        resourceProxy = new DefaultResourceProxyImpl(getActivity());
+
+        mapView = new MapView( getActivity(), null);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
@@ -114,29 +87,19 @@ public class MapFragment extends Fragment {
         RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
         RL.addView(mapView);
 
-        timerGettingOtherBikers = new Timer();
-        timerTaskGettingsOtherBikers = new TimerTask() {
-            @Override
-            public void run() {
-                getOtherBikersInfoFromServer();
-            }
-        };
-        timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, 2000);
-
         Timer timerRefreshView = new Timer();
         TimerTask timerTaskRefreshView = new TimerTask() {
             @Override
             public void run() {
-                refreshView();
+                try {
+                    refreshView();
+                }catch (Exception e)
+                {
+                    //meh...
+                }
             }
         };
         timerRefreshView.scheduleAtFixedRate(timerTaskRefreshView, 2000, 10 * 1000);
-
-        getOtherBikersInfoFromServer();
-
-        LocationManager mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -151,8 +114,8 @@ public class MapFragment extends Fragment {
             mapView.getOverlays().remove(element);
         }
 
-        if (userLocation != null) {
-            GeoPoint currentUserLocation = userLocation;
+        if (LocationsManager.getInstance().userLocation != null) {
+            GeoPoint currentUserLocation = LocationsManager.getInstance().userLocation;
             ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
             ownOverlay.add(new OverlayItem("", "", currentUserLocation));
             ItemizedIconOverlay userLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
@@ -162,47 +125,18 @@ public class MapFragment extends Fragment {
 
         ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
-        for (GeoPoint currentOtherUsersLocation : otherUsersLocations) {
+        for (GeoPoint currentOtherUsersLocation : LocationsManager.getInstance().otherUsersLocations) {
             otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
 
         mapView.getOverlays().add(otherUsersLocationOverlay);
 
-        mContext.runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mapView.invalidate();
             }
         });
-    }
-
-    private void getOtherBikersInfoFromServer() {
-        String uniqueDeviceId = Settings.Secure.getString(mContext.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        RequestTask request = new RequestTask(uniqueDeviceId, userLocation, new ICommand() {
-            @Override
-            public void execute(String... payload) {
-                try {
-                    JSONObject jsonObject = new JSONObject(payload[0]);
-                    Iterator<String> keys = jsonObject.keys();
-
-                    otherUsersLocations = new ArrayList<GeoPoint>();
-
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        JSONObject value = jsonObject.getJSONObject(key);
-                        Integer latitude = Integer.parseInt(value.getString("latitude"));
-                        Integer longitude = Integer.parseInt(value.getString("longitude"));
-
-                        otherUsersLocations.add(new GeoPoint(latitude, longitude));
-                    }
-                } catch (Exception e) {
-                    return;
-                }
-            }
-        });
-        request.execute();
     }
 }
