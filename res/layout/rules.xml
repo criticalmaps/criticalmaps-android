@@ -33,7 +33,7 @@
                       style="@style/explainer_style"/>
             <ImageView android:layout_width="fill_parent"
                        android:layout_height="fill_parent"
-                       android:src="@drawable/corken" />
+                       android:src="@drawable/corken"/>
         </LinearLayout>
     </LinearLayout>
     <Button android:id="@+id/btnSettings"
@@ -42,7 +42,7 @@
             android:text="@string/rules_oncoming_traffic"
             android:textStyle="bold"
             android:gravity="center|left"
-            android:textColor="#FFFFFFFF" />
+            android:textColor="#FFFFFFFF"/>
     <LinearLayout android:id="@+id/panelOncomingTraffic"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
@@ -60,12 +60,13 @@
                       style="@style/explainer_style"/>
             <ImageView android:layout_width="fill_parent"
                        android:layout_height="fill_parent"
-                       android:src="@drawable/oncoming_traffic" />
+                       android:src="@drawable/oncoming_traffic"/>
         </LinearLayout>
     </LinearLayout>
     <Button android:id="@+id/btnPrivacy" android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:text="@string/rules_steady" android:textStyle="bold" android:gravity="center|left"
-            android:textColor="#FFFFFFFF" />
+            android:layout_height="wrap_content" android:text="@string/rules_steady" android:textStyle="bold"
+            android:gravity="center|left"
+            android:textColor="#FFFFFFFF"/>
     <LinearLayout android:id="@+id/panelPrivacy"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
@@ -83,7 +84,7 @@
                       style="@style/explainer_style"/>
             <ImageView android:layout_width="fill_parent"
                        android:layout_height="fill_parent"
-                       android:src="@drawable/steady" />
+                       android:src="@drawable/steady"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -10,10 +10,10 @@
     </item>
     <item android:id="@+id/action_settings2"
           android:title="tracking"
-           android:showAsAction="never"
-           android:checkable ="true"
-           android:enabled = "true"
-           android:orderInCategory="9999"
+          android:showAsAction="never"
+          android:checkable="true"
+          android:enabled="true"
+          android:orderInCategory="9999"
             >
     </item>
     <item android:id="@+id/action_close"

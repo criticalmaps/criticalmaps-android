@@ -11,47 +11,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scrollView">
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-                android:text="critical mass berlin"
-                style="@style/about_heading"/>
-        <TextView
-                android:text="www.criticalmass-berlin.org"
-                android:autoLink="web"
-                style="@style/about_content"/>
+            <TextView
+                    android:text="critical mass berlin"
+                    style="@style/about_heading"/>
+            <TextView
+                    android:text="www.criticalmass-berlin.org"
+                    android:autoLink="web"
+                    style="@style/about_content"/>
 
-        <TextView
-                android:text="logo"
-                style="@style/about_heading"/>
-        <TextView
-                android:text="www.thomas-hollnack.de"
-                android:autoLink="web"
-                style="@style/about_content"/>
-        <TextView
-                android:text="code"
-                style="@style/about_heading"/>
-        <TextView
-                android:text="www.stephanlindauer.de"
-                android:autoLink="web"
-                style="@style/about_content"/>
-        <TextView
-                android:text="please help finance the tracking server!"
-                style="@style/about_heading"/>
+            <TextView
+                    android:text="logo"
+                    style="@style/about_heading"/>
+            <TextView
+                    android:text="www.thomas-hollnack.de"
+                    android:autoLink="web"
+                    style="@style/about_content"/>
+            <TextView
+                    android:text="code"
+                    style="@style/about_heading"/>
+            <TextView
+                    android:text="www.stephanlindauer.de"
+                    android:autoLink="web"
+                    style="@style/about_content"/>
+            <TextView
+                    android:text="please help finance the tracking server!"
+                    style="@style/about_heading"/>
 
-        <Button
-                android:drawableTop="@drawable/paypal"
-                android:gravity="left|center_vertical"
-                style="@style/about_button"/>
-        <Button
-            android:drawableTop="@drawable/paypal"
-            android:gravity="left|center_vertical"
-            style="@style/about_button"/>
+            <Button
+                    android:drawableTop="@drawable/paypal"
+                    android:gravity="left|center_vertical"
+                    style="@style/about_button"/>
+            <Button
+                    android:drawableTop="@drawable/paypal"
+                    android:gravity="left|center_vertical"
+                    style="@style/about_button"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
 </LinearLayout>
