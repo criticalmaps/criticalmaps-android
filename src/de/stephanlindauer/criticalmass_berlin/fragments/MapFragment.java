@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmassberlin.fragments;
+package de.stephanlindauer.criticalmass_berlin.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass_berlin.R;
-import de.stephanlindauer.criticalmassberlin.helper.LocationsPulling;
+import de.stephanlindauer.criticalmass_berlin.helper.LocationsPulling;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;

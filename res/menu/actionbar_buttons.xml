@@ -3,18 +3,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_height="match_parent"
       android:layout_width="match_parent">
-    <item android:id="@+id/action_settings"
-          android:title="Settings"
-          android:icon="@drawable/ic_launcher"
-            >
-    </item>
     <item android:id="@+id/settings_tracking_toggle"
           android:title="@string/tracking"
           android:showAsAction="never"
           android:checkable="true"
-          android:checked="true"
-          android:orderInCategory="9999"
-            >
+          android:checked="true">
     </item>
     <item android:title="@string/close_button"
             android:id="@+id/action_close"

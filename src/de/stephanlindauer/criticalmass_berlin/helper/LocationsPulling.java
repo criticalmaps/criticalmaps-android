@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmassberlin.helper;
+package de.stephanlindauer.criticalmass_berlin.helper;
 
 import android.content.Context;
 import android.location.Location;
@@ -14,20 +14,37 @@ import java.util.*;
 
 public class LocationsPulling {
 
-    public GeoPoint userLocation = null;
-    public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
-
     private static final float LOCATION_REFRESH_DISTANCE = 5; //meters
     private static final long LOCATION_REFRESH_TIME = 10000; //milliseconds
-
     private static LocationsPulling instance;
+    public GeoPoint userLocation = null;
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        }
 
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+    public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
     private FragmentActivity mContext;
-
     private Timer timerGettingOtherBikers;
     private TimerTask timerTaskGettingsOtherBikers;
-
     private LocationManager locationManager;
+    private boolean initialized = false;
 
     public static LocationsPulling getInstance() {
         if (LocationsPulling.instance == null) {
@@ -56,18 +73,15 @@ public class LocationsPulling {
         //start location tracking
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         startLocationListening();
-       }
-
-    private void startLocationListening()
-    {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
     }
 
-    private void stopLocationListening()
-    {
-        locationManager.removeUpdates( mLocationListener );
+    private void startLocationListening() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
+                LOCATION_REFRESH_DISTANCE, mLocationListener);
+    }
+
+    private void stopLocationListening() {
+        locationManager.removeUpdates(mLocationListener);
         userLocation = null;
     }
 
@@ -101,32 +115,9 @@ public class LocationsPulling {
     }
 
     public void shouldBeTrackingUsersLocation(boolean shouldBeTracking) {
-        if(shouldBeTracking)
+        if (shouldBeTracking)
             startLocationListening();
         else
             stopLocationListening();
     }
-
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
-    private boolean initialized = false;
 }

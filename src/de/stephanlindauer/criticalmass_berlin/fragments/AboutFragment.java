@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmassberlin.fragments;
+package de.stephanlindauer.criticalmass_berlin.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +14,14 @@ public class AboutFragment extends SuperFragment {
 
     private FragmentActivity activity;
     private Intent websiteIntent;
+    private View.OnClickListener clickListerner = new View.OnClickListener() {
+        public void onClick(View view) {
+            String url = getUrlForId(view.getId());
+            Intent websiteIntent = new Intent(android.content.Intent.ACTION_VIEW);
+            websiteIntent.setData(Uri.parse(url));
+            startActivity(websiteIntent);
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,15 +44,6 @@ public class AboutFragment extends SuperFragment {
         facebookButton.setOnClickListener(clickListerner);
         twitterButton.setOnClickListener(clickListerner);
     }
-
-    private View.OnClickListener clickListerner = new View.OnClickListener() {
-        public void onClick(View view) {
-            String url = getUrlForId(view.getId());
-            Intent websiteIntent = new Intent(android.content.Intent.ACTION_VIEW);
-            websiteIntent.setData(Uri.parse(url));
-            startActivity(websiteIntent);
-        }
-    };
 
     private String getUrlForId(int id) {
         String url = "";

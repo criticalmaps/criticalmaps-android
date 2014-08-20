@@ -1,13 +1,12 @@
-package de.stephanlindauer.criticalmassberlin;
+package de.stephanlindauer.criticalmass_berlin;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import de.stephanlindauer.criticalmass_berlin.R;
-import de.stephanlindauer.criticalmassberlin.adapter.TabsPagerAdapter;
-import de.stephanlindauer.criticalmassberlin.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass_berlin.adapter.TabsPagerAdapter;
+import de.stephanlindauer.criticalmass_berlin.helper.CustomViewPager;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 

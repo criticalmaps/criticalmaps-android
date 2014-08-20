@@ -25,5 +25,6 @@
     <string name="no">nein</string>
     <string name="tracking">tracking</string>
     <string name="close_button">close</string>
+    <string name="settings_pulling_toggle">pull locations</string>
 
 </resources>

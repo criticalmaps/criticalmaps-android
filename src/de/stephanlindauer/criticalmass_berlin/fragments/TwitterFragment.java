@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmassberlin.fragments;
+package de.stephanlindauer.criticalmass_berlin.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
