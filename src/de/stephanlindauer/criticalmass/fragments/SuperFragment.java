@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.fragments;
+package de.stephanlindauer.criticalmass.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import de.stephanlindauer.criticalmass_berlin.R;
-import de.stephanlindauer.criticalmass_berlin.helper.LocationsPulling;
+import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 
 public class SuperFragment extends Fragment {
 
