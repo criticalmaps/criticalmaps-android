@@ -8,15 +8,16 @@
           android:icon="@drawable/ic_launcher"
             >
     </item>
-    <item android:id="@+id/action_settings2"
-          android:title="tracking"
+    <item android:id="@+id/settings_tracking_toggle"
+          android:title="@string/tracking"
           android:showAsAction="never"
           android:checkable="true"
-          android:enabled="true"
+          android:checked="true"
           android:orderInCategory="9999"
             >
     </item>
-    <item android:id="@+id/action_close"
+    <item android:title="@string/close_button"
+            android:id="@+id/action_close"
           android:icon="@drawable/ic_action_cancel"
           android:showAsAction="always"/>
 </menu>

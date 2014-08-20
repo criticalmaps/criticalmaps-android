@@ -1,6 +1,7 @@
 .idea/
 bin/
 gen/
+proguard_logs/
 *.class
 *.apk
 

@@ -68,6 +68,7 @@ public class LocationsPulling {
     private void stopLocationListening()
     {
         locationManager.removeUpdates( mLocationListener );
+        userLocation = null;
     }
 
     private void getOtherBikersInfoFromServer() {

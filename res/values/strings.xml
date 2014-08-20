@@ -23,5 +23,7 @@
     <string name="close">App wirklich beenden???</string>
     <string name="yes">ja</string>
     <string name="no">nein</string>
+    <string name="tracking">tracking</string>
+    <string name="close_button">close</string>
 
 </resources>
