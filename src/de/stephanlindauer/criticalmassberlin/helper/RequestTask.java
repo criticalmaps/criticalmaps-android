@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.helper;
+package de.stephanlindauer.criticalmassberlin.helper;
 
 
 import android.os.AsyncTask;

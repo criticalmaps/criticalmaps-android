@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.helper;
+package de.stephanlindauer.criticalmassberlin.helper;
 
 import android.content.Context;
 import android.location.Location;
@@ -12,48 +12,28 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.*;
 
-public class LocationsManager {
+public class LocationsPulling {
+
+    public GeoPoint userLocation = null;
+    public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
 
     private static final float LOCATION_REFRESH_DISTANCE = 5; //meters
     private static final long LOCATION_REFRESH_TIME = 10000; //milliseconds
-    private static LocationsManager instance;
-    public GeoPoint userLocation = null;
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
 
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
+    private static LocationsPulling instance;
 
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
-    public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
-    private boolean initialized = false;
     private FragmentActivity mContext;
+
     private Timer timerGettingOtherBikers;
     private TimerTask timerTaskGettingsOtherBikers;
 
+    private LocationManager locationManager;
 
-    private LocationsManager() {
-    }
-
-    public static LocationsManager getInstance() {
-        if (LocationsManager.instance == null) {
-            LocationsManager.instance = new LocationsManager();
+    public static LocationsPulling getInstance() {
+        if (LocationsPulling.instance == null) {
+            LocationsPulling.instance = new LocationsPulling();
         }
-        return LocationsManager.instance;
+        return LocationsPulling.instance;
     }
 
     public void initialize(FragmentActivity mContext) {
@@ -74,9 +54,20 @@ public class LocationsManager {
         timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, 2000);
 
         //start location tracking
-        LocationManager mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
+        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        startLocationListening();
+       }
+
+    private void startLocationListening()
+    {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+    }
+
+    private void stopLocationListening()
+    {
+        locationManager.removeUpdates( mLocationListener );
     }
 
     private void getOtherBikersInfoFromServer() {
@@ -107,4 +98,34 @@ public class LocationsManager {
         });
         request.execute();
     }
+
+    public void shouldBeTrackingUsersLocation(boolean shouldBeTracking) {
+        if(shouldBeTracking)
+            startLocationListening();
+        else
+            stopLocationListening();
+    }
+
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+    private boolean initialized = false;
 }

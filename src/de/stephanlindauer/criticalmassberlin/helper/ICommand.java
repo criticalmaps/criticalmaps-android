@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.helper;
+package de.stephanlindauer.criticalmassberlin.helper;
 
 public interface ICommand {
     public void execute(String... payload);

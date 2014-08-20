@@ -1,12 +1,12 @@
-package de.stephanlindauer.criticalmass_berlin.adapter;
+package de.stephanlindauer.criticalmassberlin.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import de.stephanlindauer.criticalmass_berlin.fragments.AboutFragment;
-import de.stephanlindauer.criticalmass_berlin.fragments.MapFragment;
-import de.stephanlindauer.criticalmass_berlin.fragments.RulesFragment;
-import de.stephanlindauer.criticalmass_berlin.fragments.TwitterFragment;
+import de.stephanlindauer.criticalmassberlin.fragments.AboutFragment;
+import de.stephanlindauer.criticalmassberlin.fragments.MapFragment;
+import de.stephanlindauer.criticalmassberlin.fragments.RulesFragment;
+import de.stephanlindauer.criticalmassberlin.fragments.TwitterFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 

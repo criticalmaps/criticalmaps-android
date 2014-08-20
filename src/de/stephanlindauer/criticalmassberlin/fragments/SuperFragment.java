@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.fragments;
+package de.stephanlindauer.criticalmassberlin.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import de.stephanlindauer.criticalmass_berlin.R;
+import de.stephanlindauer.criticalmassberlin.helper.LocationsPulling;
 
 public class SuperFragment extends Fragment {
 
@@ -30,10 +31,21 @@ public class SuperFragment extends Fragment {
             case R.id.action_close:
                 handleCloseRequested();
                 break;
+            case R.id.settings_tracking_toggle:
+                handleTrackingToggled(item);
+                break;
             default:
                 break;
         }
         return true;
+    }
+
+    private void handleTrackingToggled(MenuItem item) {
+        item.setChecked(!item.isChecked());
+        if(item.isChecked())
+            LocationsPulling.getInstance().shouldBeTrackingUsersLocation( true );
+        else
+            LocationsPulling.getInstance().shouldBeTrackingUsersLocation( false );
     }
 
     public void handleCloseRequested() {

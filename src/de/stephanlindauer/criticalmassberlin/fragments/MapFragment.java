@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.fragments;
+package de.stephanlindauer.criticalmassberlin.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass_berlin.R;
-import de.stephanlindauer.criticalmass_berlin.helper.LocationsManager;
+import de.stephanlindauer.criticalmassberlin.helper.LocationsPulling;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -39,7 +39,7 @@ public class MapFragment extends SuperFragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        LocationsManager.getInstance().initialize(getActivity());
+        LocationsPulling.getInstance().initialize(getActivity());
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity());
 
@@ -83,8 +83,8 @@ public class MapFragment extends SuperFragment {
             mapView.getOverlays().remove(element);
         }
 
-        if (LocationsManager.getInstance().userLocation != null) {
-            GeoPoint currentUserLocation = LocationsManager.getInstance().userLocation;
+        if (LocationsPulling.getInstance().userLocation != null) {
+            GeoPoint currentUserLocation = LocationsPulling.getInstance().userLocation;
             ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
             ownOverlay.add(new OverlayItem("", "", currentUserLocation));
             ItemizedIconOverlay userLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
@@ -94,7 +94,7 @@ public class MapFragment extends SuperFragment {
 
         ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
-        for (GeoPoint currentOtherUsersLocation : LocationsManager.getInstance().otherUsersLocations) {
+        for (GeoPoint currentOtherUsersLocation : LocationsPulling.getInstance().otherUsersLocations) {
             otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);

@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass_berlin.fragments;
+package de.stephanlindauer.criticalmassberlin.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
