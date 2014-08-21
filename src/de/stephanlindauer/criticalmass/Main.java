@@ -5,9 +5,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import de.stephanlindauer.criticalmass.helper.CustomViewPager;
-import de.stephanlindauer.criticalmass_berlin.R;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
+import de.stephanlindauer.criticalmass.helper.CustomViewPager;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 

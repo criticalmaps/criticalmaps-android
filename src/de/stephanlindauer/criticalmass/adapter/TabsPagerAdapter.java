@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import de.stephanlindauer.criticalmass.fragments.AboutFragment;
 import de.stephanlindauer.criticalmass.fragments.MapFragment;
-import de.stephanlindauer.criticalmass.fragments.TwitterFragment;
 import de.stephanlindauer.criticalmass.fragments.RulesFragment;
+import de.stephanlindauer.criticalmass.fragments.TwitterFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 

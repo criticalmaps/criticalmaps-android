@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import de.stephanlindauer.criticalmass_berlin.R;
+import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 
 public class SuperFragment extends Fragment {

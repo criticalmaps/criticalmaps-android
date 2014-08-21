@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
-import de.stephanlindauer.criticalmass_berlin.R;
+import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
