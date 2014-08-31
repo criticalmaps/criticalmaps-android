@@ -10,12 +10,18 @@ import android.support.v4.app.FragmentActivity;
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class LocationsPulling {
 
     private static final float LOCATION_REFRESH_DISTANCE = 5; //meters
     private static final long LOCATION_REFRESH_TIME = 10000; //milliseconds
+
+    public static final int PULL_OTHER_LOCATIONS_TIME = 20000; //milliseconds
+
     private static LocationsPulling instance;
     public GeoPoint userLocation = null;
     private final LocationListener mLocationListener = new LocationListener() {
@@ -26,17 +32,14 @@ public class LocationsPulling {
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
-
         }
 
         @Override
         public void onProviderEnabled(String s) {
-
         }
 
         @Override
         public void onProviderDisabled(String s) {
-
         }
     };
     public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
@@ -45,6 +48,7 @@ public class LocationsPulling {
     private TimerTask timerTaskGettingsOtherBikers;
     private LocationManager locationManager;
     private boolean initialized = false;
+    private String uniqueDeviceIdHashed;
 
     public static LocationsPulling getInstance() {
         if (LocationsPulling.instance == null) {
@@ -53,12 +57,21 @@ public class LocationsPulling {
         return LocationsPulling.instance;
     }
 
-    public void initialize(FragmentActivity mContext) {
+    public void initialize(final FragmentActivity mContext) {
         if (initialized == true)
             return;
 
         this.mContext = mContext;
         this.initialized = true;
+
+        try {
+            this.uniqueDeviceIdHashed = AeSimpleSHA1.SHA1( Settings.Secure.getString(mContext.getContentResolver(),
+                    Settings.Secure.ANDROID_ID) );
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         //start other bikes location retrieval
         timerGettingOtherBikers = new Timer();
@@ -68,7 +81,7 @@ public class LocationsPulling {
                 getOtherBikersInfoFromServer();
             }
         };
-        timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, 2000);
+        timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, PULL_OTHER_LOCATIONS_TIME);
 
         //start location tracking
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
@@ -86,10 +99,7 @@ public class LocationsPulling {
     }
 
     private void getOtherBikersInfoFromServer() {
-        String uniqueDeviceId = Settings.Secure.getString(mContext.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        RequestTask request = new RequestTask(uniqueDeviceId, userLocation, new ICommand() {
+        RequestTask request = new RequestTask(uniqueDeviceIdHashed, userLocation, new ICommand() {
             @Override
             public void execute(String... payload) {
                 try {
