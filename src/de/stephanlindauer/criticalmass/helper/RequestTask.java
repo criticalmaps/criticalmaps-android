@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmass.helper;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
@@ -52,8 +53,8 @@ public class RequestTask extends AsyncTask<String, String, String> {
             } else {
                 response.getEntity().getContent().close();
             }
-        } catch (ClientProtocolException e) {
-        } catch (IOException e) {
+        } catch (Exception e) {
+            Log.d("ads","ad");
         }
         return responseString;
     }

@@ -23,6 +23,7 @@ public class SuperFragment extends Fragment {
             Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.actionbar_buttons, menu);
+        //menu.getItem( R.id.settings_tracking_toggle ).setChecked( LocationsPulling.getInstance().isListeningForLocation() );
     }
 
     @Override

@@ -1,11 +1,11 @@
-package de.stephanlindauer.criticalmass.helper;
+package de.stephanlindauer.criticalmass.notifications.reminder;
 
 
 import android.util.Log;
 
 import java.util.*;
 
-public class NotificationTimeCalculator {
+public class NextEventTimeCalculator {
     public static ArrayList<Date> getNextThreeCriticalMassDates() {
         Calendar calendar = new GregorianCalendar().getInstance();
         calendar.setTimeZone(TimeZone.getDefault());

@@ -49,6 +49,7 @@ public class LocationsPulling {
     private LocationManager locationManager;
     private boolean initialized = false;
     private String uniqueDeviceIdHashed;
+    private boolean isListeningForLocation = false;
 
     public static LocationsPulling getInstance() {
         if (LocationsPulling.instance == null) {
@@ -91,11 +92,17 @@ public class LocationsPulling {
     private void startLocationListening() {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
+        isListeningForLocation = true;
     }
 
     private void stopLocationListening() {
         locationManager.removeUpdates(mLocationListener);
         userLocation = null;
+        isListeningForLocation = false;
+    }
+
+    public boolean isListeningForLocation() {
+        return isListeningForLocation;
     }
 
     private void getOtherBikersInfoFromServer() {

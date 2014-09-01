@@ -1,22 +1,20 @@
-package de.stephanlindauer.criticalmass.helper;
+package de.stephanlindauer.criticalmass.notifications.reminder;
 
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-public class NotificationSetter {
+public class ReminderNotificationSetter {
 
     private final Context context;
     private final Activity activity;
 
-    public NotificationSetter(Context context, Activity activity) {
+    public ReminderNotificationSetter(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
     }
@@ -30,7 +28,7 @@ public class NotificationSetter {
         alarmManager.cancel( pendingIntent );
 
         ArrayList<Date> nextThreeDates
-                = NotificationTimeCalculator.getNextThreeCriticalMassDates();
+                = NextEventTimeCalculator.getNextThreeCriticalMassDates();
 
         for (Date cmDate : nextThreeDates) {
             alarmManager.set( AlarmManager.RTC_WAKEUP , cmDate.getTime(), pendingIntent );

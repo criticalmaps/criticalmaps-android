@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmass.helper;
+package de.stephanlindauer.criticalmass.notifications.reminder;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
