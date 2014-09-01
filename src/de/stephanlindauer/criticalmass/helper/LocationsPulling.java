@@ -18,9 +18,9 @@ import java.util.*;
 public class LocationsPulling {
 
     private static final float LOCATION_REFRESH_DISTANCE = 5; //meters
-    private static final long LOCATION_REFRESH_TIME = 10000; //milliseconds
+    private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
 
-    public static final int PULL_OTHER_LOCATIONS_TIME = 20000; //milliseconds
+    public static final int PULL_OTHER_LOCATIONS_TIME = 30000; //milliseconds
 
     private static LocationsPulling instance;
     public GeoPoint userLocation = null;

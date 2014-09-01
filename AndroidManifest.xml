@@ -3,7 +3,7 @@
           package="de.stephanlindauer.criticalmass"
           android:versionCode="2"
           android:versionName="1.1">
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="20"/>
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="20"/>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>

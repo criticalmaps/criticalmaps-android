@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass.helper.NotificationSetter;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
@@ -31,6 +32,9 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
 
         registerListenersForSwipedChanges(actionBar);
+
+        NotificationSetter notificationSetter = new NotificationSetter( getBaseContext(), this);
+        notificationSetter.execute();
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {
