@@ -36,7 +36,7 @@ public class TrackingInfoNotificationSetter {
     public void show() {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_action_location_found)
                         .setContentTitle(activity.getString(R.string.notification_tracking_title))
                         .setContentText(activity.getString(R.string.notification_tracking_text));
 
