@@ -4,8 +4,8 @@
 
 ``` 
     "Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement."
-    ( http://en.wikipedia.org/wiki/Critical_Mass_(cycling) )
 ```
+    ( http://en.wikipedia.org/wiki/Critical_Mass_(cycling) )
 
 ## what's this app?
 
@@ -19,4 +19,4 @@ this app helps all the critical mass participants to better organize the protest
 
 ## can i haz more informations?
 
-just go check: http://criticalmass-berlin.org/
+check: http://criticalmass-berlin.org/
