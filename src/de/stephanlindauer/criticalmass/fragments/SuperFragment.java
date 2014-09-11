@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
+import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
 public class SuperFragment extends Fragment {
 
@@ -21,10 +22,12 @@ public class SuperFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.actionbar_buttons, menu);
-        //menu.getItem( R.id.settings_tracking_toggle ).setChecked( LocationsPulling.getInstance().isListeningForLocation() );
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem( R.id.settings_tracking_toggle ).setChecked( LocationsPulling.getInstance().isListeningForLocation() );
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -46,7 +49,10 @@ public class SuperFragment extends Fragment {
         if (item.isChecked())
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
         else
+        {
+            TrackingInfoNotificationSetter.getInstance().cancel();
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(false);
+        }
     }
 
     public void handleCloseRequested() {
@@ -55,6 +61,7 @@ public class SuperFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        TrackingInfoNotificationSetter.getInstance().cancel();
                         System.exit(0);
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:

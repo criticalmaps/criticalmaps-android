@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
+import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
@@ -93,12 +94,14 @@ public class LocationsPulling {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
         isListeningForLocation = true;
+        TrackingInfoNotificationSetter.getInstance().show();
     }
 
     private void stopLocationListening() {
         locationManager.removeUpdates(mLocationListener);
         userLocation = null;
         isListeningForLocation = false;
+        TrackingInfoNotificationSetter.getInstance().cancel();
     }
 
     public boolean isListeningForLocation() {

@@ -48,7 +48,7 @@
                     android:text="code"
                     style="@style/about_heading"/>
             <TextView
-                    android:text="www.stephanlindauer.de"
+                    android:text="github.com/stephanlindauer/criticalmass-berlin"
                     android:autoLink="web"
                     style="@style/about_content"/>
             <TextView

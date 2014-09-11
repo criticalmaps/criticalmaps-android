@@ -23,6 +23,5 @@ public class SplashScreen extends Activity {
                 SplashScreen.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
-
     }
 }

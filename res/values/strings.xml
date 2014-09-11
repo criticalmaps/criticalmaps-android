@@ -31,4 +31,7 @@
     <string name="notification_alarm_title">Nicht vergessen!</string>
     <string name="notification_alarm_text">20 Uhr am Heinrichplatz</string>
 
+    <string name="notification_tracking_title">GPS ist an!</string>
+    <string name="notification_tracking_text">Deine Position wird getrackt</string>
+
 </resources>

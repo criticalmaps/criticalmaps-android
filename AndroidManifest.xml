@@ -24,10 +24,9 @@
                   android:theme="@android:style/Theme.Holo"
                   android:label="@string/app_name">
         </activity>
-
         <receiver
                 android:name=".notifications.reminder.AlarmNotificationReceiver"
                 android:process=":remote" />
     </application>
-
+    <service android:name="de.stephanlindauer.criticalmass.helper.KillNotificationsService"></service>
 </manifest>

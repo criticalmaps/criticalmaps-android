@@ -1,13 +1,19 @@
 package de.stephanlindauer.criticalmass;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
+import android.app.*;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass.helper.KillNotificationsService;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
+import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
@@ -15,6 +21,9 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        final Main thiss = this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -33,8 +42,11 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         registerListenersForSwipedChanges(actionBar);
 
-        ReminderNotificationSetter notificationSetter = new ReminderNotificationSetter( getBaseContext(), this);
-        notificationSetter.execute();
+        ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
+        reminderNotificationSetter.execute();
+
+        TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
+        TrackingInfoNotificationSetter.getInstance().show();
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {
