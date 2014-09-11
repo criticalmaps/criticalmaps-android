@@ -17,3 +17,6 @@ this app helps all the critical mass participants to better organize the protest
 *   if you find bugs: file them in the github issue tracking system.
 *   if you have moneyz left to burn: help us finance the server.
 
+## can i haz more informations?
+
+just go check: http://criticalmass-berlin.org/
