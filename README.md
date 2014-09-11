@@ -5,7 +5,7 @@
 ``` 
     "Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement."
 ```
-    ( http://en.wikipedia.org/wiki/Critical_Mass_(cycling) )
+http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 ## what's this app?
 
