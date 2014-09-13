@@ -34,5 +34,8 @@
     <string name="notification_tracking_title">Deine Location wird getrackt</string>
     <string name="notification_tracking_text">Zum deaktivieren: Öffne die App und deaktiviere das Tracking oder schließe die App über den X-Button.</string>
     <string name="notification_tracking_cancel">Tracking ausschalten</string>
+    <string name="map_overlay_tracking_off">Du hast Tracking deaktiviert, deshalb kannst du hier nichts sehen. Wenn du
+        die Location aller anderen Mitfahrer sehen willst, aktiviere Tracking, indem du hier drauf tippst.
+    </string>
 
 </resources>

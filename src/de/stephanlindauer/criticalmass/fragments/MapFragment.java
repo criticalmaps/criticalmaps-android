@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
+import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -27,6 +29,7 @@ public class MapFragment extends SuperFragment {
 
     private GeoPoint initialCenter = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
     private DefaultResourceProxyImpl resourceProxy;
+    private Button noTrackingOverlay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,8 +57,16 @@ public class MapFragment extends SuperFragment {
         mapView.setLayoutParams(new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
-        RL.addView( mapView );
+        RelativeLayout mapCountainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
+        mapCountainer.addView(mapView);
+
+        noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
+        noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                noTrackingOverlay.setVisibility(View.INVISIBLE);
+                LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
+            }
+        });
 
         Timer timerRefreshView = new Timer();
         TimerTask timerTaskRefreshView = new TimerTask() {
@@ -64,7 +75,6 @@ public class MapFragment extends SuperFragment {
                 try {
                     refreshView();
                 } catch (Exception e) {
-                    //meh...
                 }
             }
         };

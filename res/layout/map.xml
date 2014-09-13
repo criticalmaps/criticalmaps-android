@@ -11,13 +11,14 @@
                     android:id="@+id/mapContainer">
     </RelativeLayout>
     <Button android:layout_alignParentRight="true"
-            android:text="X"
-            android:textColor="#4FFF"
-            android:background="#70FF0000"
+            android:text="@string/map_overlay_tracking_off"
+            android:background="#aa540000"
             android:gravity="center_vertical|center_horizontal"
             android:layout_margin="5dp"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
-            android:textSize="12sp"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:padding="10dp"
+            android:textSize="22sp"
+            android:id="@+id/noTrackingOverlay"
             android:textStyle="bold"/>
 </RelativeLayout>
