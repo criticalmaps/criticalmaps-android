@@ -32,7 +32,7 @@ public class MapFragment extends SuperFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.relative_layout, container, false);
+        return inflater.inflate(R.layout.map, container, false);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class MapFragment extends SuperFragment {
         mapView.setLayoutParams(new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
-        RL.addView(mapView);
+        RelativeLayout RL = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
+        RL.addView( mapView );
 
         Timer timerRefreshView = new Timer();
         TimerTask timerTaskRefreshView = new TimerTask() {

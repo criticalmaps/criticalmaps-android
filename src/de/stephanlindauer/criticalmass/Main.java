@@ -21,8 +21,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        final Main thiss = this;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
