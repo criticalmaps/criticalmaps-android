@@ -11,14 +11,16 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
-import twitter4j.conf.ConfigurationBuilder;
+
+import java.util.List;
 
 /**
  * Proxy implementation of twitter4j library
  */
 public class TwitterApi implements ProxyApi {
 
-    private final TwitterStream twitterStream;
+    private TwitterStream twitterStream;
+    private Twitter twitter;
     private final JSONObject appConfig;
 
     /**
@@ -31,13 +33,18 @@ public class TwitterApi implements ProxyApi {
 
         // load secrets
         appConfig = JSONUtils.loadJsonFromAssets(context, "app.json");
+    }
 
-        final ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey(appConfig.optString("CONSUMER_KEY"));
-        cb.setOAuthConsumerSecret(appConfig.optString("CONSUMER_SECRET"));
-        cb.setOAuthAccessToken(appConfig.optString("ACCESS_TOKEN"));
-        cb.setOAuthAccessTokenSecret(appConfig.optString("ACCESS_TOKEN_SECRET"));
-        twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+    private void initTwitterStream() {
+        twitterStream = new TwitterStreamFactory().getInstance();
+        twitterStream.setOAuthConsumer(appConfig.optString("CONSUMER_KEY"), appConfig.optString("CONSUMER_SECRET"));
+        twitterStream.setOAuthAccessToken(new AccessToken(appConfig.optString("ACCESS_TOKEN"), appConfig.optString("ACCESS_TOKEN_SECRET")));
+    }
+
+    private void initTwitter() {
+        twitter = TwitterFactory.getSingleton();
+        twitter.setOAuthConsumer(appConfig.optString("CONSUMER_KEY"), appConfig.optString("CONSUMER_SECRET"));
+        twitter.setOAuthAccessToken(new AccessToken(appConfig.optString("ACCESS_TOKEN"), appConfig.optString("ACCESS_TOKEN_SECRET")));
     }
 
     /**
@@ -47,12 +54,16 @@ public class TwitterApi implements ProxyApi {
      * @param listener listener that returns new found tweets
      */
     public void searchTweets(@NotNull final String[] hashTag, @NotNull final ITweetListener listener) {
+
+        if (twitterStream == null)
+            initTwitterStream();
+
         final StatusListener statusListener = new StatusListener() {
 
             @Override
             public void onStatus(final Status status) {
                 //mapping twitter4j tweet to application tweet object
-                Tweet tweet = new Tweet();
+                final Tweet tweet = new Tweet();
                 tweet.content = status.getText();
                 tweet.userName = status.getUser().getName();
                 listener.onNewTweet(tweet);
@@ -91,24 +102,24 @@ public class TwitterApi implements ProxyApi {
         twitterStream.filter(fq);
     }
 
-    public ResponseList<Status> getTweets() throws TwitterException {
-        return TwitterFactory.getSingleton().getHomeTimeline();
-    }
-
     public void searchTweetsAsync(@NotNull final String searchString, @NotNull final AsyncCallback cb) {
+
+        if (twitter == null)
+            initTwitter();
+
 
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(final @Nullable Void... params) {
-                // The factory instance is re-useable and thread safe.
-                final Twitter twitter = TwitterFactory.getSingleton();
-                twitter.setOAuthConsumer(appConfig.optString("CONSUMER_KEY"), appConfig.optString("CONSUMER_SECRET"));
-                twitter.setOAuthAccessToken(new AccessToken(appConfig.optString("ACCESS_TOKEN"), appConfig.optString("ACCESS_TOKEN_SECRET")));
-                final Query query = new Query("wolkenschauer");
+
+                final Query query = new Query(searchString);
+                query.setCount(Main.TWITTER_MAX_FEED);
+                query.setSince(Main.TWITTER_SINCE);
+                query.setCount(Main.TWITTER_MAX_FEED);
                 try {
-                    cb.onComplete(twitter.search(query).getTweets());
-                } catch (TwitterException e) {
+                    cb.onComplete(TwitterFactory.getSingleton().search(query).getTweets());
+                } catch (final TwitterException e) {
                     cb.onError(e);
                 }
                 return null;

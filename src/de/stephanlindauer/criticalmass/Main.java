@@ -18,6 +18,7 @@ import de.stephanlindauer.criticalmass.twitter.TwitterApi;
 import de.stephanlindauer.criticalmass.utils.AsyncCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import twitter4j.HashtagEntity;
 import twitter4j.Status;
 
 import java.util.List;
@@ -75,7 +76,9 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     private TwitterApi twitter;
-    public static final String TWITTER_CRITICAL_MASS_HASHTAG = "#cmberlin";
+    public static final String TWITTER_CRITICAL_MASS_HASHTAG = "#CMBerlin";
+    public static final int TWITTER_MAX_FEED = 10;
+    public static final String TWITTER_SINCE = "2014-01-01";
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -87,6 +90,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
             if (twitter == null) {
                 twitter = new TwitterApi(this);
+
+                // new feeds
                 twitter.searchTweets(new String[]{TWITTER_CRITICAL_MASS_HASHTAG}, new ITweetListener() {
                     @Override
                     public void onNewTweet(@NotNull final Tweet tweet) {
@@ -100,6 +105,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
                     }
                 });
 
+                // get past feeds
                 twitter.searchTweetsAsync(TWITTER_CRITICAL_MASS_HASHTAG, new AsyncCallback() {
 
                     @Override
