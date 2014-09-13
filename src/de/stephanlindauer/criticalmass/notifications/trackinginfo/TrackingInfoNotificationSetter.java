@@ -35,23 +35,15 @@ public class TrackingInfoNotificationSetter {
         this.activity = activity;
     }
 
-    public static class switchButtonListener extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            Log.d("TAG", "test");
-        }
-    }
-
     public void show() {
 
-        Intent dismissIntent = new Intent("bla");
+        Intent dismissIntent = new Intent(context, activity.getClass());
         dismissIntent.setAction("bla");
         dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        PendingIntent cancelPendingIntent = PendingIntent.getActivity(context, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent cancelPendingIntent = PendingIntent.getActivity(context, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent resultIntent = new Intent("bla");
+        Intent resultIntent = new Intent(context, activity.getClass());
         PendingIntent resultPendingIntent = PendingIntent.getActivity(activity, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
@@ -59,16 +51,14 @@ public class TrackingInfoNotificationSetter {
                 .setContentTitle(activity.getString(R.string.notification_tracking_title))
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
-                .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_cancel), cancelPendingIntent)
-                .setContentIntent(resultPendingIntent);
+//                .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_cancel), cancelPendingIntent)
+                .setContentIntent(resultPendingIntent)
+                .setPriority(Notification.PRIORITY_MAX);
 
         Notification notification = mBuilder.build();
 
         mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIFICATION_ID, notification);
-
-
-        LocalBroadcastManager.getInstance(context).registerReceiver(new switchButtonListener(), new IntentFilter("bla"));
     }
 
     public void cancel() {

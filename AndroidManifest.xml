@@ -24,16 +24,10 @@
                   android:theme="@android:style/Theme.Holo"
                   android:label="@string/app_name">
         </activity>
-        <activity android:name=".notifications.trackinginfo.NotificationReceiverActivity" >
-        </activity>
         <receiver
                 android:name=".notifications.reminder.AlarmNotificationReceiver"
                 android:process=":remote"
                 />
-        <receiver android:name=".notifications.trackinginfo.BroadcastManager">
-            <intent-filter>
-                <action android:name="bla"/>
-            </intent-filter>
-        </receiver>
+
     </application>
 </manifest>
