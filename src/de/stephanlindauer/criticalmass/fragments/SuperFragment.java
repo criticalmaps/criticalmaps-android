@@ -27,8 +27,6 @@ public class SuperFragment extends Fragment {
         menu.findItem( R.id.settings_tracking_toggle ).setChecked( LocationsPulling.getInstance().isListeningForLocation() );
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -49,10 +47,7 @@ public class SuperFragment extends Fragment {
         if (item.isChecked())
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
         else
-        {
-            TrackingInfoNotificationSetter.getInstance().cancel();
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(false);
-        }
     }
 
     public void handleCloseRequested() {

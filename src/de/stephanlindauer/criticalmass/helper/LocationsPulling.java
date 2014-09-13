@@ -18,7 +18,7 @@ import java.util.*;
 
 public class LocationsPulling {
 
-    private static final float LOCATION_REFRESH_DISTANCE = 5; //meters
+    private static final float LOCATION_REFRESH_DISTANCE = 30; //meters
     private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
 
     public static final int PULL_OTHER_LOCATIONS_TIME = 30000; //milliseconds

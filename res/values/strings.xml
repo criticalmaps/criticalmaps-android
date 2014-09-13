@@ -31,7 +31,8 @@
     <string name="notification_alarm_title">Nicht vergessen!</string>
     <string name="notification_alarm_text">20 Uhr am Heinrichplatz</string>
 
-    <string name="notification_tracking_title">GPS ist an!</string>
-    <string name="notification_tracking_text">Deine Position wird getrackt</string>
+    <string name="notification_tracking_title">GPS ist an</string>
+    <string name="notification_tracking_text">Deine Position wird getrackt. Zum deaktivieren, öffne die App und deaktiviere tracking oder schließe die App über den X-Button.</string>
+    <string name="notification_tracking_cancel">Tracking ausschalten</string>
 
 </resources>

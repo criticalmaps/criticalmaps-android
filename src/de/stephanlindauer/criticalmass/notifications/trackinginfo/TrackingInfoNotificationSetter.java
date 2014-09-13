@@ -2,11 +2,14 @@ package de.stephanlindauer.criticalmass.notifications.trackinginfo;
 
 import android.annotation.TargetApi;
 import android.app.*;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import de.stephanlindauer.criticalmass.R;
 
 public class TrackingInfoNotificationSetter {
@@ -32,26 +35,40 @@ public class TrackingInfoNotificationSetter {
         this.activity = activity;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static class switchButtonListener extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.d("TAG", "test");
+        }
+    }
+
     public void show() {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_action_location_found)
-                        .setContentTitle(activity.getString(R.string.notification_tracking_title))
-                        .setContentText(activity.getString(R.string.notification_tracking_text));
 
-        Intent resultIntent = new Intent(context, activity.getClass());
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent dismissIntent = new Intent("bla");
+        dismissIntent.setAction("bla");
+        dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        mBuilder.setContentIntent(resultPendingIntent);
-        mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+        PendingIntent cancelPendingIntent = PendingIntent.getActivity(context, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent resultIntent = new Intent("bla");
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(activity, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_action_location_found)
+                .setContentTitle(activity.getString(R.string.notification_tracking_title))
+                .setContentText(activity.getString(R.string.notification_tracking_text))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
+                .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_cancel), cancelPendingIntent)
+                .setContentIntent(resultPendingIntent);
+
         Notification notification = mBuilder.build();
 
-//        notification.flags |= Notification.FLAG_ONGOING_EVENT;
-
+        mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIFICATION_ID, notification);
+
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(new switchButtonListener(), new IntentFilter("bla"));
     }
 
     public void cancel() {
