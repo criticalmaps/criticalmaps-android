@@ -4,11 +4,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#0400a1">
+                android:background="#4d4d4d">
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
+              android:id="@+id/twittertextview"
               android:gravity="center"
-              android:text="ooooooooooooo"
-              android:textSize="20dp"
+              android:textSize="7pt"
               android:layout_centerInParent="true"/>
 </RelativeLayout>

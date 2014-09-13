@@ -17,21 +17,21 @@ public class ReminderNotificationSetter {
     public ReminderNotificationSetter(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
+
     }
 
-    public void execute()
-    {
+    public void execute() {
         Intent alarmIntent = new Intent(activity, AlarmNotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
 
-        alarmManager.cancel( pendingIntent );
+        alarmManager.cancel(pendingIntent);
 
         ArrayList<Date> nextThreeDates
                 = NextEventTimeCalculator.getNextThreeCriticalMassDates();
 
         for (Date cmDate : nextThreeDates) {
-            alarmManager.set( AlarmManager.RTC_WAKEUP , cmDate.getTime(), pendingIntent );
+            alarmManager.set(AlarmManager.RTC_WAKEUP, cmDate.getTime(), pendingIntent);
         }
     }
 }
