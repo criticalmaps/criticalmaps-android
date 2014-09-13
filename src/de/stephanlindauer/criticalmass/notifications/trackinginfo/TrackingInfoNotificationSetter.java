@@ -41,8 +41,6 @@ public class TrackingInfoNotificationSetter {
         dismissIntent.setAction("bla");
         dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-//        PendingIntent cancelPendingIntent = PendingIntent.getActivity(context, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         Intent resultIntent = new Intent(context, activity.getClass());
         PendingIntent resultPendingIntent = PendingIntent.getActivity(activity, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -51,7 +49,6 @@ public class TrackingInfoNotificationSetter {
                 .setContentTitle(activity.getString(R.string.notification_tracking_title))
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
-//                .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_cancel), cancelPendingIntent)
                 .setContentIntent(resultPendingIntent)
                 .setPriority(Notification.PRIORITY_MAX);
 
