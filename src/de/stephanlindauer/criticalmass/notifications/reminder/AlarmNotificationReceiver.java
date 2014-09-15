@@ -38,7 +38,9 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_launcher)
                             .setContentTitle(context.getResources().getString(R.string.notification_alarm_title))
-                            .setContentText(context.getResources().getString(R.string.notification_alarm_text));
+                            .setContentText(context.getResources().getString(R.string.notification_alarm_text))
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getResources().getString(R.string.notification_alarm_text)));
+
             Intent resultIntent = new Intent(context, Main.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
             stackBuilder.addParentStack(Main.class);
