@@ -2,7 +2,6 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/root_layout"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="#FFFFFFFF"
@@ -11,7 +10,6 @@
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="match_parent">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/root_layout"
                       android:layout_width="fill_parent"
                       android:layout_height="fill_parent"
                       android:background="#FFFFFFFF"
@@ -43,7 +41,7 @@
                               style="@style/explainer_style"/>
                     <ImageView android:layout_width="fill_parent"
                                android:layout_height="fill_parent"
-                               android:src="@drawable/corken"/>
+                               android:src="@drawable/rules_corken"/>
                 </LinearLayout>
             </LinearLayout>
             <Button android:id="@+id/btnSettings"
@@ -70,7 +68,7 @@
                               style="@style/explainer_style"/>
                     <ImageView android:layout_width="fill_parent"
                                android:layout_height="fill_parent"
-                               android:src="@drawable/oncoming_traffic"/>
+                               android:src="@drawable/rules_wronglane"/>
                 </LinearLayout>
             </LinearLayout>
             <Button android:id="@+id/btnPrivacy" android:layout_width="fill_parent"
@@ -94,7 +92,7 @@
                               style="@style/explainer_style"/>
                     <ImageView android:layout_width="fill_parent"
                                android:layout_height="fill_parent"
-                               android:src="@drawable/steady"/>
+                               android:src="@drawable/rules_slowly"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
