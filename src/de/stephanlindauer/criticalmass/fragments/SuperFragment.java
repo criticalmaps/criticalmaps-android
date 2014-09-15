@@ -7,11 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
 public class SuperFragment extends Fragment {
+
+    protected MenuItem trackingToggleButton;
+    protected static Button noTrackingOverlay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,9 @@ public class SuperFragment extends Fragment {
             Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actionbar_buttons, menu);
         super.onCreateOptionsMenu(menu, inflater);
-        menu.findItem( R.id.settings_tracking_toggle ).setChecked( LocationsPulling.getInstance().isListeningForLocation() );
+
+        trackingToggleButton = menu.findItem( R.id.settings_tracking_toggle );
+        trackingToggleButton.setChecked(LocationsPulling.getInstance().isListeningForLocation());
     }
 
     @Override
@@ -45,9 +52,19 @@ public class SuperFragment extends Fragment {
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
         if (item.isChecked())
+        {
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
-        else
+            showNoTrackingOverlay( false );
+        }
+        else {
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(false);
+            showNoTrackingOverlay( true );
+        }
+    }
+
+    private void showNoTrackingOverlay(boolean shouldShow ) {
+        if ( noTrackingOverlay != null )
+            noTrackingOverlay.setVisibility( shouldShow ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void handleCloseRequested() {
