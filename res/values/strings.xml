@@ -28,13 +28,14 @@
     <string name="close_button">close</string>
 
     <string name="notification_alarm_title">Nicht vergessen:</string>
-    <string name="notification_alarm_text">Critical Mass heute um 20 Uhr am Heinrichplatz! Viva la velorution!</string>
+    <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>
 
     <string name="notification_tracking_title">Deine Location wird getrackt</string>
     <string name="notification_tracking_text">Zum Deaktivieren: Öffne die App und deaktiviere das Tracking über Einstellungen oder schließe die App über den X-Button.</string>
     <string name="map_overlay_tracking_off">Tracking ist deaktiviert. \n
-        Aktiviere Tracking um die anderen Fahrer*innen sehen zu können. \n\n
+        Aktiviere Tracking, um die anderen Fahrer*innen sehen zu können. \n\n
         Tappe einfach hier drauf!
     </string>
+    <string name="feedback">feedback</string>
 
 </resources>

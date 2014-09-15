@@ -2,6 +2,8 @@ package de.stephanlindauer.criticalmass.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -10,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import de.stephanlindauer.criticalmass.R;
+import de.stephanlindauer.criticalmass.helper.clientinfo.BuildInfo;
+import de.stephanlindauer.criticalmass.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
@@ -25,12 +29,11 @@ public class SuperFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actionbar_buttons, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
-        trackingToggleButton = menu.findItem( R.id.settings_tracking_toggle );
+        trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
         trackingToggleButton.setChecked(LocationsPulling.getInstance().isListeningForLocation());
     }
 
@@ -43,28 +46,38 @@ public class SuperFragment extends Fragment {
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
                 break;
+            case R.id.settings_feedback:
+                startFeedbackIntent();
+                break;
             default:
                 break;
         }
         return true;
     }
 
+    private void startFeedbackIntent() {
+        Intent Email = new Intent(Intent.ACTION_SEND);
+        Email.setType("text/email");
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephan.lindauer@gmail.com"});
+        Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical mass app");
+        Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(getActivity().getPackageManager(), getActivity().getPackageName()));
+        startActivity(Intent.createChooser(Email, "Send Feedback:"));
+    }
+
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
-        if (item.isChecked())
-        {
+        if (item.isChecked()) {
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
-            showNoTrackingOverlay( false );
-        }
-        else {
+            showNoTrackingOverlay(false);
+        } else {
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(false);
-            showNoTrackingOverlay( true );
+            showNoTrackingOverlay(true);
         }
     }
 
-    private void showNoTrackingOverlay(boolean shouldShow ) {
-        if ( noTrackingOverlay != null )
-            noTrackingOverlay.setVisibility( shouldShow ? View.VISIBLE : View.INVISIBLE);
+    private void showNoTrackingOverlay(boolean shouldShow) {
+        if (noTrackingOverlay != null)
+            noTrackingOverlay.setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void handleCloseRequested() {

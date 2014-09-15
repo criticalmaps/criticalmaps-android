@@ -51,7 +51,7 @@ public class MapFragment extends SuperFragment {
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
         mapView.getController().setCenter(initialCenter);
-        mapView.getController().setZoom(11);
+        mapView.getController().setZoom(12);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
         mapView.setLayoutParams(new LayoutParams(
