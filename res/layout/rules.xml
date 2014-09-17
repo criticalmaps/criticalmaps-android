@@ -28,17 +28,14 @@
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
                           android:background="#FFFFFFFF">
-
-                    <TextView android:id="@+id/strName"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/rules_corken_explain"
-                              android:layout_gravity="left|top"
-                              style="@style/explainer_style"/>
-                    <ImageView android:layout_width="fill_parent"
-                               android:layout_height="fill_parent"
-                               android:src="@drawable/rules_corken"/>
-
+                <TextView  android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/rules_corken_explain"
+                          android:layout_gravity="left|top"
+                          style="@style/explainer_style"/>
+                <ImageView android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:src="@drawable/rules_corken"/>
             </LinearLayout>
             <Button android:id="@+id/btnSettings"
                     android:layout_width="fill_parent"
@@ -53,16 +50,14 @@
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
                           android:background="#FFFFFFFF">
-
-                    <TextView android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/rules_oncoming_traffic_explain"
-                              android:layout_gravity="left|top"
-                              style="@style/explainer_style"/>
-                    <ImageView android:layout_width="fill_parent"
-                               android:layout_height="fill_parent"
-                               android:src="@drawable/rules_wronglane"/>
-
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/rules_oncoming_traffic_explain"
+                          android:layout_gravity="left|top"
+                          style="@style/explainer_style"/>
+                <ImageView android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:src="@drawable/rules_wronglane"/>
             </LinearLayout>
             <Button android:id="@+id/btnPrivacy" android:layout_width="fill_parent"
                     android:layout_height="wrap_content" android:text="@string/rules_steady" android:textStyle="bold"
@@ -74,15 +69,14 @@
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
                           android:background="#FFFFFFFF">
-
-                    <TextView android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/rules_steady_explain"
-                              android:layout_gravity="left|top"
-                              style="@style/explainer_style"/>
-                    <ImageView android:layout_width="fill_parent"
-                               android:layout_height="fill_parent"
-                               android:src="@drawable/rules_slowly"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/rules_steady_explain"
+                          android:layout_gravity="left|top"
+                          style="@style/explainer_style"/>
+                <ImageView android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:src="@drawable/rules_slowly"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
