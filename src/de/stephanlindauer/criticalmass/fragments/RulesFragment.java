@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import de.stephanlindauer.criticalmass.R;
 
+import java.util.ArrayList;
+
 public class RulesFragment extends SuperFragment {
 
     private FragmentActivity activity;
+    private ArrayList<View> panels;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,63 +30,88 @@ public class RulesFragment extends SuperFragment {
 
         activity = getActivity();
 
+        panels = new ArrayList<View>();
+        panels.add(activity.findViewById(R.id.panelCorken));
+        panels.add(activity.findViewById(R.id.panelOncomingTraffic));
+        panels.add(activity.findViewById(R.id.panelSlow));
+        panels.add(activity.findViewById(R.id.panelBrake));
+        panels.add(activity.findViewById(R.id.panelFriendly));
+        panels.add(activity.findViewById(R.id.panelFun));
+        panels.add(activity.findViewById(R.id.panelGreen));
+
+        hideAllPanels();
+
+
         Button btnCorken = (Button) activity.findViewById(R.id.btnCorken);
-        Button btnOncomingTraffic = (Button) activity.findViewById(R.id.btnSettings);
-        Button btnPrivacy = (Button) activity.findViewById(R.id.btnPrivacy);
-
-        View panelProfile = activity.findViewById(R.id.panelCorken);
-        panelProfile.setVisibility(View.GONE);
-
-        View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
-        panelSettings.setVisibility(View.GONE);
-
-        View panelPrivacy = activity.findViewById(R.id.panelSlow);
-        panelPrivacy.setVisibility(View.GONE);
-
         btnCorken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View panelProfile = activity.findViewById(R.id.panelCorken);
-                panelProfile.setVisibility(View.VISIBLE);
-
-                View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
-                panelSettings.setVisibility(View.GONE);
-
-                View panelPrivacy = activity.findViewById(R.id.panelSlow);
-                panelPrivacy.setVisibility(View.GONE);
-
+                hideAllPanels();
+                activity.findViewById(R.id.panelCorken).setVisibility(View.VISIBLE);
             }
         });
 
+        Button btnOncomingTraffic = (Button) activity.findViewById(R.id.btnOncomingTraffic);
         btnOncomingTraffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View panelProfile = activity.findViewById(R.id.panelCorken);
-                panelProfile.setVisibility(View.GONE);
-
-                View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
-                panelSettings.setVisibility(View.VISIBLE);
-
-                View panelPrivacy = activity.findViewById(R.id.panelSlow);
-                panelPrivacy.setVisibility(View.GONE);
-
+                hideAllPanels();
+                activity.findViewById(R.id.panelOncomingTraffic).setVisibility(View.VISIBLE);
             }
         });
 
-        btnPrivacy.setOnClickListener(new View.OnClickListener() {
+        Button btnSlow = (Button) activity.findViewById(R.id.btnSlow);
+        btnSlow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View panelProfile = activity.findViewById(R.id.panelCorken);
-                panelProfile.setVisibility(View.GONE);
-
-                View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
-                panelSettings.setVisibility(View.GONE);
-
-                View panelPrivacy = activity.findViewById(R.id.panelSlow);
-                panelPrivacy.setVisibility(View.VISIBLE);
-
+                hideAllPanels();
+                activity.findViewById(R.id.panelSlow).setVisibility(View.VISIBLE);
             }
         });
 
+        Button btnBrake = (Button) activity.findViewById(R.id.btnBrake);
+        btnBrake .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideAllPanels();
+                activity.findViewById(R.id.panelBrake).setVisibility(View.VISIBLE);
+            }
+        });
+
+        Button btnFriendly = (Button) activity.findViewById(R.id.btnFriendly);
+        btnFriendly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideAllPanels();
+                activity.findViewById(R.id.panelFriendly).setVisibility(View.VISIBLE);
+            }
+        });
+
+        Button btnFun = (Button) activity.findViewById(R.id.btnFun);
+        btnFun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideAllPanels();
+                activity.findViewById(R.id.panelFun).setVisibility(View.VISIBLE);
+            }
+        });
+
+        Button btnGreen = (Button) activity.findViewById(R.id.btnGreen);
+        btnGreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideAllPanels();
+                activity.findViewById(R.id.panelGreen).setVisibility(View.VISIBLE);
+            }
+        });
+
+
     }
+
+    private void hideAllPanels() {
+        for (View view : panels){
+            view.setVisibility(View.GONE);
+        }
+    }
+
 }
