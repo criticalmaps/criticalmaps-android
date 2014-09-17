@@ -37,7 +37,7 @@ public class RulesFragment extends SuperFragment {
         View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
         panelSettings.setVisibility(View.GONE);
 
-        View panelPrivacy = activity.findViewById(R.id.panelPrivacy);
+        View panelPrivacy = activity.findViewById(R.id.panelSlow);
         panelPrivacy.setVisibility(View.GONE);
 
         btnCorken.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +49,7 @@ public class RulesFragment extends SuperFragment {
                 View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
                 panelSettings.setVisibility(View.GONE);
 
-                View panelPrivacy = activity.findViewById(R.id.panelPrivacy);
+                View panelPrivacy = activity.findViewById(R.id.panelSlow);
                 panelPrivacy.setVisibility(View.GONE);
 
             }
@@ -64,7 +64,7 @@ public class RulesFragment extends SuperFragment {
                 View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
                 panelSettings.setVisibility(View.VISIBLE);
 
-                View panelPrivacy = activity.findViewById(R.id.panelPrivacy);
+                View panelPrivacy = activity.findViewById(R.id.panelSlow);
                 panelPrivacy.setVisibility(View.GONE);
 
             }
@@ -79,7 +79,7 @@ public class RulesFragment extends SuperFragment {
                 View panelSettings = activity.findViewById(R.id.panelOncomingTraffic);
                 panelSettings.setVisibility(View.GONE);
 
-                View panelPrivacy = activity.findViewById(R.id.panelPrivacy);
+                View panelPrivacy = activity.findViewById(R.id.panelSlow);
                 panelPrivacy.setVisibility(View.VISIBLE);
 
             }
