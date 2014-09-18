@@ -1,16 +1,12 @@
 package de.stephanlindauer.criticalmass;
 
 import android.app.*;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
@@ -75,5 +71,23 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SelfDestructor.getInstance().keepAlive();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SelfDestructor.getInstance().keepAlive();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SelfDestructor.getInstance().keepAlive();
     }
 }
