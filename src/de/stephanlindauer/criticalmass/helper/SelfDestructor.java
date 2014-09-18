@@ -8,7 +8,7 @@ public class SelfDestructor {
 
     private static SelfDestructor instance;
 
-    private final long IDLE_TIME_UNTIL_AUTO_DESTRUCT = 2 * 60 * 60 * 1000; // 2 hours
+    private final long IDLE_TIME_UNTIL_AUTO_DESTRUCT = 4 * 60 * 60 * 1000; // 4 hours
 
     private Handler handler;
 
