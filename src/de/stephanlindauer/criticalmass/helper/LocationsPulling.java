@@ -68,8 +68,7 @@ public class LocationsPulling {
         try {
             this.uniqueDeviceIdHashed = AeSimpleSHA1.SHA1(Settings.Secure.getString(mContext.getContentResolver(),
                     Settings.Secure.ANDROID_ID));
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
 
         //start other bikes location retrieval
