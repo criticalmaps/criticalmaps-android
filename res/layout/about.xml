@@ -33,7 +33,7 @@
                     android:text="website"
                     style="@style/about_heading"/>
             <TextView
-                    android:text="www.criticalmass-berlin.org"
+                    android:text="criticalmass-berlin.org"
                     android:autoLink="web"
                     style="@style/about_content"/>
 
@@ -41,7 +41,7 @@
                     android:text="logo"
                     style="@style/about_heading"/>
             <TextView
-                    android:text="www.thomas-hollnack.de"
+                    android:text="thomas-hollnack.de"
                     android:autoLink="web"
                     style="@style/about_content"/>
             <TextView

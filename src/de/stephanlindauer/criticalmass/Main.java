@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmass.twitter.ITweetListener;
@@ -56,6 +57,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
         TrackingInfoNotificationSetter.getInstance().show();
+
+        SelfDestructor.getInstance().keepAlive();
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {
@@ -86,5 +89,17 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SelfDestructor.getInstance().keepAlive();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SelfDestructor.getInstance().keepAlive();
     }
 }

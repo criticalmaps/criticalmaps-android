@@ -2,16 +2,26 @@ package de.stephanlindauer.criticalmass.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import de.stephanlindauer.criticalmass.R;
+import de.stephanlindauer.criticalmass.helper.clientinfo.BuildInfo;
+import de.stephanlindauer.criticalmass.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
 public class SuperFragment extends Fragment {
+
+    protected MenuItem trackingToggleButton;
+    protected static Button noTrackingOverlay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,11 +30,12 @@ public class SuperFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actionbar_buttons, menu);
         super.onCreateOptionsMenu(menu, inflater);
-        menu.findItem(R.id.settings_tracking_toggle).setChecked(LocationsPulling.getInstance().isListeningForLocation());
+
+        trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
+        trackingToggleButton.setChecked(LocationsPulling.getInstance().isListeningForLocation());
     }
 
     @Override
@@ -36,18 +47,49 @@ public class SuperFragment extends Fragment {
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
                 break;
+            case R.id.settings_feedback:
+                startFeedbackIntent();
+                break;
+            case R.id.settings_datenschutz:
+                startDatenschutzIntent();
+                break;
             default:
                 break;
         }
         return true;
     }
 
+    private void startFeedbackIntent() {
+        Intent Email = new Intent(Intent.ACTION_SEND);
+        Email.setType("text/email");
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephan.lindauer@gmail.com"});
+        Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical mass app");
+        Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(getActivity().getPackageManager(), getActivity().getPackageName()));
+        startActivity(Intent.createChooser(Email, "Send Feedback:"));
+    }
+
+    private void startDatenschutzIntent(){
+        String url = "http://criticalmass.stephanlindauer.de/datenschutzerklaerung.html";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
-        if (item.isChecked())
+        if (item.isChecked()) {
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
-        else
+            showNoTrackingOverlay(false);
+        } else {
             LocationsPulling.getInstance().shouldBeTrackingUsersLocation(false);
+            showNoTrackingOverlay(true);
+        }
+    }
+
+    private void showNoTrackingOverlay(boolean shouldShow) {
+        if (noTrackingOverlay != null)
+            noTrackingOverlay.setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void handleCloseRequested() {
