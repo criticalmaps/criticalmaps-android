@@ -1,8 +1,6 @@
 package de.stephanlindauer.criticalmass.notifications.reminder;
 
 
-import android.util.Log;
-
 import java.util.*;
 
 public class NextEventTimeCalculator {

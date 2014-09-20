@@ -70,7 +70,7 @@ public class RulesFragment extends SuperFragment {
         });
 
         Button btnBrake = (Button) activity.findViewById(R.id.btnBrake);
-        btnBrake .setOnClickListener(new View.OnClickListener() {
+        btnBrake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideAllPanels();
@@ -109,7 +109,7 @@ public class RulesFragment extends SuperFragment {
     }
 
     private void hideAllPanels() {
-        for (View view : panels){
+        for (View view : panels) {
             view.setVisibility(View.GONE);
         }
     }

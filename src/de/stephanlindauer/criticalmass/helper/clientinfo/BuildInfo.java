@@ -11,7 +11,7 @@ public class BuildInfo {
             PackageInfo pInfo = packageManager.getPackageInfo(packageName, 0);
             returnString += "\n---------------------------------------------------------------\n";
             returnString += "VERSION_NAME= " + pInfo.versionName + "\n";
-            returnString += "VERSION_CODE= " + pInfo.versionCode+ "\n";
+            returnString += "VERSION_CODE= " + pInfo.versionCode + "\n";
         } catch (PackageManager.NameNotFoundException e) {
         }
         return returnString;

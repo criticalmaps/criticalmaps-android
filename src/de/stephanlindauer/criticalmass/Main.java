@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmass;
 
-import android.app.*;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNo
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     CustomViewPager viewPager;
+    public static final String TAG = "CriticalMass";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         viewPager = (CustomViewPager) findViewById(R.id.pager);
 
         final ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
