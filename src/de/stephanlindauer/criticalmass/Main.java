@@ -40,6 +40,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
         TrackingInfoNotificationSetter.getInstance().show();
+
+        SelfDestructor.getInstance().keepAlive();
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {
@@ -80,14 +82,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        SelfDestructor.getInstance().keepAlive();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onStart() {
+        super.onStart();
         SelfDestructor.getInstance().keepAlive();
     }
 }
