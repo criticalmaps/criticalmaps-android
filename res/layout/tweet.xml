@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/linearLayout">
+
+        <ImageView
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/tweet_user_image"
+                android:background="@drawable/anonymous"
+                android:adjustViewBounds="false"/>
+
+        <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:weightSum="1">
+
+            <TextView
+
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/tweet_user_name"
+                    android:text="tweet_user_name"/>
+
+            <TextView
+                    android:textColor="#000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/tweet_creation_date"
+                    android:text="Now"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+            android:textColor="#000"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:paddingBottom="5dp"
+            android:id="@+id/tweet_user_content"
+            android:text="Text" android:layout_below="@+id/linearLayout" android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+            />
+</RelativeLayout>
