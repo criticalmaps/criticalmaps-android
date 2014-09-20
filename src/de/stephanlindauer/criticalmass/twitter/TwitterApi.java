@@ -3,7 +3,7 @@ package de.stephanlindauer.criticalmass.twitter;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import de.stephanlindauer.criticalmass.Main;
+import de.stephanlindauer.criticalmass.fragments.TwitterFragment;
 import de.stephanlindauer.criticalmass.utils.AsyncCallback;
 import de.stephanlindauer.criticalmass.utils.JSONUtils;
 import org.jetbrains.annotations.NotNull;
@@ -11,8 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
-
-import java.util.List;
 
 /**
  * Proxy implementation of twitter4j library
@@ -36,12 +34,16 @@ public class TwitterApi implements ProxyApi {
     }
 
     private void initTwitterStream() {
+        if (twitterStream != null)
+            return;
         twitterStream = new TwitterStreamFactory().getInstance();
         twitterStream.setOAuthConsumer(appConfig.optString("CONSUMER_KEY"), appConfig.optString("CONSUMER_SECRET"));
         twitterStream.setOAuthAccessToken(new AccessToken(appConfig.optString("ACCESS_TOKEN"), appConfig.optString("ACCESS_TOKEN_SECRET")));
     }
 
     private void initTwitter() {
+        if (twitter != null)
+            return;
         twitter = TwitterFactory.getSingleton();
         twitter.setOAuthConsumer(appConfig.optString("CONSUMER_KEY"), appConfig.optString("CONSUMER_SECRET"));
         twitter.setOAuthAccessToken(new AccessToken(appConfig.optString("ACCESS_TOKEN"), appConfig.optString("ACCESS_TOKEN_SECRET")));
@@ -62,11 +64,7 @@ public class TwitterApi implements ProxyApi {
 
             @Override
             public void onStatus(final Status status) {
-                //mapping twitter4j tweet to application tweet object
-                final Tweet tweet = new Tweet();
-                tweet.content = status.getText();
-                tweet.userName = status.getUser().getName();
-                listener.onNewTweet(tweet);
+                listener.onNewTweet(new Tweet(status));
             }
 
             @Override
@@ -113,14 +111,17 @@ public class TwitterApi implements ProxyApi {
             @Override
             protected Void doInBackground(final @Nullable Void... params) {
 
-                final Query query = new Query(searchString);
-                query.setCount(Main.TWITTER_MAX_FEED);
-                query.setSince(Main.TWITTER_SINCE);
-                query.setCount(Main.TWITTER_MAX_FEED);
+                Query query = new Query(searchString);
                 try {
-                    cb.onComplete(TwitterFactory.getSingleton().search(query).getTweets());
+                    QueryResult result;
+                    do {
+                        query.setSince(TwitterFragment.TWITTER_SINCE);
+                        query.setCount(TwitterFragment.TWITTER_MAX_FEED);
+                        result = twitter.search(query);
+                        cb.onComplete(result.getTweets());
+                    } while ((query = result.nextQuery()) != null);
                 } catch (final TwitterException e) {
-                    cb.onError(e);
+                    cb.onException(e);
                 }
                 return null;
             }

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#4d4d4d">
-    <TextView android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/twittertextview"
-              android:gravity="center"
-              android:textSize="7pt"
-              android:layout_centerInParent="true"/>
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:layout_alignParentTop="true"
+                android:background="#fff"
+                android:textColor="#000"
+                android:id="@+id/twitter_layout"
+        >
+
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tweet_list" android:layout_centerVertical="true"/>
 </RelativeLayout>
