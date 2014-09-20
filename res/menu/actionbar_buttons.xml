@@ -13,6 +13,10 @@
           android:title="@string/feedback"
           android:showAsAction="never">
     </item>
+    <item android:id="@+id/settings_datenschutz"
+                     android:title="@string/datenschutz"
+                     android:showAsAction="never">
+</item>
     <item android:title="@string/close_button"
           android:id="@+id/action_close"
           android:icon="@drawable/ic_action_cancel"

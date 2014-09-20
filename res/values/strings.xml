@@ -61,4 +61,5 @@
     <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
     <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>
+    <string name="datenschutz">datenschutzerklärung</string>
 </resources>

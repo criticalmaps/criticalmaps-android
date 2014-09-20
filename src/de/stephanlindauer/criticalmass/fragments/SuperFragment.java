@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmass.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,9 @@ public class SuperFragment extends Fragment {
             case R.id.settings_feedback:
                 startFeedbackIntent();
                 break;
+            case R.id.settings_datenschutz:
+                startDatenschutzIntent();
+                break;
             default:
                 break;
         }
@@ -63,6 +67,14 @@ public class SuperFragment extends Fragment {
         Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(getActivity().getPackageManager(), getActivity().getPackageName()));
         startActivity(Intent.createChooser(Email, "Send Feedback:"));
     }
+
+    private void startDatenschutzIntent(){
+        String url = "http://criticalmass.stephanlindauer.de/datenschutzerklaerung.html";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
 
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
