@@ -11,6 +11,7 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import de.stephanlindauer.criticalmass.Main;
@@ -38,7 +39,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
         Notification notification = mBuilder.build();
 
-        notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification );
+        notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification);
         notification.flags |=  Notification.FLAG_AUTO_CANCEL |  Notification.FLAG_ONLY_ALERT_ONCE;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 

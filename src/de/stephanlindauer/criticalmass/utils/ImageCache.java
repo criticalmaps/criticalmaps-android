@@ -45,7 +45,7 @@ public enum ImageCache {
 
         // 1) load from memory
         if (images == null)
-            images = new HashMap<>();
+            images = new HashMap<String, Bitmap>();
 
         if (images.containsKey(fileName)) {
             cb.onComplete(images.get(fileName));
