@@ -110,10 +110,9 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
             @Override
             public void onComplete(@Nullable final Object result) {
-                Log.v(TAG, "addTweet onComplete");
                 if (!(result instanceof Bitmap))
                     return;
-
+                Log.v(TAG, "addTweet onComplete " + result);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -127,7 +126,6 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
             @Override
             public void onException(final Exception e) {
-                Log.v(TAG, "addTweet onException");
                 // use anonymous image
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

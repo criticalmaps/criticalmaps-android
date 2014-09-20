@@ -30,6 +30,7 @@ public enum ImageCache {
         final String fileName;
         final String storagePath = context.getFilesDir().getParent() + imageCachePath;
         try {
+            Log.v(TAG, "url: " + imageUrl);
             url = new URL(imageUrl);
             fileName = new File(url.getFile()).getName();
 
@@ -58,11 +59,17 @@ public enum ImageCache {
             @Override
             protected Void doInBackground(final Void... params) {
                 try {
+                    Log.v(TAG, "trying to load from disk");
                     final Bitmap bitmap = decodeSampleBitmapFromFile(storagePath + fileName);
+                    if(bitmap == null)
+                        throw new Exception("couldn't load from disk");
                     // 4.1) persist
                     images.put(fileName, bitmap);
+                    Log.v(TAG, "trying to load from disk: success");
                     cb.onComplete(bitmap);
                 } catch (final Exception e) {
+
+                    Log.v(TAG, "trying to load from disk: failed");
 
                     // 3) load from url
                     new AsyncTask<Void, Void, Void>() {
