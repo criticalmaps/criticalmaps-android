@@ -6,14 +6,12 @@ import android.util.Log;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.osmdroid.util.GeoPoint;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 public class RequestTask extends AsyncTask<String, String, String> {
 
@@ -54,6 +52,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
                 response.getEntity().getContent().close();
             }
         } catch (Exception e) {
+
         }
         return responseString;
     }

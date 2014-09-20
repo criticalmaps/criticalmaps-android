@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -60,18 +59,16 @@ public class LocationsPulling {
     }
 
     public void initialize(final FragmentActivity mContext) {
-        if (initialized == true)
+        if (initialized)
             return;
 
         this.mContext = mContext;
         this.initialized = true;
 
         try {
-            this.uniqueDeviceIdHashed = AeSimpleSHA1.SHA1( Settings.Secure.getString(mContext.getContentResolver(),
-                    Settings.Secure.ANDROID_ID) );
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+            this.uniqueDeviceIdHashed = AeSimpleSHA1.SHA1(Settings.Secure.getString(mContext.getContentResolver(),
+                    Settings.Secure.ANDROID_ID));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
