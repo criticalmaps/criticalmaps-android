@@ -13,8 +13,6 @@ import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.twitter.Tweet;
 import twitter4j.util.TimeSpanConverter;
 
-import java.util.Comparator;
-
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 
     public static final String TAG = TweetAdapter.class.getSimpleName();

@@ -65,7 +65,7 @@ public enum ImageCache {
                 try {
                     Log.v(TAG, "trying to load from disk");
                     final Bitmap bitmap = decodeSampleBitmapFromFile(storagePath + fileName);
-                    if(bitmap == null)
+                    if (bitmap == null)
                         throw new Exception("couldn't load from disk");
                     // 4.1) persist
                     images.put(fileName, bitmap);
