@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -12,9 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import de.stephanlindauer.criticalmass.R;
-import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import de.stephanlindauer.criticalmass.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmass.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
 public class SuperFragment extends Fragment {
@@ -32,9 +33,10 @@ public class SuperFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actionbar_buttons, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
         trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
         trackingToggleButton.setChecked(LocationsPulling.getInstance().isListeningForLocation());
+
+        menu.findItem(R.id.settings_tracking_toggle).setChecked(LocationsPulling.getInstance().isListeningForLocation());
     }
 
     @Override
@@ -67,7 +69,7 @@ public class SuperFragment extends Fragment {
         startActivity(Intent.createChooser(Email, "Send Feedback:"));
     }
 
-    private void startDatenschutzIntent() {
+    private void startDatenschutzIntent(){
         String url = "http://criticalmass.stephanlindauer.de/datenschutzerklaerung.html";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));

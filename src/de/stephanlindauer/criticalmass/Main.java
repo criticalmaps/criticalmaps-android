@@ -1,15 +1,32 @@
 package de.stephanlindauer.criticalmass;
 
+import android.app.*;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
 import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmass.twitter.ITweetListener;
+import de.stephanlindauer.criticalmass.twitter.Tweet;
+import de.stephanlindauer.criticalmass.twitter.TwitterApi;
+import de.stephanlindauer.criticalmass.utils.AsyncCallback;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import twitter4j.Status;
+
+import java.util.Date;
+import java.util.List;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 

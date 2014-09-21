@@ -51,6 +51,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
                 response.getEntity().getContent().close();
             }
         } catch (Exception e) {
+
         }
         return responseString;
     }
