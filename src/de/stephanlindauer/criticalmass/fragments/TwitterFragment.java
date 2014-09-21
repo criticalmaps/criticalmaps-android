@@ -37,7 +37,6 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         if (rootView != null)
             return rootView;
 
@@ -58,6 +57,15 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ViewGroup parentViewGroup = (ViewGroup) rootView.getParent();
+        if (null != parentViewGroup) {
+            parentViewGroup.removeView(rootView);
+        }
     }
 
     private void addTestTweet() {

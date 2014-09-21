@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmass.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.twitter.Tweet;
 import twitter4j.util.TimeSpanConverter;
+
+import java.util.Comparator;
 
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 
@@ -26,8 +29,10 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         if (convertView != null)
             return convertView;
 
+        Log.v(TAG, "creating tweet for position: " + position);
+
         final Tweet tweet = getItem(position);
-        final RelativeLayout tweetRootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.tweet, null);
+        RelativeLayout tweetRootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.tweet, null);
         final ImageView userImage = (ImageView) tweetRootView.findViewById(R.id.tweet_user_image);
         final TextView userName = (TextView) tweetRootView.findViewById(R.id.tweet_user_name);
         final TextView creationDate = (TextView) tweetRootView.findViewById(R.id.tweet_creation_date);
@@ -56,10 +61,11 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     }
 
     public void sortTweets() {
+        // TODO sort me, right now there is a weird bug when using this, showing only one tweet multiple times
 //        sort(new Comparator<Tweet>() {
 //            @Override
 //            public int compare(Tweet _this, Tweet _other) {
-//                return (int) (_this.creationDate.getTime() - _other.creationDate.getTime());
+//                return _this.compareTo(_other);
 //            }
 //        });
     }
