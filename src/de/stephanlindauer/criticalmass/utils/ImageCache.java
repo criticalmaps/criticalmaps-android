@@ -59,6 +59,11 @@ public enum ImageCache {
             protected Void doInBackground(final Void... params) {
                 try {
                     final Bitmap bitmap = decodeSampleBitmapFromFile(storagePath + fileName);
+                    if(bitmap == null)
+                    {
+                        throw new Exception("couldn't load from disk");
+                    }
+
                     // 4.1) persist
                     images.put(fileName, bitmap);
                     cb.onComplete(bitmap);
