@@ -7,7 +7,9 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/linearLayout">
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+>
 
         <ImageView
                 android:layout_margin="10dp"
@@ -22,10 +24,10 @@
                 android:layout_margin="10dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:weightSum="1">
+                android:layout_height="wrap_content"
+                android:weightSum="1">
 
             <TextView
-
                     android:textColor="#000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

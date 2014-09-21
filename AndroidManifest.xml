@@ -14,7 +14,8 @@
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:allowBackup="true">
         <activity android:name="de.stephanlindauer.criticalmass.SplashScreen"
-                  android:theme="@android:style/Theme.Black.NoTitleBar">
+                  android:theme="@android:style/Theme.Black.NoTitleBar"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -22,7 +23,8 @@
         </activity>
         <activity android:name="de.stephanlindauer.criticalmass.Main"
                   android:theme="@android:style/Theme.Holo"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
         </activity>
         <receiver
                 android:name=".notifications.reminder.AlarmNotificationReceiver"

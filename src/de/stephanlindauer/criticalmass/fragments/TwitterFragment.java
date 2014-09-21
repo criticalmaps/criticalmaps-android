@@ -114,6 +114,8 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
     }
 
     private void addTweet(@NotNull final Tweet tweet) {
+        getActivity().findViewById(R.id.loadingIcon).setVisibility(View.INVISIBLE);
+
         ImageCache.shared.loadImage(getActivity(), tweet.userImageUrl, new AsyncCallback() {
 
             @Override
