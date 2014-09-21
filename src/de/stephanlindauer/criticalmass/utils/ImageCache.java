@@ -30,6 +30,7 @@ public enum ImageCache {
         final String fileName;
         final String storagePath = context.getFilesDir().getParent() + imageCachePath;
         try {
+            Log.v(TAG, "url: " + imageUrl);
             url = new URL(imageUrl);
             fileName = new File(url.getFile()).getName();
 
@@ -45,7 +46,7 @@ public enum ImageCache {
 
         // 1) load from memory
         if (images == null)
-            images = new HashMap<String, Bitmap>();
+            images = new HashMap<>();
 
         if (images.containsKey(fileName)) {
             cb.onComplete(images.get(fileName));
@@ -53,61 +54,70 @@ public enum ImageCache {
         }
 
         // 2) load from disk
+        loadFromDisk(cb, url, fileName, storagePath);
+    }
+
+    private void loadFromDisk(@NotNull final AsyncCallback cb, @NotNull final URL url, @NotNull final String fileName, @NotNull final String storagePath) {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(final Void... params) {
                 try {
+                    Log.v(TAG, "trying to load from disk");
                     final Bitmap bitmap = decodeSampleBitmapFromFile(storagePath + fileName);
-                    if(bitmap == null)
-                    {
+                    if (bitmap == null)
                         throw new Exception("couldn't load from disk");
-                    }
-
                     // 4.1) persist
                     images.put(fileName, bitmap);
+                    Log.v(TAG, "trying to load from disk: success");
                     cb.onComplete(bitmap);
                 } catch (final Exception e) {
 
+                    Log.v(TAG, "trying to load from disk: failed");
+
                     // 3) load from url
-                    new AsyncTask<Void, Void, Void>() {
-
-                        @Override
-                        protected Void doInBackground(final Void... params) {
-                            try {
-                                Log.v(TAG, "download from url: start downloading");
-                                final InputStream is = (InputStream) url.getContent();
-                                final Bitmap bitmap = BitmapFactory.decodeStream(is);
-
-                                Log.v(TAG, "download from url: download complete");
-
-                                // 4.1) persist
-                                images.put(fileName, bitmap);
-                                Log.v(TAG, "download from url: memory cache complete");
-
-                                // 4.2) persist even harder
-                                Log.v(TAG, "download from url: start storing image at " + storagePath + fileName);
-                                final FileOutputStream out = new FileOutputStream(storagePath + fileName);
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-
-                                Log.v(TAG, "download from url: start storing image at " + storagePath + fileName + " completed");
-                                cb.onComplete(bitmap);
-
-                            } catch (final IOException e) {
-                                Log.e(TAG, "" + e.getMessage());
-                                cb.onException(e);
-                            }
-                            return null;
-                        }
-
-                    }.execute();
+                    loadFromUrlAsync(url, fileName, storagePath, cb);
                 }
                 return null;
             }
         }.execute();
     }
 
-    public static Bitmap decodeSampleBitmapFromFile(String filePath) {
+    private void loadFromUrlAsync(@NotNull final URL url, @NotNull final String fileName, @NotNull final String storagePath, @NotNull final AsyncCallback cb) {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(final Void... params) {
+                try {
+                    Log.v(TAG, "download from url: start downloading");
+                    final InputStream is = (InputStream) url.getContent();
+                    final Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                    Log.v(TAG, "download from url: download complete");
+
+                    // 4.1) persist
+                    images.put(fileName, bitmap);
+                    Log.v(TAG, "download from url: memory cache complete");
+
+                    // 4.2) persist even harder
+                    Log.v(TAG, "download from url: start storing image at " + storagePath + fileName);
+                    final FileOutputStream out = new FileOutputStream(storagePath + fileName);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+
+                    Log.v(TAG, "download from url: start storing image at " + storagePath + fileName + " completed");
+                    cb.onComplete(bitmap);
+
+                } catch (final IOException e) {
+                    Log.e(TAG, "" + e.getMessage());
+                    cb.onException(e);
+                }
+                return null;
+            }
+
+        }.execute();
+    }
+
+    public static Bitmap decodeSampleBitmapFromFile(@NotNull final String filePath) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();

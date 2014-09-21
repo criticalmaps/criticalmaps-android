@@ -11,8 +11,6 @@ import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNo
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class LocationsPulling {

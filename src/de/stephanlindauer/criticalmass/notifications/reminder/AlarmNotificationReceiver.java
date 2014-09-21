@@ -1,13 +1,10 @@
 package de.stephanlindauer.criticalmass.notifications.reminder;
 
 import android.annotation.TargetApi;
-
-import android.app.*;
-
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +37,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         Notification notification = mBuilder.build();
 
         notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification);
-        notification.flags |=  Notification.FLAG_AUTO_CANCEL |  Notification.FLAG_ONLY_ALERT_ONCE;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_ONLY_ALERT_ONCE;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         mNotificationManager.notify(1, notification);

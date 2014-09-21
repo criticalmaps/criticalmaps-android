@@ -1,6 +1,5 @@
 package de.stephanlindauer.criticalmass.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -60,7 +59,7 @@ public class MapFragment extends SuperFragment {
         mapCountainer.addView(mapView);
 
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
-        noTrackingOverlay.setVisibility( LocationsPulling.getInstance().isListeningForLocation() ? View.INVISIBLE : View.VISIBLE );
+        noTrackingOverlay.setVisibility(LocationsPulling.getInstance().isListeningForLocation() ? View.INVISIBLE : View.VISIBLE);
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 noTrackingOverlay.setVisibility(View.INVISIBLE);

@@ -1,13 +1,11 @@
 package de.stephanlindauer.criticalmass.notifications.trackinginfo;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import de.stephanlindauer.criticalmass.R;
 
@@ -50,8 +48,8 @@ public class TrackingInfoNotificationSetter {
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
                 .setContentIntent(resultPendingIntent)
-                // jan: Notification.PRIORITY_MAX is API >= 16
-                // @see http://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html#setPriority%28int%29
+                        // jan: Notification.PRIORITY_MAX is API >= 16
+                        // @see http://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html#setPriority%28int%29
                 .setPriority(2);
 
         Notification notification = mBuilder.build();

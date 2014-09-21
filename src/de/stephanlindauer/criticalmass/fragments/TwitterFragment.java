@@ -19,8 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import twitter4j.Status;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +37,6 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         if (rootView != null)
             return rootView;
 
@@ -60,6 +57,15 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ViewGroup parentViewGroup = (ViewGroup) rootView.getParent();
+        if (null != parentViewGroup) {
+            parentViewGroup.removeView(rootView);
+        }
     }
 
     private void addTestTweet() {
@@ -112,10 +118,9 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
             @Override
             public void onComplete(@Nullable final Object result) {
-                Log.v(TAG, "addTweet onComplete");
                 if (!(result instanceof Bitmap))
                     return;
-
+                Log.v(TAG, "addTweet onComplete " + result);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -129,7 +134,6 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
             @Override
             public void onException(final Exception e) {
-                Log.v(TAG, "addTweet onException");
                 // use anonymous image
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

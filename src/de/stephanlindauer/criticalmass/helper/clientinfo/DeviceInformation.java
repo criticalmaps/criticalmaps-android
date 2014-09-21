@@ -1,9 +1,6 @@
 package de.stephanlindauer.criticalmass.helper.clientinfo;
 
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-
 public class DeviceInformation {
     public static String getString() {
         String returnString = "";
