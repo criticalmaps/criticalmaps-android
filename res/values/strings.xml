@@ -59,6 +59,9 @@
         die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!
     </string>
 
+    <!-- about -->
+    <string name="about_help">Helfe uns den Tracking-Server zu finanzieren</string>
+
     <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
     <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>

@@ -52,7 +52,7 @@
                     android:autoLink="web"
                     style="@style/about_content"/>
             <TextView
-                    android:text="please help finance the tracking server!"
+                    android:text="@string/about_help"
                     style="@style/about_heading"/>
 <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
             <Button
