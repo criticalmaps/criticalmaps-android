@@ -33,7 +33,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         actionBar.addTab(actionBar.newTab().setText(R.string.section_map).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_twitter).setTabListener(this));
+//        actionBar.addTab(actionBar.newTab().setText(R.string.section_twitter).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
 
         registerListenersForSwipedChanges(actionBar);

@@ -21,9 +21,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
                 return new MapFragment();
             case 1:
                 return new RulesFragment();
+//            case 2:
+//                return new TwitterFragment();
             case 2:
-                return new TwitterFragment();
-            case 3:
                 return new AboutFragment();
         }
 
@@ -32,6 +32,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }
