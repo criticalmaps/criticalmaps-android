@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmass.twitter;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import twitter4j.Status;
 
@@ -12,7 +13,7 @@ public class Tweet implements Comparable<Tweet> {
     public String content;
     public String screenName;
     public String userImageUrl;
-    public Date creationDate;
+    public volatile Date creationDate;
     public int retweets;
     public Bitmap image;
 
@@ -57,31 +58,18 @@ public class Tweet implements Comparable<Tweet> {
 
         Tweet tweet = (Tweet) o;
 
-        if (retweets != tweet.retweets) return false;
-        if (content != null ? !content.equals(tweet.content) : tweet.content != null) return false;
         if (creationDate != null ? !creationDate.equals(tweet.creationDate) : tweet.creationDate != null) return false;
-        if (image != null ? !image.equals(tweet.image) : tweet.image != null) return false;
-        if (screenName != null ? !screenName.equals(tweet.screenName) : tweet.screenName != null) return false;
-        if (userImageUrl != null ? !userImageUrl.equals(tweet.userImageUrl) : tweet.userImageUrl != null) return false;
-        if (userName != null ? !userName.equals(tweet.userName) : tweet.userName != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = userName != null ? userName.hashCode() : 0;
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (screenName != null ? screenName.hashCode() : 0);
-        result = 31 * result + (userImageUrl != null ? userImageUrl.hashCode() : 0);
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + retweets;
-        result = 31 * result + (image != null ? image.hashCode() : 0);
-        return result;
+        return creationDate != null ? creationDate.hashCode() : 0;
     }
 
     @Override
-    public int compareTo(final Tweet another) {
-        return (int) (creationDate.getTime() - another.creationDate.getTime());
+    public synchronized int compareTo(@NotNull final Tweet another) {
+        return creationDate.compareTo(another.creationDate);
     }
 }
