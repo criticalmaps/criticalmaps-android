@@ -22,3 +22,13 @@
 
 -dontwarn org.apache.**
 -dontwarn org.osmdroid.**
+-dontwarn android.support.**
+-dontwarn android.support.v4.**
+-dontwarn javax.management.**
+-dontwarn javax.xml.**
+-dontwarn javax.lang.**
+-dontwarn org.apache.**
+-dontwarn org.slf4j.**
+-dontwarn com.google.code.**
+-dontwarn oauth.signpost.**
+-dontwarn twitter4j.**
