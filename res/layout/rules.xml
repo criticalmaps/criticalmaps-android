@@ -83,6 +83,16 @@
                 <ImageView style="@style/rules_image"
                            android:src="@drawable/rules_fun"/>
             </LinearLayout>
+            <TextView android:layout_width="wrap_content"
+                      android:padding="10dp"
+                      android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:text="Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)"
+                      android:id="@+id/textView"
+                      android:autoLink="web"
+                      android:layout_gravity="center_horizontal"/>
+
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
