@@ -5,6 +5,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
@@ -74,7 +76,14 @@ public class LocationsPulling {
         timerTaskGettingsOtherBikers = new TimerTask() {
             @Override
             public void run() {
-                getOtherBikersInfoFromServer();
+                mContext.runOnUiThread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                getOtherBikersInfoFromServer();
+                            }
+                        }
+                );
             }
         };
         timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, PULL_OTHER_LOCATIONS_TIME);
@@ -104,7 +113,6 @@ public class LocationsPulling {
 
     private void getOtherBikersInfoFromServer() {
         RequestTask request = new RequestTask(uniqueDeviceIdHashed, userLocation, new ICommand() {
-            @Override
             public void execute(String... payload) {
                 try {
                     JSONObject jsonObject = new JSONObject(payload[0]);
