@@ -30,6 +30,7 @@
                 android:name=".notifications.reminder.AlarmNotificationReceiver"
                 android:process=":remote"
                 />
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="a01ac875123e16725333bd02c616c01a026e23db"/>
 
     </application>
 </manifest>

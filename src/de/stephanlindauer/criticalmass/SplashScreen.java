@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import com.crashlytics.android.Crashlytics;
 
 public class SplashScreen extends Activity {
 
@@ -14,6 +15,7 @@ public class SplashScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         setContentView(R.layout.splashscreen);
 
         new Handler().postDelayed(new Runnable() {

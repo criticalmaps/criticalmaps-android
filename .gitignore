@@ -4,4 +4,6 @@ gen/
 proguard_logs/
 *.class
 out/
-
+crashlytics.properties
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
