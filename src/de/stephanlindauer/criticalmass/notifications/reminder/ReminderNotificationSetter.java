@@ -22,6 +22,7 @@ public class ReminderNotificationSetter {
 
     public void execute() {
         Intent alarmIntent = new Intent(activity, AlarmNotificationReceiver.class);
+        alarmIntent.setFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
 
