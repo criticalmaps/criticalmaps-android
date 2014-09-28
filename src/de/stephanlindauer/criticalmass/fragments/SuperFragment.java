@@ -99,6 +99,7 @@ public class SuperFragment extends Fragment {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         TrackingInfoNotificationSetter.getInstance().cancel();
+                        getActivity().finish();
                         System.exit(0);
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
