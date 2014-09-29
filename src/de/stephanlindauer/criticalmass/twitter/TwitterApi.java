@@ -17,9 +17,9 @@ import twitter4j.auth.AccessToken;
  */
 public class TwitterApi implements ProxyApi {
 
+    private final JSONObject appConfig;
     private TwitterStream twitterStream;
     private Twitter twitter;
-    private final JSONObject appConfig;
 
     /**
      * Proxy constructor for Twitter4j library.
