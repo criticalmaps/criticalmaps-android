@@ -13,8 +13,8 @@ import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNo
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
-    CustomViewPager viewPager;
     public static final String TAG = "CriticalMass";
+    CustomViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
