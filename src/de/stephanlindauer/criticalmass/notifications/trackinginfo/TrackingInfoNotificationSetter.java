@@ -11,10 +11,8 @@ import de.stephanlindauer.criticalmass.R;
 
 public class TrackingInfoNotificationSetter {
 
-    private static TrackingInfoNotificationSetter instance;
-
     public static final int NOTIFICATION_ID = 123456;
-
+    private static TrackingInfoNotificationSetter instance;
     private Context context;
     private Activity activity;
 
