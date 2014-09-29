@@ -16,7 +16,7 @@ public class NextEventTimeCalculator {
         while (dateList.size() < 3) {
             if (isLastFridayOfTheMonth(calendar)) {
                 Date asDate = new Date(calendar.getTimeInMillis());
-                if( asDate.getTime() > new Date().getTime() ){
+                if (asDate.getTime() > new Date().getTime()) {
                     dateList.add(asDate);
                 }
             }
