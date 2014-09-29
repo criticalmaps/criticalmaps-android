@@ -60,10 +60,19 @@
     </string>
 
     <!-- about -->
-    <string name="about_help">Helfe uns den Tracking-Server zu finanzieren</string>
+    <string name="about_help">Hilf uns den Tracking-Server zu finanzieren</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
     <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>
+
+
+    <string name="city_chooser_title">In welcher Stadt bist du?</string>
+    <string name="section_chat">chat</string>
+    <string name="chat_heading">Du bist im Chatraum der Stadt Berlin. Nachrichten werden nach 30 Minuten wieder
+        gelöscht.
+    </string>
+    <string name="chat_send">Senden</string>
+    <string name="chat_text">Du hast 255 Zeichen...</string>
 
 </resources>

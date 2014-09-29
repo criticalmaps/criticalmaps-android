@@ -1,15 +1,19 @@
 package de.stephanlindauer.criticalmass;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
 import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmass.vo.City;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
@@ -18,10 +22,23 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        setupViewPager();
+
+        ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
+        reminderNotificationSetter.execute();
+
+        TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
+        TrackingInfoNotificationSetter.getInstance().show();
+
+        SelfDestructor.getInstance().keepAlive();
+
+//        showCityChooserDialog();
+    }
+
+    private void setupViewPager() {
         viewPager = (CustomViewPager) findViewById(R.id.pager);
 
         final ActionBar actionBar = getActionBar();
@@ -33,18 +50,24 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         actionBar.addTab(actionBar.newTab().setText(R.string.section_map).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
-//        actionBar.addTab(actionBar.newTab().setText(R.string.section_twitter).setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.section_chat).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
 
         registerListenersForSwipedChanges(actionBar);
+    }
 
-        ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
-        reminderNotificationSetter.execute();
+    private void showCityChooserDialog() {
 
-        TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
-        TrackingInfoNotificationSetter.getInstance().show();
+        final AlertDialog.Builder ad = new AlertDialog.Builder(this);
+        ad.setTitle(getBaseContext().getString(R.string.city_chooser_title));
+        ad.setItems(City.getAvailableCities(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println();
+            }
+        });
 
-        SelfDestructor.getInstance().keepAlive();
+        ad.show();
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {

@@ -30,7 +30,6 @@ public class TrackingInfoNotificationSetter {
         this.activity = activity;
     }
 
-
     public void show() {
 
         Intent dismissIntent = new Intent(context, activity.getClass());
@@ -47,9 +46,7 @@ public class TrackingInfoNotificationSetter {
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
                 .setContentIntent(resultPendingIntent)
-                        // jan: Notification.PRIORITY_MAX is API >= 16
-                        // @see http://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html#setPriority%28int%29
-                .setPriority(2);
+                .setPriority(Notification.PRIORITY_MAX);
 
         Notification notification = mBuilder.build();
 
