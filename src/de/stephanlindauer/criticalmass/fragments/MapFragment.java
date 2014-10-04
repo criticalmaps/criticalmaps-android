@@ -9,7 +9,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass.R;
-import de.stephanlindauer.criticalmass.helper.LocationsPulling;
+import de.stephanlindauer.criticalmass.service.ServerPuller;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -57,11 +57,11 @@ public class MapFragment extends SuperFragment {
         mapCountainer.addView(mapView);
 
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
-        noTrackingOverlay.setVisibility(LocationsPulling.getInstance().isListeningForLocation() ? View.INVISIBLE : View.VISIBLE);
+        noTrackingOverlay.setVisibility(ServerPuller.getInstance().isListeningForLocation() ? View.INVISIBLE : View.VISIBLE);
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 noTrackingOverlay.setVisibility(View.INVISIBLE);
-                LocationsPulling.getInstance().shouldBeTrackingUsersLocation(true);
+                ServerPuller.getInstance().shouldBeTrackingUsersLocation(true);
                 trackingToggleButton.setChecked(true);
             }
         });
@@ -91,8 +91,8 @@ public class MapFragment extends SuperFragment {
             mapView.getOverlays().remove(element);
         }
 
-        if (LocationsPulling.getInstance().userLocation != null) {
-            GeoPoint currentUserLocation = LocationsPulling.getInstance().userLocation;
+        if (ServerPuller.getInstance().userLocation != null) {
+            GeoPoint currentUserLocation = ServerPuller.getInstance().userLocation;
             ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
             ownOverlay.add(new OverlayItem("", "", currentUserLocation));
             ItemizedIconOverlay userLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
@@ -102,7 +102,7 @@ public class MapFragment extends SuperFragment {
 
         ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
-        for (GeoPoint currentOtherUsersLocation : LocationsPulling.getInstance().otherUsersLocations) {
+        for (GeoPoint currentOtherUsersLocation : ServerPuller.getInstance().otherUsersLocations) {
             otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);

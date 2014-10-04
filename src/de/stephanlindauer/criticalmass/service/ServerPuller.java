@@ -1,28 +1,30 @@
-package de.stephanlindauer.criticalmass.helper;
+package de.stephanlindauer.criticalmass.service;
 
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
+import de.stephanlindauer.criticalmass.helper.AeSimpleSHA1;
+import de.stephanlindauer.criticalmass.helper.ICommand;
+import de.stephanlindauer.criticalmass.helper.RequestTask;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.*;
 
-public class LocationsPulling {
+public class ServerPuller {
 
     private static final float LOCATION_REFRESH_DISTANCE = 30; //meters
     private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
 
     public static final int PULL_OTHER_LOCATIONS_TIME = 30000; //milliseconds
 
-    private static LocationsPulling instance;
+    private static ServerPuller instance;
+
     public GeoPoint userLocation = null;
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -51,11 +53,11 @@ public class LocationsPulling {
     private String uniqueDeviceIdHashed;
     private boolean isListeningForLocation = false;
 
-    public static LocationsPulling getInstance() {
-        if (LocationsPulling.instance == null) {
-            LocationsPulling.instance = new LocationsPulling();
+    public static ServerPuller getInstance() {
+        if (ServerPuller.instance == null) {
+            ServerPuller.instance = new ServerPuller();
         }
-        return LocationsPulling.instance;
+        return ServerPuller.instance;
     }
 
     public void initialize(final FragmentActivity mContext) {

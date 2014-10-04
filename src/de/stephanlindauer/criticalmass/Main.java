@@ -7,10 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
-import de.stephanlindauer.criticalmass.helper.LocationsPulling;
+import de.stephanlindauer.criticalmass.service.ServerPuller;
 import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
@@ -37,8 +36,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         SelfDestructor.getInstance().keepAlive();
 
-
-        LocationsPulling.getInstance().initialize(this);
+        ServerPuller.getInstance().initialize(this);
 //        showCityChooserDialog();
     }
 
