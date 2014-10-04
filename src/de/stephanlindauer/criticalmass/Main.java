@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass.helper.LocationsPulling;
 import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
@@ -27,6 +28,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         setupViewPager();
 
+
         ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
         reminderNotificationSetter.execute();
 
@@ -35,6 +37,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         SelfDestructor.getInstance().keepAlive();
 
+
+        LocationsPulling.getInstance().initialize(this);
 //        showCityChooserDialog();
     }
 

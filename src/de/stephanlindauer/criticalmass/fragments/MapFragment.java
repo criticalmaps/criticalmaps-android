@@ -40,8 +40,6 @@ public class MapFragment extends SuperFragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        LocationsPulling.getInstance().initialize(getActivity());
-
         resourceProxy = new DefaultResourceProxyImpl(getActivity());
 
         mapView = new MapView(getActivity(), null);
