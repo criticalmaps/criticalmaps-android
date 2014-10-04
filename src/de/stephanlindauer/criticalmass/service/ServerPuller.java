@@ -18,40 +18,22 @@ import java.util.*;
 
 public class ServerPuller {
 
-    private static final float LOCATION_REFRESH_DISTANCE = 30; //meters
-    private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
+
 
     public static final int PULL_OTHER_LOCATIONS_TIME = 30000; //milliseconds
 
     private static ServerPuller instance;
 
     public GeoPoint userLocation = null;
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
 
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-        }
-    };
     public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
     private FragmentActivity mContext;
     private Timer timerGettingOtherBikers;
     private TimerTask timerTaskGettingsOtherBikers;
-    private LocationManager locationManager;
+
     private boolean initialized = false;
     private String uniqueDeviceIdHashed;
-    private boolean isListeningForLocation = false;
+
 
     public static ServerPuller getInstance() {
         if (ServerPuller.instance == null) {
@@ -89,29 +71,9 @@ public class ServerPuller {
             }
         };
         timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, PULL_OTHER_LOCATIONS_TIME);
-
-        //start location tracking
-        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-        startLocationListening();
     }
 
-    private void startLocationListening() {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
-        isListeningForLocation = true;
-        TrackingInfoNotificationSetter.getInstance().show();
-    }
 
-    private void stopLocationListening() {
-        locationManager.removeUpdates(mLocationListener);
-        userLocation = null;
-        isListeningForLocation = false;
-        TrackingInfoNotificationSetter.getInstance().cancel();
-    }
-
-    public boolean isListeningForLocation() {
-        return isListeningForLocation;
-    }
 
     private void getOtherBikersInfoFromServer() {
         RequestTask request = new RequestTask(uniqueDeviceIdHashed, userLocation, new ICommand() {
