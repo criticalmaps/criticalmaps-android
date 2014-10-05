@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
+import de.stephanlindauer.criticalmass.service.GPSMananger;
 import de.stephanlindauer.criticalmass.service.ServerPuller;
 import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
@@ -27,17 +28,25 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         setupViewPager();
 
+        initialiteNotifications();
+        initializeSelfDestructor();
 
+        ServerPuller.getInstance().initialize(this);
+        GPSMananger.getInstance().initialize( this );
+
+//        showCityChooserDialog();
+    }
+
+    private void initializeSelfDestructor() {
+        SelfDestructor.getInstance().keepAlive();
+    }
+
+    private void initialiteNotifications() {
         ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
         reminderNotificationSetter.execute();
 
         TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
         TrackingInfoNotificationSetter.getInstance().show();
-
-        SelfDestructor.getInstance().keepAlive();
-
-        ServerPuller.getInstance().initialize(this);
-//        showCityChooserDialog();
     }
 
     private void setupViewPager() {

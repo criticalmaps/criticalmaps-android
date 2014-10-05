@@ -9,6 +9,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass.R;
+import de.stephanlindauer.criticalmass.model.OtherUsersLocationModel;
+import de.stephanlindauer.criticalmass.model.OwnLocationModel;
+import de.stephanlindauer.criticalmass.service.GPSMananger;
 import de.stephanlindauer.criticalmass.service.ServerPuller;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -28,6 +31,9 @@ public class MapFragment extends SuperFragment {
 
     private GeoPoint initialCenter = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
     private DefaultResourceProxyImpl resourceProxy;
+
+    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+    private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,11 +63,11 @@ public class MapFragment extends SuperFragment {
         mapCountainer.addView(mapView);
 
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
-        noTrackingOverlay.setVisibility(ServerPuller.getInstance().isListeningForLocation() ? View.INVISIBLE : View.VISIBLE);
+        noTrackingOverlay.setVisibility(OwnLocationModel.getInstance().isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 noTrackingOverlay.setVisibility(View.INVISIBLE);
-                ServerPuller.getInstance().shouldBeTrackingUsersLocation(true);
+                GPSMananger.getInstance().setTrackingUserLocation(true);
                 trackingToggleButton.setChecked(true);
             }
         });
@@ -91,8 +97,8 @@ public class MapFragment extends SuperFragment {
             mapView.getOverlays().remove(element);
         }
 
-        if (ServerPuller.getInstance().userLocation != null) {
-            GeoPoint currentUserLocation = ServerPuller.getInstance().userLocation;
+        if (ownLocationModel.ownLocation != null) {
+            GeoPoint currentUserLocation = ownLocationModel.ownLocation;
             ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
             ownOverlay.add(new OverlayItem("", "", currentUserLocation));
             ItemizedIconOverlay userLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
@@ -102,7 +108,7 @@ public class MapFragment extends SuperFragment {
 
         ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
-        for (GeoPoint currentOtherUsersLocation : ServerPuller.getInstance().otherUsersLocations) {
+        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.otherUsersLocations) {
             otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);

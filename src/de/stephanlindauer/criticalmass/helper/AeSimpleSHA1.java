@@ -5,6 +5,23 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class AeSimpleSHA1 {
+
+    public static String SHA1(String text) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+            md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } finally {
+            byte[] sha1hash = md.digest();
+            return convertToHex(sha1hash);
+        }
+    }
+
+
     private static String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
@@ -16,12 +33,5 @@ public class AeSimpleSHA1 {
             } while (two_halfs++ < 1);
         }
         return buf.toString();
-    }
-
-    public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        md.update(text.getBytes("iso-8859-1"), 0, text.length());
-        byte[] sha1hash = md.digest();
-        return convertToHex(sha1hash);
     }
 }

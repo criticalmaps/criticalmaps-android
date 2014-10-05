@@ -1,16 +1,13 @@
 package de.stephanlindauer.criticalmass.service;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
+import android.app.Activity;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import de.stephanlindauer.criticalmass.helper.AeSimpleSHA1;
 import de.stephanlindauer.criticalmass.helper.ICommand;
 import de.stephanlindauer.criticalmass.helper.RequestTask;
-import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmass.model.OtherUsersLocationModel;
+import de.stephanlindauer.criticalmass.model.OwnLocationModel;
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
@@ -18,22 +15,16 @@ import java.util.*;
 
 public class ServerPuller {
 
-
-
     public static final int PULL_OTHER_LOCATIONS_TIME = 30000; //milliseconds
 
-    private static ServerPuller instance;
+    private Activity activity;
 
-    public GeoPoint userLocation = null;
-
-    public List<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
-    private FragmentActivity mContext;
     private Timer timerGettingOtherBikers;
     private TimerTask timerTaskGettingsOtherBikers;
 
-    private boolean initialized = false;
     private String uniqueDeviceIdHashed;
 
+    private static ServerPuller instance;
 
     public static ServerPuller getInstance() {
         if (ServerPuller.instance == null) {
@@ -42,25 +33,17 @@ public class ServerPuller {
         return ServerPuller.instance;
     }
 
-    public void initialize(final FragmentActivity mContext) {
-        if (initialized)
-            return;
+    public void initialize(final Activity activity) {
+        this.activity = activity;
+        this.uniqueDeviceIdHashed = AeSimpleSHA1.SHA1(Settings.Secure.getString(activity.getContentResolver(),
+                Settings.Secure.ANDROID_ID));
 
-        this.mContext = mContext;
-        this.initialized = true;
-
-        try {
-            this.uniqueDeviceIdHashed = AeSimpleSHA1.SHA1(Settings.Secure.getString(mContext.getContentResolver(),
-                    Settings.Secure.ANDROID_ID));
-        } catch (Exception e) {
-        }
-
-        //start other bikes location retrieval
         timerGettingOtherBikers = new Timer();
+
         timerTaskGettingsOtherBikers = new TimerTask() {
             @Override
             public void run() {
-                mContext.runOnUiThread(
+                activity.runOnUiThread(
                         new Runnable() {
                             @Override
                             public void run() {
@@ -74,15 +57,14 @@ public class ServerPuller {
     }
 
 
-
     private void getOtherBikersInfoFromServer() {
-        RequestTask request = new RequestTask(uniqueDeviceIdHashed, userLocation, new ICommand() {
+        RequestTask request = new RequestTask(uniqueDeviceIdHashed, OwnLocationModel.getInstance().ownLocation, new ICommand() {
             public void execute(String... payload) {
                 try {
                     JSONObject jsonObject = new JSONObject(payload[0]);
                     Iterator<String> keys = jsonObject.keys();
 
-                    otherUsersLocations = new ArrayList<GeoPoint>();
+                    OtherUsersLocationModel.getInstance().otherUsersLocations = new ArrayList<GeoPoint>();
 
                     while (keys.hasNext()) {
                         String key = keys.next();
@@ -90,7 +72,7 @@ public class ServerPuller {
                         Integer latitude = Integer.parseInt(value.getString("latitude"));
                         Integer longitude = Integer.parseInt(value.getString("longitude"));
 
-                        otherUsersLocations.add(new GeoPoint(latitude, longitude));
+                        OtherUsersLocationModel.getInstance().otherUsersLocations.add(new GeoPoint(latitude, longitude));
                     }
                 } catch (Exception e) {
                     return;
@@ -98,12 +80,5 @@ public class ServerPuller {
             }
         });
         request.execute();
-    }
-
-    public void shouldBeTrackingUsersLocation(boolean shouldBeTracking) {
-        if (shouldBeTracking)
-            startLocationListening();
-        else
-            stopLocationListening();
     }
 }

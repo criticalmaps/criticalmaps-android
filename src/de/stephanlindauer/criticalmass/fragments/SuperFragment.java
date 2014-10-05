@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import de.stephanlindauer.criticalmass.R;
-import de.stephanlindauer.criticalmass.service.ServerPuller;
+import de.stephanlindauer.criticalmass.model.OwnLocationModel;
+import de.stephanlindauer.criticalmass.service.GPSMananger;
 import de.stephanlindauer.criticalmass.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmass.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
@@ -32,10 +33,8 @@ public class SuperFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actionbar_buttons, menu);
         super.onCreateOptionsMenu(menu, inflater);
-        trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
-        trackingToggleButton.setChecked(ServerPuller.getInstance().isListeningForLocation());
 
-        menu.findItem(R.id.settings_tracking_toggle).setChecked(ServerPuller.getInstance().isListeningForLocation());
+        menu.findItem(R.id.settings_tracking_toggle).setChecked(OwnLocationModel.getInstance().isListeningForLocation);
     }
 
     @Override
@@ -79,10 +78,10 @@ public class SuperFragment extends Fragment {
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
         if (item.isChecked()) {
-            ServerPuller.getInstance().shouldBeTrackingUsersLocation(true);
+            GPSMananger.getInstance().setTrackingUserLocation(true);
             showNoTrackingOverlay(false);
         } else {
-            ServerPuller.getInstance().shouldBeTrackingUsersLocation(false);
+            GPSMananger.getInstance().setTrackingUserLocation(false);
             showNoTrackingOverlay(true);
         }
     }
