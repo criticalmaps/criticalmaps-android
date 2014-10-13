@@ -128,7 +128,6 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
                     public void run() {
                         tweet.image = (Bitmap) result;
                         tweetAdapter.add(tweet);
-                        tweetAdapter.sortTweets();
                         tweetAdapter.notifyDataSetInvalidated();
                     }
                 });
@@ -141,7 +140,6 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
                     @Override
                     public void run() {
                         tweetAdapter.add(tweet);
-                        tweetAdapter.sortTweets();
                         tweetAdapter.notifyDataSetInvalidated();
                     }
                 });

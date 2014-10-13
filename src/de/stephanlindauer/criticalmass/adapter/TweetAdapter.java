@@ -13,6 +13,8 @@ import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.twitter.Tweet;
 import twitter4j.util.TimeSpanConverter;
 
+import java.util.Comparator;
+
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 
     public static final String TAG = TweetAdapter.class.getSimpleName();
@@ -56,15 +58,5 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 //        }
 
         return tweetRootView;
-    }
-
-    public void sortTweets() {
-        // TODO sort me, right now there is a weird bug when using this, showing only one tweet multiple times
-//        sort(new Comparator<Tweet>() {
-//            @Override
-//            public int compare(Tweet _this, Tweet _other) {
-//                return _this.compareTo(_other);
-//            }
-//        });
     }
 }
