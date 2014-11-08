@@ -35,6 +35,7 @@ public class ChatFragment extends SuperFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         chatView = inflater.inflate(R.layout.chat, container, false);
         return chatView;
     }

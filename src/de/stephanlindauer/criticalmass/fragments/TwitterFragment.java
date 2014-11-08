@@ -37,6 +37,8 @@ public class TwitterFragment extends SuperFragment implements ITweetListener, As
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
+
         if (rootView != null)
             return rootView;
 

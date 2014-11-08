@@ -26,7 +26,7 @@ public class AboutFragment extends SuperFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        super.onCreateView(inflater,container,savedInstanceState);
         View rootView = inflater.inflate(R.layout.about, container, false);
 
         return rootView;

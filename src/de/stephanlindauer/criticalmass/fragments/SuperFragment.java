@@ -25,20 +25,21 @@ public class SuperFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.actionbar_buttons, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.actionbar_buttons, menu);
 
         menu.findItem(R.id.settings_tracking_toggle).setChecked(OwnLocationModel.getInstance().isListeningForLocation);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_close:
                 handleCloseRequested();
