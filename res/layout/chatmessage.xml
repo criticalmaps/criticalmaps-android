@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dip" >
+
+    <ImageView
+            android:id="@+id/icon"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginRight="6dip"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_launcher" />
+
+    <TextView
+            android:id="@+id/firstLine"
+
+            android:layout_toRightOf="@id/icon"
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dip"
+
+            android:text="Example application"
+            android:textSize="11sp"
+            />
+    <TextView
+            android:id="@+id/secondLine"
+            android:layout_toRightOf="@id/icon"
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="22dip"
+
+
+            android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata"
+            android:textSize="14sp"
+            />
+
+
+
+</RelativeLayout> 

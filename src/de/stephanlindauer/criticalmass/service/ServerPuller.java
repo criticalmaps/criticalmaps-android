@@ -2,16 +2,17 @@ package de.stephanlindauer.criticalmass.service;
 
 import android.app.Activity;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import de.stephanlindauer.criticalmass.helper.AeSimpleSHA1;
 import de.stephanlindauer.criticalmass.helper.ICommand;
 import de.stephanlindauer.criticalmass.helper.RequestTask;
+import de.stephanlindauer.criticalmass.model.ChatModel;
 import de.stephanlindauer.criticalmass.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmass.model.OwnLocationModel;
+import org.json.JSONException;
 import org.json.JSONObject;
-import org.osmdroid.util.GeoPoint;
 
-import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ServerPuller {
 
@@ -23,6 +24,9 @@ public class ServerPuller {
     private TimerTask timerTaskGettingsOtherBikers;
 
     private String uniqueDeviceIdHashed;
+
+    private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
+    private ChatModel chatModel = ChatModel.getInstance();
 
     private static ServerPuller instance;
 
@@ -56,27 +60,17 @@ public class ServerPuller {
         timerGettingOtherBikers.scheduleAtFixedRate(timerTaskGettingsOtherBikers, 0, PULL_OTHER_LOCATIONS_TIME);
     }
 
-
     private void getOtherBikersInfoFromServer() {
         RequestTask request = new RequestTask(uniqueDeviceIdHashed, OwnLocationModel.getInstance().ownLocation, new ICommand() {
             public void execute(String... payload) {
                 try {
                     JSONObject jsonObject = new JSONObject(payload[0]);
-                    Iterator<String> keys = jsonObject.keys();
-
-                    OtherUsersLocationModel.getInstance().otherUsersLocations = new ArrayList<GeoPoint>();
-
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        JSONObject value = jsonObject.getJSONObject(key);
-                        Integer latitude = Integer.parseInt(value.getString("latitude"));
-                        Integer longitude = Integer.parseInt(value.getString("longitude"));
-
-                        OtherUsersLocationModel.getInstance().otherUsersLocations.add(new GeoPoint(latitude, longitude));
-                    }
+                    otherUsersLocationModel.setNewJSON( jsonObject.getJSONObject("locations"));
+                    chatModel.setNewJson( jsonObject.getJSONObject("chatMessages"));
                 } catch (Exception e) {
-                    return;
+                    e.printStackTrace();
                 }
+
             }
         });
         request.execute();

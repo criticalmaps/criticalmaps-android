@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- app -->
-    <string name="app_name">Critical Mass Berlin</string>
+    <string name="app_name">critical maps</string>
 
     <!-- nav -->
     <string name="section_map">map</string>

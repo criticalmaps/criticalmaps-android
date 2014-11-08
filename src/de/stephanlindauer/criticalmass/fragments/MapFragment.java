@@ -108,7 +108,7 @@ public class MapFragment extends SuperFragment {
 
         ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
-        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.otherUsersLocations) {
+        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
         }
         final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);

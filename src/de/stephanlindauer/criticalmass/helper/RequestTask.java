@@ -31,7 +31,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
         HttpResponse response;
         String responseString = null;
         try {
-            String requestUrl = "http://criticalmass.stephanlindauer.de/get.php";
+            String requestUrl = "http://api.criticalmaps.net/get.php";
             requestUrl += "?device=" + uniqueDeviceId;
 
             if (currentLocation != null) {
