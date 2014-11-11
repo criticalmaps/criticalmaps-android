@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.helper.TimeToWordStringConverter;
+import de.stephanlindauer.criticalmass.model.ChatModel;
 import de.stephanlindauer.criticalmass.vo.ChatMessage;
 
 import java.text.DateFormat;
@@ -20,14 +21,13 @@ import java.util.TimeZone;
 public class ChatMessageAdapter extends ArrayAdapter<ChatMessage> {
     private Context context;
 
-    private ArrayList<ChatMessage> chatMessages;
+    private ChatModel  chatModel = ChatModel.getInstance();
 
     int layoutResourceId;
     public ChatMessageAdapter(Context context, int layoutResourceId, ArrayList<ChatMessage> chatMessages) {
         super(context, layoutResourceId, chatMessages );
         this.layoutResourceId = layoutResourceId;
         this.context = context;
-        this.chatMessages = chatMessages;
     }
 
     @Override
@@ -43,14 +43,11 @@ public class ChatMessageAdapter extends ArrayAdapter<ChatMessage> {
         DateFormat dateFormatter = DateFormat.getDateTimeInstance( DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault() );
         dateFormatter.setTimeZone(TimeZone.getDefault());
 
+        ArrayList<ChatMessage> chatMessages = chatModel.getChatMessages();
+
         labelView.setText(TimeToWordStringConverter.getTimeAgo(chatMessages.get(position).getTimestamp()));
         valueView.setText(chatMessages.get(position).getMessage());
 
         return rowView;
-    }
-
-
-    public ArrayList<ChatMessage> getChatMessages() {
-        return chatMessages;
     }
 }

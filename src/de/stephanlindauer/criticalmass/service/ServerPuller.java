@@ -70,7 +70,6 @@ public class ServerPuller {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
         request.execute();

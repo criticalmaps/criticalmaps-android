@@ -7,19 +7,20 @@
               android:layout_height="wrap_content"
               android:text="@string/chat_heading"
               android:background="@drawable/border_bottom"
-              android:padding="10dp"            />
+              android:padding="10dp"/>
     <LinearLayout android:layout_width="wrap_content"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                  android:layout_height="0dip"
+                  android:layout_weight="1">
         <ListView android:id="@+id/chat_list"
                   android:layout_width="match_parent"
-                  android:layout_height="fill_parent"
-                  android:drawSelectorOnTop="false"/>
+                  android:layout_height="wrap_content"
+                  android:drawSelectorOnTop="false"
+                  android:orientation="vertical"
+                  android:layout_gravity="bottom"/>
     </LinearLayout>
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="fill_parent"
-                  android:layout_height="wrap_content" android:background="@drawable/border_top"                  >
+                  android:layout_height="wrap_content" android:background="@drawable/border_top">
         <EditText android:id="@+id/chat_edit_message"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
