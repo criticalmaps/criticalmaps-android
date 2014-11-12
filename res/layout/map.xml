@@ -10,6 +10,13 @@
                     android:layout_alignParentRight="true"
                     android:id="@+id/mapContainer">
     </RelativeLayout>
+    <ImageButton android:layout_alignParentRight="true"
+                 android:src="@drawable/ic_action_location_found"
+                 android:gravity="center_vertical|center_horizontal"
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_margin="5dp"
+                 android:id="@+id/setCurrentLocationCenter"/>
     <Button android:layout_alignParentRight="true"
             android:text="@string/map_overlay_tracking_off"
             android:background="#aa540000"
@@ -21,11 +28,4 @@
             android:textSize="22sp"
             android:id="@+id/noTrackingOverlay"
             android:textStyle="bold"/>
-    <ImageButton android:layout_alignParentRight="true"
-                 android:src="@drawable/ic_action_location_found"
-                 android:gravity="center_vertical|center_horizontal"
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:layout_margin="5dp"
-                 android:id="@+id/setCurrentLocationCenter"/>
 </RelativeLayout>
