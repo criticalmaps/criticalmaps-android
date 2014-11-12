@@ -34,7 +34,8 @@ public class SuperFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.actionbar_buttons, menu);
 
-        menu.findItem(R.id.settings_tracking_toggle).setChecked(OwnLocationModel.getInstance().isListeningForLocation);
+        trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
+        trackingToggleButton.setChecked(OwnLocationModel.getInstance().isListeningForLocation);
     }
 
     @Override
