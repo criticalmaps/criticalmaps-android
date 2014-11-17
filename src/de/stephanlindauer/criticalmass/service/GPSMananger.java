@@ -11,10 +11,13 @@ import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNo
 import org.osmdroid.util.GeoPoint;
 
 public class GPSMananger {
+
+    private GeoPoint fallbackLocation = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
+
     private static final float LOCATION_REFRESH_DISTANCE = 30; //meters
     private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
 
-    private OwnLocationModel locationModel = OwnLocationModel.getInstance();
+    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
     private LocationManager locationManager;
 
@@ -30,26 +33,48 @@ public class GPSMananger {
     public void initialize(Activity mContext) {
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         startLocationListening();
+        setLastKnownCoarseLocation();
+    }
+
+    private void setLastKnownCoarseLocation() {
+        Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location lastKnownLocationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Location lastKnownLocationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+        GeoPoint lastKnownLocation;
+
+        if (lastKnownLocationGPS != null) {
+            lastKnownLocation = new GeoPoint(lastKnownLocationGPS.getLatitude(), lastKnownLocationGPS.getLongitude());
+        } else if (lastKnownLocationNetwork != null) {
+            lastKnownLocation = new GeoPoint(lastKnownLocationNetwork.getLatitude(), lastKnownLocationNetwork.getLongitude());
+        } else if (lastKnownLocationPassive != null) {
+            lastKnownLocation = new GeoPoint(lastKnownLocationPassive.getLatitude(), lastKnownLocationPassive.getLongitude());
+        } else {
+            lastKnownLocation = fallbackLocation;
+        }
+
+        ownLocationModel.ownLocationCoarse = lastKnownLocation;
     }
 
     private void startLocationListening() {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
-        locationModel.isListeningForLocation = true;
+        ownLocationModel.isListeningForLocation = true;
         TrackingInfoNotificationSetter.getInstance().show();
     }
 
     private void stopLocationListening() {
         locationManager.removeUpdates(mLocationListener);
-        locationModel.ownLocation = null;
-        locationModel.isListeningForLocation = false;
+        ownLocationModel.ownLocation = null;
+        ownLocationModel.isListeningForLocation = false;
         TrackingInfoNotificationSetter.getInstance().cancel();
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            OwnLocationModel.getInstance().ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+            ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+            ownLocationModel.ownLocationCoarse = new GeoPoint(location.getLatitude(), location.getLongitude());
         }
 
         @Override

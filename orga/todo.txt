@@ -7,7 +7,10 @@ features
  - chat
  - img upload
  - go to current location button
+ - timelapse renderer
+ - twitter
+ - authentication
 
 ideas
  - different teams (red, green, blue)
-
+ -

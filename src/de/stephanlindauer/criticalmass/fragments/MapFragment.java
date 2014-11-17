@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmass.model.OwnLocationModel;
 import de.stephanlindauer.criticalmass.service.GPSMananger;
-import de.stephanlindauer.criticalmass.service.ServerPuller;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -29,7 +29,6 @@ public class MapFragment extends SuperFragment {
 
     private MapView mapView;
 
-    private GeoPoint initialCenter = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
     private DefaultResourceProxyImpl resourceProxy;
 
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
@@ -52,7 +51,6 @@ public class MapFragment extends SuperFragment {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
-        mapView.getController().setCenter(initialCenter);
         mapView.getController().setZoom(12);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
@@ -63,7 +61,7 @@ public class MapFragment extends SuperFragment {
         mapCountainer.addView(mapView);
 
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
-        noTrackingOverlay.setVisibility(OwnLocationModel.getInstance().isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
+        noTrackingOverlay.setVisibility(ownLocationModel.isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 noTrackingOverlay.setVisibility(View.INVISIBLE);
@@ -87,9 +85,16 @@ public class MapFragment extends SuperFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mapView.getController().animateTo(initialCenter);
+                mapView.getController().animateTo(ownLocationModel.ownLocationCoarse);
             }
         }, 200);
+
+        ImageButton setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
+        setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mapView.getController().animateTo(OwnLocationModel.getInstance().ownLocationCoarse);
+            }
+        });
     }
 
     private void refreshView() {

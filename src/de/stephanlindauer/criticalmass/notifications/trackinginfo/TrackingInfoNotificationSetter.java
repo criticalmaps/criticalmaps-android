@@ -31,7 +31,6 @@ public class TrackingInfoNotificationSetter {
     }
 
     public void show() {
-
         Intent dismissIntent = new Intent(context, activity.getClass());
         dismissIntent.setAction("bla");
         dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
