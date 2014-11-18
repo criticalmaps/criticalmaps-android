@@ -96,6 +96,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="eventbus-2.4.0" level="project" />
   </component>
 </module>
 
