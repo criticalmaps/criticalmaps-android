@@ -12,12 +12,14 @@ import org.osmdroid.util.GeoPoint;
 
 public class GPSMananger {
 
-    private GeoPoint fallbackLocation = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
+    //model
+    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
-    private static final float LOCATION_REFRESH_DISTANCE = 30; //meters
+    //const
+    private final GeoPoint FALLBACK_LOCATION = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
+    private final float LOCATION_REFRESH_DISTANCE = 30; //meters
+
     private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
-
-    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
     private LocationManager locationManager;
 
@@ -50,7 +52,7 @@ public class GPSMananger {
         } else if (lastKnownLocationPassive != null) {
             lastKnownLocation = new GeoPoint(lastKnownLocationPassive.getLatitude(), lastKnownLocationPassive.getLongitude());
         } else {
-            lastKnownLocation = fallbackLocation;
+            lastKnownLocation = FALLBACK_LOCATION;
         }
 
         ownLocationModel.ownLocationCoarse = lastKnownLocation;
