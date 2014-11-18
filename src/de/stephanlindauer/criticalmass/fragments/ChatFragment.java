@@ -14,11 +14,6 @@ import de.stephanlindauer.criticalmass.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmass.model.ChatModel;
 import de.stephanlindauer.criticalmass.service.ServerPuller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class ChatFragment extends SuperFragment {
 
     //dependencies
@@ -81,7 +76,7 @@ public class ChatFragment extends SuperFragment {
             @Override
             public void onClick(View v) {
                 String message = editMessageTextfield.getText().toString();
-                serverPuller.addOutGoingMessageAndTriggerRequest( message );
+                serverPuller.addOutGoingMessageAndTriggerRequest(message);
                 editMessageTextfield.setText("");
             }
         });

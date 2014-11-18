@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import de.greenrobot.event.EventBus;
 import de.stephanlindauer.criticalmass.R;
-import de.stephanlindauer.criticalmass.model.OwnLocationModel;
-import de.stephanlindauer.criticalmass.service.GPSMananger;
 import de.stephanlindauer.criticalmass.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmass.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmass.model.OwnLocationModel;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmass.service.GPSMananger;
 
 public class SuperFragment extends Fragment {
 

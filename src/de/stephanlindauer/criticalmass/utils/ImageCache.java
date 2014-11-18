@@ -19,9 +19,20 @@ public enum ImageCache {
     shared;
 
     public static final String TAG = ImageCache.class.getSimpleName();
-
-    public HashMap<String, Bitmap> images;
     public static final String imageCachePath = "/twitter/profile_images/";
+    public HashMap<String, Bitmap> images;
+
+    public static Bitmap decodeSampleBitmapFromFile(@NotNull final String filePath) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+    }
 
     public void loadImage(@NotNull final Context context, @NotNull final String imageUrl, @NotNull final AsyncCallback cb) {
 
@@ -115,17 +126,5 @@ public enum ImageCache {
             }
 
         }.execute();
-    }
-
-    public static Bitmap decodeSampleBitmapFromFile(@NotNull final String filePath) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, options);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filePath, options);
     }
 }

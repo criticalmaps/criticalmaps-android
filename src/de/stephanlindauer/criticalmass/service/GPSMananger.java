@@ -12,19 +12,35 @@ import org.osmdroid.util.GeoPoint;
 
 public class GPSMananger {
 
+    //singleton
+    private static GPSMananger instance;
     //dependencies
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-
     //const
     private final GeoPoint FALLBACK_LOCATION = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
     private final float LOCATION_REFRESH_DISTANCE = 30; //30 meters
     private final long LOCATION_REFRESH_TIME = 30 * 1000; //30 seconds
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+            ownLocationModel.ownLocationCoarse = new GeoPoint(location.getLatitude(), location.getLongitude());
+        }
 
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+        }
+    };
     //misc
     private LocationManager locationManager;
-
-    //singleton
-    private static GPSMananger instance;
 
     public static GPSMananger getInstance() {
         if (GPSMananger.instance == null) {
@@ -72,26 +88,6 @@ public class GPSMananger {
         ownLocationModel.isListeningForLocation = false;
         TrackingInfoNotificationSetter.getInstance().cancel();
     }
-
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-            ownLocationModel.ownLocationCoarse = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-        }
-    };
 
     public void setTrackingUserLocation(boolean shouldBeTracking) {
         if (shouldBeTracking)
