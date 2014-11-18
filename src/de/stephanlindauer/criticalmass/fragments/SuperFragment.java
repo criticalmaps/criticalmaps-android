@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import de.greenrobot.event.EventBus;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.model.OwnLocationModel;
 import de.stephanlindauer.criticalmass.service.GPSMananger;
@@ -113,6 +114,21 @@ public class SuperFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.close).setPositiveButton(R.string.yes, dialogClickListener)
                 .setNegativeButton(R.string.no, dialogClickListener).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    public void onEvent(Object e) {
     }
 }
 
