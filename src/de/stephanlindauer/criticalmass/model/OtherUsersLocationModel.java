@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmass.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;

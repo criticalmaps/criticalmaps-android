@@ -6,13 +6,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class ChatModel {
 
+    private ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+
     //singleton
     private static ChatModel instance;
-    private ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
 
     public static ChatModel getInstance() {
         if (ChatModel.instance == null) {

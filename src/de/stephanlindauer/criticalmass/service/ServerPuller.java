@@ -17,19 +17,24 @@ import java.util.TimerTask;
 
 public class ServerPuller {
 
-    //singleton
-    private static ServerPuller instance;
-    //const
-    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
     //dependencies
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private ChatModel chatModel = ChatModel.getInstance();
+
+    //const
+    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
+
     private Activity activity;
+
     private Timer timerPullServer;
     private TimerTask timerTaskPullServer;
+
     private String uniqueDeviceIdHashed;
     private String message;
     private boolean currentlyRunningARequest = false;
+
+    //singleton
+    private static ServerPuller instance;
 
     public static ServerPuller getInstance() {
         if (ServerPuller.instance == null) {
@@ -90,7 +95,7 @@ public class ServerPuller {
                     otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
                     chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
 
-                    EventBus.getDefault().post(new NewServerResponseEvent());
+                    EventBus.getDefault().post( new NewServerResponseEvent());
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
