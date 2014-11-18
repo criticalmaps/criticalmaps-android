@@ -4,6 +4,9 @@ import de.stephanlindauer.criticalmass.vo.ChatMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class ChatModel {
@@ -19,7 +22,7 @@ public class ChatModel {
         return ChatModel.instance;
     }
 
-    public void setNewJson(JSONObject jsonObject) throws JSONException {
+    public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {
             chatMessages = new ArrayList<ChatMessage>();
         } else {
@@ -30,7 +33,7 @@ public class ChatModel {
         while (keys.hasNext()) {
             String key = keys.next();
             JSONObject value = jsonObject.getJSONObject(key);
-            String message = value.getString("message");
+            String message = URLDecoder.decode(value.getString("message"), "UTF-8");
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
 
             chatMessages.add(new ChatMessage(message, timestamp));
