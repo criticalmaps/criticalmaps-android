@@ -29,6 +29,7 @@
                   android:hint="@string/chat_text"/>
         <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/chat_send"/>
+                android:text="@string/chat_send"
+                android:id="@+id/chat_send_btn"/>
     </LinearLayout>
 </LinearLayout>
