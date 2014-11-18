@@ -8,26 +8,42 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.osmdroid.util.GeoPoint;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URLEncoder;
 
 public class RequestTask extends AsyncTask<String, String, String> {
+
+    public static String ERROR_STRING = "failed!!!";
+
+    public static final int TIME_OUT = 15 * 1000; //30 sec
 
     private final ICommand callback;
     private final String uniqueDeviceId;
     private final GeoPoint currentLocation;
+    private final String message;
 
-    public RequestTask(String uniqueDeviceId, GeoPoint currentLocation, ICommand callback) {
+    public RequestTask(String uniqueDeviceId, GeoPoint currentLocation, String message, ICommand callback) {
         super();
         this.callback = callback;
         this.uniqueDeviceId = uniqueDeviceId;
+        this.message = message;
         this.currentLocation = currentLocation;
     }
 
     @Override
     protected String doInBackground(String... bla) {
-        HttpClient httpclient = new DefaultHttpClient();
+
+        HttpParams httpParams = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
+
+
+        HttpClient httpclient = new DefaultHttpClient(httpParams);
+
         HttpResponse response;
         String responseString = null;
         try {
@@ -37,6 +53,11 @@ public class RequestTask extends AsyncTask<String, String, String> {
             if (currentLocation != null) {
                 requestUrl += "&longitude=" + currentLocation.getLongitudeE6();
                 requestUrl += "&latitude=" + currentLocation.getLatitudeE6();
+            }
+
+            if (message != null) {
+                String urlEncodedMessage = URLEncoder.encode(message, "UTF-8");
+                requestUrl += "&message=" + urlEncodedMessage;
             }
 
             response = httpclient.execute(new HttpGet(requestUrl));
@@ -51,7 +72,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
                 response.getEntity().getContent().close();
             }
         } catch (Exception e) {
-
+            return ERROR_STRING;
         }
         return responseString;
     }
