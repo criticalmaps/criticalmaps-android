@@ -18,8 +18,7 @@ import java.net.URLEncoder;
 
 public class RequestTask extends AsyncTask<String, String, String> {
 
-    public static String ERROR_STRING = "failed!!!";
-
+    public static final String ERROR_STRING = "failed!!!";
     public static final int TIME_OUT = 15 * 1000; //30 sec
 
     private final ICommand callback;

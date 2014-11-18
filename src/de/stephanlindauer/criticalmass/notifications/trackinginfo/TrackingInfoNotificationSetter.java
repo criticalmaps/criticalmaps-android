@@ -11,12 +11,15 @@ import de.stephanlindauer.criticalmass.R;
 
 public class TrackingInfoNotificationSetter {
 
-    public static final int NOTIFICATION_ID = 123456;
-    private static TrackingInfoNotificationSetter instance;
+    //const
+    private final int NOTIFICATION_ID = 123456;
+
     private Context context;
     private Activity activity;
-
     private NotificationManager mNotificationManager;
+
+    //singleton
+    private static TrackingInfoNotificationSetter instance;
 
     public static TrackingInfoNotificationSetter getInstance() {
         if (TrackingInfoNotificationSetter.instance == null) {

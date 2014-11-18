@@ -12,17 +12,18 @@ import org.osmdroid.util.GeoPoint;
 
 public class GPSMananger {
 
-    //model
+    //dependencies
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
     //const
     private final GeoPoint FALLBACK_LOCATION = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
-    private final float LOCATION_REFRESH_DISTANCE = 30; //meters
+    private final float LOCATION_REFRESH_DISTANCE = 30; //30 meters
+    private final long LOCATION_REFRESH_TIME = 30 * 1000; //30 seconds
 
-    private static final long LOCATION_REFRESH_TIME = 30000; //milliseconds
-
+    //misc
     private LocationManager locationManager;
 
+    //singleton
     private static GPSMananger instance;
 
     public static GPSMananger getInstance() {

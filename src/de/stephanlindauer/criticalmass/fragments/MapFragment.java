@@ -28,12 +28,15 @@ import java.util.TimerTask;
 
 public class MapFragment extends SuperFragment {
 
-    private MapView mapView;
-
-    private DefaultResourceProxyImpl resourceProxy;
-
+    //dependencies
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
+
+    //view
+    private MapView mapView;
+
+    //misc
+    private DefaultResourceProxyImpl resourceProxy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +89,7 @@ public class MapFragment extends SuperFragment {
         });
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(NewServerResponseEvent e) {
         refreshView();
     }
@@ -97,7 +101,6 @@ public class MapFragment extends SuperFragment {
     }
 
     private void refreshView() {
-
         for (Overlay element : mapView.getOverlays()) {
             mapView.getOverlays().remove(element);
         }

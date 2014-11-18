@@ -11,9 +11,10 @@ import java.util.*;
 
 public class ChatModel {
 
-    private static ChatModel instance;
-
     private ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+
+    //singleton
+    private static ChatModel instance;
 
     public static ChatModel getInstance() {
         if (ChatModel.instance == null) {

@@ -21,14 +21,20 @@ import java.util.TimerTask;
 
 public class ChatFragment extends SuperFragment {
 
-    private View chatView;
-    private ChatMessageAdapter chatMessageAdapter;
-    private ChatModel chatModel = ChatModel.getInstance();
-    private ServerPuller serverPuller = ServerPuller.getInstance();
-    private ListView chatListView;
-    private boolean isScrolling = false;
+    //dependencies
+    private final ChatModel chatModel = ChatModel.getInstance();
+    private final ServerPuller serverPuller = ServerPuller.getInstance();
 
-    EditText editMessageTextfield;
+    //view
+    private View chatView;
+    private EditText editMessageTextfield;
+    private ListView chatListView;
+
+    //adapter
+    private ChatMessageAdapter chatMessageAdapter;
+
+    //misc
+    private boolean isScrolling = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +87,7 @@ public class ChatFragment extends SuperFragment {
         });
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(NewServerResponseEvent e) {
         refreshView();
     }

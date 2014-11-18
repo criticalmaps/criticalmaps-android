@@ -22,7 +22,7 @@ import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNo
 public class SuperFragment extends Fragment {
 
     protected MenuItem trackingToggleButton;
-    protected static Button noTrackingOverlay;
+    protected Button noTrackingOverlay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,6 +128,7 @@ public class SuperFragment extends Fragment {
         super.onPause();
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(Object e) {
     }
 }

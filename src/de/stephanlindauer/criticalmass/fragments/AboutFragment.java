@@ -12,8 +12,6 @@ import de.stephanlindauer.criticalmass.R;
 
 public class AboutFragment extends SuperFragment {
 
-    private FragmentActivity activity;
-    private Intent websiteIntent;
     private View.OnClickListener clickListerner = new View.OnClickListener() {
         public void onClick(View view) {
             String url = getUrlForId(view.getId());

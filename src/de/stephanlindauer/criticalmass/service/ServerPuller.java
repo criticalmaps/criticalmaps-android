@@ -17,12 +17,12 @@ import java.util.TimerTask;
 
 public class ServerPuller {
 
-    //model
+    //dependencies
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private ChatModel chatModel = ChatModel.getInstance();
 
     //const
-    public static final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
+    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
 
     private Activity activity;
 
@@ -31,10 +31,9 @@ public class ServerPuller {
 
     private String uniqueDeviceIdHashed;
     private String message;
+    private boolean currentlyRunningARequest = false;
 
-
-    boolean currentlyRunningARequest = false;
-
+    //singleton
     private static ServerPuller instance;
 
     public static ServerPuller getInstance() {

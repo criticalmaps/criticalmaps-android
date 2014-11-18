@@ -1,24 +1,26 @@
 package de.stephanlindauer.criticalmass;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmass.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmass.helper.CustomViewPager;
-import de.stephanlindauer.criticalmass.service.GPSMananger;
-import de.stephanlindauer.criticalmass.service.ServerPuller;
 import de.stephanlindauer.criticalmass.helper.SelfDestructor;
 import de.stephanlindauer.criticalmass.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmass.notifications.trackinginfo.TrackingInfoNotificationSetter;
-import de.stephanlindauer.criticalmass.vo.City;
+import de.stephanlindauer.criticalmass.service.GPSMananger;
+import de.stephanlindauer.criticalmass.service.ServerPuller;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
-    public static final String TAG = "CriticalMass";
+    //dependencies
+    private final TrackingInfoNotificationSetter trackingInfoNotificationSetter = TrackingInfoNotificationSetter.getInstance();
+    private final ServerPuller serverPuller = ServerPuller.getInstance();
+    private final GPSMananger gpsMananger = GPSMananger.getInstance();
+
+    //misc
     CustomViewPager viewPager;
 
     @Override
@@ -31,10 +33,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         initialiteNotifications();
         initializeSelfDestructor();
 
-        ServerPuller.getInstance().initialize(this);
-        GPSMananger.getInstance().initialize( this );
-
-//        showCityChooserDialog();
+        serverPuller.initialize(this);
+        gpsMananger.initialize(this);
     }
 
     private void initializeSelfDestructor() {
@@ -45,15 +45,14 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
         reminderNotificationSetter.execute();
 
-        TrackingInfoNotificationSetter.getInstance().initialize(getBaseContext(), this);
-        TrackingInfoNotificationSetter.getInstance().show();
+        trackingInfoNotificationSetter.initialize(getBaseContext(), this);
+        trackingInfoNotificationSetter.show();
     }
 
     private void setupViewPager() {
         viewPager = (CustomViewPager) findViewById(R.id.pager);
 
-        final ActionBar actionBar = getActionBar();
-        assert actionBar != null;
+        ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
@@ -65,20 +64,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
 
         registerListenersForSwipedChanges(actionBar);
-    }
-
-    private void showCityChooserDialog() {
-
-        final AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        ad.setTitle(getBaseContext().getString(R.string.city_chooser_title));
-        ad.setItems(City.getAvailableCities(), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                System.out.println();
-            }
-        });
-
-        ad.show();
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {
