@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import de.stephanlindauer.criticalmass.R;
+import de.stephanlindauer.criticalmass.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmass.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmass.model.OwnLocationModel;
 import de.stephanlindauer.criticalmass.service.GPSMananger;
@@ -70,18 +71,6 @@ public class MapFragment extends SuperFragment {
             }
         });
 
-        Timer timerRefreshView = new Timer();
-        TimerTask timerTaskRefreshView = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    refreshView();
-                } catch (Exception e) {
-                }
-            }
-        };
-        timerRefreshView.scheduleAtFixedRate(timerTaskRefreshView, 2000, 10 * 1000);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -97,7 +86,18 @@ public class MapFragment extends SuperFragment {
         });
     }
 
+    public void onEvent(NewServerResponseEvent e) {
+        refreshView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshView();
+    }
+
     private void refreshView() {
+
         for (Overlay element : mapView.getOverlays()) {
             mapView.getOverlays().remove(element);
         }

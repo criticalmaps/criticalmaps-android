@@ -5,13 +5,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import de.stephanlindauer.criticalmass.R;
 import de.stephanlindauer.criticalmass.adapter.ChatMessageAdapter;
+import de.stephanlindauer.criticalmass.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmass.model.ChatModel;
-import de.stephanlindauer.criticalmass.vo.ChatMessage;
+import de.stephanlindauer.criticalmass.service.ServerPuller;
 
-import java.util.Date;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,8 +24,11 @@ public class ChatFragment extends SuperFragment {
     private View chatView;
     private ChatMessageAdapter chatMessageAdapter;
     private ChatModel chatModel = ChatModel.getInstance();
+    private ServerPuller serverPuller = ServerPuller.getInstance();
     private ListView chatListView;
     private boolean isScrolling = false;
+
+    EditText editMessageTextfield;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,18 +68,21 @@ public class ChatFragment extends SuperFragment {
             }
         });
 
+        editMessageTextfield = (EditText) getActivity().findViewById(R.id.chat_edit_message);
 
-        Timer timerRefreshView = new Timer();
-        TimerTask timerTaskRefreshView = new TimerTask() {
+        Button sendButton = (Button) getActivity().findViewById(R.id.chat_send_btn);
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                try {
-                    refreshView();
-                } catch (Exception e) {
-                }
+            public void onClick(View v) {
+                String message = editMessageTextfield.getText().toString();
+                serverPuller.addOutGoingMessageAndTriggerRequest( message );
+                editMessageTextfield.setText("");
             }
-        };
-        timerRefreshView.scheduleAtFixedRate(timerTaskRefreshView, 0, 20 * 1000);
+        });
+    }
+
+    public void onEvent(NewServerResponseEvent e) {
+        refreshView();
     }
 
     private void refreshView() {
@@ -83,7 +93,6 @@ public class ChatFragment extends SuperFragment {
 
                 if (!isScrolling)
                     chatListView.setSelection(chatListView.getCount());
-
             }
         });
     }
