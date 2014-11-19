@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<de.stephanlindauer.criticalmass.helper.CustomViewPager
+<de.stephanlindauer.criticalmaps.helper.CustomViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
