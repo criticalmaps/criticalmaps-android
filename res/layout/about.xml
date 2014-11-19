@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:background="#ff383838"
+              android:background="#ffffffff"
               android:layout_weight="1"
               android:orientation="vertical">
     <ScrollView
@@ -17,17 +17,18 @@
             <TextView
                     android:text="social krams"
                     style="@style/about_heading"/>
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
                 <Button
                         android:drawableTop="@drawable/facebook"
                         android:gravity="left|center_vertical"
                         android:id="@+id/about_facebook"
                         style="@style/about_button"/>
                 <Button
-                    android:drawableTop="@drawable/twitter"
-                    android:gravity="left|center_vertical"
-                    android:id="@+id/about_twitter"
-                    style="@style/about_button"/>
+                        android:drawableTop="@drawable/twitter"
+                        android:gravity="left|center_vertical"
+                        android:id="@+id/about_twitter"
+                        style="@style/about_button"/>
             </LinearLayout>
             <TextView
                     android:text="website"
@@ -51,18 +52,7 @@
                     android:text="github.com/stephanlindauer/criticalmass-berlin"
                     android:autoLink="web"
                     style="@style/about_content"/>
-            <TextView
-                    android:text="@string/about_help"
-                    style="@style/about_heading"/>
-<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-            <Button
-                    android:drawableTop="@drawable/paypal"
-                    android:id="@+id/about_paypal"
-                    android:gravity="left|center_vertical"
-                    style="@style/about_button"/>
-</LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 </LinearLayout>
 
