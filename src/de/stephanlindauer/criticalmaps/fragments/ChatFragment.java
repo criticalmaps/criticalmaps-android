@@ -13,6 +13,7 @@ import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.service.ServerPuller;
+import de.stephanlindauer.criticalmaps.vo.OutgoingChatMessage;
 
 public class ChatFragment extends SuperFragment {
 
@@ -76,7 +77,7 @@ public class ChatFragment extends SuperFragment {
             @Override
             public void onClick(View v) {
                 String message = editMessageTextfield.getText().toString();
-                serverPuller.addOutGoingMessageAndTriggerRequest( message );
+                chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
                 editMessageTextfield.setText("");
             }
         });

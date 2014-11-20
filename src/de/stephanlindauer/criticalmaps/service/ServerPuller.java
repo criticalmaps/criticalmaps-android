@@ -1,37 +1,56 @@
 package de.stephanlindauer.criticalmaps.service;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.provider.Settings;
+import com.crashlytics.android.Crashlytics;
 import de.greenrobot.event.EventBus;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.helper.AeSimpleSHA1;
-import de.stephanlindauer.criticalmaps.helper.ICommand;
-import de.stephanlindauer.criticalmaps.helper.RequestTask;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ServerPuller {
 
+    //const
+    public static final int TIME_OUT = 15 * 1000; //15 sec
+    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
+
     //dependencies
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private ChatModel chatModel = ChatModel.getInstance();
+    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
-    //const
-    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
-
+    //misc
     private Activity activity;
-
     private Timer timerPullServer;
     private TimerTask timerTaskPullServer;
 
     private String uniqueDeviceIdHashed;
     private String message;
-    private boolean currentlyRunningARequest = false;
 
     //singleton
     private static ServerPuller instance;
@@ -79,31 +98,68 @@ public class ServerPuller {
     }
 
     private void pullServer() {
+        final HttpPost postRequest = new HttpPost("http://api.criticalmaps.net/post");
+        ArrayList<NameValuePair> postParams = new ArrayList<NameValuePair>(2);
 
-        if (currentlyRunningARequest == true)
-            return;
+        postParams.add(new BasicNameValuePair("device", uniqueDeviceIdHashed));
 
-        currentlyRunningARequest = true;
+        if (ownLocationModel.ownLocation != null) {
+            postParams.add(new BasicNameValuePair("longitude", Integer.toString(ownLocationModel.ownLocation.getLongitudeE6())));
+            postParams.add(new BasicNameValuePair("latitude", Integer.toString(ownLocationModel.ownLocation.getLatitudeE6())));
+        }
 
-        RequestTask request = new RequestTask(uniqueDeviceIdHashed, OwnLocationModel.getInstance().ownLocation, message, new ICommand() {
-            public void execute(String... payload) {
+        if (chatModel.hasOutgoingMessages()) {
+            String urlEncodedMessages = chatModel.getOutgoingMessagesAsJson().toString();
+            postParams.add(new BasicNameValuePair("messages", urlEncodedMessages));
+        }
+
+        final HttpParams httpParams = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
+
+        try {
+            postRequest.setEntity(new UrlEncodedFormEntity( postParams ));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        final HttpClient httpClient = new DefaultHttpClient(httpParams);
+
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String responseString = "";
                 try {
-                    if (payload[0] == RequestTask.ERROR_STRING)
-                        throw new Exception();
+                    HttpResponse response = httpClient.execute(postRequest);
+                    StatusLine statusLine = response.getStatusLine();
+                    if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+                        response.getEntity().writeTo(out);
+                        out.close();
+                        responseString = out.toString();
+                    } else {
+                        response.getEntity().getContent().close();
+                    }
+                } catch (IOException e) {
+                    Crashlytics.logException(e);
+                }
+                return responseString;
+            }
 
-                    JSONObject jsonObject = new JSONObject(payload[0]);
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                JSONObject jsonObject;
+                try {
+                    jsonObject = new JSONObject(result);
                     otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
                     chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
-
-                    EventBus.getDefault().post( new NewServerResponseEvent());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    currentlyRunningARequest = false;
+                } catch (JSONException e) {
+                    Crashlytics.logException(e);
+                } catch (UnsupportedEncodingException e) {
+                    Crashlytics.logException(e);
                 }
+                EventBus.getDefault().post(new NewServerResponseEvent());
             }
-        });
-
-        request.execute();
+        }.execute();
     }
 }

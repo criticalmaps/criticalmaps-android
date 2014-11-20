@@ -41,7 +41,7 @@ public class AboutFragment extends SuperFragment {
     }
 
     private String getUrlForId(int id) {
-        String url = "";
+        String url;
 
         switch (id) {
             case R.id.about_facebook:

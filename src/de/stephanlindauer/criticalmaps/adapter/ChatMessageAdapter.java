@@ -9,20 +9,20 @@ import android.widget.TextView;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.helper.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
-import de.stephanlindauer.criticalmaps.vo.ChatMessage;
+import de.stephanlindauer.criticalmaps.vo.ReceivedChatMessage;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class ChatMessageAdapter extends ArrayAdapter<ChatMessage> {
+public class ChatMessageAdapter extends ArrayAdapter<ReceivedChatMessage> {
     private Context context;
 
     private ChatModel  chatModel = ChatModel.getInstance();
 
     int layoutResourceId;
-    public ChatMessageAdapter(Context context, int layoutResourceId, ArrayList<ChatMessage> chatMessages) {
+    public ChatMessageAdapter(Context context, int layoutResourceId, ArrayList<ReceivedChatMessage> chatMessages) {
         super(context, layoutResourceId, chatMessages );
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -41,7 +41,7 @@ public class ChatMessageAdapter extends ArrayAdapter<ChatMessage> {
         DateFormat dateFormatter = DateFormat.getDateTimeInstance( DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault() );
         dateFormatter.setTimeZone(TimeZone.getDefault());
 
-        ArrayList<ChatMessage> chatMessages = chatModel.getChatMessages();
+        ArrayList<ReceivedChatMessage> chatMessages = chatModel.getChatMessages();
 
         labelView.setText(TimeToWordStringConverter.getTimeAgo(chatMessages.get(position).getTimestamp()));
         valueView.setText(chatMessages.get(position).getMessage());

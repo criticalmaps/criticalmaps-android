@@ -1,6 +1,9 @@
 package de.stephanlindauer.criticalmaps.model;
 
-import de.stephanlindauer.criticalmaps.vo.ChatMessage;
+import com.crashlytics.android.Crashlytics;
+import de.stephanlindauer.criticalmaps.vo.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.vo.ReceivedChatMessage;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,7 +13,8 @@ import java.util.*;
 
 public class ChatModel {
 
-    private ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+    private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<ReceivedChatMessage>();
+    private ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
     //singleton
     private static ChatModel instance;
@@ -24,7 +28,7 @@ public class ChatModel {
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {
-            chatMessages = new ArrayList<ChatMessage>();
+            chatMessages = new ArrayList<ReceivedChatMessage>();
         } else {
             chatMessages.clear();
         }
@@ -35,21 +39,41 @@ public class ChatModel {
             JSONObject value = jsonObject.getJSONObject(key);
             String message = URLDecoder.decode(value.getString("message"), "UTF-8");
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
+            String identifier = key;
+            //TODO remove via identifyer
 
-            chatMessages.add(new ChatMessage(message, timestamp));
+            chatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
 
-        Collections.sort(chatMessages, new Comparator<ChatMessage>() {
+        Collections.sort(chatMessages, new Comparator<ReceivedChatMessage>() {
             @Override
-            public int compare(ChatMessage oneChatMessages, ChatMessage otherChatMessage) {
+            public int compare(ReceivedChatMessage oneChatMessages, ReceivedChatMessage otherChatMessage) {
                 return oneChatMessages.getTimestamp().compareTo(otherChatMessage.getTimestamp());
             }
         });
     }
 
-    public ArrayList<ChatMessage> getChatMessages() {
+    public void setNewOutgoingMessage(OutgoingChatMessage newOutgoingMessage) {
+        outgoingMassages.add(newOutgoingMessage);
+    }
+
+    public JSONObject getOutgoingMessagesAsJson() {
+        JSONObject jsonObject = new JSONObject();
+        for (OutgoingChatMessage outgoingChatMessage : outgoingMassages) {
+            try {
+                jsonObject.put(outgoingChatMessage.getIdentifier(), outgoingChatMessage.getUrlEncodedMessage() );
+            } catch (JSONException e) {
+                Crashlytics.logException(e);
+            }
+        }
+        return jsonObject;
+    }
+
+    public ArrayList<ReceivedChatMessage> getChatMessages() {
         return chatMessages;
     }
 
-
+    public boolean hasOutgoingMessages() {
+        return outgoingMassages.size() > 0;
+    }
 }
