@@ -65,7 +65,7 @@ public class SuperFragment extends Fragment {
         Intent Email = new Intent(Intent.ACTION_SEND);
         Email.setType("text/email");
         Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephan.lindauer@gmail.com"});
-        Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical mass app");
+        Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps");
         Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(getActivity().getPackageManager(), getActivity().getPackageName()));
         startActivity(Intent.createChooser(Email, "Send Feedback:"));
     }

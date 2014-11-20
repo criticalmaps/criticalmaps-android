@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import com.crashlytics.android.Crashlytics;
+import com.splunk.mint.Mint;
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.helper.SelfDestructor;
@@ -26,6 +28,10 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Crashlytics.start(this);
+        Mint.initAndStartSession(this, "6b8d313e");
+
         setContentView(R.layout.main);
 
         setupViewPager();

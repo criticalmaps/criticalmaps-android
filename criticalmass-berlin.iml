@@ -87,6 +87,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="eventbus-2.4.0" level="project" />
+    <orderEntry type="library" name="mint-4.0.6" level="project" />
     <orderEntry type="module-library">
       <library name="Crashlytics">
         <CLASSES>
@@ -96,7 +98,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="eventbus-2.4.0" level="project" />
   </component>
 </module>
 
