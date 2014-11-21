@@ -1,10 +1,10 @@
-package de.stephanlindauer.criticalmaps.vo;
+package de.stephanlindauer.criticalmaps.vo.chat;
 
 import de.stephanlindauer.criticalmaps.helper.AeSimpleSHA1;
 
 import java.util.Date;
 
-public class ReceivedChatMessage {
+public class ReceivedChatMessage implements IChatMessage {
 
     private final Date timestamp;
     private final String message;

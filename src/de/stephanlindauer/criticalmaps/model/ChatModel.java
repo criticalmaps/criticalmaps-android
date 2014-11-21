@@ -1,9 +1,9 @@
 package de.stephanlindauer.criticalmaps.model;
 
 import com.crashlytics.android.Crashlytics;
-import de.stephanlindauer.criticalmaps.vo.OutgoingChatMessage;
-import de.stephanlindauer.criticalmaps.vo.ReceivedChatMessage;
-import org.json.JSONArray;
+import de.stephanlindauer.criticalmaps.vo.chat.IChatMessage;
+import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +40,13 @@ public class ChatModel {
             String message = URLDecoder.decode(value.getString("message"), "UTF-8");
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
             String identifier = key;
-            //TODO remove via identifyer
+
+            for (int i = outgoingMassages.size() - 1; i > -1; i--) {
+                OutgoingChatMessage outgoingMessageToMaybeDelete = outgoingMassages.get(i);
+                if (outgoingMessageToMaybeDelete.getIdentifier().equals(identifier)) {
+                    outgoingMassages.remove(i);
+                }
+            }
 
             chatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
@@ -61,7 +67,7 @@ public class ChatModel {
         JSONObject jsonObject = new JSONObject();
         for (OutgoingChatMessage outgoingChatMessage : outgoingMassages) {
             try {
-                jsonObject.put(outgoingChatMessage.getIdentifier(), outgoingChatMessage.getUrlEncodedMessage() );
+                jsonObject.put(outgoingChatMessage.getIdentifier(), outgoingChatMessage.getUrlEncodedMessage());
             } catch (JSONException e) {
                 Crashlytics.logException(e);
             }
@@ -69,8 +75,11 @@ public class ChatModel {
         return jsonObject;
     }
 
-    public ArrayList<ReceivedChatMessage> getChatMessages() {
-        return chatMessages;
+    public ArrayList<IChatMessage> getSavedAndOutgoingMessages() {
+        ArrayList<IChatMessage> mergeArrayList = new ArrayList<IChatMessage>();
+        mergeArrayList.addAll(chatMessages);
+        mergeArrayList.addAll(outgoingMassages);
+        return mergeArrayList;
     }
 
     public boolean hasOutgoingMessages() {

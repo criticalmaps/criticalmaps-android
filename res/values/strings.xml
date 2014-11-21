@@ -69,10 +69,9 @@
 
     <string name="city_chooser_title">In welcher Stadt bist du?</string>
     <string name="section_chat">chat</string>
-    <string name="chat_heading">Du bist im Chatraum der Stadt Berlin. Nachrichten werden nach 30 Minuten wieder
-        gelöscht.
-    </string>
+    <string name="chat_heading">Nachrichten werden nach 30 Minuten wieder gelöscht.</string>
     <string name="chat_send">Senden</string>
     <string name="chat_text">Du hast 255 Zeichen...</string>
+    <string name="sending">sende...</string>
 
 </resources>

@@ -13,7 +13,7 @@ import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.service.ServerPuller;
-import de.stephanlindauer.criticalmaps.vo.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 
 public class ChatFragment extends SuperFragment {
 
@@ -44,7 +44,7 @@ public class ChatFragment extends SuperFragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        chatMessageAdapter = new ChatMessageAdapter(getActivity(), R.layout.chatmessage, chatModel.getChatMessages());
+        chatMessageAdapter = new ChatMessageAdapter(getActivity(), R.layout.chatmessage, chatModel.getSavedAndOutgoingMessages());
 
         chatListView = (ListView) getActivity().findViewById(R.id.chat_list);
         chatListView.setAdapter(chatMessageAdapter);
@@ -77,8 +77,18 @@ public class ChatFragment extends SuperFragment {
             @Override
             public void onClick(View v) {
                 String message = editMessageTextfield.getText().toString();
+
+                if (message.equals(""))
+                    return;
+
                 chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
+
                 editMessageTextfield.setText("");
+                chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
+                chatListView.setAdapter(chatMessageAdapter);
+
+                if (!isScrolling)
+                    chatListView.setSelection(chatListView.getCount());
             }
         });
     }
@@ -91,7 +101,7 @@ public class ChatFragment extends SuperFragment {
     private void refreshView() {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                chatMessageAdapter = new ChatMessageAdapter(getActivity(), R.layout.chatmessage, chatModel.getChatMessages());
+                chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
                 chatListView.setAdapter(chatMessageAdapter);
 
                 if (!isScrolling)

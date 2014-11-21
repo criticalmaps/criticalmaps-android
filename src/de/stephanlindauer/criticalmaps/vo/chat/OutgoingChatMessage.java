@@ -1,21 +1,21 @@
-package de.stephanlindauer.criticalmaps.vo;
+package de.stephanlindauer.criticalmaps.vo.chat;
 
 import com.crashlytics.android.Crashlytics;
 import de.stephanlindauer.criticalmaps.helper.AeSimpleSHA1;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 
-public class OutgoingChatMessage {
+public class OutgoingChatMessage extends IChatMessage {
 
     private final Date timestamp;
     private final String urlEncodedMessage;
     private final String identifier;
+    private final String message;
 
     public OutgoingChatMessage(String message) {
+        this.message = message;
         this.urlEncodedMessage = urlEncodeMessage(message);
         this.timestamp = new Date();
         this.identifier = AeSimpleSHA1.SHA1(message + Math.random());
@@ -27,6 +27,10 @@ public class OutgoingChatMessage {
 
     public String getUrlEncodedMessage() {
         return urlEncodedMessage;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public String getIdentifier() {
@@ -41,6 +45,4 @@ public class OutgoingChatMessage {
         }
         return "";
     }
-
-
 }
