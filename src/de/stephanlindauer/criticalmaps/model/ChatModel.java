@@ -41,6 +41,7 @@ public class ChatModel {
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
             String identifier = key;
 
+            //fori going backwards to delete without side-effects
             for (int i = outgoingMassages.size() - 1; i > -1; i--) {
                 OutgoingChatMessage outgoingMessageToMaybeDelete = outgoingMassages.get(i);
                 if (outgoingMessageToMaybeDelete.getIdentifier().equals(identifier)) {
