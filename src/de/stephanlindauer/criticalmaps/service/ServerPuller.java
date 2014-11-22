@@ -109,7 +109,7 @@ public class ServerPuller {
         }
 
         if (chatModel.hasOutgoingMessages()) {
-            String urlEncodedMessages = chatModel.getOutgoingMessagesAsJson().toString();
+            String urlEncodedMessages = chatModel.getOutgoingMessagesAsJson( uniqueDeviceIdHashed ).toString();
             postParams.add(new BasicNameValuePair("messages", urlEncodedMessages));
         }
 

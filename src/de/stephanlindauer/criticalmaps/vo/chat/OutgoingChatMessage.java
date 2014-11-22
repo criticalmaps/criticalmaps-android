@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 
-public class OutgoingChatMessage extends IChatMessage {
+public class OutgoingChatMessage implements IChatMessage {
 
     private final Date timestamp;
     private final String urlEncodedMessage;

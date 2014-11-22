@@ -63,11 +63,20 @@ public class ChatModel {
         outgoingMassages.add(newOutgoingMessage);
     }
 
-    public JSONObject getOutgoingMessagesAsJson() {
+    public JSONObject getOutgoingMessagesAsJson(String uniqueDeviceIdHashed) {
         JSONObject jsonObject = new JSONObject();
-        for (OutgoingChatMessage outgoingChatMessage : outgoingMassages) {
+        Integer counter = 0;
+
+        for (int i = 0; i < outgoingMassages.size(); i++) {
+            OutgoingChatMessage outgoingChatMessage = outgoingMassages.get(i);
             try {
-                jsonObject.put(outgoingChatMessage.getIdentifier(), outgoingChatMessage.getUrlEncodedMessage());
+                JSONObject messageObject = new JSONObject();
+                messageObject.put("text", outgoingChatMessage.getUrlEncodedMessage());
+                messageObject.put("timestamp", outgoingChatMessage.getTimestamp().getTime());
+                messageObject.put("uniqueDeviceIdHashed", uniqueDeviceIdHashed);
+                messageObject.put("identifier", outgoingChatMessage.getIdentifier());
+                jsonObject.put(counter.toString(), messageObject);
+                counter++;
             } catch (JSONException e) {
                 Crashlytics.logException(e);
             }
