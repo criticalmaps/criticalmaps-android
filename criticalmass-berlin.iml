@@ -87,12 +87,28 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="eventbus-2.4.0" level="project" />
-    <orderEntry type="library" name="mint-4.0.6" level="project" />
     <orderEntry type="module-library">
-      <library name="Crashlytics">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/mint-4.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/crashlytics.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/otto-1.3.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

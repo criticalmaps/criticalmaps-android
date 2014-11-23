@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import com.crashlytics.android.Crashlytics;
-import de.greenrobot.event.EventBus;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.helper.AeSimpleSHA1;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
@@ -28,7 +27,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,9 +38,10 @@ public class ServerPuller {
     private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
 
     //dependencies
-    private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
-    private ChatModel chatModel = ChatModel.getInstance();
-    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+    private final OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
+    private final ChatModel chatModel = ChatModel.getInstance();
+    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+    private final EventService eventService = EventService.getInstance();
 
     //misc
     private Activity activity;
@@ -109,7 +108,7 @@ public class ServerPuller {
         }
 
         if (chatModel.hasOutgoingMessages()) {
-            String urlEncodedMessages = chatModel.getOutgoingMessagesAsJson( uniqueDeviceIdHashed ).toString();
+            String urlEncodedMessages = chatModel.getOutgoingMessagesAsJson(uniqueDeviceIdHashed).toString();
             postParams.add(new BasicNameValuePair("messages", urlEncodedMessages));
         }
 
@@ -117,7 +116,7 @@ public class ServerPuller {
         HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
 
         try {
-            postRequest.setEntity(new UrlEncodedFormEntity( postParams ));
+            postRequest.setEntity(new UrlEncodedFormEntity(postParams));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -158,7 +157,7 @@ public class ServerPuller {
                 } catch (UnsupportedEncodingException e) {
                     Crashlytics.logException(e);
                 }
-                EventBus.getDefault().post(new NewServerResponseEvent());
+                eventService.post(new NewServerResponseEvent());
             }
         }.execute();
     }

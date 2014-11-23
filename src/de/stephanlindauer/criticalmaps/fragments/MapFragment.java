@@ -9,10 +9,12 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -29,6 +31,7 @@ public class MapFragment extends SuperFragment {
     //dependencies
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
+    private EventService eventService = EventService.getInstance();
 
     //view
     private MapView mapView;
@@ -87,8 +90,8 @@ public class MapFragment extends SuperFragment {
         });
     }
 
-    @SuppressWarnings("unused")
-    public void onEvent(NewServerResponseEvent e) {
+    @Subscribe
+    public void handleNewServerData(NewServerResponseEvent e) {
         refreshView();
     }
 
@@ -96,6 +99,13 @@ public class MapFragment extends SuperFragment {
     public void onResume() {
         super.onResume();
         refreshView();
+        eventService.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        eventService.unregister(this);
     }
 
     private void refreshView() {

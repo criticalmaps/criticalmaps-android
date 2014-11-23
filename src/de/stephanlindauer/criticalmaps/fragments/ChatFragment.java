@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
+import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.ServerPuller;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 
@@ -20,6 +22,7 @@ public class ChatFragment extends SuperFragment {
     //dependencies
     private final ChatModel chatModel = ChatModel.getInstance();
     private final ServerPuller serverPuller = ServerPuller.getInstance();
+    private final EventService eventService = EventService.getInstance();
 
     //view
     private View chatView;
@@ -93,10 +96,7 @@ public class ChatFragment extends SuperFragment {
         });
     }
 
-    @SuppressWarnings("unused")
-    public void onEvent(NewServerResponseEvent e) {
-        refreshView();
-    }
+
 
     private void refreshView() {
         getActivity().runOnUiThread(new Runnable() {
@@ -108,5 +108,23 @@ public class ChatFragment extends SuperFragment {
                     chatListView.setSelection(chatListView.getCount());
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshView();
+        eventService.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        eventService.unregister(this);
+    }
+
+    @Subscribe
+     public void handleNewServerData(NewServerResponseEvent e){
+          refreshView();
     }
 }
