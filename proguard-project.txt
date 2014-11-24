@@ -32,3 +32,9 @@
 -dontwarn com.google.code.**
 -dontwarn oauth.signpost.**
 -dontwarn twitter4j.**
+
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @com.squareup.otto.Subscribe public *;
+    @com.squareup.otto.Produce public *;
+}
