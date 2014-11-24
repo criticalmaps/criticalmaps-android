@@ -2,3 +2,10 @@
         had to write several emails
         app is still not back in the google play store
 19.11.  more emails to google and forum research on how to get the app back up as frictionless as possible
+20.11.  reinstalled crahlytics and added bugsense aka splunk/mint
+21.11.  made sending and receiving chat messages possible via the normal server pulling
+22.11.  fixed eventbus issues
+        wrote blog post about how much google sucks
+        added a new app on google play (description, screenshot and so on...)
+24.11.  fixed compiler issues with removed subscriber methods
+        localization en + de
