@@ -5,73 +5,80 @@
 
     <!-- nav -->
     <string name="section_map">map</string>
-    <string name="section_rules">knigge</string>
+    <string name="section_rules">rules</string>
     <string name="section_twitter">twitter</string>
     <string name="section_about">about</string>
+    <string name="section_chat">chat</string>
 
     <!-- close -->
-    <string name="close">App wirklich beenden?</string>
-    <string name="yes">ja</string>
-    <string name="no">nein</string>
+    <string name="close">really close the app?</string>
+    <string name="yes">yea</string>
+    <string name="no">nope</string>
 
     <!-- acivity bar -->
     <string name="tracking">tracking</string>
     <string name="close_button">close</string>
     <string name="feedback">feedback</string>
-    <string name="datenschutz">datenschutzerklärung</string>
+    <string name="datenschutz">privacy policy</string>
 
     <!-- map -->
-    <string name="notification_tracking_title">Location wird getrackt</string>
-    <string name="notification_tracking_text">Zum Deaktivieren: Öffne die App und deaktiviere das Tracking über
-        Einstellungen oder schließe die App über den X-Button.
+    <string name="notification_tracking_title">location is being tracked</string>
+    <string name="notification_tracking_text">to deactivate: open the app and switch tracking off via the settings
+        button
+        or close it via the x-button.
     </string>
-    <string name="map_overlay_tracking_off">Tracking ist deaktiviert. \n
-        Aktiviere Tracking, um die anderen Fahrer*innen sehen zu können. \n\n
-        Tappe einfach hier drauf!
+    <string name="map_overlay_tracking_off">tracking ist turned off. \n
+        activate tracking to be able to see all other cyclists \n\n
+        just tap here!
     </string>
 
     <!-- rules -->
-    <string name="rules_corken">Corken!?</string>
-    <string name="rules_corken_explain">Schütze Autofahrer vor sich selbst durch corken!</string>
+    <string name="rules_corken">corking!?</string>
+    <string name="rules_corken_explain">protect motorists from themselves by corking!</string>
 
-    <string name="rules_oncoming_traffic">Gegenverkehr</string>
-    <string name="rules_oncoming_traffic_explain">Verzichte darauf auf der Gegenfahrbahn zu fahren.</string>
+    <string name="rules_oncoming_traffic">oncoming traffic</string>
+    <string name="rules_oncoming_traffic_explain">do not drive on the opposite lane.</string>
 
-    <string name="rules_steady">Sachte, Keule!</string>
-    <string name="rules_steady_explain">Vorne: nicht rasen! Hinten: Lücken zufahren!</string>
-
-    <string name="rules_brake">Keine Vollbremsungen!</string>
-    <string name="rules_brake_explain">Wenn\'s mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.
+    <string name="rules_steady">hold your horses!</string>
+    <string name="rules_steady_explain">when driving in the front: no speeding! when driving in the rear: close gaps!
     </string>
 
-    <string name="rules_green">Vorne nur bei Grün</string>
-    <string name="rules_green_explain">Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün
-        schaltet.
+    <string name="rules_brake">no hard stops!</string>
+    <string name="rules_brake_explain">if you really have to though, try to warn people behind you.
     </string>
 
-    <string name="rules_friendly">Locker bleiben</string>
-    <string name="rules_friendly_explain">Lass dich nicht provozieren. Sei freundlich zur Polizei und zu Autofahrern,
-        auch wenn die\'s nicht sind.
+    <string name="rules_green">when driving at the head: stop at the redlights!</string>
+    <string name="rules_green_explain">when you arrive at a red light while driving as part of the head of the mass, be
+        sure to stop when the traffic light shows red.
     </string>
 
-    <string name="rules_fun">Hab Spaß!</string>
-    <string name="rules_fun_explain">Genieße autofreie Straßen. Fahr ein bisschen mit dem Sound-Rädern mit. Check
-        die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!
+    <string name="rules_friendly">hang loose</string>
+    <string name="rules_friendly_explain">don\'t allow yourself to be provoked. be friendly to the police, motorists and
+        everybody else, even if they are not.
     </string>
 
-    <!-- about -->
-    <string name="about_help">Hilf uns den Tracking-Server zu finanzieren</string>
+    <string name="rules_fun">have fun!</string>
+    <string name="rules_fun_explain">enjoy reclaimed streets. go checkout the sound bikes. chat with motorists,
+        pedestrian and let them know what\'s going on. have fun!
+    </string>
+
+    <!-- chat -->
+    <string name="chat_heading">messages will be deleted after 30 minutes.</string>
+    <string name="chat_send">send</string>
+    <string name="chat_text">you have 255 characters...</string>
+    <string name="sending">sending...</string>
 
     <!-- notifications -->
-    <string name="notification_alarm_title">Nicht vergessen:</string>
-    <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>
+    <string name="notification_alarm_title">don\'t forget:</string>
+    <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la velorution!</string>
 
-
-    <string name="city_chooser_title">In welcher Stadt bist du?</string>
-    <string name="section_chat">chat</string>
-    <string name="chat_heading">Nachrichten werden nach 30 Minuten wieder gelöscht.</string>
-    <string name="chat_send">Senden</string>
-    <string name="chat_text">Du hast 255 Zeichen...</string>
-    <string name="sending">sende...</string>
+    <!-- time to word -->
+    <string name="timetoword_justnow">just now...</string>
+    <string name="timetoword_aminuteago">a minute ago</string>
+    <string name="timetoword_minutesago">%s minutes ago</string>
+    <string name="timetoword_anhourago">an hour ago</string>
+    <string name="timetoword_hoursago">%s hours ago</string>
+    <string name="timetoword_yesterday">yesterday</string>
+    <string name="timetoword_daysago">%s days ago</string>
 
 </resources>

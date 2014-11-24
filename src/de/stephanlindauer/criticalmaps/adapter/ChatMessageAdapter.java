@@ -67,7 +67,7 @@ public class ChatMessageAdapter extends ArrayAdapter<IChatMessage> {
         DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
         dateFormatter.setTimeZone(TimeZone.getDefault());
 
-        labelView.setText(TimeToWordStringConverter.getTimeAgo(currentMessage.getTimestamp()));
+        labelView.setText(TimeToWordStringConverter.getTimeAgo(currentMessage.getTimestamp(),context));
         valueView.setText(currentMessage.getMessage());
 
         return rowView;
