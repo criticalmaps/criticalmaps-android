@@ -45,10 +45,10 @@ public class AboutFragment extends SuperFragment {
 
         switch (id) {
             case R.id.about_facebook:
-                url = "https://www.facebook.com/pages/Critical-Mass-Berlin/74806304846";
+                url = "https://www.facebook.com/criticalmaps";
                 break;
             case R.id.about_twitter:
-                url = "https://twitter.com/CMBerlin";
+                url = "https://twitter.com/CriticalMaps";
                 break;
             default:
                 url = "google.de";
