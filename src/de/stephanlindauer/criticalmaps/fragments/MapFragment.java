@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -90,24 +91,6 @@ public class MapFragment extends SuperFragment {
         });
     }
 
-    @Subscribe
-    public void handleNewServerData(NewServerResponseEvent e) {
-        refreshView();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshView();
-        eventService.register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        eventService.unregister(this);
-    }
-
     private void refreshView() {
         for (Overlay element : mapView.getOverlays()) {
             mapView.getOverlays().remove(element);
@@ -137,5 +120,28 @@ public class MapFragment extends SuperFragment {
                 mapView.invalidate();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshView();
+        eventService.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        eventService.unregister(this);
+    }
+
+    @Subscribe
+    public void handleNewServerData(NewServerResponseEvent e) {
+        refreshView();
+    }
+
+    @Subscribe
+    public void handleNewLocation(NewLocationEvent e) {
+        refreshView();
     }
 }

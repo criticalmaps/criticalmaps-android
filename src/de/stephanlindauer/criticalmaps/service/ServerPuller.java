@@ -156,8 +156,9 @@ public class ServerPuller {
                     Crashlytics.logException(e);
                 } catch (UnsupportedEncodingException e) {
                     Crashlytics.logException(e);
+                } finally {
+                    eventService.post(new NewServerResponseEvent());
                 }
-                eventService.post(new NewServerResponseEvent());
             }
         }.execute();
     }

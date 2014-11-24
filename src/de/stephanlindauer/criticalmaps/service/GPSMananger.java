@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import org.osmdroid.util.GeoPoint;
@@ -14,6 +15,7 @@ public class GPSMananger {
 
     //dependencies
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+    private final EventService eventService = EventService.getInstance();
 
     //const
     private final GeoPoint FALLBACK_LOCATION = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
@@ -78,6 +80,7 @@ public class GPSMananger {
         public void onLocationChanged(final Location location) {
             ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
             ownLocationModel.ownLocationCoarse = new GeoPoint(location.getLatitude(), location.getLongitude());
+            eventService.post( new NewLocationEvent());
         }
 
         @Override

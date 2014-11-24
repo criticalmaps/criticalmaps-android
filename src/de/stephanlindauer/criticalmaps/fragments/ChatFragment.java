@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
+import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
@@ -96,8 +97,6 @@ public class ChatFragment extends SuperFragment {
         });
     }
 
-
-
     private void refreshView() {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
@@ -124,7 +123,8 @@ public class ChatFragment extends SuperFragment {
     }
 
     @Subscribe
-     public void handleNewServerData(NewServerResponseEvent e){
-          refreshView();
+    public void handleNewServerData(NewServerResponseEvent e) {
+        refreshView();
     }
+
 }
