@@ -9,3 +9,4 @@
         added a new app on google play (description, screenshot and so on...)
 24.11.  fixed compiler issues with removed subscriber methods
         localization en + de
+        recorded video for playstore http://youtu.be/0CfulPB2Mlc

@@ -36,7 +36,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         setupViewPager();
 
-        initialiteNotifications();
+        initializeNotifications();
         initializeSelfDestructor();
 
         serverPuller.initialize(this);
@@ -47,7 +47,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         SelfDestructor.getInstance().keepAlive();
     }
 
-    private void initialiteNotifications() {
+    private void initializeNotifications() {
         ReminderNotificationSetter reminderNotificationSetter = new ReminderNotificationSetter(getBaseContext(), this);
         reminderNotificationSetter.execute();
 

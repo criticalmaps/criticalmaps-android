@@ -12,7 +12,7 @@
 
     <!-- close -->
     <string name="close">really close the app?</string>
-    <string name="yes">yea</string>
+    <string name="yes">yes</string>
     <string name="no">nope</string>
 
     <!-- acivity bar -->
@@ -28,7 +28,7 @@
         or close it via the x-button.
     </string>
     <string name="map_overlay_tracking_off">tracking ist turned off. \n
-        activate tracking to be able to see all other cyclists \n\n
+        activate tracking to be able to see all other cyclists. \n\n
         just tap here!
     </string>
 
