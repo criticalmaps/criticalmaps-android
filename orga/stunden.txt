@@ -10,3 +10,5 @@
 24.11.  fixed compiler issues with removed subscriber methods
         localization en + de
         recorded video for playstore http://youtu.be/0CfulPB2Mlc
+25.11.	decided for a license (apache v2.0)
+		enrolled in f-droid submission queue
