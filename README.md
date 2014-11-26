@@ -13,7 +13,7 @@ this app helps all the critical mass participants to better organize the protest
 
 ## where can i get the app?
 
-here: https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmass
+https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
 
 ## is there a version for ios devices?
                                                           
