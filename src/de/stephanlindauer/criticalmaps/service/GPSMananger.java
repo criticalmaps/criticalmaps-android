@@ -42,9 +42,20 @@ public class GPSMananger {
     }
 
     private void setLastKnownCoarseLocation() {
-        Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Location lastKnownLocationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        Location lastKnownLocationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        Location lastKnownLocationGPS = null;
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+
+        Location lastKnownLocationNetwork = null;
+        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            lastKnownLocationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
+        Location lastKnownLocationPassive = null;
+        if (locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
+            lastKnownLocationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        }
 
         GeoPoint lastKnownLocation;
 
@@ -80,7 +91,7 @@ public class GPSMananger {
         public void onLocationChanged(final Location location) {
             ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
             ownLocationModel.ownLocationCoarse = new GeoPoint(location.getLatitude(), location.getLongitude());
-            eventService.post( new NewLocationEvent());
+            eventService.post(new NewLocationEvent());
         }
 
         @Override
