@@ -1,15 +1,14 @@
 finetune
  - use last known location
  - auto kill
- - notifications revisited(?)
+ - notifications revisited(?) - seems to work
 
 features
- - chat
  - img upload
- - go to current location button
  - timelapse renderer
  - twitter
  - authentication
+ - limit chat to radius
 
 ideas
  - different teams (red, green, blue)
