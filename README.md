@@ -17,7 +17,7 @@ https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
 
 ## is there a version for ios devices?
                                                           
-yep! here: https://github.com/headione/criticalmass-berlin
+yep! here: https://github.com/headione/criticalmaps-ios
 
 ## contribute
 
