@@ -11,23 +11,21 @@ import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,7 +72,7 @@ public class ServerPuller {
                 activity.runOnUiThread(
                         new Runnable() {
                             @Override
-                            public void run() {
+                            public void run() { //da fuq!!?
                                 pullServer();
                             }
                         }
@@ -97,26 +95,15 @@ public class ServerPuller {
     }
 
     private void pullServer() {
-        final HttpPost postRequest = new HttpPost("http://api.criticalmaps.net/post");
-        ArrayList<NameValuePair> postParams = new ArrayList<NameValuePair>(2);
+        final HttpPost postRequest = new HttpPost("http://api.criticalmaps.net/postv2");
 
-        postParams.add(new BasicNameValuePair("device", uniqueDeviceIdHashed));
-
-        if (ownLocationModel.ownLocation != null) {
-            postParams.add(new BasicNameValuePair("longitude", Integer.toString(ownLocationModel.ownLocation.getLongitudeE6())));
-            postParams.add(new BasicNameValuePair("latitude", Integer.toString(ownLocationModel.ownLocation.getLatitudeE6())));
-        }
-
-        if (chatModel.hasOutgoingMessages()) {
-            String urlEncodedMessages = chatModel.getOutgoingMessagesAsJson(uniqueDeviceIdHashed).toString();
-            postParams.add(new BasicNameValuePair("messages", urlEncodedMessages));
-        }
+        String jsonPostString = getJsonObject().toString();
 
         final HttpParams httpParams = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
 
         try {
-            postRequest.setEntity(new UrlEncodedFormEntity(postParams));
+            postRequest.setEntity( new StringEntity( jsonPostString ));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -161,5 +148,28 @@ public class ServerPuller {
                 }
             }
         }.execute();
+    }
+
+    private JSONObject getJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("device", uniqueDeviceIdHashed);
+
+            if (ownLocationModel.ownLocation != null) {
+                JSONObject locationObject = new JSONObject();
+                locationObject.put("longitude", Integer.toString(ownLocationModel.ownLocation.getLongitudeE6()));
+                locationObject.put("latitude", Integer.toString(ownLocationModel.ownLocation.getLatitudeE6()));
+                jsonObject.put("location" , locationObject);
+            }
+
+            if (chatModel.hasOutgoingMessages()) {
+                JSONArray messages = chatModel.getOutgoingMessagesAsJson();
+                jsonObject.put("messages", messages);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 }

@@ -4,6 +4,7 @@ import com.crashlytics.android.Crashlytics;
 import de.stephanlindauer.criticalmaps.vo.chat.IChatMessage;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,8 +65,8 @@ public class ChatModel {
         outgoingMassages.add(newOutgoingMessage);
     }
 
-    public JSONObject getOutgoingMessagesAsJson(String uniqueDeviceIdHashed) {
-        JSONObject jsonObject = new JSONObject();
+    public JSONArray getOutgoingMessagesAsJson() {
+        JSONArray jsonArray = new JSONArray();
         Integer counter = 0;
 
         for (int i = 0; i < outgoingMassages.size(); i++) {
@@ -74,15 +75,14 @@ public class ChatModel {
                 JSONObject messageObject = new JSONObject();
                 messageObject.put("text", outgoingChatMessage.getUrlEncodedMessage());
                 messageObject.put("timestamp", outgoingChatMessage.getTimestamp().getTime());
-                messageObject.put("uniqueDeviceIdHashed", uniqueDeviceIdHashed);
                 messageObject.put("identifier", outgoingChatMessage.getIdentifier());
-                jsonObject.put(counter.toString(), messageObject);
+                jsonArray.put( messageObject);
                 counter++;
             } catch (JSONException e) {
                 Crashlytics.logException(e);
             }
         }
-        return jsonObject;
+        return jsonArray;
     }
 
     public ArrayList<IChatMessage> getSavedAndOutgoingMessages() {
