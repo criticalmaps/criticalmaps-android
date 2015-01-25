@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,10 @@ public class SuperFragment extends Fragment {
             case R.id.action_close:
                 handleCloseRequested();
                 break;
+            case R.id.take_picture:
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,0);
+                break;
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
                 break;
@@ -58,6 +63,18 @@ public class SuperFragment extends Fragment {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if( !data.getExtras().containsKey("data") )
+            return;
+
+         Bitmap bp = (Bitmap) data.getExtras().get("data");
+//        imgFavorite.setImageBitmap(bp);
     }
 
     private void startFeedbackIntent() {

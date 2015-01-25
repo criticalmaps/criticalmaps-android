@@ -7,16 +7,17 @@
           android:title="@string/tracking"
           android:showAsAction="never"
           android:checkable="true"
-          android:checked="true">
-    </item>
+          android:checked="true"/>
     <item android:id="@+id/settings_feedback"
           android:title="@string/feedback"
-          android:showAsAction="never">
-    </item>
+          android:showAsAction="never"/>
     <item android:id="@+id/settings_datenschutz"
           android:title="@string/datenschutz"
-          android:showAsAction="never">
-    </item>
+          android:showAsAction="never"/>
+    <item android:id="@+id/take_picture"
+          android:title="@string/take_picture"
+          android:icon="@drawable/ic_action_camera"
+          android:showAsAction="always"/>
     <item android:title="@string/close_button"
           android:id="@+id/action_close"
           android:icon="@drawable/ic_action_cancel"
