@@ -19,7 +19,6 @@
     <string name="tracking">tracking</string>
     <string name="close_button">close</string>
     <string name="feedback">feedback</string>
-    <string name="take_picture">take picture</string>
     <string name="datenschutz">privacy policy</string>
     <string name="take_picture">take picture</string>
 
@@ -85,7 +84,11 @@
 
     <!-- camera -->
     <string name="camera_no_camera">no camera present</string>
-    <string name="camera_comfirm_image_upload">Willst du das Foto auf http://criticalmass.net hochladen? \nWir veröffentlichen die Bilder dort auf der Karte unter der CC BY-SA 4.0 Lizenz.</string>
+    <string name="camera_comfirm_image_upload">
+        <![CDATA[
+        Willst du das Foto auf <a href="http://criticalmaps.net">criticalmaps.net</a> hochladen? \nWir veröffentlichen die Bilder dort auf der Karte unter der <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lizenz.
+        ]]>
+    </string>
     <string name="camera_upload">foto hochladen!</string>
     <string name="camera_discard">neee :-(</string>
 

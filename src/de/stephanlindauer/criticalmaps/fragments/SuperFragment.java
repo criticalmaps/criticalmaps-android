@@ -1,23 +1,32 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.text.Html;
+import android.util.Base64;
+import android.view.*;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import org.apache.http.NameValuePair;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class SuperFragment extends Fragment {
 
@@ -47,8 +56,7 @@ public class SuperFragment extends Fragment {
                 handleCloseRequested();
                 break;
             case R.id.take_picture:
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,0);
+                startCamera();
                 break;
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
@@ -67,14 +75,69 @@ public class SuperFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
-        if( !data.getExtras().containsKey("data") )
+        if (resultCode != Activity.RESULT_OK || !data.hasExtra("data"))
             return;
 
-         Bitmap bp = (Bitmap) data.getExtras().get("data");
-//        imgFavorite.setImageBitmap(bp);
+        final Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+
+        showConfirmUploadDialog(bitmap);
+    }
+
+    private void showConfirmUploadDialog(final Bitmap bitmap) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //TODO upload picture
+                        uploadImage(bitmap);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final View view = factory.inflate(R.layout.picture_upload, null);
+
+        ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
+        image.setImageBitmap(bitmap);
+
+        TextView text;
+        text = (TextView) view.findViewById(R.id.picture_confirm_text);
+        text.setLinksClickable(true);
+        text.setText(Html.fromHtml(getResources().getString(R.string.camera_comfirm_image_upload)));
+
+        builder.setView(view);
+        builder.setPositiveButton(R.string.camera_upload, dialogClickListener);
+        builder.setNegativeButton(R.string.camera_discard, dialogClickListener);
+        builder.show();
+    }
+
+    private void uploadImage(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
+        byte[] byte_arr = stream.toByteArray();
+        String image_str = Base64.encodeToString(byte_arr, Base64.DEFAULT);
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+    }
+
+    private void startCamera() {
+        Context context = getActivity();
+
+        PackageManager packageManager = context.getPackageManager();
+        if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+            Toast.makeText(getActivity(), R.string.no_camera, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
     }
 
     private void startFeedbackIntent() {
