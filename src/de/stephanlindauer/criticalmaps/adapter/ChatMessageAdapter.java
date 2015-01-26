@@ -51,7 +51,7 @@ public class ChatMessageAdapter extends ArrayAdapter<IChatMessage> {
         TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
         TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);
 
-        labelView.setText(R.string.sending);
+        labelView.setText(R.string.chat_sending);
         valueView.setText(currentMessage.getMessage());
 
         return rowView;
