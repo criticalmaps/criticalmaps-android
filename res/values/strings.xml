@@ -21,6 +21,7 @@
     <string name="feedback">feedback</string>
     <string name="take_picture">take picture</string>
     <string name="datenschutz">privacy policy</string>
+    <string name="take_picture">take picture</string>
 
     <!-- map -->
     <string name="notification_tracking_title">location is being tracked</string>
@@ -67,7 +68,7 @@
     <string name="chat_heading">messages will be deleted after 30 minutes.</string>
     <string name="chat_send">send</string>
     <string name="chat_text">you have 255 characters...</string>
-    <string name="sending">sending...</string>
+    <string name="chat_sending">sending...</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">don\'t forget:</string>
@@ -81,5 +82,12 @@
     <string name="timetoword_hoursago">%s hours ago</string>
     <string name="timetoword_yesterday">yesterday</string>
     <string name="timetoword_daysago">%s days ago</string>
+
+    <!-- camera -->
+    <string name="camera_no_camera">no camera present</string>
+    <string name="camera_comfirm_image_upload">Willst du das Foto auf http://criticalmass.net hochladen? \nWir veröffentlichen die Bilder dort auf der Karte unter der CC BY-SA 4.0 Lizenz.</string>
+    <string name="camera_upload">foto hochladen!</string>
+    <string name="camera_discard">neee :-(</string>
+
 
 </resources>

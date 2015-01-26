@@ -20,6 +20,7 @@
     <string name="close_button">close</string>
     <string name="feedback">feedback</string>
     <string name="datenschutz">datenschutzerklärung</string>
+    <string name="take_picture">foto machen</string>
 
     <!-- map -->
     <string name="notification_tracking_title">Location wird getrackt</string>
@@ -64,7 +65,7 @@
     <string name="chat_heading">Nachrichten werden nach 30 Minuten wieder gelöscht.</string>
     <string name="chat_send">Senden</string>
     <string name="chat_text">Du hast 255 Zeichen...</string>
-    <string name="sending">sende...</string>
+    <string name="chat_sending">sende...</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
@@ -79,4 +80,6 @@
     <string name="timetoword_yesterday">gestern</string>
     <string name="timetoword_daysago">vor %s tage</string>
 
+    <!-- toasts -->
+    <string name="no_camera">no camera present</string>
 </resources>
