@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -55,9 +56,9 @@ public class SuperFragment extends Fragment {
             case R.id.action_close:
                 handleCloseRequested();
                 break;
-            case R.id.take_picture:
-                startCamera();
-                break;
+//            case R.id.take_picture:
+//                startCamera();
+//                break;
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
                 break;
@@ -86,6 +87,20 @@ public class SuperFragment extends Fragment {
     }
 
     private void showConfirmUploadDialog(final Bitmap bitmap) {
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final View view = factory.inflate(R.layout.picture_upload, null);
+
+        ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
+        image.setImageBitmap(bitmap);
+
+        TextView text;
+        text = (TextView) view.findViewById(R.id.picture_confirm_text);
+        text.setLinksClickable(true);
+        text.setText(Html.fromHtml(getResources().getString(R.string.camera_comfirm_image_upload)));
+
+        builder.setView(view);
+
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -100,19 +115,6 @@ public class SuperFragment extends Fragment {
             }
         };
 
-        LayoutInflater factory = LayoutInflater.from(getActivity());
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View view = factory.inflate(R.layout.picture_upload, null);
-
-        ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
-        image.setImageBitmap(bitmap);
-
-        TextView text;
-        text = (TextView) view.findViewById(R.id.picture_confirm_text);
-        text.setLinksClickable(true);
-        text.setText(Html.fromHtml(getResources().getString(R.string.camera_comfirm_image_upload)));
-
-        builder.setView(view);
         builder.setPositiveButton(R.string.camera_upload, dialogClickListener);
         builder.setNegativeButton(R.string.camera_discard, dialogClickListener);
         builder.show();
@@ -120,10 +122,23 @@ public class SuperFragment extends Fragment {
 
     private void uploadImage(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
         byte[] byte_arr = stream.toByteArray();
         String image_str = Base64.encodeToString(byte_arr, Base64.DEFAULT);
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+        ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setCancelable(true);
+        dialog.setMessage(getActivity().getString(R.string.camera_uploading_progress));
+
+        DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener(){
+            @Override
+            public void onCancel(DialogInterface dialog) {
+
+            }
+        };
+        dialog.setOnCancelListener(cancelListener);
+        dialog.show();
     }
 
     private void startCamera() {
@@ -134,7 +149,6 @@ public class SuperFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.no_camera, Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 0);
@@ -150,7 +164,7 @@ public class SuperFragment extends Fragment {
     }
 
     private void startDatenschutzIntent() {
-        String url = "http://criticalmass.stephanlindauer.de/datenschutzerklaerung.html";
+        String url = "http://criticalmaps.net/datenschutzerklaerung.html";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
