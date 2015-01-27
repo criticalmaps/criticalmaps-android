@@ -42,8 +42,7 @@
                     android:text="logo"
                     style="@style/about_heading"/>
             <TextView
-                    android:text="thomas-hollnack.de"
-                    android:autoLink="web"
+                    android:text="gitti la mar"
                     style="@style/about_content"/>
             <TextView
                     android:text="code"
