@@ -3,11 +3,11 @@
                 android:layout_height="wrap_content"
                 android:padding="6dip">
     <ImageView android:id="@+id/icon"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               android:layout_width="40dip"
+               android:layout_height="40dip"
                android:layout_marginRight="6dip"
                android:contentDescription="TODO"
-               android:src="@drawable/ic_launcher"/>
+               android:src="@drawable/chat_avatar"/>
     <TextView android:id="@+id/firstLine"
               android:layout_toRightOf="@id/icon"
               android:layout_width="fill_parent"
