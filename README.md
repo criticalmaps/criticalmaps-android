@@ -27,4 +27,4 @@ yep! here: https://github.com/headione/criticalmaps-ios
 
 ## can i haz more informations?
 
-check: http://criticalmass-berlin.org/
+check: http://criticalmaps.net
