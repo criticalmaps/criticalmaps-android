@@ -7,7 +7,8 @@ os.chdir("./kml/")
 for file in glob.glob("*.*"):
     openedFile = open(file,'r')
     xmldoc = minidom.parse(openedFile)
-    print(xmldoc.getElementsByTagName("coordinates"))
+    coordString = xmldoc.getElementsByTagName("coordinates")[-1].toxml() 
+    print("\n".join(coordString.split( " ")))
     openedFile.close()
 
 
