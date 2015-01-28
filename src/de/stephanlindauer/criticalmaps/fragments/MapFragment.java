@@ -18,6 +18,10 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import org.osmdroid.DefaultResourceProxyImpl;
+import org.osmdroid.bonuspack.overlays.Polyline;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -66,6 +70,20 @@ public class MapFragment extends SuperFragment {
         RelativeLayout mapCountainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         mapCountainer.addView(mapView);
 
+
+    //    RoadManager roadManager = new OSRMRoadManager();
+    //    ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+    //    waypoints.add(new GeoPoint(52468277, 13425979));
+    //    waypoints.add(new GeoPoint(51468174, 13425979));
+    //    waypoints.add(new GeoPoint(51468174, 10425979));
+
+
+      //  Road road = roadManager.getRoad(waypoints);
+      //  Polyline roadOverlay = RoadManager.buildRoadOverlay(road, mapView.getContext());
+
+      //  mapView.getOverlays().add(roadOverlay);
+      //  mapView.invalidate();
+
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
         noTrackingOverlay.setVisibility(ownLocationModel.isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +111,9 @@ public class MapFragment extends SuperFragment {
 
     private void refreshView() {
         for (Overlay element : mapView.getOverlays()) {
+            if (element instanceof Polyline)
+                continue;//don't delete polylines
+
             mapView.getOverlays().remove(element);
         }
 
