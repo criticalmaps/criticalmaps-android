@@ -1,23 +1,23 @@
 package de.stephanlindauer.criticalmaps.model;
 
 public class SternfahrtModel {
-    public static String werder = "";
-    public static String brandenburg = "";
-    public static String nauen = "";
-    public static String heiligensee = "";
-    public static String frohnau = "";
-    public static String jungfernheide = "";
-    public static String oranienburg = "";
-    public static String wandlitzsee = "";
-    public static String eberswalde = "";
-    public static String ahrensfelde = "";
-    public static String strausberg = "";
-    public static String frankfurt = "";
-    public static String koenigsWusterhausen = "";
-    public static String zossen = "";
-    public static String altTempelhof = "";
-    public static String bundesplatz = "";
-    public static String ludwigsfelde = "";
-    public static String potsdam = "";
-    public static String kinderroute = "";
+    public static final String werder = "";
+    public static final String brandenburg = "";
+    public static final String nauen = "";
+    public static final String heiligensee = "";
+    public static final String frohnau = "";
+    public static final String jungfernheide = "";
+    public static final String oranienburg = "";
+    public static final String wandlitzsee = "";
+    public static final String eberswalde = "";
+    public static final String ahrensfelde = "";
+    public static final String strausberg = "";
+    public static final String frankfurt = "";
+    public static final String koenigsWusterhausen = "";
+    public static final String zossen = "";
+    public static final String altTempelhof = "";
+    public static final String bundesplatz = "";
+    public static final String ludwigsfelde = "";
+    public static final String potsdam = "";
+    public static final String kinderroute = "";
 }
