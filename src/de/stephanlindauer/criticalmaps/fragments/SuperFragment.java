@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.commands.CameraImageUploader;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -169,7 +168,7 @@ public class SuperFragment extends Fragment {
         progressBar.setCancelable(false);
         progressBar.show();
 
-        new CameraImageUploader(bitmap, progressBar).execute();
+//        new CameraImageUploader(bitmap, progressBar).execute();
     }
 
     private void startCamera() {
