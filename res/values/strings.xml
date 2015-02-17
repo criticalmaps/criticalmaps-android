@@ -90,8 +90,9 @@
         ]]>
     </string>
     <string name="camera_upload">foto hochladen!</string>
-    <string name="camera_discard">neee :-(</string>
+    <string name="camera_discard">och nööö :-(</string>
     <string name="camera_uploading_progress">hochladen...</string>
+    <string name="camera_error">something went wrong :-(</string>
 
 
 </resources>

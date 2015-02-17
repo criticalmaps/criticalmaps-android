@@ -8,31 +8,42 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Base64;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.commands.CameraImageUploader;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
-import org.apache.http.NameValuePair;
 
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SuperFragment extends Fragment {
 
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 12345;
+
     protected MenuItem trackingToggleButton;
     protected Button noTrackingOverlay;
+
+    private File photoFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,9 +67,9 @@ public class SuperFragment extends Fragment {
             case R.id.action_close:
                 handleCloseRequested();
                 break;
-//            case R.id.take_picture:
-//                startCamera();
-//                break;
+            case R.id.take_picture:
+                startCamera();
+                break;
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
                 break;
@@ -78,11 +89,17 @@ public class SuperFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != Activity.RESULT_OK || !data.hasExtra("data"))
+        if (resultCode != Activity.RESULT_OK || requestCode != CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+            Toast.makeText(getActivity(), R.string.camera_error, Toast.LENGTH_SHORT).show();
             return;
+        }
 
-        final Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
 
+        Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath(),options);
+
+        bitmap = rotateBitmap( bitmap, photoFile );
         showConfirmUploadDialog(bitmap);
     }
 
@@ -92,6 +109,7 @@ public class SuperFragment extends Fragment {
         final View view = factory.inflate(R.layout.picture_upload, null);
 
         ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
+
         image.setImageBitmap(bitmap);
 
         TextView text;
@@ -106,10 +124,10 @@ public class SuperFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        //TODO upload picture
                         uploadImage(bitmap);
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
+                        //do nothing + let dialog close
                         break;
                 }
             }
@@ -117,41 +135,79 @@ public class SuperFragment extends Fragment {
 
         builder.setPositiveButton(R.string.camera_upload, dialogClickListener);
         builder.setNegativeButton(R.string.camera_discard, dialogClickListener);
+        builder.setCancelable(false);
         builder.show();
     }
 
+    private Bitmap rotateBitmap(Bitmap bitmap, File file) {
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(photoFile.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bitmap.getWidth() / 2, (float) bitmap.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+        return rotatedBitmap;
+    }
+
     private void uploadImage(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-        byte[] byte_arr = stream.toByteArray();
-        String image_str = Base64.encodeToString(byte_arr, Base64.DEFAULT);
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        ProgressDialog progressBar = new ProgressDialog(getActivity());
+        progressBar.setMessage(getString(R.string.camera_uploading_progress));
+        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.setIndeterminate(true);
+        progressBar.setCancelable(false);
+        progressBar.show();
 
-        ProgressDialog dialog = new ProgressDialog(getActivity());
-        dialog.setCancelable(true);
-        dialog.setMessage(getActivity().getString(R.string.camera_uploading_progress));
-
-        DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener(){
-            @Override
-            public void onCancel(DialogInterface dialog) {
-
-            }
-        };
-        dialog.setOnCancelListener(cancelListener);
-        dialog.show();
+        new CameraImageUploader(bitmap, progressBar).execute();
     }
 
     private void startCamera() {
         Context context = getActivity();
-
         PackageManager packageManager = context.getPackageManager();
+
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
             Toast.makeText(getActivity(), R.string.no_camera, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
+        File path = new File(Environment.getExternalStorageDirectory(), "foo/bar");
+        if (!path.exists()) path.mkdirs();
+        photoFile = getOutputMediaFile();
+
+        Uri mImageCaptureUri1 = Uri.fromFile(getOutputMediaFile());
+
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri1);
+//        cameraIntent.putExtra("return-data", true);
+        startActivityForResult(cameraIntent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+    }
+
+    private File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "bla");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+
+
+        return mediaFile;
     }
 
     private void startFeedbackIntent() {
