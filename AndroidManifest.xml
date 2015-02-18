@@ -35,12 +35,6 @@
         <receiver android:name="de.stephanlindauer.criticalmaps.notifications.reminder.AlarmNotificationReceiver"
                   android:process=":remote"/>
         <meta-data android:name="com.crashlytics.ApiKey" android:value="a01ac875123e16725333bd02c616c01a026e23db"/>
-        <provider
-                android:name="android.support.v4.content.FileProvider"
-                android:authorities="de.stephanlindauer.criticalmaps.fileprovider"
-                android:exported="false"
-                android:grantUriPermissions="true" >
-        </provider>
     </application>
 
 </manifest>

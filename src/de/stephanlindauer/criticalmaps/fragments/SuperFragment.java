@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.commands.SnapshotUploadTask;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -88,21 +89,24 @@ public class SuperFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != Activity.RESULT_OK || requestCode != CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            Toast.makeText(getActivity(), R.string.camera_error, Toast.LENGTH_SHORT).show();
+        if (resultCode == Activity.RESULT_OK || requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 8;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath(), options);
+
+            bitmap = rotateBitmap(bitmap, photoFile);
+            showConfirmUploadDialog(bitmap, photoFile);
+
             return;
+        } else {
+            Toast.makeText(getActivity(), R.string.camera_error, Toast.LENGTH_SHORT).show();
         }
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath(),options);
-
-        bitmap = rotateBitmap( bitmap, photoFile );
-        showConfirmUploadDialog(bitmap);
     }
 
-    private void showConfirmUploadDialog(final Bitmap bitmap) {
+    private void showConfirmUploadDialog(final Bitmap bitmap, final File photoFile) {
         LayoutInflater factory = LayoutInflater.from(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final View view = factory.inflate(R.layout.picture_upload, null);
@@ -123,7 +127,7 @@ public class SuperFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        uploadImage(bitmap);
+                        uploadImage(photoFile);
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
                         //do nothing + let dialog close
@@ -160,15 +164,15 @@ public class SuperFragment extends Fragment {
         return rotatedBitmap;
     }
 
-    private void uploadImage(Bitmap bitmap) {
-        ProgressDialog progressBar = new ProgressDialog(getActivity());
-        progressBar.setMessage(getString(R.string.camera_uploading_progress));
-        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressBar.setIndeterminate(true);
-        progressBar.setCancelable(false);
-        progressBar.show();
+    private void uploadImage(File file) {
+        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getString(R.string.camera_uploading_progress));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-//        new CameraImageUploader(bitmap, progressBar).execute();
+        new SnapshotUploadTask(file, progressDialog).execute();
     }
 
     private void startCamera() {
