@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.commands;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -8,17 +9,18 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
 
     private final File file;
     private final ProgressDialog progressDialog;
+    private final Activity activity;
 
-    public SnapshotUploadTask(File file, ProgressDialog progressDialog) {
+    public SnapshotUploadTask(File file, ProgressDialog progressDialog, Activity activity) {
         this.progressDialog = progressDialog;
         this.file = file;
+        this.activity = activity;
     }
 
     @Override
@@ -29,67 +31,87 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
     @Override
     protected Void doInBackground(Object... arg0) {
 
-        HttpURLConnection conn = null;
-        DataOutputStream dos = null;
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1 * 1024 * 1024;
-        File sourceFile = file;
 
+        int bytesRead;
+        int bytesAvailable;
+        int bufferSize;
+
+        byte[] buffer;
+
+//        int maxBufferSize = 1 * 1024 * 1024;
+        int maxBufferSize = 1 * 512;
 
         try {
 
-            // open a URL connection to the Servlet
-            FileInputStream fileInputStream = new FileInputStream(sourceFile);
+            FileInputStream fileInputStream = new FileInputStream(file);
             URL url = new URL("http://api.criticalmaps.net/pic.php");
 
-            // Open a HTTP  connection to  the URL
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setDoInput(true); // Allow Inputs
-            conn.setDoOutput(true); // Allow Outputs
-            conn.setUseCaches(false); // Don't use a Cached Copy
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            conn.setRequestProperty("uploaded_file", file.getName());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            dos = new DataOutputStream(conn.getOutputStream());
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
 
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
-                    + file.getName() + "\"" + lineEnd);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("ENCTYPE", "multipart/form-data");
+            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+            connection.setRequestProperty("uploaded_file", file.getName());
 
-            dos.writeBytes(lineEnd);
+            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
-            // create a buffer of  maximum size
+            dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\"" + file.getName() + "\"" + lineEnd);
+
+            dataOutputStream.writeBytes(lineEnd);
+
             bytesAvailable = fileInputStream.available();
+            final int hundredPercent = bytesAvailable;
+            progressDialog.setMax(hundredPercent);
+            progressDialog.setMax(35000);
+
+            int onePercent = hundredPercent / 100;
 
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
             buffer = new byte[bufferSize];
 
-            // read file and write it into form...
             bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
             while (bytesRead > 0) {
-
-                dos.write(buffer, 0, bufferSize);
+                dataOutputStream.write(buffer, 0, bufferSize);
                 bytesAvailable = fileInputStream.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
+                System.out.println();
+
+                int restBytes = bytesAvailable;
+                final int uploadedBytes = hundredPercent - restBytes;
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.setProgress((int) uploadedBytes);
+                    }
+                });
+
+                Log.d("bla", "uploadedBytes  " + uploadedBytes);
+                Log.d("bla", "#################################");
+                Log.d("bla", "bufferSize     " + bufferSize);
+                Log.d("bla", "bytesRead      " + bytesRead);
+                Log.d("bla", "bytesAvailable " + bytesAvailable);
+                Log.d("bla", "#################################");
+                Log.d("bla", "-");
             }
 
-            // send multipart form data necesssary after file data...
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            dataOutputStream.writeBytes(lineEnd);
+            dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-            // Responses from the server (code and message)
-            int serverResponseCode = conn.getResponseCode();
-            String serverResponseMessage = conn.getResponseMessage();
+            int serverResponseCode = connection.getResponseCode();
+            String serverResponseMessage = connection.getResponseMessage();
 
             Log.i("uploadFile", "HTTP Response is : " + serverResponseMessage + ": " + serverResponseCode);
 
@@ -97,38 +119,21 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
                 progressDialog.dismiss();
             }
 
-            //close the streams //
             fileInputStream.close();
-            dos.flush();
-            dos.close();
+            dataOutputStream.flush();
+            dataOutputStream.close();
 
-        } catch (MalformedURLException ex) {
-
-            progressDialog.dismiss();
-            ex.printStackTrace();
-
-            Log.e("Upload file to server", "error: " + ex.getMessage(), ex);
         } catch (Exception e) {
-
             progressDialog.dismiss();
-            e.printStackTrace();
 
             Log.e("Upload file to server Exception", "Exception : " + e.getMessage(), e);
         }
-        progressDialog.dismiss();
+
         return null;
     }
 
     @Override
-    protected void onProgressUpdate(Integer... progress) {
-        progressDialog.setProgress(progress[0]);
-    }
-
-    @Override
     protected void onPostExecute(Void result) {
-        try {
-            progressDialog.dismiss();
-        } catch (Exception e) {
-        }
+        progressDialog.dismiss();
     }
 }

@@ -168,11 +168,12 @@ public class SuperFragment extends Fragment {
         ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.camera_uploading_progress));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setIndeterminate(true);
+        progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(false);
+        progressDialog.setProgress(0);
         progressDialog.show();
 
-        new SnapshotUploadTask(file, progressDialog).execute();
+        new SnapshotUploadTask(file, progressDialog, getActivity()).execute();
     }
 
     private void startCamera() {
