@@ -93,6 +93,7 @@
     <string name="camera_discard">och nööö :-(</string>
     <string name="camera_uploading_progress">hochladen...</string>
     <string name="camera_error">something went wrong :-(</string>
+    <string name="camera_uploading_done">fertig!</string>
 
 
 </resources>

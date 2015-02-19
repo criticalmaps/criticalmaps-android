@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import de.stephanlindauer.criticalmaps.R;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -71,7 +72,6 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
             bytesAvailable = fileInputStream.available();
             final int hundredPercent = bytesAvailable;
             progressDialog.setMax(hundredPercent);
-            progressDialog.setMax(35000);
 
             int onePercent = hundredPercent / 100;
 
@@ -88,23 +88,18 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
 
                 System.out.println();
 
-                int restBytes = bytesAvailable;
+                final int restBytes = bytesAvailable;
                 final int uploadedBytes = hundredPercent - restBytes;
 
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progressDialog.setProgress((int) uploadedBytes);
+                        if (restBytes <= 0) {
+                            progressDialog.setMessage(activity.getString(R.string.camera_uploading_done));
+                        }
                     }
                 });
-
-                Log.d("bla", "uploadedBytes  " + uploadedBytes);
-                Log.d("bla", "#################################");
-                Log.d("bla", "bufferSize     " + bufferSize);
-                Log.d("bla", "bytesRead      " + bytesRead);
-                Log.d("bla", "bytesAvailable " + bytesAvailable);
-                Log.d("bla", "#################################");
-                Log.d("bla", "-");
             }
 
             dataOutputStream.writeBytes(lineEnd);
