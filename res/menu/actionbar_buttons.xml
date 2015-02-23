@@ -14,10 +14,11 @@
     <item android:id="@+id/settings_datenschutz"
           android:title="@string/datenschutz"
           android:showAsAction="never"/>
-   <item android:id="@+id/take_picture"
+    <item android:id="@+id/take_picture"
           android:title="@string/take_picture"
           android:icon="@drawable/ic_action_camera"
-          android:showAsAction="always"/>
+          android:showAsAction="always"
+          android:visible="false"/>
     <item android:title="@string/close_button"
           android:id="@+id/action_close"
           android:icon="@drawable/ic_action_cancel"
