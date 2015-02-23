@@ -22,15 +22,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.commands.SnapshotUploadTask;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import org.apache.http.Header;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -165,7 +169,7 @@ public class SuperFragment extends Fragment {
     }
 
     private void uploadImage(File file) {
-        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.camera_uploading_progress));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setIndeterminate(false);
@@ -173,7 +177,37 @@ public class SuperFragment extends Fragment {
         progressDialog.setProgress(0);
         progressDialog.show();
 
-        new SnapshotUploadTask(file, progressDialog, getActivity()).execute();
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+        params.put("key", "value");
+        params.put("more", "data");
+        try {
+            params.put("uploaded_file", file);
+        } catch (FileNotFoundException e) {
+            System.out.println();
+        }
+
+        client.post("http://api.criticalmaps.net/gallery/pic.php", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int i, Header[] headers, String s) {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onProgress(int bytesWritten, int totalSize) {
+                progressDialog.setMax(totalSize);
+                progressDialog.setProgress(bytesWritten);
+            }
+        });
+
+
+//        new SnapshotUploadTask(file, progressDialog, getActivity()).execute();
     }
 
     private void startCamera() {

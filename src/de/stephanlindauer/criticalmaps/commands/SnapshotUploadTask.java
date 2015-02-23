@@ -42,8 +42,7 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
 
         byte[] buffer;
 
-//        int maxBufferSize = 1 * 1024 * 1024;
-        int maxBufferSize = 1 * 512;
+        int maxBufferSize = 1024 * 2 * 2 * 2;
 
         try {
 
@@ -55,6 +54,7 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setUseCaches(false);
+            connection.setChunkedStreamingMode(maxBufferSize);
 
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Connection", "Keep-Alive");
@@ -73,8 +73,6 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
             final int hundredPercent = bytesAvailable;
             progressDialog.setMax(hundredPercent);
 
-            int onePercent = hundredPercent / 100;
-
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
             buffer = new byte[bufferSize];
 
@@ -91,15 +89,20 @@ public class SnapshotUploadTask extends AsyncTask<Object, Integer, Void> {
                 final int restBytes = bytesAvailable;
                 final int uploadedBytes = hundredPercent - restBytes;
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialog.setProgress((int) uploadedBytes);
-                        if (restBytes <= 0) {
-                            progressDialog.setMessage(activity.getString(R.string.camera_uploading_done));
-                        }
-                    }
-                });
+                progressDialog.setProgress((int) uploadedBytes);
+                if (restBytes <= 0) {
+                    progressDialog.setMessage(activity.getString(R.string.camera_uploading_done));
+                }
+
+                Log.d("bla", "uploadedBytes  " + uploadedBytes);
+                Log.d("bla", "#################################");
+                Log.d("bla", "bufferSize     " + bufferSize);
+                Log.d("bla", "bytesRead      " + bytesRead);
+                Log.d("bla", "bytesAvailable " + bytesAvailable);
+                Log.d("bla", "hundredPercent " + hundredPercent);
+                Log.d("bla", "uploadedBytes  " + uploadedBytes);
+                Log.d("bla", "#################################");
+                Log.d("bla", "-");
             }
 
             dataOutputStream.writeBytes(lineEnd);
