@@ -9,7 +9,7 @@ http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 ## what's this app?
 
-this app helps all the critical mass participants to better organize the protest by tracking their location to share it with everyone else.
+this app tracks your location and shares it via a map with all other participants of the critical mass bicycle protest. you can use the chat to communicate with all other participants.
 
 ## where can i get the app?
 
