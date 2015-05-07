@@ -26,16 +26,19 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.events.NewOverlayConfig;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import org.apache.http.Header;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -48,6 +51,10 @@ public class SuperFragment extends Fragment {
     protected Button noTrackingOverlay;
 
     private File photoFile;
+
+    protected boolean shouldShowSternfahrtRoutes = false;
+
+    private final EventService eventService = EventService.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,20 @@ public class SuperFragment extends Fragment {
 
         trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
         trackingToggleButton.setChecked(OwnLocationModel.getInstance().isListeningForLocation);
+
+        //always show the three stupid dots
+//        try {
+//            ViewConfiguration config = ViewConfiguration.get(getActivity());
+//            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+//
+//            if (menuKeyField != null) {
+//                menuKeyField.setAccessible(true);
+//                menuKeyField.setBoolean(config, false);
+//            }
+//        }
+//        catch (Exception e) {
+//
+//        }
     }
 
     @Override
@@ -76,6 +97,9 @@ public class SuperFragment extends Fragment {
                 break;
             case R.id.settings_tracking_toggle:
                 handleTrackingToggled(item);
+                break;
+            case R.id.show_sternfahrt:
+                handleShowSternfahrt(item);
                 break;
             case R.id.settings_feedback:
                 startFeedbackIntent();
@@ -109,6 +133,7 @@ public class SuperFragment extends Fragment {
         }
 
     }
+
 
     private void showConfirmUploadDialog(final Bitmap bitmap, final File photoFile) {
         LayoutInflater factory = LayoutInflater.from(getActivity());
@@ -280,6 +305,14 @@ public class SuperFragment extends Fragment {
         if (noTrackingOverlay != null)
             noTrackingOverlay.setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
     }
+
+
+    private void handleShowSternfahrt(MenuItem item) {
+        item.setChecked(!item.isChecked());
+        shouldShowSternfahrtRoutes = item.isChecked();
+        eventService.post(new NewOverlayConfig());
+    }
+
 
     public void handleCloseRequested() {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

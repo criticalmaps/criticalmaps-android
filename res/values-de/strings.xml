@@ -17,6 +17,7 @@
 
     <!-- acivity bar -->
     <string name="tracking">tracking</string>
+    <string name="show_sternfahrt_routes">sternfahrt routen anzeigen</string>
     <string name="close_button">close</string>
     <string name="feedback">feedback</string>
     <string name="datenschutz">datenschutzerklärung</string>

@@ -12,17 +12,15 @@ import android.widget.RelativeLayout;
 import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
+import de.stephanlindauer.criticalmaps.events.NewOverlayConfig;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
-import de.stephanlindauer.criticalmaps.utils.RoadParser;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.bonuspack.overlays.Polyline;
-import org.osmdroid.bonuspack.routing.OSRMRoadManager;
-import org.osmdroid.bonuspack.routing.Road;
-import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -38,6 +36,7 @@ public class MapFragment extends SuperFragment {
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private EventService eventService = EventService.getInstance();
+    private SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
 
     //view
     private MapView mapView;
@@ -72,51 +71,7 @@ public class MapFragment extends SuperFragment {
         mapCountainer.addView(mapView);
 
 
-
-
-
-
-        RoadManager roadManager = new OSRMRoadManager();
-
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_1_werder ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_2_brandenburg ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_3_nauen ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_4_heiligensee ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_5_frohnau ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_6_jungfernheide ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_7_oranienburg ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_8_wandlitzsee ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_9_eberswalde ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_10_ahrensfelde), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_11_strausberg), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_12_frankfurt ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_13_koenigswusterhausen ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_14_zossen ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_15_alttempelhof ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_16_bundesplatz ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_17_ludwigsfelde ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_18_potsdamrehbruecke ), mapView.getContext()));
-        mapView.getOverlays().add( roadManager.buildRoadOverlay(RoadParser.getRoadFor( getActivity(), R.raw.sternfahrt_19_familien ), mapView.getContext()));
-
-
-
         mapView.invalidate();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
         noTrackingOverlay.setVisibility(ownLocationModel.isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
@@ -170,6 +125,18 @@ public class MapFragment extends SuperFragment {
 
         mapView.getOverlays().add(otherUsersLocationOverlay);
 
+        if (shouldShowSternfahrtRoutes) {
+            ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
+            for (Polyline route : sternfahrtOverlays) {
+                mapView.getOverlays().add(route);
+            }
+        }else {
+            for (Overlay element : mapView.getOverlays()) {
+                if (element instanceof Polyline)
+                    mapView.getOverlays().remove(element);
+            }
+        }
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -198,6 +165,11 @@ public class MapFragment extends SuperFragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
+        refreshView();
+    }
+
+    @Subscribe
+    public void handleNewOverlayConfig(NewOverlayConfig e) {
         refreshView();
     }
 }
