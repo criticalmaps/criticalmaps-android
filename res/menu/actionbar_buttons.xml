@@ -11,6 +11,11 @@
     <item android:id="@+id/settings_feedback"
           android:title="@string/feedback"
           android:showAsAction="never"/>
+    <item android:id="@+id/show_sternfahrt"
+          android:title="@string/show_sternfahrt_routes"
+          android:showAsAction="never"
+          android:checkable="true"
+          android:checked="false"/>
     <item android:id="@+id/settings_datenschutz"
           android:title="@string/datenschutz"
           android:showAsAction="never"/>
