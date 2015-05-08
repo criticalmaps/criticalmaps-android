@@ -26,7 +26,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.events.NewOverlayConfig;
+import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -38,7 +38,6 @@ import org.apache.http.Header;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -310,7 +309,7 @@ public class SuperFragment extends Fragment {
     private void handleShowSternfahrt(MenuItem item) {
         item.setChecked(!item.isChecked());
         shouldShowSternfahrtRoutes = item.isChecked();
-        eventService.post(new NewOverlayConfig());
+        eventService.post(new NewOverlayConfigEvent());
     }
 
 
