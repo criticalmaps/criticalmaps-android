@@ -33,6 +33,7 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import de.stephanlindauer.criticalmaps.utils.ImageHelper;
 import org.apache.http.Header;
 
 import java.io.File;
@@ -68,20 +69,6 @@ public class SuperFragment extends Fragment {
 
         trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
         trackingToggleButton.setChecked(OwnLocationModel.getInstance().isListeningForLocation);
-
-        //always show the three stupid dots
-//        try {
-//            ViewConfiguration config = ViewConfiguration.get(getActivity());
-//            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-//
-//            if (menuKeyField != null) {
-//                menuKeyField.setAccessible(true);
-//                menuKeyField.setBoolean(config, false);
-//            }
-//        }
-//        catch (Exception e) {
-//
-//        }
     }
 
     @Override
@@ -123,14 +110,13 @@ public class SuperFragment extends Fragment {
 
             Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath(), options);
 
-            bitmap = rotateBitmap(bitmap, photoFile);
+            bitmap = ImageHelper.rotateBitmap(bitmap, photoFile);
             showConfirmUploadDialog(bitmap, photoFile);
 
             return;
         } else {
             Toast.makeText(getActivity(), R.string.camera_error, Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
@@ -170,27 +156,7 @@ public class SuperFragment extends Fragment {
         builder.show();
     }
 
-    private Bitmap rotateBitmap(Bitmap bitmap, File file) {
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(photoFile.getPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
-        int rotationAngle = 0;
 
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-
-        Matrix matrix = new Matrix();
-        matrix.setRotate(rotationAngle, (float) bitmap.getWidth() / 2, (float) bitmap.getHeight() / 2);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-        return rotatedBitmap;
-    }
 
     private void uploadImage(File file) {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -245,9 +211,9 @@ public class SuperFragment extends Fragment {
 
         File path = new File(Environment.getExternalStorageDirectory(), "foo/bar");
         if (!path.exists()) path.mkdirs();
-        photoFile = getOutputMediaFile();
+        photoFile = ImageHelper.getNewOutputImageFile();
 
-        Uri mImageCaptureUri1 = Uri.fromFile(getOutputMediaFile());
+        Uri mImageCaptureUri1 = Uri.fromFile(photoFile);
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri1);
@@ -255,22 +221,7 @@ public class SuperFragment extends Fragment {
         startActivityForResult(cameraIntent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
 
-    private File getOutputMediaFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "bla");
 
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-
-
-        return mediaFile;
-    }
 
     private void startFeedbackIntent() {
         Intent Email = new Intent(Intent.ACTION_SEND);
@@ -288,7 +239,6 @@ public class SuperFragment extends Fragment {
         startActivity(i);
     }
 
-
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
         if (item.isChecked()) {
@@ -304,7 +254,6 @@ public class SuperFragment extends Fragment {
         if (noTrackingOverlay != null)
             noTrackingOverlay.setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
     }
-
 
     private void handleShowSternfahrt(MenuItem item) {
         item.setChecked(!item.isChecked());
