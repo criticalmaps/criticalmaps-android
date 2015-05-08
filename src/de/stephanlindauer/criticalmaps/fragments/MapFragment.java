@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
-import de.stephanlindauer.criticalmaps.events.NewOverlayConfig;
+import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -169,7 +169,7 @@ public class MapFragment extends SuperFragment {
     }
 
     @Subscribe
-    public void handleNewOverlayConfig(NewOverlayConfig e) {
+    public void handleNewOverlayConfig(NewOverlayConfigEvent e) {
         refreshView();
     }
 }
