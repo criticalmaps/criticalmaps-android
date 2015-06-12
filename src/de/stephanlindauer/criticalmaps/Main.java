@@ -10,6 +10,7 @@ import com.splunk.mint.Mint;
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.helper.SelfDestructor;
+import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
@@ -21,6 +22,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private final TrackingInfoNotificationSetter trackingInfoNotificationSetter = TrackingInfoNotificationSetter.getInstance();
     private final ServerPuller serverPuller = ServerPuller.getInstance();
     private final GPSMananger gpsMananger = GPSMananger.getInstance();
+    private final UserModel userModel = UserModel.getInstance();
 
     //misc
     CustomViewPager viewPager;
@@ -53,6 +55,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         trackingInfoNotificationSetter.initialize(getBaseContext(), this);
         trackingInfoNotificationSetter.show();
+
+        userModel.initialize(this);
     }
 
     private void setupViewPager() {
