@@ -123,6 +123,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="httpclient-4.3.6" level="project" />
+    <orderEntry type="library" name="android-async-http-1.4.6" level="project" />
+    <orderEntry type="library" name="aws-android-sdk-core-2.2.2" level="project" />
   </component>
 </module>
 
