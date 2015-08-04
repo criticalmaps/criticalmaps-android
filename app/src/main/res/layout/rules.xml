@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="#FFFFFFFF"
+              android:layout_weight="1"
+              android:orientation="vertical">
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      android:background="#FFFFFFFF"
+                      android:orientation="vertical">
+            <Button style="@style/rules_button"
+                    android:id="@+id/btnCorken"
+                    android:text="@string/rules_corken"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelCorken">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_corken_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_corken"/>
+            </LinearLayout>
+            <Button style="@style/rules_button"
+                    android:id="@+id/btnOncomingTraffic"
+                    android:text="@string/rules_oncoming_traffic"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelOncomingTraffic">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_oncoming_traffic_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_wronglane"/>
+            </LinearLayout>
+            <Button android:id="@+id/btnSlow"
+                    android:text="@string/rules_steady"
+                    style="@style/rules_button"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelSlow">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_steady_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_slowly"/>
+            </LinearLayout>
+            <Button style="@style/rules_button"
+                    android:id="@+id/btnBrake"
+                    android:text="@string/rules_brake"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelBrake">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_brake_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_brake"/>
+            </LinearLayout>
+            <Button style="@style/rules_button"
+                    android:id="@+id/btnGreen"
+                    android:text="@string/rules_green"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelGreen">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_green_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_green"/>
+            </LinearLayout>
+            <Button style="@style/rules_button"
+                    android:id="@+id/btnFriendly"
+                    android:text="@string/rules_friendly"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelFriendly">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_friendly_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_friendly"/>
+            </LinearLayout>
+            <Button style="@style/rules_button"
+                    android:id="@+id/btnFun"
+                    android:text="@string/rules_fun"/>
+            <LinearLayout style="@style/rules_panel_wrapper"
+                          android:id="@+id/panelFun">
+                <TextView style="@style/rules_explainer"
+                          android:text="@string/rules_fun_explain"/>
+                <ImageView style="@style/rules_image"
+                           android:src="@drawable/rules_fun"/>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content"
+                      android:padding="10dp"
+                      android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:text="Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)"
+                      android:id="@+id/textView"
+                      android:autoLink="web"
+                      android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
