@@ -1,5 +1,7 @@
 # critical mass android app
 
+[![Build Status](https://travis-ci.org/stephanlindauer/criticalmaps-android.svg?branch=master)](https://travis-ci.org/stephanlindauer/criticalmaps-android)
+
 ## what's "critical mass"?
 
 ``` 
