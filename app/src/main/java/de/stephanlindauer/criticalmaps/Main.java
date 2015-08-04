@@ -1,5 +1,5 @@
 package de.stephanlindauer.criticalmaps;
-
+  
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
