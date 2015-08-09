@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Turkish Translation, Caner Başaran <basaran.caner@gmail.com>, 2015 -->
+<resources>
+    <!-- app -->
+    <string name="app_name">Kritik Kitle Harita</string>
+
+    <!-- nav -->
+    <string name="section_map">harita</string>
+    <string name="section_rules">kurallar</string>
+    <string name="section_twitter">twitter</string>
+    <string name="section_about">hakkında</string>
+    <string name="section_chat">sohbet</string>
+
+    <!-- close -->
+    <string name="close">gerçekten uygulama kapatılsın mı?</string>
+    <string name="yes">evet</string>
+    <string name="no">hayır</string>
+
+    <!-- acivity bar -->
+    <string name="tracking">izleme</string>
+    <string name="show_sternfahrt_routes">rotaları göster</string>
+    <string name="close_button">kapat</string>
+    <string name="feedback">geribesleme</string>
+    <string name="datenschutz">gizlilik politikası</string>
+    <string name="take_picture">fotoğraf çek</string>
+
+    <!-- map -->
+    <string name="notification_tracking_title">konum izlenmekte</string>
+    <string name="notification_tracking_text">devredışı bırakmak için: ayarlar - izleme kapalı
+        veya x-tuşu ile kapat.
+    </string>
+    <string name="map_overlay_tracking_off">izleme kapalı. \n
+        diğer bisikletlileri görebilmek için izlemeyi etkinleştir. \n\n
+        şimdi buraya dokun!
+    </string>
+
+    <!-- rules -->
+    <string name="rules_corken">kapanma!?</string>
+    <string name="rules_corken_explain">kapanma ile kendinizi motorlu taşıtlardan koruyun!</string>
+
+    <string name="rules_oncoming_traffic">ilerleyen trafik</string>
+    <string name="rules_oncoming_traffic_explain">karşı şeritte sürmeyin.</string>
+
+    <string name="rules_steady">atınıza sahip çıkın!</string>
+    <string name="rules_steady_explain">en önde sürerken: hız yapmayın! en arkada sürürken: boşluk bırakmayın!
+    </string>
+
+    <string name="rules_brake">ani durmayın!</string>
+    <string name="rules_brake_explain">gerçekten durmak zorundaysan, arkandaki insanları uyar.
+    </string>
+
+    <string name="rules_green">en başta sürerken: kırmızı ışıklarda dur!</string>
+    <string name="rules_green_explain">Grubun en başında sürerken kırmızı ışığı gördüğünde, kesinlikle dur.
+    </string>
+
+    <string name="rules_friendly">sakin ol</string>
+    <string name="rules_friendly_explain">kışkırtılmanıza izin vermeyin. polis, motorlu taşıtlar ve diğer kişilere dostane
+        davranın, eğer onlar öyle davranmasalar bile.
+    </string>
+
+    <string name="rules_fun">eğlen!</string>
+    <string name="rules_fun_explain">caddeler sizin de, eğlenin. motorlu taşıt sürücüleri ve yayalar ile yaptığınız
+        yaptığınız şeyin ne olduğunu aktarın. keyf al!
+    </string>
+
+    <!-- chat -->
+    <string name="chat_heading">mesajlar 30 dakika sonra silinecek.</string>
+    <string name="chat_send">gönder</string>
+    <string name="chat_text">en fazla 255 karakter...</string>
+    <string name="chat_sending">gönderiliyor...</string>
+
+    <!-- notifications -->
+    <string name="notification_alarm_title">unutma:</string>
+    <string name="notification_alarm_text">Kritik Kitle bugün 20:00 de Heinrichplatz!</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">şimdi</string>
+    <string name="timetoword_aminuteago">bir dakika önce</string>
+    <string name="timetoword_minutesago">%s dakika önce</string>
+    <string name="timetoword_anhourago">bir saat önce</string>
+    <string name="timetoword_hoursago">%s saat önce</string>
+    <string name="timetoword_yesterday">dün</string>
+    <string name="timetoword_daysago">%s gün önce</string>
+
+    <!-- toasts -->
+    <string name="no_camera">kamera yok</string>
+
+    <!-- camera -->
+    <string name="camera_no_camera">kamera yok</string>
+    <string name="camera_comfirm_image_upload">
+        <![CDATA[
+        <a href="http://criticalmaps.net">criticalmaps.net</a> fotoğraf yüklemek ister misin? \nHerkes tarafından harita üzerinde <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> lisansı ile görüntülenir.
+        ]]>
+    </string>
+    <string name="camera_upload">fotoğraf yükle!</string>
+    <string name="camera_discard">iptal et :-(</string>
+    <string name="camera_uploading_progress">yükleniyor...</string>
+    <string name="camera_error">hata oluştu :-(</string>
+    <string name="camera_uploading_done">yükleme başarılı!</string>
+
+
+</resources>
