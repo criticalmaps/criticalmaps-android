@@ -73,17 +73,17 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Connection", "Keep-Alive");
-//            connection.setRequestProperty("Cache-Control", "no-cache");
+            connection.setRequestProperty("Cache-Control", "no-cache");
             connection.setRequestProperty("ENCTYPE", "multipart/form-data");
-            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+//            connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
 //            connection.setRequestProperty("Content-Length", String.valueOf(imageFileToUpload.length()));
 
             DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
             dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
             dataOutputStream.writeBytes("Content-Disposition: form-data;name=\"uploaded_file\";filename=\"" + imageFileToUpload.getName() + "\"" + lineEnd);
-//            dataOutputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
+            dataOutputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
 
             dataOutputStream.writeBytes(lineEnd);
 
