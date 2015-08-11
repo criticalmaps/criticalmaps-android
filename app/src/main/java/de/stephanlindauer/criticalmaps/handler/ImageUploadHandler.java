@@ -73,6 +73,13 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
             dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + "fuu" + "\"" + lineEnd);
+            dataOutputStream.writeBytes("Content-Type: text/plain"+lineEnd);
+            dataOutputStream.writeBytes(lineEnd);
+            dataOutputStream.writeBytes("location data goes here");
+            dataOutputStream.writeBytes(lineEnd);
+
+            dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
             dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
                     + imageFileToUpload.getName() + "\"" + lineEnd);
 
@@ -96,6 +103,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
             dataOutputStream.writeBytes(lineEnd);
             dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
 
             int serverResponseCode = connection.getResponseCode();
             String serverResponseMessage = connection.getResponseMessage();
