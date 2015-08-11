@@ -99,5 +99,10 @@
     <string name="camera_error">something went wrong :-(</string>
     <string name="camera_uploading_done">fertig!</string>
 
+    <string name="something_went_wrong">something went wrong</string>
+
+    <string name="image_upload_failed_title">Image upload failed.</string>
+    <string name="image_upload_failed_message">Please try again.</string>
+    <string name="image_upload_failed_accept">OK</string>
 
 </resources>
