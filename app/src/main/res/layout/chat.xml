@@ -1,44 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-    <TextView android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/chat_heading"
-              android:background="@drawable/border_bottom"
-              android:padding="10dp"/>
-    <LinearLayout android:layout_width="wrap_content"
-                  android:layout_height="0dip"
-                  android:orientation="vertical"
-                  android:layout_weight="1">
-        <ListView android:id="@+id/chat_list"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:drawSelectorOnTop="false"
-                  android:orientation="vertical"
-                  android:layout_gravity="bottom"/>
-        <ListView android:id="@+id/chat_list_outgoing"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:drawSelectorOnTop="false"
-                  android:orientation="vertical"
-                  android:layout_gravity="bottom"
-                  android:background="#ff0000"/>
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_heading"
+        android:background="@drawable/border_bottom"
+        android:padding="10dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/chat_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:orientation="vertical"
+            android:layout_gravity="bottom" />
+
+        <ListView
+            android:id="@+id/chat_list_outgoing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:background="#ff0000" />
     </LinearLayout>
-    <LinearLayout android:orientation="horizontal"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:background="@drawable/border_top">
-        <EditText android:id="@+id/chat_edit_message"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:maxLength="255"
-                  android:hint="@string/chat_text"/>
-        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chat_send"
-                android:id="@+id/chat_send_btn"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_top">
+
+        <EditText
+            android:id="@+id/chat_edit_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLength="255"
+            android:hint="@string/chat_text" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chat_send"
+            android:id="@+id/chat_send_btn" />
     </LinearLayout>
 </LinearLayout>

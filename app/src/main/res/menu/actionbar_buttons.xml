@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_height="match_parent"
-      android:layout_width="match_parent">
-    <item android:id="@+id/take_picture"
-          android:title="@string/take_picture"
-          android:icon="@drawable/ic_action_camera"
-          android:showAsAction="always"/>
-    <item android:title="@string/close_button"
-          android:id="@+id/action_close"
-          android:icon="@drawable/ic_action_cancel"
-          android:showAsAction="always"/>
-    <item android:title=""
-          android:icon="@drawable/ic_action_overflow"
-          android:orderInCategory="11111"
-          android:showAsAction="always">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <item
+        android:id="@+id/take_picture"
+        android:title="@string/take_picture"
+        android:icon="@drawable/ic_action_camera"
+        android:showAsAction="always" />
+    <item
+        android:title="@string/close_button"
+        android:id="@+id/action_close"
+        android:icon="@drawable/ic_action_cancel"
+        android:showAsAction="always" />
+    <item
+        android:title=""
+        android:icon="@drawable/ic_action_overflow"
+        android:orderInCategory="11111"
+        android:showAsAction="always">
         <menu>
-            <item android:id="@+id/settings_tracking_toggle"
-                  android:title="@string/tracking"
-                  android:showAsAction="collapseActionView"
-                  android:checkable="true"
-                  android:checked="true"/>
-            <item android:id="@+id/show_sternfahrt"
-                  android:title="@string/show_sternfahrt_routes"
-                  android:showAsAction="never"
-                  android:checkable="true"
-                  android:checked="false"/>
-            <item android:id="@+id/settings_feedback"
-                  android:title="@string/feedback"
-                  android:showAsAction="never"/>
-            <item android:id="@+id/settings_datenschutz"
-                  android:title="@string/datenschutz"
-                  android:showAsAction="never"/>
+            <item
+                android:id="@+id/settings_tracking_toggle"
+                android:title="@string/tracking"
+                android:showAsAction="collapseActionView"
+                android:checkable="true"
+                android:checked="true" />
+            <item
+                android:id="@+id/show_sternfahrt"
+                android:title="@string/show_sternfahrt_routes"
+                android:showAsAction="never"
+                android:checkable="true"
+                android:checked="false" />
+            <item
+                android:id="@+id/settings_feedback"
+                android:title="@string/feedback"
+                android:showAsAction="never" />
+            <item
+                android:id="@+id/settings_datenschutz"
+                android:title="@string/datenschutz"
+                android:showAsAction="never" />
         </menu>
     </item>
 </menu>

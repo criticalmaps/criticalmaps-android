@@ -1,5 +1,5 @@
 package de.stephanlindauer.criticalmaps;
-  
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.notifications.reminder.ReminderNotificationSetter;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import de.stephanlindauer.criticalmaps.service.ServerPuller;
