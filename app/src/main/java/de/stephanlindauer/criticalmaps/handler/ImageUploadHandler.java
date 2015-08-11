@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,9 +15,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.vo.chat.Endpoints;
@@ -52,7 +50,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         try {
             FileInputStream imageFileInputStream = new FileInputStream(imageFileToUpload);
 
-            String lineEnd = "\r\n";
+                     String lineEnd = "\r\n";
             String twoHyphens = "--";
             String boundary = "*****";
 
@@ -74,22 +72,20 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             connection.setChunkedStreamingMode(maxBufferSize);
 
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Connection", "keep-alive");
+            connection.setRequestProperty("Connection", "Keep-Alive");
+//            connection.setRequestProperty("Cache-Control", "no-cache");
             connection.setRequestProperty("ENCTYPE", "multipart/form-data");
-//            connection.setRequestProperty("Authorization", ActiveUser.getInstance().getAuthentificationHash());
             connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            connection.setRequestProperty("uploaded_file", "imageFile");
-            connection.setRequestProperty("Content-Length", String.valueOf(imageFileInputStream.getChannel().size()));
-            connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
+            connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
+//            connection.setRequestProperty("Content-Length", String.valueOf(imageFileToUpload.length()));
 
             DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
             dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"imageFile\"" + lineEnd);
-            dataOutputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
-            dataOutputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
-            dataOutputStream.writeBytes(lineEnd);
+            dataOutputStream.writeBytes("Content-Disposition: form-data;name=\"uploaded_file\";filename=\"" + imageFileToUpload.getName() + "\"" + lineEnd);
+//            dataOutputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
 
+            dataOutputStream.writeBytes(lineEnd);
 
             totalAmountBytesToUpload = imageFileInputStream.available();
 
@@ -100,11 +96,10 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
             while (bytesRead > 0) {
                 dataOutputStream.write(buffer, 0, bufferSize);
-
-                bufferSize = Math.min(totalAmountBytesToUpload, maxBufferSize);
-                bytesRead = imageFileInputStream.read(buffer, 0, bufferSize);
-
                 int restBytesToUpload = imageFileInputStream.available();
+
+                bufferSize = Math.min(restBytesToUpload, maxBufferSize);
+                bytesRead = imageFileInputStream.read(buffer, 0, bufferSize);
 
                 publishProgress(restBytesToUpload);
             }
@@ -141,8 +136,6 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
     @Override
     protected void onProgressUpdate(Integer... stillLeftToUpload) {
-        super.onProgressUpdate(stillLeftToUpload);
-
         int alreadyUploaded = totalAmountBytesToUpload - stillLeftToUpload[0];
 
         int onePercent = totalAmountBytesToUpload / 100;
