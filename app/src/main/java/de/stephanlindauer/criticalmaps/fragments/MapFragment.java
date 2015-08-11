@@ -48,8 +48,7 @@ public class MapFragment extends SuperFragment {
     private DefaultResourceProxyImpl resourceProxy;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,                             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.map, container, false);
     }
@@ -67,12 +66,10 @@ public class MapFragment extends SuperFragment {
         mapView.getController().setZoom(12);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setLayoutParams(new LayoutParams(
-                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        mapView.setLayoutParams(new LayoutParams(                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         RelativeLayout mapCountainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         mapCountainer.addView(mapView);
-
 
         mapView.invalidate();
 

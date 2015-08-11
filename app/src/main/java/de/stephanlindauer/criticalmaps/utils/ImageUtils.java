@@ -8,9 +8,6 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ImageUtils {
 
@@ -70,10 +67,6 @@ public class ImageUtils {
             }
         }
 
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG" + (int)(Math.random()*99999) + ".jpg");
-
-        return mediaFile;
+        return new File(mediaStorageDir.getPath() + File.separator + RandomStringGenerator.getRandomString(32) + ".jpg");
     }
-
 }
