@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -48,71 +47,63 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     @Override
     protected ResultType doInBackground(Void... params) {
         try {
-            FileInputStream imageFileInputStream = new FileInputStream(imageFileToUpload);
-
-                     String lineEnd = "\r\n";
+            HttpURLConnection conn = null;
+            DataOutputStream dos = null;
+            String lineEnd = "\r\n";
             String twoHyphens = "--";
             String boundary = "*****";
-
-            int bytesRead;
-
-            int bufferSize;
-
+            int bytesRead, bytesAvailable, bufferSize;
             byte[] buffer;
+            int maxBufferSize = 1 * 1024 * 1024;
 
-            int maxBufferSize = 1024 * 8;
-
+            FileInputStream fileInputStream = new FileInputStream(imageFileToUpload);
             URL url = new URL(Endpoints.IMAGE_POST);
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
 
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setUseCaches(false);
-            connection.setChunkedStreamingMode(maxBufferSize);
+            conn.setRequestMethod("POST");
 
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Connection", "Keep-Alive");
-            connection.setRequestProperty("Cache-Control", "no-cache");
-            connection.setRequestProperty("ENCTYPE", "multipart/form-data");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-//            connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
-//            connection.setRequestProperty("Content-Length", String.valueOf(imageFileToUpload.length()));
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+            conn.setRequestProperty("uploaded_file", imageFileToUpload.getName());
 
-            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+            dos = new DataOutputStream(conn.getOutputStream());
 
-            dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            dataOutputStream.writeBytes("Content-Disposition: form-data;name=\"uploaded_file\";filename=\"" + imageFileToUpload.getName() + "\"" + lineEnd);
-            dataOutputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+                    + imageFileToUpload.getName() + "\"" + lineEnd);
 
-            dataOutputStream.writeBytes(lineEnd);
+            dos.writeBytes(lineEnd);
 
-            totalAmountBytesToUpload = imageFileInputStream.available();
+            bytesAvailable = fileInputStream.available();
+            totalAmountBytesToUpload = bytesAvailable;
 
-            bufferSize = Math.min(totalAmountBytesToUpload, maxBufferSize);
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
             buffer = new byte[bufferSize];
 
-            bytesRead = imageFileInputStream.read(buffer, 0, bufferSize);
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
             while (bytesRead > 0) {
-                dataOutputStream.write(buffer, 0, bufferSize);
-                int restBytesToUpload = imageFileInputStream.available();
-
-                bufferSize = Math.min(restBytesToUpload, maxBufferSize);
-                bytesRead = imageFileInputStream.read(buffer, 0, bufferSize);
-
-                publishProgress(restBytesToUpload);
+                dos.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                publishProgress(bytesAvailable);
             }
 
-            dataOutputStream.writeBytes(lineEnd);
-            dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-            int serverResponseCode = connection.getResponseCode();
-            String serverResponseMessage = connection.getResponseMessage();
+            int serverResponseCode = conn.getResponseCode();
+            String serverResponseMessage = conn.getResponseMessage();
 
             Log.i("uploadFile", "HTTP Response is : " + serverResponseMessage + ": " + serverResponseCode);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
 
             String responseString;
@@ -120,13 +111,9 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
                 sb.append(responseString);
             }
 
-//            JSONObject responseObject = new JSONObject(sb.toString());
-
-//            imageFileNameOnServer = responseObject.getString("image");
-
-            imageFileInputStream.close();
-            dataOutputStream.flush();
-            dataOutputStream.close();
+            fileInputStream.close();
+            dos.flush();
+            dos.close();
         } catch (Exception e) {
             return ResultType.FAILED;
         }
