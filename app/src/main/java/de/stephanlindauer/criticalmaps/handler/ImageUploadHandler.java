@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -47,8 +46,8 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     @Override
     protected ResultType doInBackground(Void... params) {
         try {
-            HttpURLConnection conn = null;
-            DataOutputStream dos = null;
+            HttpURLConnection connection = null;
+            DataOutputStream dataOutputStream = null;
             String lineEnd = "\r\n";
             String twoHyphens = "--";
             String boundary = "*****";
@@ -59,25 +58,25 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             FileInputStream fileInputStream = new FileInputStream(imageFileToUpload);
             URL url = new URL(Endpoints.IMAGE_POST);
 
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
 
-            conn.setRequestMethod("POST");
+            connection.setRequestMethod("POST");
 
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            conn.setRequestProperty("uploaded_file", imageFileToUpload.getName());
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("ENCTYPE", "multipart/form-data");
+            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+            connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
 
-            dos = new DataOutputStream(conn.getOutputStream());
+            dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+            dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
                     + imageFileToUpload.getName() + "\"" + lineEnd);
 
-            dos.writeBytes(lineEnd);
+            dataOutputStream.writeBytes(lineEnd);
 
             bytesAvailable = fileInputStream.available();
             totalAmountBytesToUpload = bytesAvailable;
@@ -88,32 +87,34 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
             while (bytesRead > 0) {
-                dos.write(buffer, 0, bufferSize);
+                dataOutputStream.write(buffer, 0, bufferSize);
                 bytesAvailable = fileInputStream.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
                 publishProgress(bytesAvailable);
             }
 
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            dataOutputStream.writeBytes(lineEnd);
+            dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-            int serverResponseCode = conn.getResponseCode();
-            String serverResponseMessage = conn.getResponseMessage();
+            int serverResponseCode = connection.getResponseCode();
+            String serverResponseMessage = connection.getResponseMessage();
 
-            Log.i("uploadFile", "HTTP Response is : " + serverResponseMessage + ": " + serverResponseCode);
+            if (serverResponseCode != 200) {
+                throw new Exception();
+            }
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
 
             String responseString;
-            while ((responseString = br.readLine()) != null) {
-                sb.append(responseString);
+            while ((responseString = bufferedReader.readLine()) != null) {
+                stringBuilder.append(responseString);
             }
 
             fileInputStream.close();
-            dos.flush();
-            dos.close();
+            dataOutputStream.flush();
+            dataOutputStream.close();
         } catch (Exception e) {
             return ResultType.FAILED;
         }
@@ -135,7 +136,6 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     protected void onPostExecute(ResultType resultType) {
         if (resultType == ResultType.SUCCEEDED) {
             progressDialog.dismiss();
-//            eventService.post(new NewImageReceivedFromServer(new OfferImage(imageFileNameOnServer)));
         } else {
             progressDialog.dismiss();
             showErrorMessage();
@@ -150,6 +150,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
                 .setPositiveButton(activity.getString(R.string.image_upload_failed_accept), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
                     }
                 }).create().show();
     }
