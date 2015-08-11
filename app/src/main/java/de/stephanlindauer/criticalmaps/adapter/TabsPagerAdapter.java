@@ -21,9 +21,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new MapFragment();
             case 1:
-                return new RulesFragment();
-            case 2:
                 return new ChatFragment();
+            case 2:
+                return new RulesFragment();
             case 3:
                 return new AboutFragment();
         }

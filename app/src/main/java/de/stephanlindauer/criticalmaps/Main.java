@@ -55,8 +55,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         viewPager.setAdapter(tabsPagerAdapter);
 
         actionBar.addTab(actionBar.newTab().setText(R.string.section_map).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_chat).setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
 
         registerListenersForSwipedChanges(actionBar);
