@@ -148,6 +148,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             progressDialog.dismiss();
             showErrorMessage();
         }
+        imageFileToUpload.delete();
     }
 
     private void showErrorMessage() {

@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps.handler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import de.stephanlindauer.criticalmaps.R;
@@ -26,12 +26,22 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
     private Activity activity;
     private File newCameraOutputFile;
-    private File processedImage;
-    private FileInputStream fileInputStream;
+    private File processedImageFile;
+    private ProgressDialog progressDialog;
 
     public ProcessCameraResultHandler(Activity activity, File newCameraOutputFile) {
         this.activity = activity;
         this.newCameraOutputFile = newCameraOutputFile;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        progressDialog = new ProgressDialog(activity);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage(activity.getString(R.string.camera_processing_image));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
@@ -40,8 +50,8 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
             Bitmap rotatedBitmap = ImageUtils.rotateBitmap(newCameraOutputFile);
             Bitmap scaledBitmap = ImageUtils.resize(rotatedBitmap, 1024, 1024);
 
-            processedImage = ImageUtils.getNewOutputImageFile();
-            FileOutputStream fOut = new FileOutputStream(processedImage);
+            processedImageFile = ImageUtils.getNewOutputImageFile();
+            FileOutputStream fOut = new FileOutputStream(processedImageFile);
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
             fOut.flush();
             fOut.close();
@@ -56,10 +66,12 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
     @Override
     protected void onPostExecute(ResultType resultType) {
-        if (resultType == ResultType.FAILED){
+        if (resultType == ResultType.FAILED) {
             Toast.makeText(activity, R.string.something_went_wrong, Toast.LENGTH_LONG).show();
             return;
         }
+
+        progressDialog.dismiss();
 
         LayoutInflater factory = LayoutInflater.from(activity);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -67,7 +79,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
         ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
 
-        image.setImageBitmap(BitmapFactory.decodeFile(processedImage.getPath(), new BitmapFactory.Options()));
+        image.setImageBitmap(BitmapFactory.decodeFile(processedImageFile.getPath(), new BitmapFactory.Options()));
 
         TextView text;
         text = (TextView) view.findViewById(R.id.picture_confirm_text);
@@ -81,10 +93,10 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        new ImageUploadHandler(processedImage, activity).execute();
+                        new ImageUploadHandler(processedImageFile, activity).execute();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
-                        //do nothing + let dialog close
+                        processedImageFile.delete();
                         break;
                 }
             }
