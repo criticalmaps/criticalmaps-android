@@ -1,9 +1,7 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -16,6 +14,7 @@ import java.net.URL;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
 
@@ -145,23 +144,11 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     protected void onPostExecute(ResultType resultType) {
         if (resultType == ResultType.SUCCEEDED) {
             progressDialog.dismiss();
+            AlertBuilder.show(activity, R.string.image_upload_succeeded_title, R.string.image_upload_succeeded_message);
         } else {
             progressDialog.dismiss();
-            showErrorMessage();
+            AlertBuilder.show(activity, R.string.image_upload_failed_title, R.string.image_upload_failed_message);
         }
         imageFileToUpload.delete();
-    }
-
-    private void showErrorMessage() {
-        new AlertDialog.Builder(activity)
-                .setTitle(activity.getString(R.string.image_upload_failed_title))
-                .setMessage(activity.getString(R.string.image_upload_failed_message))
-                .setCancelable(false)
-                .setPositiveButton(activity.getString(R.string.image_upload_failed_accept), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //do nothing
-                    }
-                }).create().show();
     }
 }

@@ -108,5 +108,7 @@
     <string name="searching_for_location">searching for your location</string>
     <string name="ok">ok</string>
     <string name="no_location_no_camera">you can\'t upload images without having GPS enabled</string>
+    <string name="image_upload_succeeded_title">Image upload worked!</string>
+    <string name="image_upload_succeeded_message">You can view your Image on criticalmaps.net now</string>
 
 </resources>
