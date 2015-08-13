@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -63,7 +62,10 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
     @Override
     protected void onPostExecute(ResultType resultType) {
         if (resultType == ResultType.FAILED) {
-            Toast.makeText(activity, R.string.no_camera, Toast.LENGTH_LONG).show();
+            new AlertDialog.Builder(activity)
+                    .setMessage(R.string.no_camera)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
         }
     }
 }
