@@ -26,6 +26,7 @@ import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
+import de.stephanlindauer.criticalmaps.vo.Endpoints;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
@@ -43,7 +44,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String jsonPostString = getJsonObject().toString();
 
-        final HttpPost postRequest = new HttpPost("http://api.criticalmaps.net/postv2");
+        final HttpPost postRequest = new HttpPost(Endpoints.MAIN_POST);
 
         final HttpParams httpParams = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
