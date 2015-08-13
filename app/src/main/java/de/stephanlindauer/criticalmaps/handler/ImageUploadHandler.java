@@ -15,8 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.vo.chat.Endpoints;
-import de.stephanlindauer.criticalmaps.vo.chat.ResultType;
+import de.stephanlindauer.criticalmaps.vo.Endpoints;
+import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     private final Activity activity;

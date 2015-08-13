@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
-import de.stephanlindauer.criticalmaps.vo.chat.ResultType;
+import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType> {
 

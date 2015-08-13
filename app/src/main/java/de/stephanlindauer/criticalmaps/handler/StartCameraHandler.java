@@ -13,8 +13,8 @@ import java.io.File;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.fragments.SuperFragment;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
-import de.stephanlindauer.criticalmaps.vo.chat.RequestCodes;
-import de.stephanlindauer.criticalmaps.vo.chat.ResultType;
+import de.stephanlindauer.criticalmaps.vo.RequestCodes;
+import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
 

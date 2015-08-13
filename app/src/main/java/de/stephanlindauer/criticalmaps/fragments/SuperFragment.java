@@ -2,7 +2,6 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -28,7 +26,7 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
-import de.stephanlindauer.criticalmaps.vo.chat.RequestCodes;
+import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class SuperFragment extends Fragment {
 
