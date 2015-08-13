@@ -106,5 +106,7 @@
     <string name="image_upload_failed_accept">OK</string>
     <string name="camera_processing_image">processing image...</string>
     <string name="searching_for_location">searching for your location</string>
+    <string name="ok">ok</string>
+    <string name="no_location_no_camera">you can\'t upload images without having GPS enabled</string>
 
 </resources>
