@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -99,7 +101,7 @@ public class SuperFragment extends Fragment {
     private void startFeedbackIntent() {
         Intent Email = new Intent(Intent.ACTION_SEND);
         Email.setType("text/email");
-        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephan.lindauer@gmail.com"});
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephanlindauer@posteo.de"});
         Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps");
         Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(getActivity().getPackageManager(), getActivity().getPackageName()));
         startActivity(Intent.createChooser(Email, "Send Feedback:"));
