@@ -15,14 +15,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
+    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+
     private final Activity activity;
     private final File imageFileToUpload;
-
-
     private int totalAmountBytesToUpload;
     private ProgressDialog progressDialog;
 
@@ -73,10 +74,10 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
             dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + "fuu" + "\"" + lineEnd);
-            dataOutputStream.writeBytes("Content-Type: text/plain"+lineEnd);
+            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + "data" + "\"" + lineEnd);
+            dataOutputStream.writeBytes("Content-Type: text/plain" + lineEnd);
             dataOutputStream.writeBytes(lineEnd);
-            dataOutputStream.writeBytes("location data goes here");
+            dataOutputStream.writeBytes(ownLocationModel.getLocationJson().toString());
             dataOutputStream.writeBytes(lineEnd);
 
             dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
