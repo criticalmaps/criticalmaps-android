@@ -5,10 +5,8 @@ import org.osmdroid.util.GeoPoint;
 public class OwnLocationModel {
 
     public GeoPoint ownLocation;
-    public GeoPoint ownLocationCoarse;
 
     public boolean isListeningForLocation = false;
-
     //singleton
     private static OwnLocationModel instance;
 

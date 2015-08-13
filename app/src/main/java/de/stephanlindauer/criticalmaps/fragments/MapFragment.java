@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -14,7 +13,6 @@ import com.squareup.otto.Subscribe;
 
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.bonuspack.overlays.Polyline;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
@@ -32,6 +30,7 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends SuperFragment {
 
@@ -40,15 +39,20 @@ public class MapFragment extends SuperFragment {
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private EventService eventService = EventService.getInstance();
     private SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
+    private GPSMananger locationManager = GPSMananger.getInstance();
 
     //view
     private MapView mapView;
+    private ImageButton setCurrentLocationCenter;
+    private RelativeLayout mapContainer;
+    private RelativeLayout searchingForLocationOverlay;
 
     //misc
     private DefaultResourceProxyImpl resourceProxy;
+    private boolean isInitialLocationSet = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.map, container, false);
     }
@@ -59,21 +63,18 @@ public class MapFragment extends SuperFragment {
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity());
 
-        mapView = new MapView(getActivity(), null);
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-        mapView.setBuiltInZoomControls(true);
-        mapView.setMultiTouchControls(true);
-        mapView.getController().setZoom(12);
-        mapView.setClickable(true);
-        mapView.setBuiltInZoomControls(true);
-        mapView.setLayoutParams(new LayoutParams(                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
+        setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
+        mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
+        searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlay);
 
-        RelativeLayout mapCountainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
-        mapCountainer.addView(mapView);
-
+        mapView = MapViewUtils.createMapView(getActivity());
+        mapContainer.addView(mapView);
         mapView.invalidate();
 
-        noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
+        setLastKnownLocationBoundingBox();
+        setLastKnownLocationMapIcon();
+
         noTrackingOverlay.setVisibility(ownLocationModel.isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -83,21 +84,41 @@ public class MapFragment extends SuperFragment {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mapView.getController().animateTo(ownLocationModel.ownLocationCoarse);
-            }
-        }, 200);
-
-        ImageButton setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mapView.getController().animateTo(OwnLocationModel.getInstance().ownLocationCoarse);
+                if (ownLocationModel.ownLocation != null)
+                    mapView.getController().animateTo(ownLocationModel.ownLocation);
             }
         });
     }
 
+    private void setLastKnownLocationBoundingBox() {
+        final GeoPoint lastKnownLocation = locationManager.getLastKnownLocation();
+        if (lastKnownLocation != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mapView.getController().animateTo(lastKnownLocation);
+                }
+            }, 200);
+        }
+    }
+
+    private void setLastKnownLocationMapIcon() {
+        final GeoPoint ownLocation = ownLocationModel.ownLocation;
+        if (ownLocation != null) {
+            isInitialLocationSet = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mapView.getController().animateTo(ownLocation);
+                }
+            }, 200);
+        } else {
+            searchingForLocationOverlay.setVisibility(View.VISIBLE);
+        }
+
+    }
 
     private void refreshView() {
         for (Overlay element : mapView.getOverlays()) {
@@ -165,7 +186,21 @@ public class MapFragment extends SuperFragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
+        if (!isInitialLocationSet) {
+            hideSearchingForLocationOverlayAndZoomToLocation();
+            isInitialLocationSet = true;
+        }
         refreshView();
+    }
+
+    private void hideSearchingForLocationOverlayAndZoomToLocation() {
+        searchingForLocationOverlay.setVisibility(View.GONE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mapView.getController().animateTo(ownLocationModel.ownLocation);
+            }
+        }, 200);
     }
 
     @Subscribe

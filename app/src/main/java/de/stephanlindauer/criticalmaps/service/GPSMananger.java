@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps.service;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,9 +10,13 @@ import android.os.Bundle;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.util.Date;
+
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.utils.DateUtils;
+import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
 public class GPSMananger {
 
@@ -20,12 +25,12 @@ public class GPSMananger {
     private final EventService eventService = EventService.getInstance();
 
     //const
-    private final GeoPoint FALLBACK_LOCATION = new GeoPoint((int) (52.520820 * 1E6), (int) (13.409346 * 1E6));
-    private final float LOCATION_REFRESH_DISTANCE = 30; //30 meters
+    private final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
     private final long LOCATION_REFRESH_TIME = 30 * 1000; //30 seconds
 
     //misc
     private LocationManager locationManager;
+    private SharedPreferences sharedPreferences;
 
     //singleton
     private static GPSMananger instance;
@@ -37,63 +42,56 @@ public class GPSMananger {
         return GPSMananger.instance;
     }
 
-    public void initialize(Activity mContext) {
-        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    public void initialize(Activity activity) {
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         startLocationListening();
-        setLastKnownCoarseLocation();
-    }
-
-    private void setLastKnownCoarseLocation() {
-        Location lastKnownLocationGPS = null;
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-
-        Location lastKnownLocationNetwork = null;
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            lastKnownLocationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        }
-
-        Location lastKnownLocationPassive = null;
-        if (locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
-            lastKnownLocationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-        }
-
-        GeoPoint lastKnownLocation;
-
-        if (lastKnownLocationGPS != null) {
-            lastKnownLocation = new GeoPoint(lastKnownLocationGPS.getLatitude(), lastKnownLocationGPS.getLongitude());
-        } else if (lastKnownLocationNetwork != null) {
-            lastKnownLocation = new GeoPoint(lastKnownLocationNetwork.getLatitude(), lastKnownLocationNetwork.getLongitude());
-        } else if (lastKnownLocationPassive != null) {
-            lastKnownLocation = new GeoPoint(lastKnownLocationPassive.getLatitude(), lastKnownLocationPassive.getLongitude());
-        } else {
-            lastKnownLocation = FALLBACK_LOCATION;
-        }
-
-        ownLocationModel.ownLocationCoarse = lastKnownLocation;
+        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
     }
 
     private void startLocationListening() {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
+        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+
+        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+
         ownLocationModel.isListeningForLocation = true;
         TrackingInfoNotificationSetter.getInstance().show();
     }
 
     private void stopLocationListening() {
-        locationManager.removeUpdates(mLocationListener);
+        locationManager.removeUpdates(locationListener);
         ownLocationModel.ownLocation = null;
         ownLocationModel.isListeningForLocation = false;
         TrackingInfoNotificationSetter.getInstance().cancel();
     }
 
-    private final LocationListener mLocationListener = new LocationListener() {
+    public GeoPoint getLastKnownLocation() {
+        GeoPoint lastKnownLocation = null;
+        if (sharedPreferences.contains("latitude") && sharedPreferences.contains("longitude") && sharedPreferences.contains("timestamp")) {
+            Date timestampLastCoords = new Date(Long.valueOf(sharedPreferences.getLong("timestamp", 0)));
+            if (!DateUtils.isLongerAgoThen5Minutes(timestampLastCoords)) {
+                lastKnownLocation = new GeoPoint(
+                        Double.parseDouble(sharedPreferences.getString("latitude", "")),
+                        Double.parseDouble(sharedPreferences.getString("longitude", "")));
+            }
+        } else {
+            lastKnownLocation = LocationUtils.getBestLastKnownLocation(locationManager);
+        }
+
+        return lastKnownLocation;
+    }
+
+    private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
             ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-            ownLocationModel.ownLocationCoarse = new GeoPoint(location.getLatitude(), location.getLongitude());
             eventService.post(new NewLocationEvent());
+            sharedPreferences.edit()
+                    .putString("latitude", String.valueOf(location.getLatitude()))
+                    .putString("longitude", String.valueOf(location.getLongitude()))
+                    .putLong("timestamp", new Date().getTime())
+                    .commit();
         }
 
         @Override

@@ -1,36 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/mapContainer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:id="@+id/mapContainer"></RelativeLayout>
+        android:layout_alignParentRight="true" />
 
     <ImageButton
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_action_location_found"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_height="wrap_content"
+        android:id="@+id/setCurrentLocationCenter"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_margin="5dp"
-        android:id="@+id/setCurrentLocationCenter" />
+        android:gravity="center_vertical|center_horizontal"
+        android:src="@drawable/ic_action_location_found" />
 
     <Button
+        android:id="@+id/noTrackingOverlay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
-        android:text="@string/map_overlay_tracking_off"
+        android:layout_margin="5dp"
         android:background="#aa540000"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_margin="5dp"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
         android:padding="10dp"
+        android:text="@string/map_overlay_tracking_off"
         android:textSize="22sp"
-        android:id="@+id/noTrackingOverlay"
         android:textStyle="bold" />
+
+    <RelativeLayout android:visibility="gone"
+        android:id="@+id/searchingForLocationOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99555555">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/searching_for_location" />
+
+            <ProgressBar
+                android:id="@+id/list_offers_progessbar"
+                android:layout_width="wrap_content"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

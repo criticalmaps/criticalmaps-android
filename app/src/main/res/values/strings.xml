@@ -105,5 +105,6 @@
     <string name="image_upload_failed_message">Please try again.</string>
     <string name="image_upload_failed_accept">OK</string>
     <string name="camera_processing_image">processing image...</string>
+    <string name="searching_for_location">searching for your location</string>
 
 </resources>
