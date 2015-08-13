@@ -2,9 +2,12 @@ package de.stephanlindauer.criticalmaps;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
@@ -83,6 +86,17 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         viewPager.setCurrentItem(tab.getPosition());
+        hideKeyBoard();
+    }
+
+    private void hideKeyBoard() {
+        EditText editMessageTextfield = (EditText) findViewById(R.id.chat_edit_message);
+
+        if (editMessageTextfield == null)
+            return;
+
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(editMessageTextfield.getWindowToken(), 0);
     }
 
     @Override
