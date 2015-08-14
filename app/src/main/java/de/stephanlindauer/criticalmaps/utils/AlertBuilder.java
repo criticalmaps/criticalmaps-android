@@ -11,7 +11,7 @@ public class AlertBuilder {
                 .setTitle(activity.getString(title))
                 .setMessage(activity.getString(text))
                 .setCancelable(false)
-                .setPositiveButton(activity.getString(R.string.image_upload_failed_accept), null)
+                .setPositiveButton(activity.getString(R.string.ok), null)
                 .create()
                 .show();
     }

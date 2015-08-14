@@ -110,5 +110,7 @@
     <string name="no_location_no_camera">you can\'t upload images without having GPS enabled</string>
     <string name="image_upload_succeeded_title">Image upload worked!</string>
     <string name="image_upload_succeeded_message">You can view your Image on criticalmaps.net now</string>
+    <string name="no_gps_provider_enabled_title">Dein GPS ist aus oder wird geblockt!</string>
+    <string name="no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut!</string>
 
 </resources>
