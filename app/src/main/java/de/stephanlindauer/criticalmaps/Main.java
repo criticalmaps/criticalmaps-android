@@ -55,14 +55,15 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
                     .setTitle(getString(R.string.no_gps_provider_enabled_title))
                     .setMessage(getString(R.string.no_gps_provider_enabled_text))
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(viewIntent);
-                            finish();
-                        }
-                    })
+                    .setPositiveButton(getString(R.string.no_gps_provider_enabled_go_to_settings),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivity(viewIntent);
+                                    finish();
+                                }
+                            })
                     .create()
                     .show();
         }

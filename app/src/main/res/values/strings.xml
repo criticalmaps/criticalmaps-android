@@ -112,5 +112,7 @@
     <string name="image_upload_succeeded_message">You can view your Image on criticalmaps.net now</string>
     <string name="no_gps_provider_enabled_title">Dein GPS ist aus oder wird geblockt!</string>
     <string name="no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut!</string>
+    <string name="no_gps_provider_enabled_go_to_settings">zu den Einstellungen</string>
+    <string name="no_gps_provider_enabled_cancel">abbrechen</string>
 
 </resources>
