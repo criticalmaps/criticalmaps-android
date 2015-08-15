@@ -63,7 +63,7 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
     protected void onPostExecute(ResultType resultType) {
         if (resultType == ResultType.FAILED) {
             new AlertDialog.Builder(activity)
-                    .setMessage(R.string.no_camera)
+                    .setMessage(R.string.camera_no_camera)
                     .setPositiveButton(R.string.ok, null)
                     .show();
         }

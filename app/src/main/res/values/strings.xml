@@ -4,63 +4,62 @@
     <string name="app_name" translatable="false">Critical Maps</string>
 
     <!-- nav -->
-    <string name="section_map">map</string>
-    <string name="section_rules">rules</string>
-    <string name="section_twitter">twitter</string>
-    <string name="section_about">about</string>
-    <string name="section_chat">chat</string>
+    <string name="section_map">Map</string>
+    <string name="section_rules">Rules</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">About</string>
+    <string name="section_chat">Chat</string>
 
     <!-- close -->
-    <string name="close">really close the app?</string>
-    <string name="yes">yes</string>
-    <string name="no">nope</string>
+    <string name="close">Really close the app?</string>
+    <string name="yes">Yes</string>
+    <string name="no">Nope</string>
 
     <!-- acivity bar -->
-    <string name="tracking">tracking</string>
-    <string name="show_sternfahrt_routes">show sternfahrt routes</string>
-    <string name="close_button">close</string>
-    <string name="feedback">feedback</string>
-    <string name="datenschutz">privacy policy</string>
-    <string name="take_picture">take picture</string>
+    <string name="tracking">Tracking</string>
+    <string name="show_sternfahrt_routes">Show sternfahrt routes</string>
+    <string name="close_button">Close</string>
+    <string name="feedback">Feedback</string>
+    <string name="datenschutz">Privacy policy</string>
+    <string name="take_picture">Take picture</string>
 
     <!-- map -->
     <string name="map_searching_for_location">Waiting for GPS signal</string>
     <string name="map_overlay_tracking_off">
-        tracking ist turned off. \n
-        activate tracking to be able to see all other cyclists. \n\n
-        just tap here!
+        Tracking ist turned off. \n
+        Activate tracking to be able to see all other cyclists. \n\n
+        Just tap here!
     </string>
     <string name="map_no_gps_provider_enabled_title">Dein GPS ist aus oder wird geblockt</string>
     <string name="map_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
 
     <!-- notification -->
-    <string name="notification_tracking_title">location is being tracked</string>
-    <string name="notification_tracking_text">to deactivate open the app and switch tracking off via the settings
-        button
-        or close it via the x-button.
+    <string name="notification_tracking_title">Tracking Location</string>
+    <string name="notification_tracking_text">To deactivate open the app and switch tracking off via the settings
+        button or close it via the x-button.
     </string>
 
     <!-- rules -->
-    <string name="rules_corken">corking!?</string>
-    <string name="rules_corken_explain">protect motorists from themselves by corking!</string>
-    <string name="rules_oncoming_traffic">oncoming traffic</string>
-    <string name="rules_oncoming_traffic_explain">do not drive on the opposite lane.</string>
-    <string name="rules_steady">hold your horses!</string>
-    <string name="rules_steady_explain">when driving in the front: no speeding! when driving in the rear: close gaps!</string>
-    <string name="rules_brake">no hard stops!</string>
-    <string name="rules_brake_explain">if you really have to though, try to warn people behind you.</string>
-    <string name="rules_green">when driving at the head: stop at the redlights!</string>
-    <string name="rules_green_explain">when you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.</string>
+    <string name="rules_corken">Corking!?</string>
+    <string name="rules_corken_explain">Protect motorists from themselves by corking!</string>
+    <string name="rules_oncoming_traffic">Oncoming traffic</string>
+    <string name="rules_oncoming_traffic_explain">Do not drive on the opposite lane.</string>
+    <string name="rules_steady">Hold your horses!</string>
+    <string name="rules_steady_explain">When driving in the front: No speeding! When driving in the rear: Close gaps!</string>
+    <string name="rules_brake">No hard stops!</string>
+    <string name="rules_brake_explain">If you really have to though, try to warn people behind you.</string>
+    <string name="rules_green">When driving at the head: Stop at the redlights!</string>
+    <string name="rules_green_explain">When you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.</string>
     <string name="rules_friendly">hang loose</string>
-    <string name="rules_friendly_explain">don\'t allow yourself to be provoked. be friendly to the police, motorists and everybody else, even if they are not.</string>
-    <string name="rules_fun">have fun!</string>
-    <string name="rules_fun_explain">enjoy reclaimed streets. go checkout the sound bikes. chat with motorists, pedestrian and let them know what\'s going on. have fun!</string>
+    <string name="rules_friendly_explain">Don\'t allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.</string>
+    <string name="rules_fun">Have fun!</string>
+    <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
 
     <!-- chat -->
-    <string name="chat_heading">messages will be deleted after 30 minutes.</string>
-    <string name="chat_send">send</string>
-    <string name="chat_text">you have 255 characters...</string>
-    <string name="chat_sending">sending...</string>
+    <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_text">You have 255 characters...</string>
+    <string name="chat_sending">Sending...</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">don\'t forget:</string>
@@ -82,7 +81,7 @@
         ]]>
     </string>
     <string name="camera_upload">Upload image!</string>
-    <string name="camera_discard">nope :-(</string>
+    <string name="camera_discard">Nope :-(</string>
     <string name="camera_uploading_progress">uploading...</string>
     <string name="camera_upload_failed_title">Image upload failed</string>
     <string name="camera_upload_failed_message">Please try again</string>
@@ -90,6 +89,7 @@
     <string name="camera_no_location_no_camera">You can\'t upload images without a GPS signal</string>
     <string name="camera_image_upload_succeeded_title">Image upload worked!</string>
     <string name="camera_image_upload_succeeded_message">The picture is uploaded to gallery on criticalmaps.net </string>
+    <string name="camera_no_camera">No camera available</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Something went wrong</string>

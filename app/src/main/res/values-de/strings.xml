@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="section_map">map</string>
-    <string name="section_rules">knigge</string>
-    <string name="section_twitter">twitter</string>
-    <string name="section_about">about</string>
-    <string name="section_chat">chat</string>
+    <string name="section_map">Map</string>
+    <string name="section_rules">Knigge</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">Info</string>
+    <string name="section_chat">Chat</string>
     <string name="close">App wirklich beenden?</string>
-    <string name="yes">ja</string>
+    <string name="yes">Ja</string>
     <string name="no">nein</string>
-    <string name="tracking">tracking</string>
-    <string name="show_sternfahrt_routes">sternfahrt routen anzeigen</string>
+    <string name="tracking">Tracking</string>
+    <string name="show_sternfahrt_routes">Sternfahrt routen anzeigen</string>
     <string name="close_button">schließen</string>
     <string name="feedback">Feedback</string>
     <string name="datenschutz">Datenschutzerklärung</string>
@@ -62,7 +62,7 @@
         ]]>
     </string>
     <string name="camera_upload">Foto hochladen!</string>
-    <string name="camera_discard">och nööö :-(</string>
+    <string name="camera_discard">Och nööö :-(</string>
     <string name="camera_uploading_progress">lade hoch...</string>
     <string name="camera_image_upload_succeeded_message">Das Bild steht jetzt in der Gallerie auf criticalmaps.net</string>
     <string name="camera_image_upload_succeeded_title">Bilder-Upload erfolgreich</string>
@@ -77,4 +77,5 @@
     <string name="map_searching_for_location">Warte auf GPS-Signal</string>
     <string name="ok">OK</string>
     <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>
+    <string name="camera_no_camera">Keine Kamera vorhanden</string>
 </resources>
