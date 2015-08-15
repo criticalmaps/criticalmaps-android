@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 

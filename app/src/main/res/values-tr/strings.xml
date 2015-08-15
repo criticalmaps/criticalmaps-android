@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Turkish Translation, Caner Başaran <basaran.caner@gmail.com>, 2015 -->
+<?xml version="1.0" encoding="utf-8"?><!-- Turkish Translation, Caner Başaran <basaran.caner@gmail.com>, 2015 -->
 <resources>
     <string name="section_map">harita</string>
     <string name="section_rules">kurallar</string>
