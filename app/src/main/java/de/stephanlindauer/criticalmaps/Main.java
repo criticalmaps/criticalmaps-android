@@ -52,10 +52,10 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             new AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.no_gps_provider_enabled_title))
-                    .setMessage(getString(R.string.no_gps_provider_enabled_text))
+                    .setTitle(getString(R.string.map_no_gps_provider_enabled_title))
+                    .setMessage(getString(R.string.map_no_gps_provider_enabled_text))
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.no_gps_provider_enabled_go_to_settings),
+                    .setPositiveButton(getString(R.string.map_no_gps_provider_enabled_go_to_settings),
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

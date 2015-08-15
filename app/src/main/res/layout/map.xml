@@ -34,11 +34,13 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <RelativeLayout android:visibility="gone"
+    <RelativeLayout
         android:id="@+id/searchingForLocationOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99555555">
+        android:layout_margin="5dp"
+        android:background="#222222"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -50,14 +52,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/searching_for_location" />
+                android:text="@string/map_searching_for_location" />
 
             <ProgressBar
                 android:id="@+id/list_offers_progessbar"
                 android:layout_width="wrap_content"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:scaleType="centerInside" />
+
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

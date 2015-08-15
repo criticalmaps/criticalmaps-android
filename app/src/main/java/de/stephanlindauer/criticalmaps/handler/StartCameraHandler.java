@@ -33,7 +33,7 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
     protected void onPreExecute() {
         if (OwnLocationModel.getInstance().ownLocation == null) {
             new AlertDialog.Builder(activity)
-                    .setMessage(R.string.no_location_no_camera)
+                    .setMessage(R.string.camera_no_location_no_camera)
                     .setPositiveButton(R.string.ok, null)
                     .show();
             cancel(true);

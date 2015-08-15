@@ -144,10 +144,10 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     protected void onPostExecute(ResultType resultType) {
         if (resultType == ResultType.SUCCEEDED) {
             progressDialog.dismiss();
-            AlertBuilder.show(activity, R.string.image_upload_succeeded_title, R.string.image_upload_succeeded_message);
+            AlertBuilder.show(activity, R.string.camera_image_upload_succeeded_title, R.string.camera_image_upload_succeeded_message);
         } else {
             progressDialog.dismiss();
-            AlertBuilder.show(activity, R.string.image_upload_failed_title, R.string.image_upload_failed_message);
+            AlertBuilder.show(activity, R.string.camera_upload_failed_title, R.string.camera_upload_failed_message);
         }
         imageFileToUpload.delete();
     }
