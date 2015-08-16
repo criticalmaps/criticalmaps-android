@@ -5,58 +5,74 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout">
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_margin="10dp"
-            android:scaleType="fitXY"
+        <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/tweet_user_image"
-            android:background="@drawable/anonymous"
-            android:adjustViewBounds="false" />
+            android:layout_margin="10dp">
 
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#444" />
+
+            <ImageView
+                android:id="@+id/tweet_user_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             android:weightSum="1">
 
             <TextView
-                android:textColor="#000"
+                android:id="@+id/tweet_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:id="@+id/tweet_user_name"
-                android:text="tweet_user_name" />
+                android:text="name"
+                android:textStyle="bold" />
 
             <TextView
-                android:textColor="#000"
+                android:id="@+id/tweet_user_handle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:layout_below="@id/tweet_user_name"
+                android:layout_marginTop="5dp"
+                android:text="handle"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/tweet_creation_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:text="Now" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
     <TextView
-        android:textColor="#000"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="0dp"
+        android:id="@+id/tweet_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:ems="10"
-        android:paddingBottom="5dp"
-        android:id="@+id/tweet_user_content"
-        android:text="Text"
-        android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:text="Text" />
+
 </RelativeLayout>

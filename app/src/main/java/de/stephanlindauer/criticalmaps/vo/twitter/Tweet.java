@@ -47,4 +47,16 @@ public class Tweet {
     public String getText() {
         return text;
     }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public String getUserScreenName() {
+        return userScreenName;
+    }
 }

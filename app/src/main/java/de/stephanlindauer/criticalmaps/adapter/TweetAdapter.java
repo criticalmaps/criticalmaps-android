@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,10 +41,18 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         View rowView = inflater.inflate(R.layout.view_tweet, parent, false);
 
         TextView nameTextView = (TextView) rowView.findViewById(R.id.tweet_user_name);
-        TextView textTextView = (TextView) rowView.findViewById(R.id.tweet_user_content);
+        TextView textTextView = (TextView) rowView.findViewById(R.id.tweet_text);
+        TextView dateTextView = (TextView) rowView.findViewById(R.id.tweet_creation_date);
+        TextView handleTextView = (TextView) rowView.findViewById(R.id.tweet_user_handle);
+        ImageView userImageView = (ImageView) rowView.findViewById(R.id.tweet_user_image);
+
+        Picasso.with(context).load(tweet.getProfileImageUrl()).fit().centerInside().into(userImageView);
 
         nameTextView.setText(tweet.getUserName());
         textTextView.setText(tweet.getText());
+        dateTextView.setText(tweet.getTimestamp().toString());
+        handleTextView.setText("@"+tweet.getUserScreenName());
+
 
         return rowView;
     }
