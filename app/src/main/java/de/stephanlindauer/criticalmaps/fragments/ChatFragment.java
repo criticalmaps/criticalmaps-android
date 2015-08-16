@@ -23,7 +23,6 @@ public class ChatFragment extends SuperFragment {
 
     //dependencies
     private final ChatModel chatModel = ChatModel.getInstance();
-    private final ServerPuller serverPuller = ServerPuller.getInstance();
     private final EventService eventService = EventService.getInstance();
 
     //view

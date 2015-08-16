@@ -77,7 +77,6 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, String> {
         } catch (Exception e) {
         }
 
-//        System.out.println(jsonObject.toString());
         System.out.println();
     }
 }
