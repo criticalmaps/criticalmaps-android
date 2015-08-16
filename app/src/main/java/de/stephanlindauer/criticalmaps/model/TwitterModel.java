@@ -25,21 +25,22 @@ public class TwitterModel {
     }
 
     public void setTweetsFromJsonString(String tweetsString) throws JSONException, ParseException {
-            JSONObject jsonObject = new JSONObject(tweetsString);
-            JSONArray statusesArray = jsonObject.getJSONArray("statuses");
+        tweets.clear();
+        JSONObject jsonObject = new JSONObject(tweetsString);
+        JSONArray statusesArray = jsonObject.getJSONArray("statuses");
 
-            for (int i = 0; i < statusesArray.length(); i++) {
-                JSONObject currentStatus = statusesArray.getJSONObject(i);
-                Tweet tweet = new Tweet()
-                        .setUserName(currentStatus.getJSONObject("user").getString("name"))
-                        .setUserScreenName(currentStatus.getJSONObject("user").getString("screen_name"))
-                        .setTweetId(currentStatus.getString("id_str"))
-                        .setText(currentStatus.getString("text"))
-                        .setTimestamp(TwitterUtils.getTwitterDate(currentStatus.getString("created_at")))
-                        .setProfileImageUrl(currentStatus.getJSONObject("user").getString("profile_image_url_https"));
+        for (int i = 0; i < statusesArray.length(); i++) {
+            JSONObject currentStatus = statusesArray.getJSONObject(i);
+            Tweet tweet = new Tweet()
+                    .setUserName(currentStatus.getJSONObject("user").getString("name"))
+                    .setUserScreenName(currentStatus.getJSONObject("user").getString("screen_name"))
+                    .setTweetId(currentStatus.getString("id_str"))
+                    .setText(currentStatus.getString("text"))
+                    .setTimestamp(TwitterUtils.getTwitterDate(currentStatus.getString("created_at")))
+                    .setProfileImageUrl(currentStatus.getJSONObject("user").getString("profile_image_url_https"));
 
-                tweets.add(tweet);
-            }
+            tweets.add(tweet);
+        }
     }
 
     public ArrayList<Tweet> getTweets() {

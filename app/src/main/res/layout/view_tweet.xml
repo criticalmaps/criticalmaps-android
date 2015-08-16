@@ -56,7 +56,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="Now" />
+                android:text="01.01.2015" />
+            <TextView
+                android:id="@+id/tweet_creation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"  android:layout_below="@id/tweet_creation_date"
+                android:text="19:30" />
 
         </RelativeLayout>
 
