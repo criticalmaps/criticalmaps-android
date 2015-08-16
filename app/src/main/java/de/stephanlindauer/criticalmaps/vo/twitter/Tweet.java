@@ -59,4 +59,8 @@ public class Tweet {
     public String getUserScreenName() {
         return userScreenName;
     }
+
+    public String getTweetId() {
+        return tweetId;
+    }
 }

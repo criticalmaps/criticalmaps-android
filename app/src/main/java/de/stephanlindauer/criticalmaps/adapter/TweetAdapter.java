@@ -1,6 +1,8 @@
 package de.stephanlindauer.criticalmaps.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         return buildTweetView(currentTweet, inflater, parent);
     }
 
-    private View buildTweetView(Tweet tweet, LayoutInflater inflater, ViewGroup parent) {
+    private View buildTweetView(final Tweet tweet, LayoutInflater inflater, ViewGroup parent) {
 
         View rowView = inflater.inflate(R.layout.view_tweet, parent, false);
 
@@ -51,8 +53,14 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         nameTextView.setText(tweet.getUserName());
         textTextView.setText(tweet.getText());
         dateTextView.setText(tweet.getTimestamp().toString());
-        handleTextView.setText("@"+tweet.getUserScreenName());
+        handleTextView.setText("@" + tweet.getUserScreenName());
 
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/aasif/status/" + tweet.getTweetId())));
+            }
+        });
 
         return rowView;
     }
