@@ -39,4 +39,12 @@ public class Tweet {
         this.profileImageUrl = profileImageUrl;
         return this;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getText() {
+        return text;
+    }
 }

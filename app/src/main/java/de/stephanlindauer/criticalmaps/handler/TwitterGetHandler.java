@@ -11,24 +11,33 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.text.ParseException;
 
-import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
+import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
+import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
-import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.vo.ResultType;
 
-public class TwitterGetHandler extends AsyncTask<Void, Void, String> {
+public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     //const
     public static final int TIME_OUT = 15 * 1000; //15 sec
 
+    //dependencies
+    TwitterModel twitterModel = TwitterModel.getInstance();
+
+    private String responseString = "";
+    private final TwitterFragment twitterFragment;
+
+    public TwitterGetHandler(TwitterFragment twitterFragment) {
+        this.twitterFragment = twitterFragment;
+    }
+
     @Override
-    protected String doInBackground(Void... params) {
+    protected ResultType doInBackground(Void... params) {
         final HttpGet request = new HttpGet(Endpoints.GET_TWITTER);
 
         final HttpParams httpParams = new BasicHttpParams();
@@ -36,7 +45,6 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, String> {
 
         final HttpClient httpClient = new DefaultHttpClient(httpParams);
 
-        String responseString = "";
         try {
             HttpResponse response = httpClient.execute(request);
             StatusLine statusLine = response.getStatusLine();
@@ -47,36 +55,27 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, String> {
                 responseString = out.toString();
             } else {
                 response.getEntity().getContent().close();
+                return ResultType.FAILED;
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
+            return ResultType.FAILED;
         }
-        return responseString;
+        return ResultType.SUCCEEDED;
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        JSONObject jsonObject = null;
-        try {
-            ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    protected void onPostExecute(ResultType resultType) {
+       if(resultType==ResultType.FAILED){
 
-            jsonObject = new JSONObject(result);
-            JSONArray statusesArray = jsonObject.getJSONArray("statuses");
-            for (int i = 0; i < statusesArray.length(); i++) {
-                JSONObject currentStatus = statusesArray.getJSONObject(i);
-                Tweet tweet = new Tweet()
-                        .setUserName(currentStatus.getJSONObject("user").getString("name"))
-                        .setUserScreenName(currentStatus.getJSONObject("user").getString("screen_name"))
-                        .setTweetId(currentStatus.getString("id_str"))
-                        .setText(currentStatus.getString("text"))
-                        .setTimestamp(TwitterUtils.getTwitterDate(currentStatus.getString("created_at")))
-                        .setProfileImageUrl(currentStatus.getString("profile_image_url_https"));
-
-                tweets.add(tweet);
-            }
-        } catch (Exception e) {
-        }
-
-        System.out.println();
+       }else {
+           try {
+               twitterModel.setTweetsFromJsonString(responseString);
+               twitterFragment.displayNewData();
+           } catch (JSONException e) {
+               e.printStackTrace();
+           } catch (ParseException e) {
+               e.printStackTrace();
+           }
+       }
     }
 }

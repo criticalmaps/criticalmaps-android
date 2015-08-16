@@ -28,6 +28,7 @@
 -dontwarn com.google.code.**
 -dontwarn oauth.signpost.**
 -dontwarn twitter4j.**
+-dontwarn com.squareup.okhttp.**
 
 -keepattributes *Annotation*
 -keepclassmembers class * {

@@ -96,5 +96,6 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="map_no_gps_provider_enabled_go_to_settings">Change settings</string>
+    <string name="twitter_heading">miau</string>
 
 </resources>

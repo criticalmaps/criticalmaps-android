@@ -7,69 +7,41 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.helper.TimeToWordStringConverter;
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
-public class TweetAdapter extends ArrayAdapter<IChatMessage> {
+public class TweetAdapter extends ArrayAdapter<Tweet> {
 
-    private ArrayList<IChatMessage> chatMessages;
+    private ArrayList<Tweet> tweets;
     private Context context;
 
 
-    public TweetAdapter(Context context, int layoutResourceId, ArrayList<IChatMessage> chatMessages) {
-        super(context, layoutResourceId, chatMessages);
-        this.chatMessages = chatMessages;
+    public TweetAdapter(Context context, int layoutResourceId, ArrayList<Tweet> tweets) {
+        super(context, layoutResourceId, tweets);
+        this.tweets = tweets;
         this.context = context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        IChatMessage currentMessage = chatMessages.get(position);
+        Tweet currentTweet = tweets.get(position);
 
-        if (currentMessage instanceof ReceivedChatMessage)
-            return buildReceivedMessageView((ReceivedChatMessage) currentMessage, inflater, parent);
-        else if (currentMessage instanceof OutgoingChatMessage)
-            return buildOutgoingMessageView((OutgoingChatMessage) currentMessage, inflater, parent);
-
-        return null;
+        return buildTweetView(currentTweet, inflater, parent);
     }
 
-    private View buildOutgoingMessageView(OutgoingChatMessage currentMessage, LayoutInflater inflater, ViewGroup parent) {
+    private View buildTweetView(Tweet tweet, LayoutInflater inflater, ViewGroup parent) {
 
-        View rowView = inflater.inflate(R.layout.view_outgoing_chatmessage, parent, false);
+        View rowView = inflater.inflate(R.layout.view_tweet, parent, false);
 
-        TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
-        TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);
+        TextView nameTextView = (TextView) rowView.findViewById(R.id.tweet_user_name);
+        TextView textTextView = (TextView) rowView.findViewById(R.id.tweet_user_content);
 
-        labelView.setText(R.string.chat_sending);
-        valueView.setText(currentMessage.getMessage());
-
-        return rowView;
-    }
-
-    private View buildReceivedMessageView(ReceivedChatMessage currentMessage, LayoutInflater inflater, ViewGroup parent) {
-
-        View rowView = inflater.inflate(R.layout.view_chatmessage, parent, false);
-
-        TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
-        TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);
-
-        DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
-        dateFormatter.setTimeZone(TimeZone.getDefault());
-
-        labelView.setText(TimeToWordStringConverter.getTimeAgo(currentMessage.getTimestamp(), context));
-        valueView.setText(currentMessage.getMessage());
+        nameTextView.setText(tweet.getUserName());
+        textTextView.setText(tweet.getText());
 
         return rowView;
     }
