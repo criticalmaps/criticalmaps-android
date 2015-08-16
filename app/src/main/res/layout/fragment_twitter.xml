@@ -14,11 +14,18 @@
         android:padding="10dp"
         android:text="@string/twitter_heading" />
 
-    <ListView
-        android:id="@+id/tweet_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/twitter_heading" />
+        android:layout_below="@id/twitter_heading">
+
+        <ListView
+            android:id="@+id/tweet_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressSpinner"
@@ -26,4 +33,5 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
+
 </RelativeLayout>
