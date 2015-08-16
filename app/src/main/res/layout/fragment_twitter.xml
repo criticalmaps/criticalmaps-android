@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/twitter_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_alignParentTop="true"
-    android:background="#fff"
-    android:textColor="#000"
-    android:id="@+id/twitter_layout">
+    android:background="#222">
 
     <ListView
+        android:id="@+id/tweet_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tweet_list"
         android:layout_centerVertical="true" />
 
     <ProgressBar
+        android:id="@+id/loadingIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loadingIcon"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp" />
+        android:layout_centerVertical="true" />
 </RelativeLayout>
