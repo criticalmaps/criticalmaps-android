@@ -4,8 +4,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFFFF"
     android:layout_weight="1"
+    android:background="#FFFFFFFF"
     android:orientation="vertical">
 
     <ScrollView
@@ -19,13 +19,13 @@
             android:orientation="vertical">
 
             <Button
-                style="@style/rules_button"
                 android:id="@+id/btnCorken"
+                style="@style/rules_button"
                 android:text="@string/rules_corken" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelCorken">
+                android:id="@+id/panelCorken"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -37,13 +37,13 @@
             </LinearLayout>
 
             <Button
-                style="@style/rules_button"
                 android:id="@+id/btnOncomingTraffic"
+                style="@style/rules_button"
                 android:text="@string/rules_oncoming_traffic" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelOncomingTraffic">
+                android:id="@+id/panelOncomingTraffic"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -56,12 +56,12 @@
 
             <Button
                 android:id="@+id/btnSlow"
-                android:text="@string/rules_steady"
-                style="@style/rules_button" />
+                style="@style/rules_button"
+                android:text="@string/rules_steady" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelSlow">
+                android:id="@+id/panelSlow"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -73,13 +73,13 @@
             </LinearLayout>
 
             <Button
-                style="@style/rules_button"
                 android:id="@+id/btnBrake"
+                style="@style/rules_button"
                 android:text="@string/rules_brake" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelBrake">
+                android:id="@+id/panelBrake"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -91,13 +91,13 @@
             </LinearLayout>
 
             <Button
-                style="@style/rules_button"
                 android:id="@+id/btnGreen"
+                style="@style/rules_button"
                 android:text="@string/rules_green" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelGreen">
+                android:id="@+id/panelGreen"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -109,13 +109,13 @@
             </LinearLayout>
 
             <Button
-                style="@style/rules_button"
                 android:id="@+id/btnFriendly"
+                style="@style/rules_button"
                 android:text="@string/rules_friendly" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelFriendly">
+                android:id="@+id/panelFriendly"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -127,13 +127,13 @@
             </LinearLayout>
 
             <Button
-                style="@style/rules_button"
                 android:id="@+id/btnFun"
+                style="@style/rules_button"
                 android:text="@string/rules_fun" />
 
             <LinearLayout
-                style="@style/rules_panel_wrapper"
-                android:id="@+id/panelFun">
+                android:id="@+id/panelFun"
+                style="@style/rules_panel_wrapper">
 
                 <TextView
                     style="@style/rules_explainer"
@@ -145,14 +145,14 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)"
                 android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:autoLink="web"
-                android:layout_gravity="center_horizontal" />
+                android:padding="10dp"
+                android:text="Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
     </ScrollView>

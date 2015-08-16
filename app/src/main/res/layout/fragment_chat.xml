@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222">
+    android:background="#222"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/chat_heading"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/chat_heading"
         android:background="@drawable/border_bottom"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:text="@string/chat_heading" />
 
     <LinearLayout
-        android:layout_below="@id/chat_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_below="@id/chat_heading"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/chat_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:drawSelectorOnTop="false"
-            android:orientation="vertical"
-            android:layout_gravity="bottom" />
+            android:orientation="vertical" />
 
-      </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/border_top"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/chat_edit_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:maxLength="255"
-            android:hint="@string/chat_text" />
+            android:hint="@string/chat_text"
+            android:maxLength="255" />
 
         <Button
+            android:id="@+id/chat_send_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chat_send"
-            android:id="@+id/chat_send_btn" />
+            android:text="@string/chat_send" />
     </LinearLayout>
 
     <include

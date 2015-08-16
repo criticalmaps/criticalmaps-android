@@ -3,23 +3,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffffff"
     android:layout_weight="1"
+    android:background="#ffffffff"
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:text="social krams"
-                style="@style/about_heading" />
+                style="@style/about_heading"
+                android:text="social krams" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -27,43 +27,43 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:drawableTop="@drawable/facebook"
-                    android:gravity="left|center_vertical"
                     android:id="@+id/about_facebook"
-                    style="@style/about_button" />
+                    style="@style/about_button"
+                    android:drawableTop="@drawable/facebook"
+                    android:gravity="left|center_vertical" />
 
                 <Button
-                    android:drawableTop="@drawable/twitter"
-                    android:gravity="left|center_vertical"
                     android:id="@+id/about_twitter"
-                    style="@style/about_button" />
+                    style="@style/about_button"
+                    android:drawableTop="@drawable/twitter"
+                    android:gravity="left|center_vertical" />
             </LinearLayout>
 
             <TextView
-                android:text="website"
-                style="@style/about_heading" />
+                style="@style/about_heading"
+                android:text="website" />
 
             <TextView
-                android:text="criticalmaps.net"
+                style="@style/about_content"
                 android:autoLink="web"
-                style="@style/about_content" />
+                android:text="criticalmaps.net" />
 
             <TextView
-                android:text="logo"
-                style="@style/about_heading" />
+                style="@style/about_heading"
+                android:text="logo" />
 
             <TextView
-                android:text="gitti la mar"
-                style="@style/about_content" />
+                style="@style/about_content"
+                android:text="gitti la mar" />
 
             <TextView
-                android:text="code"
-                style="@style/about_heading" />
+                style="@style/about_heading"
+                android:text="code" />
 
             <TextView
-                android:text="github.com/stephanlindauer/criticalmaps-android"
+                style="@style/about_content"
                 android:autoLink="web"
-                style="@style/about_content" />
+                android:text="github.com/stephanlindauer/criticalmaps-android" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
