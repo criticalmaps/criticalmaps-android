@@ -55,8 +55,6 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
             fOut.flush();
             fOut.close();
-
-            newCameraOutputFile.delete();
         } catch (Exception e) {
             return ResultType.FAILED;
         }

@@ -34,4 +34,30 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
+    <LinearLayout
+        android:id="@+id/twitter_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressSpinner"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/something_went_wrong"
+            android:textColor="#b20e17"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/twitter_error_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/twitter_try_again" />
+    </LinearLayout>
+
 </RelativeLayout>

@@ -5,9 +5,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,9 +27,12 @@ public class TwitterFragment extends SuperFragment {
     private View twitterView;
     private ProgressBar loadingSpinner;
     private SwipeRefreshLayout swipeLayout;
+    private Button errorButton;
+
+    private LinearLayout errorMessage;
+
     //adapter
     private TweetAdapter tweetAdapter;
-
     //misc
     private final TwitterFragment thiz = this;
 
@@ -44,6 +48,8 @@ public class TwitterFragment extends SuperFragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
+        errorMessage = (LinearLayout) getActivity().findViewById(R.id.twitter_error);
+        errorButton = (Button) getActivity().findViewById(R.id.twitter_error_button);
         loadingSpinner = (ProgressBar) getActivity().findViewById(R.id.progressSpinner);
         tweetAdapter = new TweetAdapter(getActivity(), R.layout.view_tweet, new ArrayList<Tweet>());
 
@@ -55,7 +61,6 @@ public class TwitterFragment extends SuperFragment {
             @Override
             public void onRefresh() {
                 new TwitterGetHandler(thiz).execute();
-                Toast.makeText(getActivity(), R.string.twitter_refreshed, Toast.LENGTH_SHORT).show();
             }
         });
         swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
@@ -63,15 +68,32 @@ public class TwitterFragment extends SuperFragment {
                 android.R.color.holo_blue_bright,
                 android.R.color.darker_gray);
 
+        errorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TwitterGetHandler(thiz).execute();
+                loadingSpinner.setVisibility(View.VISIBLE);
+                errorMessage.setVisibility(View.GONE);
+            }
+        });
+
         new TwitterGetHandler(this).execute();
     }
 
     public void displayNewData() {
         swipeLayout.setRefreshing(false);
+        errorMessage.setVisibility(View.GONE);
         loadingSpinner.setVisibility(View.GONE);
 
+        swipeLayout.setVisibility(View.VISIBLE);
         tweetAdapter.clear();
         tweetAdapter.addAll(twitterModel.getTweets());
         tweetAdapter.notifyDataSetChanged();
+    }
+
+    public void showErrorMessage() {
+        swipeLayout.setVisibility(View.GONE);
+        loadingSpinner.setVisibility(View.GONE);
+        errorMessage.setVisibility(View.VISIBLE);
     }
 }

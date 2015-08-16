@@ -65,17 +65,17 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     @Override
     protected void onPostExecute(ResultType resultType) {
-       if(resultType==ResultType.FAILED){
-
-       }else {
-           try {
-               twitterModel.setTweetsFromJsonString(responseString);
-               twitterFragment.displayNewData();
-           } catch (JSONException e) {
-               e.printStackTrace();
-           } catch (ParseException e) {
-               e.printStackTrace();
-           }
-       }
+        if (resultType == ResultType.FAILED) {
+            twitterFragment.showErrorMessage();
+        } else {
+            try {
+                twitterModel.setTweetsFromJsonString(responseString);
+                twitterFragment.displayNewData();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

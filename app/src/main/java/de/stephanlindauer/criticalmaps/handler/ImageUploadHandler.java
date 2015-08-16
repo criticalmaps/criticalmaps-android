@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps.handler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -114,11 +113,15 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             }
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder stringBuilder = new StringBuilder();
 
+            StringBuilder stringBuilder = new StringBuilder();
             String responseString;
             while ((responseString = bufferedReader.readLine()) != null) {
                 stringBuilder.append(responseString);
+            }
+
+            if (!stringBuilder.toString().equals("success")) {
+                return ResultType.FAILED;
             }
 
             fileInputStream.close();
@@ -137,8 +140,6 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
         int onePercent = totalAmountBytesToUpload / 100;
         int percentUploaded = alreadyUploaded / onePercent;
-
-        System.out.println( "percentUploaded" + percentUploaded);
 
         progressDialog.setProgress(percentUploaded);
     }
