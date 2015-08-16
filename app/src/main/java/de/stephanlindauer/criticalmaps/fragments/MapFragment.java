@@ -66,7 +66,7 @@ public class MapFragment extends SuperFragment {
         noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
         setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
-        searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlay);
+        searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
@@ -117,7 +117,6 @@ public class MapFragment extends SuperFragment {
         } else {
             searchingForLocationOverlay.setVisibility(View.VISIBLE);
         }
-
     }
 
     private void refreshView() {

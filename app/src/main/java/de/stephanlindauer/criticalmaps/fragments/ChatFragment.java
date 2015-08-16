@@ -8,13 +8,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.squareup.otto.Subscribe;
 
+import org.osmdroid.util.GeoPoint;
+
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
+import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
+import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.ServerPuller;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
@@ -25,11 +30,13 @@ public class ChatFragment extends SuperFragment {
     private final ChatModel chatModel = ChatModel.getInstance();
     private final ServerPuller serverPuller = ServerPuller.getInstance();
     private final EventService eventService = EventService.getInstance();
+    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
     //view
     private View chatView;
     private EditText editMessageTextfield;
     private ListView chatListView;
+    RelativeLayout searchingForLocationOverlay;
 
     //adapter
     private ChatMessageAdapter chatMessageAdapter;
@@ -96,6 +103,11 @@ public class ChatFragment extends SuperFragment {
                     chatListView.setSelection(chatListView.getCount());
             }
         });
+
+        searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayChat);
+       if (ownLocationModel.ownLocation == null) {
+            searchingForLocationOverlay.setVisibility(View.VISIBLE);
+        }
     }
 
     private void refreshView() {
@@ -124,8 +136,12 @@ public class ChatFragment extends SuperFragment {
     }
 
     @Subscribe
+    public void handleNewLocation(NewLocationEvent e) {
+        searchingForLocationOverlay.setVisibility(View.GONE);
+    }
+
+    @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
         refreshView();
     }
-
 }

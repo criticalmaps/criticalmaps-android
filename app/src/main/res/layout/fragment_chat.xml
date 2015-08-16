@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#222">
 
     <TextView
+        android:id="@+id/chat_heading"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/chat_heading"
@@ -13,8 +14,9 @@
         android:padding="10dp" />
 
     <LinearLayout
+        android:layout_below="@id/chat_heading"
         android:layout_width="wrap_content"
-        android:layout_height="0dip"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1">
 
@@ -32,7 +34,8 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_top">
+        android:background="@drawable/border_top"
+        android:layout_alignParentBottom="true">
 
         <EditText
             android:id="@+id/chat_edit_message"
@@ -48,4 +51,10 @@
             android:text="@string/chat_send"
             android:id="@+id/chat_send_btn" />
     </LinearLayout>
-</LinearLayout>
+
+    <include
+        android:id="@+id/searchingForLocationOverlayChat"
+        layout="@layout/view_searching_for_location_overlay"
+        android:visibility="gone" />
+
+</RelativeLayout>
