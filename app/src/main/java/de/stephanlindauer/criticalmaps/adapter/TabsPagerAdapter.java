@@ -8,6 +8,7 @@ import de.stephanlindauer.criticalmaps.fragments.AboutFragment;
 import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
 import de.stephanlindauer.criticalmaps.fragments.MapFragment;
 import de.stephanlindauer.criticalmaps.fragments.RulesFragment;
+import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
@@ -23,8 +24,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new ChatFragment();
             case 2:
-                return new RulesFragment();
+                return new TwitterFragment();
             case 3:
+                return new RulesFragment();
+            case 4:
                 return new AboutFragment();
         }
 

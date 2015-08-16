@@ -21,7 +21,7 @@ public class RulesFragment extends SuperFragment {
                              Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.rules, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_rules, container, false);
 
         return rootView;
     }

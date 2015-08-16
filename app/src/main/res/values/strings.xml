@@ -23,7 +23,7 @@
     <string name="datenschutz">Privacy policy</string>
     <string name="take_picture">Take picture</string>
 
-    <!-- map -->
+    <!-- fragment_map -->
     <string name="map_searching_for_location">Waiting for GPS signal</string>
     <string name="map_overlay_tracking_off">
         Tracking ist turned off. \n
@@ -39,7 +39,7 @@
         button or close it via the x-button.
     </string>
 
-    <!-- rules -->
+    <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
     <string name="rules_corken_explain">Protect motorists from themselves by corking!</string>
     <string name="rules_oncoming_traffic">Oncoming traffic</string>
@@ -50,12 +50,12 @@
     <string name="rules_brake_explain">If you really have to though, try to warn people behind you.</string>
     <string name="rules_green">When driving at the head: Stop at the redlights!</string>
     <string name="rules_green_explain">When you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.</string>
-    <string name="rules_friendly">hang loose</string>
+    <string name="rules_friendly">Hang loose</string>
     <string name="rules_friendly_explain">Don\'t allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.</string>
     <string name="rules_fun">Have fun!</string>
     <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
 
-    <!-- chat -->
+    <!-- fragment_chat -->
     <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
     <string name="chat_send">Send</string>
     <string name="chat_text">You have 255 characters...</string>

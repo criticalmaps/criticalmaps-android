@@ -41,7 +41,7 @@ public class ChatFragment extends SuperFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        chatView = inflater.inflate(R.layout.chat, container, false);
+        chatView = inflater.inflate(R.layout.fragment_chat, container, false);
         return chatView;
     }
 
@@ -49,7 +49,7 @@ public class ChatFragment extends SuperFragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        chatMessageAdapter = new ChatMessageAdapter(getActivity(), R.layout.chatmessage, chatModel.getSavedAndOutgoingMessages());
+        chatMessageAdapter = new ChatMessageAdapter(getActivity(), R.layout.view_chatmessage, chatModel.getSavedAndOutgoingMessages());
 
         chatListView = (ListView) getActivity().findViewById(R.id.chat_list);
         chatListView.setAdapter(chatMessageAdapter);

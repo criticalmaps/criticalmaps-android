@@ -47,7 +47,7 @@ public class ChatMessageAdapter extends ArrayAdapter<IChatMessage> {
 
     private View buildOutgoingMessageView(OutgoingChatMessage currentMessage, LayoutInflater inflater, ViewGroup parent) {
 
-        View rowView = inflater.inflate(R.layout.outgoing_chatmessage, parent, false);
+        View rowView = inflater.inflate(R.layout.view_outgoing_chatmessage, parent, false);
 
         TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
         TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);
@@ -60,7 +60,7 @@ public class ChatMessageAdapter extends ArrayAdapter<IChatMessage> {
 
     private View buildReceivedMessageView(ReceivedChatMessage currentMessage, LayoutInflater inflater, ViewGroup parent) {
 
-        View rowView = inflater.inflate(R.layout.chatmessage, parent, false);
+        View rowView = inflater.inflate(R.layout.view_chatmessage, parent, false);
 
         TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
         TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);

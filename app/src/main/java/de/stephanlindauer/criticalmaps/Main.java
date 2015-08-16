@@ -36,7 +36,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
 
         checkForLocationProvider();
 
@@ -87,6 +87,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         actionBar.addTab(actionBar.newTab().setText(R.string.section_map).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_chat).setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.section_twitter).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
 
