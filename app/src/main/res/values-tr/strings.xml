@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Turkish Translation, Caner Başaran <basaran.caner@gmail.com>, 2015 -->
 <resources>
-    <!-- app -->
-    <string name="app_name" translatable="false">Critical Maps</string>
-
     <!-- nav -->
     <string name="section_map">Harita</string>
     <string name="section_rules">Kurallar</string>
