@@ -21,7 +21,6 @@
     <string name="datenschutz">Gizlilik politikası</string>
     <string name="take_picture">Fotoğraf çek</string>
 
-
     <!-- fragment_map -->
     <string name="map_searching_for_location">GPS sinyali bekleniyor</string>
     <string name="map_overlay_tracking_off">

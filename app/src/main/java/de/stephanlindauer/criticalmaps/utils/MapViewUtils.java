@@ -17,6 +17,8 @@ public class MapViewUtils {
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
         mapView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mapView.setTilesScaledToDpi(true);
+
         return mapView;
     }
 }

@@ -12,12 +12,11 @@ import android.widget.RelativeLayout;
 import com.squareup.otto.Subscribe;
 
 import org.osmdroid.DefaultResourceProxyImpl;
+import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.bonuspack.overlays.Polyline;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
 
@@ -129,21 +128,20 @@ public class MapFragment extends SuperFragment {
 
         if (ownLocationModel.ownLocation != null) {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            ArrayList<OverlayItem> ownOverlay = new ArrayList<OverlayItem>();
-            ownOverlay.add(new OverlayItem("", "", currentUserLocation));
-            ItemizedIconOverlay userLocationOverlay = new ItemizedIconOverlay<OverlayItem>(ownOverlay, getResources().getDrawable(R.drawable.map_marker_own), null, resourceProxy);
-
-            mapView.getOverlays().add(userLocationOverlay);
+            Marker ownMarker = new Marker(mapView);
+            ownMarker.setPosition(currentUserLocation);
+            ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+            ownMarker.setIcon(getResources().getDrawable(R.drawable.map_marker_own));
+            mapView.getOverlays().add(ownMarker);
         }
-
-        ArrayList<OverlayItem> otherUsersOverlay = new ArrayList<OverlayItem>();
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            otherUsersOverlay.add(new OverlayItem("", "", currentOtherUsersLocation));
+            Marker otherPeoplesMarker = new Marker(mapView);
+            otherPeoplesMarker.setPosition(currentOtherUsersLocation);
+            otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+            otherPeoplesMarker.setIcon(getResources().getDrawable(R.drawable.map_marker));
+            mapView.getOverlays().add(otherPeoplesMarker);
         }
-        final ItemizedIconOverlay otherUsersLocationOverlay = new ItemizedIconOverlay<OverlayItem>(otherUsersOverlay, getResources().getDrawable(R.drawable.map_marker), null, resourceProxy);
-
-        mapView.getOverlays().add(otherUsersLocationOverlay);
 
         if (shouldShowSternfahrtRoutes) {
             ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
