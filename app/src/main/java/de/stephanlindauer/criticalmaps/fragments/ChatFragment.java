@@ -1,14 +1,17 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
@@ -81,24 +84,23 @@ public class ChatFragment extends SuperFragment {
         });
 
         editMessageTextfield = (EditText) getActivity().findViewById(R.id.chat_edit_message);
+        editMessageTextfield.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    handleSendClicked();
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         Button sendButton = (Button) getActivity().findViewById(R.id.chat_send_btn);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = editMessageTextfield.getText().toString();
-
-                if (message.equals(""))
-                    return;
-
-                chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
-
-                editMessageTextfield.setText("");
-                chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
-                chatListView.setAdapter(chatMessageAdapter);
-
-                if (!isScrolling)
-                    chatListView.setSelection(chatListView.getCount());
+                handleSendClicked();
             }
         });
 
@@ -106,6 +108,22 @@ public class ChatFragment extends SuperFragment {
         if (ownLocationModel.ownLocation == null) {
             searchingForLocationOverlay.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void handleSendClicked() {
+        String message = editMessageTextfield.getText().toString();
+
+        if (message.equals(""))
+            return;
+
+        chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
+
+        editMessageTextfield.setText("");
+        chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
+        chatListView.setAdapter(chatMessageAdapter);
+
+        if (!isScrolling)
+            chatListView.setSelection(chatListView.getCount());
     }
 
     private void refreshView() {
