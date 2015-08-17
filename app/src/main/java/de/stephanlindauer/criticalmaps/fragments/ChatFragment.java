@@ -12,8 +12,6 @@ import android.widget.RelativeLayout;
 
 import com.squareup.otto.Subscribe;
 
-import org.osmdroid.util.GeoPoint;
-
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -105,7 +103,7 @@ public class ChatFragment extends SuperFragment {
         });
 
         searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayChat);
-       if (ownLocationModel.ownLocation == null) {
+        if (ownLocationModel.ownLocation == null) {
             searchingForLocationOverlay.setVisibility(View.VISIBLE);
         }
     }
@@ -137,11 +135,18 @@ public class ChatFragment extends SuperFragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
-        searchingForLocationOverlay.setVisibility(View.GONE);
+        setSearchingForLocationOverlayState();
     }
 
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
+        setSearchingForLocationOverlayState();
         refreshView();
+    }
+
+    public void setSearchingForLocationOverlayState() {
+        if (ownLocationModel.ownLocation != null) {
+            searchingForLocationOverlay.setVisibility(View.GONE);
+        }
     }
 }

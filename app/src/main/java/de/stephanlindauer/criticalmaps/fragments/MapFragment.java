@@ -126,6 +126,14 @@ public class MapFragment extends SuperFragment {
             mapView.getOverlays().remove(element);
         }
 
+        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
+            Marker otherPeoplesMarker = new Marker(mapView);
+            otherPeoplesMarker.setPosition(currentOtherUsersLocation);
+            otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+            otherPeoplesMarker.setIcon(getResources().getDrawable(R.drawable.map_marker));
+            mapView.getOverlays().add(otherPeoplesMarker);
+        }
+
         if (ownLocationModel.ownLocation != null) {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
             Marker ownMarker = new Marker(mapView);
@@ -133,14 +141,6 @@ public class MapFragment extends SuperFragment {
             ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             ownMarker.setIcon(getResources().getDrawable(R.drawable.map_marker_own));
             mapView.getOverlays().add(ownMarker);
-        }
-
-        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            Marker otherPeoplesMarker = new Marker(mapView);
-            otherPeoplesMarker.setPosition(currentOtherUsersLocation);
-            otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-            otherPeoplesMarker.setIcon(getResources().getDrawable(R.drawable.map_marker));
-            mapView.getOverlays().add(otherPeoplesMarker);
         }
 
         if (shouldShowSternfahrtRoutes) {
@@ -167,6 +167,7 @@ public class MapFragment extends SuperFragment {
     public void onResume() {
         super.onResume();
         refreshView();
+
         eventService.register(this);
     }
 
@@ -183,15 +184,21 @@ public class MapFragment extends SuperFragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
-        if (!isInitialLocationSet) {
-            hideSearchingForLocationOverlayAndZoomToLocation();
-            isInitialLocationSet = true;
-        }
+        setSearchingForLocationOverlayState();
         refreshView();
     }
 
-    private void hideSearchingForLocationOverlayAndZoomToLocation() {
-        searchingForLocationOverlay.setVisibility(View.GONE);
+    public void setSearchingForLocationOverlayState() {
+        if (ownLocationModel.ownLocation != null) {
+            searchingForLocationOverlay.setVisibility(View.GONE);
+        }
+        if (!isInitialLocationSet) {
+            zoomToCurrentLocation();
+            isInitialLocationSet = true;
+        }
+    }
+
+    private void zoomToCurrentLocation() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
