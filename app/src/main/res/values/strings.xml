@@ -102,5 +102,7 @@
     <string name="map_no_gps_provider_enabled_go_to_settings">Change settings</string>
     <string name="twitter_refreshed">Tweets were refreshed!</string>
     <string name="twitter_try_again">try again!</string>
+    <string name="notification_tracking_close">close</string>
+    <string name="notification_tracking_open">open</string>
 
 </resources>

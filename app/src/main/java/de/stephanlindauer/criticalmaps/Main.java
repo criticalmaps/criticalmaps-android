@@ -15,11 +15,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
+import de.stephanlindauer.criticalmaps.handler.ApplicatonCloseHandler;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import de.stephanlindauer.criticalmaps.service.ServerPuller;
+import de.stephanlindauer.criticalmaps.service.SyncService;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
@@ -33,8 +35,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private CustomViewPager viewPager;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
 
         setContentView(R.layout.activity_main);
 
@@ -46,6 +48,24 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         serverPuller.initialize(this);
         gpsMananger.initialize(this);
+
+        startSyncService();
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (intent.getBooleanExtra("shouldClose", false)) {
+            new ApplicatonCloseHandler(this).execute();
+        }
+    }
+
+
+    private void startSyncService() {
+        Intent syncServiceIntent = new Intent(this, SyncService.class);
+        startService(syncServiceIntent);
     }
 
     private void checkForLocationProvider() {

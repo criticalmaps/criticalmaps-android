@@ -1,8 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,12 +16,12 @@ import java.io.File;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
+import de.stephanlindauer.criticalmaps.handler.ApplicatonCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.EventService;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
@@ -134,27 +132,8 @@ public class SuperFragment extends Fragment {
         eventService.post(new NewOverlayConfigEvent());
     }
 
-
     public void handleCloseRequested() {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        TrackingInfoNotificationSetter.getInstance().cancel();
-                        getActivity().finish();
-                        System.exit(0);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        dialog.cancel();
-                        break;
-                }
-            }
-        };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.close).setPositiveButton(R.string.yes, dialogClickListener)
-                .setNegativeButton(R.string.no, dialogClickListener).show();
+        new ApplicatonCloseHandler(getActivity()).execute();
     }
 
     public void setNewCameraOutputFile(File newCameraOutputFile) {

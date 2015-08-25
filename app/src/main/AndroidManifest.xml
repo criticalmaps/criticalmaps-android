@@ -39,6 +39,8 @@
             android:name="de.stephanlindauer.criticalmaps.notifications.reminder.AlarmNotificationReceiver"
             android:process=":remote" />
 
+        <service android:name=".service.SyncService" />
+
     </application>
 
 </manifest>
