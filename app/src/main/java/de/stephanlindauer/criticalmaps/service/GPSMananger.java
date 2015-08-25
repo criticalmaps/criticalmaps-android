@@ -26,7 +26,7 @@ public class GPSMananger {
 
     //const
     private final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
-    private final long LOCATION_REFRESH_TIME = 30 * 1000; //30 seconds
+    private final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
 
     //misc
     private LocationManager locationManager;
@@ -49,9 +49,6 @@ public class GPSMananger {
     }
 
     private void startLocationListening() {
-//        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-
         if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
 
