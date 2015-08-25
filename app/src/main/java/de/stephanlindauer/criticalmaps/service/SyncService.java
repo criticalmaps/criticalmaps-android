@@ -3,14 +3,19 @@ package de.stephanlindauer.criticalmaps.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
 public class SyncService extends Service {
+
+
+    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
+
+
     private Timer timerPullServer;
 
     @Override
@@ -21,20 +26,16 @@ public class SyncService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
         timerPullServer = new Timer();
 
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
             public void run() {
-                Log.d("foo-service ", "miau miau");
+                new PullServerHandler().execute();
             }
         };
-        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, 10000);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, PULL_OTHER_LOCATIONS_TIME);
     }
 
     @Override

@@ -70,7 +70,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                 response.getEntity().getContent().close();
             }
         } catch (IOException e) {
-//            Crashlytics.logException(e);
+            System.out.println();
         }
         return responseString;
     }

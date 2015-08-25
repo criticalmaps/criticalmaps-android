@@ -22,14 +22,12 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.service.EventService;
-import de.stephanlindauer.criticalmaps.service.ServerPuller;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 
 public class ChatFragment extends SuperFragment {
 
     //dependencies
     private final ChatModel chatModel = ChatModel.getInstance();
-    private final ServerPuller serverPuller = ServerPuller.getInstance();
     private final EventService eventService = EventService.getInstance();
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 

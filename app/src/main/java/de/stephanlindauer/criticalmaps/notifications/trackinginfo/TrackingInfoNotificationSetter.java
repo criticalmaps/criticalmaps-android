@@ -15,6 +15,8 @@ public class TrackingInfoNotificationSetter {
 
     //const
     private final int NOTIFICATION_ID = 123456;
+    private final int INTENT_CLOSE_ID = 176456;
+    private final int INTENT_OPEN_ID = 133256;
 
     private Context context;
     private Activity activity;
@@ -38,20 +40,21 @@ public class TrackingInfoNotificationSetter {
     public void show() {
         Intent openIntent = new Intent(context, Main.class);
         openIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent openPendingIntent = PendingIntent.getActivity(activity, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        openIntent.putExtra("shouldClose", false);
+        PendingIntent openPendingIntent = PendingIntent.getActivity(activity, INTENT_OPEN_ID, openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent closeIntent = new Intent(context, Main.class);
         closeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         closeIntent.putExtra("shouldClose", true);
-        PendingIntent closePendingIntent = PendingIntent.getActivity(activity, 0, closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent closePendingIntent = PendingIntent.getActivity(activity, INTENT_CLOSE_ID, closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_action_location_found)
                 .setContentTitle(activity.getString(R.string.notification_tracking_title))
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
-                .setContentIntent(openPendingIntent)
                 .setPriority(Notification.PRIORITY_MAX)
+                .setContentIntent(openPendingIntent)
                 .addAction(R.drawable.ic_launcher, activity.getString(R.string.notification_tracking_open), openPendingIntent)
                 .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_close), closePendingIntent);
 

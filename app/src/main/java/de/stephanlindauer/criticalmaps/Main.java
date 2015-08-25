@@ -20,14 +20,12 @@ import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.GPSMananger;
-import de.stephanlindauer.criticalmaps.service.ServerPuller;
 import de.stephanlindauer.criticalmaps.service.SyncService;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     //dependencies
     private final TrackingInfoNotificationSetter trackingInfoNotificationSetter = TrackingInfoNotificationSetter.getInstance();
-    private final ServerPuller serverPuller = ServerPuller.getInstance();
     private final GPSMananger gpsMananger = GPSMananger.getInstance();
     private final UserModel userModel = UserModel.getInstance();
 
@@ -46,7 +44,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         initializeNotifications();
 
-        serverPuller.initialize(this);
         gpsMananger.initialize(this);
 
         startSyncService();
@@ -55,14 +52,11 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        if (intent.getBooleanExtra("shouldClose", false)) {
+        if (intent.hasExtra("shouldClose") && intent.getBooleanExtra("shouldClose", false)) {
             new ApplicatonCloseHandler(this).execute();
         }
+        super.onNewIntent(intent);
     }
-
-
 
 
     private void startSyncService() {
