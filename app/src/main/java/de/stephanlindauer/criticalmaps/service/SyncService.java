@@ -12,9 +12,7 @@ import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNo
 
 public class SyncService extends Service {
 
-
-    private final int PULL_OTHER_LOCATIONS_TIME = 20 * 1000; //20 sec
-
+    private final int PULL_OTHER_LOCATIONS_TIME = 12 * 1000; // 12 sec -> 5 times a minute
 
     private Timer timerPullServer;
 
