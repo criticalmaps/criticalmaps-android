@@ -63,6 +63,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
 
+
+
     private void startSyncService() {
         Intent syncServiceIntent = new Intent(this, SyncService.class);
         startService(syncServiceIntent);
