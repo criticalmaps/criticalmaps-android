@@ -40,7 +40,7 @@
             android:process=":remote" />
 
         <service
-            android:name=".service.SyncService"/>
+            android:name=".service.ServerSyncService"/>
 
     </application>
 

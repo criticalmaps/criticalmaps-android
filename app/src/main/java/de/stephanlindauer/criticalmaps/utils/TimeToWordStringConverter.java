@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.helper;
+package de.stephanlindauer.criticalmaps.utils;
 
 
 import android.content.Context;

@@ -1,19 +1,19 @@
-package de.stephanlindauer.criticalmaps.service;
+package de.stephanlindauer.criticalmaps.provider;
 
 import com.squareup.otto.Bus;
 
-public class EventService {
+public class EventBusProvider {
 
     private Bus bus = new Bus();
 
     //singleton
-    private static EventService instance;
+    private static EventBusProvider instance;
 
-    public static EventService getInstance() {
-        if (EventService.instance == null) {
-            EventService.instance = new EventService();
+    public static EventBusProvider getInstance() {
+        if (EventBusProvider.instance == null) {
+            EventBusProvider.instance = new EventBusProvider();
         }
-        return EventService.instance;
+        return EventBusProvider.instance;
     }
 
     public void post(Object event) {

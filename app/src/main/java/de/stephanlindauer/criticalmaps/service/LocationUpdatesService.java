@@ -15,14 +15,15 @@ import java.util.Date;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
-public class GPSMananger {
+public class LocationUpdatesService {
 
     //dependencies
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-    private final EventService eventService = EventService.getInstance();
+    private final EventBusProvider eventService = EventBusProvider.getInstance();
 
     //const
     private final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
@@ -33,13 +34,13 @@ public class GPSMananger {
     private SharedPreferences sharedPreferences;
 
     //singleton
-    private static GPSMananger instance;
+    private static LocationUpdatesService instance;
 
-    public static GPSMananger getInstance() {
-        if (GPSMananger.instance == null) {
-            GPSMananger.instance = new GPSMananger();
+    public static LocationUpdatesService getInstance() {
+        if (LocationUpdatesService.instance == null) {
+            LocationUpdatesService.instance = new LocationUpdatesService();
         }
-        return GPSMananger.instance;
+        return LocationUpdatesService.instance;
     }
 
     public void initialize(Activity activity) {

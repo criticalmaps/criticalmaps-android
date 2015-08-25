@@ -10,7 +10,7 @@ import java.util.TimerTask;
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 
-public class SyncService extends Service {
+public class ServerSyncService extends Service {
 
     private final int PULL_OTHER_LOCATIONS_TIME = 12 * 1000; // 12 sec -> 5 times a minute
 

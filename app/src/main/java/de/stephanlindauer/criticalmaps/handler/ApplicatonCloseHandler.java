@@ -7,7 +7,7 @@ import android.content.Intent;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
-import de.stephanlindauer.criticalmaps.service.SyncService;
+import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 
 public class ApplicatonCloseHandler {
 
@@ -24,7 +24,7 @@ public class ApplicatonCloseHandler {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         TrackingInfoNotificationSetter.getInstance().cancel();
-                        Intent syncServiceIntent = new Intent(activity, SyncService.class);
+                        Intent syncServiceIntent = new Intent(activity, ServerSyncService.class);
                         activity.stopService(syncServiceIntent);
                         activity.finish();
                         System.exit(0);

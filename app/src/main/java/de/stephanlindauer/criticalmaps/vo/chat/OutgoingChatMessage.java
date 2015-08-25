@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 
-import de.stephanlindauer.criticalmaps.helper.AeSimpleSHA1;
+import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 
 public class OutgoingChatMessage implements IChatMessage {

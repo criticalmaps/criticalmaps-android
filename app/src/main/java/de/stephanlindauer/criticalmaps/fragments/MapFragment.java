@@ -27,8 +27,8 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
-import de.stephanlindauer.criticalmaps.service.EventService;
-import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends SuperFragment {
@@ -36,9 +36,9 @@ public class MapFragment extends SuperFragment {
     //dependencies
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
-    private EventService eventService = EventService.getInstance();
+    private EventBusProvider eventService = EventBusProvider.getInstance();
     private SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
-    private GPSMananger locationManager = GPSMananger.getInstance();
+    private LocationUpdatesService locationManager = LocationUpdatesService.getInstance();
 
     //view
     private MapView mapView;
@@ -78,7 +78,7 @@ public class MapFragment extends SuperFragment {
         noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 noTrackingOverlay.setVisibility(View.INVISIBLE);
-                GPSMananger.getInstance().setTrackingUserLocation(true);
+                LocationUpdatesService.getInstance().setTrackingUserLocation(true);
                 trackingToggleButton.setChecked(true);
             }
         });

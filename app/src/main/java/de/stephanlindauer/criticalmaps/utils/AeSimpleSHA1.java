@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.helper;
+package de.stephanlindauer.criticalmaps.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.helper.TimeToWordStringConverter;
+import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;

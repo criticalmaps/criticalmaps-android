@@ -22,8 +22,8 @@ import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.service.EventService;
-import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class SuperFragment extends Fragment {
@@ -35,7 +35,7 @@ public class SuperFragment extends Fragment {
 
     protected boolean shouldShowSternfahrtRoutes = false;
 
-    private final EventService eventService = EventService.getInstance();
+    private final EventBusProvider eventService = EventBusProvider.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,10 +113,10 @@ public class SuperFragment extends Fragment {
     private void handleTrackingToggled(MenuItem item) {
         item.setChecked(!item.isChecked());
         if (item.isChecked()) {
-            GPSMananger.getInstance().setTrackingUserLocation(true);
+            LocationUpdatesService.getInstance().setTrackingUserLocation(true);
             showNoTrackingOverlay(false);
         } else {
-            GPSMananger.getInstance().setTrackingUserLocation(false);
+            LocationUpdatesService.getInstance().setTrackingUserLocation(false);
             showNoTrackingOverlay(true);
         }
     }
