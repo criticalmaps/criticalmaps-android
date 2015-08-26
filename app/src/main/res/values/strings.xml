@@ -57,6 +57,8 @@
 
     <!-- fragement_twitter -->
     <string name="twitter_heading">All Tweets containing \"CriticalMaps\"</string>
+    <string name="twitter_refreshed">Tweets were refreshed!</string>
+    <string name="twitter_try_again">Try again!</string>
 
 
     <!-- fragment_chat -->
@@ -93,16 +95,15 @@
     <string name="camera_no_location_no_camera">You can\'t upload images without a GPS signal</string>
     <string name="camera_image_upload_succeeded_title">Image upload worked!</string>
     <string name="camera_image_upload_succeeded_message">The picture is uploaded to gallery on criticalmaps.net </string>
-    <string name="camera_no_camera">No camera available</string>
+    <string name="camera_no_camera">No camera available.</string>
+    <string name="camera_no_camera_no_camera">You can\'t take pictures if your device doesn\'t have a camera.</string>
 
     <!-- misc -->
-    <string name="something_went_wrong">Something went wrong</string>
+    <string name="something_went_wrong">Something went wrong.</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="map_no_gps_provider_enabled_go_to_settings">Change settings</string>
-    <string name="twitter_refreshed">Tweets were refreshed!</string>
-    <string name="twitter_try_again">try again!</string>
-    <string name="notification_tracking_close">close</string>
-    <string name="notification_tracking_open">open</string>
+    <string name="notification_tracking_close">Close</string>
+    <string name="notification_tracking_open">Open</string>
 
 </resources>
