@@ -14,7 +14,7 @@ import de.stephanlindauer.criticalmaps.R;
 public class TrackingInfoNotificationSetter {
 
     //const
-    private final int NOTIFICATION_ID = 123456;
+    private final int NOTIFICATION_ID = 12456;
     private final int INTENT_CLOSE_ID = 176456;
     private final int INTENT_OPEN_ID = 133256;
 
@@ -49,13 +49,13 @@ public class TrackingInfoNotificationSetter {
         PendingIntent closePendingIntent = PendingIntent.getActivity(activity, INTENT_CLOSE_ID, closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_action_location_found)
+                .setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle(activity.getString(R.string.notification_tracking_title))
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(openPendingIntent)
-                .addAction(R.drawable.ic_launcher, activity.getString(R.string.notification_tracking_open), openPendingIntent)
+                .addAction(R.drawable.ic_action_location_found, activity.getString(R.string.notification_tracking_open), openPendingIntent)
                 .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_close), closePendingIntent);
 
         Notification notification = mBuilder.build();
