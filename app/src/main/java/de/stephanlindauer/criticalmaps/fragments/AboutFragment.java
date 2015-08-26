@@ -49,7 +49,7 @@ public class AboutFragment extends SuperFragment {
                 url = "https://www.facebook.com/criticalmaps";
                 break;
             case R.id.about_twitter:
-                url = "https://fragment_twitter.com/CriticalMaps";
+                url = "https://twitter.com/CriticalMaps";
                 break;
             default:
                 url = "google.de";

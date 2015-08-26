@@ -119,6 +119,10 @@ public class MapFragment extends SuperFragment {
     }
 
     private void refreshView() {
+        if (ownLocationModel.ownLocation != null) {
+            searchingForLocationOverlay.setVisibility(View.GONE);
+        }
+
         for (Overlay element : mapView.getOverlays()) {
             if (element instanceof Polyline)
                 continue;//don't delete polylines
