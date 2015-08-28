@@ -82,7 +82,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
         TextView text;
         text = (TextView) view.findViewById(R.id.picture_confirm_text);
         text.setLinksClickable(true);
-        text.setText(Html.fromHtml(activity.getString(R.string.camera_comfirm_image_upload)));
+        text.setText(Html.fromHtml(activity.getString(R.string.camera_confirm_image_upload)));
 
         builder.setView(view);
 

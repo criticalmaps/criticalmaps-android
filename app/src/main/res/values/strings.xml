@@ -30,14 +30,12 @@
         Activate tracking to be able to see all other cyclists. \n\n
         Just tap here!
     </string>
-    <string name="map_no_gps_provider_enabled_title">Dein GPS ist aus oder wird geblockt</string>
+    <string name="map_no_gps_provider_enabled_title">Your GPS is deactivated or blocked</string>
     <string name="map_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
 
     <!-- notification -->
-    <string name="notification_tracking_title">Tracking Location</string>
-    <string name="notification_tracking_text">To deactivate open the app and switch tracking off via the settings
-        button or close it via the x-button.
-    </string>
+    <string name="notification_tracking_title">Critical Maps Tracking</string>
+    <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don't want to be tracked anymore.</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
@@ -81,7 +79,7 @@
     <string name="timetoword_daysago">%s days ago</string>
 
     <!-- camera -->
-    <string name="camera_comfirm_image_upload">
+    <string name="camera_confirm_image_upload">
         <![CDATA[
         Willst du das Foto auf <a href="http://criticalmaps.net">criticalmaps.net</a> hochladen? \nWir ver&ouml;ffentlichen die Bilder dort auf der Karte unter der <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lizenz.
         ]]>
