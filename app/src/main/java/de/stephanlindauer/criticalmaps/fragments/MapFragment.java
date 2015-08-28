@@ -62,7 +62,6 @@ public class MapFragment extends SuperFragment {
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity());
 
-        noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
         setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
@@ -73,15 +72,6 @@ public class MapFragment extends SuperFragment {
 
         setLastKnownLocationBoundingBox();
         setLastKnownLocationMapIcon();
-
-        noTrackingOverlay.setVisibility(ownLocationModel.isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
-        noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                noTrackingOverlay.setVisibility(View.INVISIBLE);
-                LocationUpdatesService.getInstance().setTrackingUserLocation(true);
-                trackingToggleButton.setChecked(true);
-            }
-        });
 
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

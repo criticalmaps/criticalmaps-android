@@ -28,9 +28,6 @@ import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class SuperFragment extends Fragment {
 
-    protected MenuItem trackingToggleButton;
-    protected Button noTrackingOverlay;
-
     private File newCameraOutputFile;
 
     protected boolean shouldShowSternfahrtRoutes = false;
@@ -47,9 +44,6 @@ public class SuperFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.actionbar_buttons, menu);
-
-        trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
-        trackingToggleButton.setChecked(OwnLocationModel.getInstance().isListeningForLocation);
     }
 
     @Override
@@ -61,9 +55,6 @@ public class SuperFragment extends Fragment {
                 break;
             case R.id.take_picture:
                 new StartCameraHandler(this).execute();
-                break;
-            case R.id.settings_tracking_toggle:
-                handleTrackingToggled(item);
                 break;
             case R.id.show_sternfahrt:
                 handleShowSternfahrt(item);
@@ -108,22 +99,6 @@ public class SuperFragment extends Fragment {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
-    }
-
-    private void handleTrackingToggled(MenuItem item) {
-        item.setChecked(!item.isChecked());
-        if (item.isChecked()) {
-            LocationUpdatesService.getInstance().setTrackingUserLocation(true);
-            showNoTrackingOverlay(false);
-        } else {
-            LocationUpdatesService.getInstance().setTrackingUserLocation(false);
-            showNoTrackingOverlay(true);
-        }
-    }
-
-    private void showNoTrackingOverlay(boolean shouldShow) {
-        if (noTrackingOverlay != null)
-            noTrackingOverlay.setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void handleShowSternfahrt(MenuItem item) {

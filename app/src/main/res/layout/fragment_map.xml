@@ -21,19 +21,6 @@
         android:gravity="center_vertical|center_horizontal"
         android:src="@drawable/ic_action_location_found" />
 
-    <Button
-        android:id="@+id/noTrackingOverlay"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:background="#aa540000"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="10dp"
-        android:text="@string/map_overlay_tracking_off"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
     <include
         android:id="@+id/searchingForLocationOverlayMap"
         layout="@layout/view_searching_for_location_overlay"
