@@ -35,7 +35,7 @@
 
     <!-- notification -->
     <string name="notification_tracking_title">Critical Maps Tracking</string>
-    <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don't want to be tracked anymore.</string>
+    <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don\'t want to be tracked anymore.</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>

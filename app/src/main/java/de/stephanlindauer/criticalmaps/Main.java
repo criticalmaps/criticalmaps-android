@@ -47,7 +47,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         gpsMananger.initialize(this);
 
         startSyncService();
-
     }
 
     @Override
@@ -57,7 +56,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         }
         super.onNewIntent(intent);
     }
-
 
     private void startSyncService() {
         Intent syncServiceIntent = new Intent(this, ServerSyncService.class);
