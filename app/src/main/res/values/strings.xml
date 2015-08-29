@@ -53,7 +53,7 @@
     <string name="rules_fun">Have fun!</string>
     <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
 
-    <!-- fragement_twitter -->
+    <!-- fragment_twitter -->
     <string name="twitter_heading">All Tweets containing \"CriticalMaps\"</string>
     <string name="twitter_refreshed">Tweets were refreshed!</string>
     <string name="twitter_try_again">Try again!</string>
