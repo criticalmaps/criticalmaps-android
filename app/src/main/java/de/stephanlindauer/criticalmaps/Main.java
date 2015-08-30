@@ -1,21 +1,18 @@
 package de.stephanlindauer.criticalmaps;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
-import de.stephanlindauer.criticalmaps.handler.ApplicatonCloseHandler;
+import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
+import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
@@ -26,7 +23,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     //dependencies
     private final TrackingInfoNotificationSetter trackingInfoNotificationSetter = TrackingInfoNotificationSetter.getInstance();
-    private final LocationUpdatesService gpsMananger = LocationUpdatesService.getInstance();
+    private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
     private final UserModel userModel = UserModel.getInstance();
 
     //misc
@@ -38,13 +35,13 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         setContentView(R.layout.activity_main);
 
-        checkForLocationProvider();
-
         setupViewPager();
+
+        new PrerequisitesChecker(this).execute();
 
         initializeNotifications();
 
-        gpsMananger.initialize(this);
+        locationUpdatesService.initialize(this);
 
         startSyncService();
     }
@@ -52,7 +49,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     protected void onNewIntent(Intent intent) {
         if (intent.hasExtra("shouldClose") && intent.getBooleanExtra("shouldClose", false)) {
-            new ApplicatonCloseHandler(this).execute();
+            new ApplicationCloseHandler(this).execute();
         }
         super.onNewIntent(intent);
     }
@@ -60,27 +57,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private void startSyncService() {
         Intent syncServiceIntent = new Intent(this, ServerSyncService.class);
         startService(syncServiceIntent);
-    }
-
-    private void checkForLocationProvider() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            new AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.map_no_gps_provider_enabled_title))
-                    .setMessage(getString(R.string.map_no_gps_provider_enabled_text))
-                    .setCancelable(false)
-                    .setPositiveButton(getString(R.string.map_no_gps_provider_enabled_go_to_settings),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(viewIntent);
-                                    finish();
-                                }
-                            })
-                    .create()
-                    .show();
-        }
     }
 
     private void initializeNotifications() {

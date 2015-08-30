@@ -28,8 +28,8 @@
         diğer bisikletlileri görebilmek için izlemeyi etkinleştir. \n\n
         şimdi buraya dokun!
     </string>
-    <string name="map_no_gps_provider_enabled_title">GPS kapalı</string>
-    <string name="map_no_gps_provider_enabled_text">Lütfen GPS etkinleştirin ve uygulamayı yeniden başlatın</string>
+    <string name="prerequisites_no_gps_provider_enabled_title">GPS kapalı</string>
+    <string name="prerequisites_no_gps_provider_enabled_text">Lütfen GPS etkinleştirin ve uygulamayı yeniden başlatın</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Konum İzlenmekte</string>
@@ -93,7 +93,7 @@
     <string name="something_went_wrong">Bir terslik oluştu</string>
     <string name="cancel">İptal</string>
     <string name="ok">Tamam</string>
-    <string name="map_no_gps_provider_enabled_go_to_settings">Ayarları değiştir</string>
+    <string name="go_to_settings">Ayarları değiştir</string>
     <string name="twitter_heading">miyav</string>
 
 </resources>

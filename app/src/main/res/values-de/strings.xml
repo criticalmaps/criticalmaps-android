@@ -69,9 +69,9 @@
     <string name="camera_upload_failed_message">Bitte versuch es später nochmal</string>
     <string name="camera_upload_failed_title">Hochladen hat nicht funktioniert</string>
     <string name="cancel">Abbrechen</string>
-    <string name="map_no_gps_provider_enabled_go_to_settings">zu den Einstellungen</string>
-    <string name="map_no_gps_provider_enabled_title">GPS is disabled or blocked</string>
-    <string name="map_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
+    <string name="go_to_settings">zu den Einstellungen</string>
+    <string name="prerequisites_no_gps_provider_enabled_title">GPS ist deaktiviert oder geblockt</string>
+    <string name="prerequisites_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
     <string name="map_searching_for_location">Warte auf GPS-Signal</string>
     <string name="ok">OK</string>
     <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>
@@ -82,4 +82,14 @@
     <string name="twitter_heading">Alle Tweets die \"CriticalMaps\" enthalten</string>
     <string name="twitter_refreshed">Tweets aktualisiert!</string>
     <string name="twitter_try_again">Versuch\'s nochmal!</string>
+    <string name="introduction_heading">Lies dir bitte kurz folgende Infos durch, damit du weißt, was hier abgeht.</string>
+    <string name="introduction_own_icon">So siehst du aus:\u0020</string>
+    <string name="introduction_other_icon">So sehen alle anderen User aus:\u0020</string>
+    <string name="introduction_close_app">Wenn du nicht mehr getrackt werden willst, schließe die App einfach wieder.</string>
+    <string name="introduction_careful">Sei bitte vorsichtig und und achte lieber auf den Verkehr, als auf die App.</string>
+    <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
+    <string name="introduction_requisites">Damit alles richtig funktioniert brauchst du eine halbwegs stabile mobile Internet-Verbindung und aktiviertes GPS.</string>
+    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
+    <string name="prerequisites_no_internet_enabled_title">Deine Internet-Verbindung ist deaktiviert oder geblockt</string>
+
 </resources>

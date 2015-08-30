@@ -8,12 +8,13 @@ import android.content.Intent;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
+import de.stephanlindauer.criticalmaps.utils.ApplicationCloser;
 
-public class ApplicatonCloseHandler {
+public class ApplicationCloseHandler {
 
     private final Activity activity;
 
-    public ApplicatonCloseHandler(Activity activity) {
+    public ApplicationCloseHandler(Activity activity) {
         this.activity = activity;
     }
 
@@ -23,11 +24,7 @@ public class ApplicatonCloseHandler {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        TrackingInfoNotificationSetter.getInstance().cancel();
-                        Intent syncServiceIntent = new Intent(activity, ServerSyncService.class);
-                        activity.stopService(syncServiceIntent);
-                        activity.finish();
-                        System.exit(0);
+                        ApplicationCloser.close(activity);
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
                         dialog.cancel();
@@ -39,6 +36,5 @@ public class ApplicatonCloseHandler {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(R.string.close).setPositiveButton(R.string.yes, dialogClickListener)
                 .setNegativeButton(R.string.no, dialogClickListener).show();
-
     }
 }

@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -160,9 +159,14 @@ public class MapFragment extends SuperFragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshView();
-
         eventService.register(this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshView();
+            }
+        }, 200);
     }
 
     @Override

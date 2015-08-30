@@ -57,13 +57,6 @@ public class LocationUpdatesService {
         TrackingInfoNotificationSetter.getInstance().show();
     }
 
-    private void stopLocationListening() {
-        locationManager.removeUpdates(locationListener);
-        ownLocationModel.ownLocation = null;
-        ownLocationModel.isListeningForLocation = false;
-        TrackingInfoNotificationSetter.getInstance().cancel();
-    }
-
     public GeoPoint getLastKnownLocation() {
         GeoPoint lastKnownLocation = null;
         if (sharedPreferences.contains("latitude") && sharedPreferences.contains("longitude") && sharedPreferences.contains("timestamp")) {
@@ -104,11 +97,4 @@ public class LocationUpdatesService {
         public void onProviderDisabled(String s) {
         }
     };
-
-    public void setTrackingUserLocation(boolean shouldBeTracking) {
-        if (shouldBeTracking)
-            startLocationListening();
-        else
-            stopLocationListening();
-    }
 }

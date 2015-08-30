@@ -8,22 +8,18 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
-import de.stephanlindauer.criticalmaps.handler.ApplicatonCloseHandler;
+import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
-import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class SuperFragment extends Fragment {
@@ -108,7 +104,7 @@ public class SuperFragment extends Fragment {
     }
 
     public void handleCloseRequested() {
-        new ApplicatonCloseHandler(getActivity()).execute();
+        new ApplicationCloseHandler(getActivity()).execute();
     }
 
     public void setNewCameraOutputFile(File newCameraOutputFile) {
