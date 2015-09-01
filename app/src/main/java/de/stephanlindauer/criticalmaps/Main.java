@@ -76,7 +76,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         viewPager.setAdapter(tabsPagerAdapter);
 
         actionBar.addTab(actionBar.newTab().setText(R.string.section_map).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_chat).setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.section_chat).setTabListener(this).setTag("chat_tab"));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_twitter).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
@@ -105,7 +105,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         viewPager.setCurrentItem(tab.getPosition());
-        hideKeyBoard();
     }
 
     private void hideKeyBoard() {
@@ -114,12 +113,16 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         if (editMessageTextfield == null)
             return;
 
+        editMessageTextfield.clearFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(editMessageTextfield.getWindowToken(), 0);
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        if("chat_tab".equals(tab.getTag())) {
+            hideKeyBoard();
+        }
     }
 
     @Override
