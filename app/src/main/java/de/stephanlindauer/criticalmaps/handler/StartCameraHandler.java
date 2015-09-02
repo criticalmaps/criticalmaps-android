@@ -38,6 +38,13 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
                     .show();
             cancel(true);
         }
+        if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            new AlertDialog.Builder(activity)
+                    .setMessage(R.string.camera_no_camera_no_camera)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+            cancel(true);
+        }
     }
 
     @Override

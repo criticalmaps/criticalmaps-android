@@ -30,14 +30,16 @@
         Activate tracking to be able to see all other cyclists. \n\n
         Just tap here!
     </string>
-    <string name="map_no_gps_provider_enabled_title">Dein GPS ist aus oder wird geblockt</string>
-    <string name="map_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
+
+    <!-- prerequisites -->
+    <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>
+    <string name="prerequisites_no_internet_enabled_text">Please enable your internet connection and restart the app</string>
+    <string name="prerequisites_no_gps_provider_enabled_title">Your GPS is deactivated or blocked</string>
+    <string name="prerequisites_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
 
     <!-- notification -->
-    <string name="notification_tracking_title">Tracking Location</string>
-    <string name="notification_tracking_text">To deactivate open the app and switch tracking off via the settings
-        button or close it via the x-button.
-    </string>
+    <string name="notification_tracking_title">Critical Maps Tracking</string>
+    <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don\'t want to be tracked anymore.</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
@@ -55,9 +57,10 @@
     <string name="rules_fun">Have fun!</string>
     <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
 
-    <!-- fragement_twitter -->
+    <!-- fragment_twitter -->
     <string name="twitter_heading">All Tweets containing \"CriticalMaps\"</string>
-
+    <string name="twitter_refreshed">Tweets were refreshed!</string>
+    <string name="twitter_try_again">Try again!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
@@ -79,7 +82,7 @@
     <string name="timetoword_daysago">%s days ago</string>
 
     <!-- camera -->
-    <string name="camera_comfirm_image_upload">
+    <string name="camera_confirm_image_upload">
         <![CDATA[
         Willst du das Foto auf <a href="http://criticalmaps.net">criticalmaps.net</a> hochladen? \nWir ver&ouml;ffentlichen die Bilder dort auf der Karte unter der <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lizenz.
         ]]>
@@ -93,14 +96,24 @@
     <string name="camera_no_location_no_camera">You can\'t upload images without a GPS signal</string>
     <string name="camera_image_upload_succeeded_title">Image upload worked!</string>
     <string name="camera_image_upload_succeeded_message">The picture is uploaded to gallery on criticalmaps.net </string>
-    <string name="camera_no_camera">No camera available</string>
+    <string name="camera_no_camera">No camera available.</string>
+    <string name="camera_no_camera_no_camera">You can\'t take pictures if your device doesn\'t have a camera.</string>
 
     <!-- misc -->
-    <string name="something_went_wrong">Something went wrong</string>
+    <string name="something_went_wrong">Something went wrong.</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
-    <string name="map_no_gps_provider_enabled_go_to_settings">Change settings</string>
-    <string name="twitter_refreshed">Tweets were refreshed!</string>
-    <string name="twitter_try_again">try again!</string>
+    <string name="go_to_settings">Change settings</string>
+    <string name="notification_tracking_close">Close</string>
+    <string name="notification_tracking_open">Open</string>
+
+    <!-- introduction -->
+    <string name="introduction_heading">Please take some time to read this quick introduction.</string>
+    <string name="introduction_own_icon">This is what you look like:\u0020</string>
+    <string name="introduction_other_icon">This is what all the other Users look like:\u0020</string>
+    <string name="introduction_close_app">Please close the app if you don\'t want to be tracked anymore.</string>
+    <string name="introduction_careful">Please rather pay attention to traffic instead of the app.</string>
+    <string name="introduction_bugs">If you find bugs in the app, please let us know by clicking the feedback-button in the settings-menu.</string>
+    <string name="introduction_requisites">In order for this app to run properly, you need to have a working mobile data connection and GPS enabled.</string>
 
 </resources>

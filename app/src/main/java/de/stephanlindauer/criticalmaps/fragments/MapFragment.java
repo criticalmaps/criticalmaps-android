@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -27,8 +26,8 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
-import de.stephanlindauer.criticalmaps.service.EventService;
-import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends SuperFragment {
@@ -36,9 +35,9 @@ public class MapFragment extends SuperFragment {
     //dependencies
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
-    private EventService eventService = EventService.getInstance();
+    private EventBusProvider eventService = EventBusProvider.getInstance();
     private SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
-    private GPSMananger locationManager = GPSMananger.getInstance();
+    private LocationUpdatesService locationManager = LocationUpdatesService.getInstance();
 
     //view
     private MapView mapView;
@@ -62,7 +61,6 @@ public class MapFragment extends SuperFragment {
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity());
 
-        noTrackingOverlay = (Button) getActivity().findViewById(R.id.noTrackingOverlay);
         setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
@@ -73,15 +71,6 @@ public class MapFragment extends SuperFragment {
 
         setLastKnownLocationBoundingBox();
         setLastKnownLocationMapIcon();
-
-        noTrackingOverlay.setVisibility(ownLocationModel.isListeningForLocation ? View.INVISIBLE : View.VISIBLE);
-        noTrackingOverlay.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                noTrackingOverlay.setVisibility(View.INVISIBLE);
-                GPSMananger.getInstance().setTrackingUserLocation(true);
-                trackingToggleButton.setChecked(true);
-            }
-        });
 
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -119,6 +108,10 @@ public class MapFragment extends SuperFragment {
     }
 
     private void refreshView() {
+        if (ownLocationModel.ownLocation != null) {
+            searchingForLocationOverlay.setVisibility(View.GONE);
+        }
+
         for (Overlay element : mapView.getOverlays()) {
             if (element instanceof Polyline)
                 continue;//don't delete polylines
@@ -166,9 +159,14 @@ public class MapFragment extends SuperFragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshView();
-
         eventService.register(this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshView();
+            }
+        }, 200);
     }
 
     @Override

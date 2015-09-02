@@ -8,53 +8,58 @@
     android:focusableInTouchMode="true"
     android:descendantFocusability="beforeDescendants">
 
-    <TextView
-        android:id="@+id/chat_heading"
+    <LinearLayout android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_bottom"
-        android:padding="10dp"
-        android:text="@string/chat_heading" />
+        android:layout_height="fill_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chat_heading"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/chat_list"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/chat_heading"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:drawSelectorOnTop="false"
-            android:orientation="vertical" />
+            android:background="@drawable/border_bottom"
+            android:padding="10dp"
+            android:text="@string/chat_heading" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/border_top"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/chat_edit_message"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/chat_heading"
             android:layout_weight="1"
-            android:hint="@string/chat_text"
-            android:imeOptions="actionSend"
-            android:maxLength="255"
-            android:singleLine="true" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/chat_send_btn"
-            android:layout_width="wrap_content"
+            <ListView
+                android:id="@+id/chat_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:drawSelectorOnTop="false"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/chat_send" />
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/border_top"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/chat_edit_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/chat_text"
+                android:imeOptions="actionSend"
+                android:maxLength="255"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/chat_send_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chat_send" />
+        </LinearLayout>
     </LinearLayout>
 
     <include

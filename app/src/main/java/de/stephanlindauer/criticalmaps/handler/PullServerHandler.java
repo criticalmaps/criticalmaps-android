@@ -25,7 +25,7 @@ import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.service.EventService;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
@@ -37,7 +37,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     private final OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private final ChatModel chatModel = ChatModel.getInstance();
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-    private final EventService eventService = EventService.getInstance();
+    private final EventBusProvider eventService = EventBusProvider.getInstance();
     private final UserModel userModel = UserModel.getInstance();
 
     @Override
@@ -70,7 +70,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                 response.getEntity().getContent().close();
             }
         } catch (IOException e) {
-//            Crashlytics.logException(e);
+            System.out.println();
         }
         return responseString;
     }

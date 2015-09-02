@@ -15,31 +15,32 @@ import java.util.Date;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
-public class GPSMananger {
+public class LocationUpdatesService {
 
     //dependencies
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-    private final EventService eventService = EventService.getInstance();
+    private final EventBusProvider eventService = EventBusProvider.getInstance();
 
     //const
     private final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
-    private final long LOCATION_REFRESH_TIME = 30 * 1000; //30 seconds
+    private final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
 
     //misc
     private LocationManager locationManager;
     private SharedPreferences sharedPreferences;
 
     //singleton
-    private static GPSMananger instance;
+    private static LocationUpdatesService instance;
 
-    public static GPSMananger getInstance() {
-        if (GPSMananger.instance == null) {
-            GPSMananger.instance = new GPSMananger();
+    public static LocationUpdatesService getInstance() {
+        if (LocationUpdatesService.instance == null) {
+            LocationUpdatesService.instance = new LocationUpdatesService();
         }
-        return GPSMananger.instance;
+        return LocationUpdatesService.instance;
     }
 
     public void initialize(Activity activity) {
@@ -49,21 +50,11 @@ public class GPSMananger {
     }
 
     private void startLocationListening() {
-//        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-
         if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
 
         ownLocationModel.isListeningForLocation = true;
         TrackingInfoNotificationSetter.getInstance().show();
-    }
-
-    private void stopLocationListening() {
-        locationManager.removeUpdates(locationListener);
-        ownLocationModel.ownLocation = null;
-        ownLocationModel.isListeningForLocation = false;
-        TrackingInfoNotificationSetter.getInstance().cancel();
     }
 
     public GeoPoint getLastKnownLocation() {
@@ -106,11 +97,4 @@ public class GPSMananger {
         public void onProviderDisabled(String s) {
         }
     };
-
-    public void setTrackingUserLocation(boolean shouldBeTracking) {
-        if (shouldBeTracking)
-            startLocationListening();
-        else
-            stopLocationListening();
-    }
 }

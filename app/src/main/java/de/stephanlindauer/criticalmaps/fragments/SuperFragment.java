@@ -1,8 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,34 +8,27 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
+import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
-import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
-import de.stephanlindauer.criticalmaps.service.EventService;
-import de.stephanlindauer.criticalmaps.service.GPSMananger;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class SuperFragment extends Fragment {
-
-    protected MenuItem trackingToggleButton;
-    protected Button noTrackingOverlay;
 
     private File newCameraOutputFile;
 
     protected boolean shouldShowSternfahrtRoutes = false;
 
-    private final EventService eventService = EventService.getInstance();
+    private final EventBusProvider eventService = EventBusProvider.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +40,6 @@ public class SuperFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.actionbar_buttons, menu);
-
-        trackingToggleButton = menu.findItem(R.id.settings_tracking_toggle);
-        trackingToggleButton.setChecked(OwnLocationModel.getInstance().isListeningForLocation);
     }
 
     @Override
@@ -63,9 +51,6 @@ public class SuperFragment extends Fragment {
                 break;
             case R.id.take_picture:
                 new StartCameraHandler(this).execute();
-                break;
-            case R.id.settings_tracking_toggle:
-                handleTrackingToggled(item);
                 break;
             case R.id.show_sternfahrt:
                 handleShowSternfahrt(item);
@@ -112,49 +97,14 @@ public class SuperFragment extends Fragment {
         startActivity(i);
     }
 
-    private void handleTrackingToggled(MenuItem item) {
-        item.setChecked(!item.isChecked());
-        if (item.isChecked()) {
-            GPSMananger.getInstance().setTrackingUserLocation(true);
-            showNoTrackingOverlay(false);
-        } else {
-            GPSMananger.getInstance().setTrackingUserLocation(false);
-            showNoTrackingOverlay(true);
-        }
-    }
-
-    private void showNoTrackingOverlay(boolean shouldShow) {
-        if (noTrackingOverlay != null)
-            noTrackingOverlay.setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
-    }
-
     private void handleShowSternfahrt(MenuItem item) {
         item.setChecked(!item.isChecked());
         shouldShowSternfahrtRoutes = item.isChecked();
         eventService.post(new NewOverlayConfigEvent());
     }
 
-
     public void handleCloseRequested() {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        TrackingInfoNotificationSetter.getInstance().cancel();
-                        getActivity().finish();
-                        System.exit(0);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        dialog.cancel();
-                        break;
-                }
-            }
-        };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.close).setPositiveButton(R.string.yes, dialogClickListener)
-                .setNegativeButton(R.string.no, dialogClickListener).show();
+        new ApplicationCloseHandler(getActivity()).execute();
     }
 
     public void setNewCameraOutputFile(File newCameraOutputFile) {

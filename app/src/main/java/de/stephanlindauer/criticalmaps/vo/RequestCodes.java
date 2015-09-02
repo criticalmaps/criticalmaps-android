@@ -1,6 +1,5 @@
 package de.stephanlindauer.criticalmaps.vo;
 
 public class RequestCodes {
-
-    public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 12345;
+    public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 1115;
 }

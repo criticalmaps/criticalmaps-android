@@ -8,12 +8,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
 
 public class TrackingInfoNotificationSetter {
 
     //const
-    private final int NOTIFICATION_ID = 123456;
+    private final int NOTIFICATION_ID = 12456;
+    private final int INTENT_CLOSE_ID = 176456;
+    private final int INTENT_OPEN_ID = 133256;
 
     private Context context;
     private Activity activity;
@@ -35,21 +38,25 @@ public class TrackingInfoNotificationSetter {
     }
 
     public void show() {
-        Intent dismissIntent = new Intent(context, activity.getClass());
-        dismissIntent.setAction("bla");
-        dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent openIntent = new Intent(context, Main.class);
+        openIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        openIntent.putExtra("shouldClose", false);
+        PendingIntent openPendingIntent = PendingIntent.getActivity(activity, INTENT_OPEN_ID, openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent resultIntent = new Intent(context, activity.getClass());
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(activity, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent closeIntent = new Intent(context, Main.class);
+        closeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        closeIntent.putExtra("shouldClose", true);
+        PendingIntent closePendingIntent = PendingIntent.getActivity(activity, INTENT_CLOSE_ID, closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_action_location_found)
+                .setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle(activity.getString(R.string.notification_tracking_title))
                 .setContentText(activity.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(activity.getString(R.string.notification_tracking_text)))
-                .setContentIntent(resultPendingIntent)
-                .setPriority(Notification.PRIORITY_MAX);
+                .setPriority(Notification.PRIORITY_MAX)
+                .setContentIntent(openPendingIntent)
+                .addAction(R.drawable.ic_action_location_found, activity.getString(R.string.notification_tracking_open), openPendingIntent)
+                .addAction(R.drawable.ic_action_cancel, activity.getString(R.string.notification_tracking_close), closePendingIntent);
 
         Notification notification = mBuilder.build();
 

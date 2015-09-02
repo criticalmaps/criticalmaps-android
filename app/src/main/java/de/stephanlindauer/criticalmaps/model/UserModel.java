@@ -3,7 +3,7 @@ package de.stephanlindauer.criticalmaps.model;
 import android.app.Activity;
 import android.provider.Settings;
 
-import de.stephanlindauer.criticalmaps.helper.AeSimpleSHA1;
+import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 
 public class UserModel {
 
