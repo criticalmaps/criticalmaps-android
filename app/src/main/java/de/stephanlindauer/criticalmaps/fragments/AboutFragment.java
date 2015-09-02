@@ -42,11 +42,11 @@ public class AboutFragment extends SuperFragment {
     private static String getUrlForId(int id) {
         switch (id) {
             case R.id.about_facebook:
-                return  "https://www.facebook.com/criticalmaps";
+                return "https://www.facebook.com/criticalmaps";
             case R.id.about_twitter:
-                return  "https://twitter.com/CriticalMaps";
+                return "https://twitter.com/CriticalMaps";
             default:
-                return  "google.de";
+                return "";
         }
     }
 

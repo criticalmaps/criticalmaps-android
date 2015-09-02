@@ -50,11 +50,16 @@
 
             <TextView
                 style="@style/about_heading"
-                android:text="logo" />
+                android:text="contributions" />
 
             <TextView
                 style="@style/about_content"
-                android:text="gitti la mar" />
+                android:text="&#8226; Gitti la Mar (logo)
+                            \n&#8226; Jan Rabe (code)
+                            \n&#8226; Christian Balster (code)
+                            \n&#8226; Ligi (code)
+                            \n&#8226; Caner Başaran (translation)
+                            \n&#8226; Tobias Preuss (code)" />
 
             <TextView
                 style="@style/about_heading"
