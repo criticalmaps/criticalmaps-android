@@ -15,7 +15,7 @@
     <string name="yes">Yes</string>
     <string name="no">Nope</string>
 
-    <!-- acivity bar -->
+    <!-- activity bar -->
     <string name="tracking">Tracking</string>
     <string name="show_sternfahrt_routes">Show sternfahrt routes</string>
     <string name="close_button">Close</string>

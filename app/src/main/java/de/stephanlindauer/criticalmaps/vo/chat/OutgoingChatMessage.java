@@ -41,7 +41,6 @@ public class OutgoingChatMessage implements IChatMessage {
         try {
             return URLEncoder.encode(messageToEncode, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-//            Crashlytics.logException(e);
         }
         return "";
     }
