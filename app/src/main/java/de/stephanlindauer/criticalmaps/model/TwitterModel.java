@@ -12,7 +12,7 @@ import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
 public class TwitterModel {
 
-    private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    private ArrayList<Tweet> tweets = new ArrayList<>();
 
     //singleton
     private static TwitterModel instance;

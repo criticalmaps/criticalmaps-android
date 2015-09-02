@@ -20,7 +20,7 @@ public class RoadParser {
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
         String readLine = null;
 
-        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+        ArrayList<GeoPoint> waypoints = new ArrayList<>();
 
         try {
             while ((readLine = br.readLine()) != null) {

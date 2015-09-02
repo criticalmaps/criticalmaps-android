@@ -131,16 +131,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void onAttachedToWindow() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }

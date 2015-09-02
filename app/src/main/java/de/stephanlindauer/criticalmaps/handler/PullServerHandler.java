@@ -83,7 +83,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
             jsonObject = new JSONObject(result);
             otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
             chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         } finally {
             eventService.post(new NewServerResponseEvent());
