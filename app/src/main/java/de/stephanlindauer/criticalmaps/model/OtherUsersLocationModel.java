@@ -12,7 +12,7 @@ public class OtherUsersLocationModel {
     //singleton
     private static OtherUsersLocationModel instance;
 
-    private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<GeoPoint>();
+    private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<>();
 
     public static OtherUsersLocationModel getInstance() {
         if (OtherUsersLocationModel.instance == null) {
@@ -22,7 +22,7 @@ public class OtherUsersLocationModel {
     }
 
     public void setNewJSON(JSONObject jsonObject) throws JSONException {
-        otherUsersLocations = new ArrayList<GeoPoint>();
+        otherUsersLocations = new ArrayList<>();
 
         Iterator<String> keys = jsonObject.keys();
         while (keys.hasNext()) {

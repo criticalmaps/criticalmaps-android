@@ -71,9 +71,7 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
             try {
                 twitterModel.setTweetsFromJsonString(responseString);
                 twitterFragment.displayNewData();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
+            } catch (JSONException | ParseException e) {
                 e.printStackTrace();
             }
         }

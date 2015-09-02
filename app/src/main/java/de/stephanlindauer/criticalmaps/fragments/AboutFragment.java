@@ -12,7 +12,7 @@ import de.stephanlindauer.criticalmaps.R;
 
 public class AboutFragment extends SuperFragment {
 
-    private View.OnClickListener clickListerner = new View.OnClickListener() {
+    private View.OnClickListener clickListener = new View.OnClickListener() {
         public void onClick(View view) {
             String url = getUrlForId(view.getId());
             Intent websiteIntent = new Intent(android.content.Intent.ACTION_VIEW);
@@ -25,9 +25,7 @@ public class AboutFragment extends SuperFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
     @Override
@@ -37,26 +35,19 @@ public class AboutFragment extends SuperFragment {
         Button facebookButton = (Button) getActivity().findViewById(R.id.about_facebook);
         Button twitterButton = (Button) getActivity().findViewById(R.id.about_twitter);
 
-        facebookButton.setOnClickListener(clickListerner);
-        twitterButton.setOnClickListener(clickListerner);
+        facebookButton.setOnClickListener(clickListener);
+        twitterButton.setOnClickListener(clickListener);
     }
 
-    private String getUrlForId(int id) {
-        String url;
-
+    private static String getUrlForId(int id) {
         switch (id) {
             case R.id.about_facebook:
-                url = "https://www.facebook.com/criticalmaps";
-                break;
+                return  "https://www.facebook.com/criticalmaps";
             case R.id.about_twitter:
-                url = "https://twitter.com/CriticalMaps";
-                break;
+                return  "https://twitter.com/CriticalMaps";
             default:
-                url = "google.de";
-                break;
+                return  "google.de";
         }
-
-        return url;
     }
 
 }

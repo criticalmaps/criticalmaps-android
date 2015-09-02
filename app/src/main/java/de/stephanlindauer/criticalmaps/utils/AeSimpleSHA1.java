@@ -11,9 +11,7 @@ public class AeSimpleSHA1 {
         try {
             md = MessageDigest.getInstance("SHA-1");
             md.update(text.getBytes("iso-8859-1"), 0, text.length());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         } finally {
             byte[] sha1hash = md.digest();

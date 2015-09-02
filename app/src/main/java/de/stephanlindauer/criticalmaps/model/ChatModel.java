@@ -18,7 +18,7 @@ import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
 public class ChatModel {
 
-    private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<ReceivedChatMessage>();
+    private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<>();
     private ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
     //singleton
@@ -33,7 +33,7 @@ public class ChatModel {
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {
-            chatMessages = new ArrayList<ReceivedChatMessage>();
+            chatMessages = new ArrayList<>();
         } else {
             chatMessages.clear();
         }
@@ -71,7 +71,6 @@ public class ChatModel {
 
     public JSONArray getOutgoingMessagesAsJson() {
         JSONArray jsonArray = new JSONArray();
-        Integer counter = 0;
 
         for (int i = 0; i < outgoingMassages.size(); i++) {
             OutgoingChatMessage outgoingChatMessage = outgoingMassages.get(i);
@@ -81,7 +80,6 @@ public class ChatModel {
                 messageObject.put("timestamp", outgoingChatMessage.getTimestamp().getTime());
                 messageObject.put("identifier", outgoingChatMessage.getIdentifier());
                 jsonArray.put(messageObject);
-                counter++;
             } catch (JSONException e) {
 //                Crashlytics.logException(e);
             }

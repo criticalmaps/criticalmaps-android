@@ -21,9 +21,7 @@ public class RulesFragment extends SuperFragment {
                              Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_rules, container, false);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_rules, container, false);
     }
 
     @Override
@@ -32,7 +30,7 @@ public class RulesFragment extends SuperFragment {
 
         activity = getActivity();
 
-        panels = new ArrayList<View>();
+        panels = new ArrayList<>();
         panels.add(activity.findViewById(R.id.panelCorken));
         panels.add(activity.findViewById(R.id.panelOncomingTraffic));
         panels.add(activity.findViewById(R.id.panelSlow));

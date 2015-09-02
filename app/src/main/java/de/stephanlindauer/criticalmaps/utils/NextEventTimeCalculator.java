@@ -36,10 +36,7 @@ public class NextEventTimeCalculator {
         calendarOneWeekAfter = (GregorianCalendar) calendar.clone();
         calendarOneWeekAfter.add(Calendar.WEEK_OF_YEAR, 1);
 
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && calendar.get(Calendar.MONTH) != calendarOneWeekAfter.get(Calendar.MONTH)) {
-            return true;
-        }
-        return false;
+        return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && calendar.get(Calendar.MONTH) != calendarOneWeekAfter.get(Calendar.MONTH);
     }
 
 
