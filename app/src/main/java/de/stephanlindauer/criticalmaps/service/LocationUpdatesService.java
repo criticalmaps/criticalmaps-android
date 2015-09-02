@@ -14,7 +14,6 @@ import java.util.Date;
 
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
@@ -54,7 +53,14 @@ public class LocationUpdatesService {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
 
         ownLocationModel.isListeningForLocation = true;
-        TrackingInfoNotificationSetter.getInstance().show();
+    }
+
+    public void stopLocationListening() {
+        if (!ownLocationModel.isListeningForLocation)
+            return;
+
+        ownLocationModel.isListeningForLocation = false;
+        locationManager.removeUpdates(locationListener);
     }
 
     public GeoPoint getLastKnownLocation() {
