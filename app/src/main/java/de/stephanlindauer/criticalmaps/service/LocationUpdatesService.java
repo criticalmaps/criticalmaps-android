@@ -55,6 +55,14 @@ public class LocationUpdatesService {
         ownLocationModel.isListeningForLocation = true;
     }
 
+    public void stopLocationListening() {
+        if (!ownLocationModel.isListeningForLocation)
+            return;
+
+        ownLocationModel.isListeningForLocation = false;
+        locationManager.removeUpdates(locationListener);
+    }
+
     public GeoPoint getLastKnownLocation() {
         GeoPoint lastKnownLocation = null;
         if (sharedPreferences.contains("latitude") && sharedPreferences.contains("longitude") && sharedPreferences.contains("timestamp")) {
