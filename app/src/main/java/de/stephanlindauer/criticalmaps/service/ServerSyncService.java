@@ -37,8 +37,13 @@ public class ServerSyncService extends Service {
     }
 
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
+    public void onDestroy() {
+        timerPullServer.cancel();
         TrackingInfoNotificationSetter.getInstance().cancel();
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
         stopSelf();
         super.onTaskRemoved(rootIntent);
     }
