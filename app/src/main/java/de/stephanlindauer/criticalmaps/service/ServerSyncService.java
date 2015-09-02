@@ -23,7 +23,6 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onCreate() {
-        super.onCreate();
 
         timerPullServer = new Timer();
 
