@@ -12,6 +12,5 @@ public class ApplicationCloser {
         Intent syncServiceIntent = new Intent(activity, ServerSyncService.class);
         activity.stopService(syncServiceIntent);
         activity.finish();
-        System.exit(0);
     }
 }
