@@ -22,6 +22,7 @@
     <string name="feedback">Feedback</string>
     <string name="datenschutz">Privacy policy</string>
     <string name="take_picture">Take picture</string>
+    <string name="rate_the_app">Rate the App</string>
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Waiting for GPS signal</string>

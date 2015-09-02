@@ -61,10 +61,17 @@ public class SuperFragment extends Fragment {
             case R.id.settings_datenschutz:
                 startDatenschutzIntent();
                 break;
+            case R.id.rate_the_app:
+                startRateTheApp();
             default:
                 break;
         }
         return true;
+    }
+
+    private void startRateTheApp() {
+        String str = "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps";
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
     }
 
     @Override
