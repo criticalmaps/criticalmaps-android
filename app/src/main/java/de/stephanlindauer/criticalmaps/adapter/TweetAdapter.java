@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         Picasso.with(context).load(tweet.getProfileImageUrl()).fit().centerInside().into(userImageView);
 
         nameTextView.setText(tweet.getUserName());
-        textTextView.setText(tweet.getText());
+        textTextView.setText(Html.fromHtml(tweet.getText()).toString());
         dateTextView.setText(new SimpleDateFormat("HH:mm").format(tweet.getTimestamp()));
         timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy").format(tweet.getTimestamp()));
 
