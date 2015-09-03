@@ -54,12 +54,12 @@
 
             <TextView
                 style="@style/about_content"
-                android:text="&#8226; Gitti la Mar (logo)
-                            \n&#8226; Jan Rabe (code)
-                            \n&#8226; Christian Balster (code)
-                            \n&#8226; Ligi (code)
-                            \n&#8226; Caner Başaran (translation)
-                            \n&#8226; Tobias Preuss (code)" />
+                android:text="&#8226; Gitti la Mar (Logo)
+                            \n&#8226; Jan Rabe (Code)
+                            \n&#8226; Christian Balster (Code)
+                            \n&#8226; Ligi (Code)
+                            \n&#8226; Caner Başaran (Translation)
+                            \n&#8226; Tobias Preuss (Code)" />
 
             <TextView
                 style="@style/about_heading"

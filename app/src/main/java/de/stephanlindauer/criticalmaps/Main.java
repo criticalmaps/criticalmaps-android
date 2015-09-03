@@ -86,7 +86,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     private void registerListenersForSwipedChanges(final ActionBar actionBar) {
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
@@ -121,13 +121,14 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        if("chat_tab".equals(tab.getTag())) {
+        if ("chat_tab".equals(tab.getTag())) {
             hideKeyBoard();
         }
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        //hack
     }
 
     @Override

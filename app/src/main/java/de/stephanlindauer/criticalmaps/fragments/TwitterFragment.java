@@ -63,10 +63,7 @@ public class TwitterFragment extends SuperFragment {
                 new TwitterGetHandler(thiz).execute();
             }
         });
-        swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
-                android.R.color.darker_gray,
-                android.R.color.holo_blue_bright,
-                android.R.color.darker_gray);
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.darker_gray);
 
         errorButton.setOnClickListener(new View.OnClickListener() {
             @Override
