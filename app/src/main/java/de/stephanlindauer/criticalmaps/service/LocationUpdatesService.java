@@ -66,7 +66,7 @@ public class LocationUpdatesService {
     public GeoPoint getLastKnownLocation() {
         GeoPoint lastKnownLocation = null;
         if (sharedPreferences.contains("latitude") && sharedPreferences.contains("longitude") && sharedPreferences.contains("timestamp")) {
-            Date timestampLastCoords = new Date(Long.valueOf(sharedPreferences.getLong("timestamp", 0)));
+            Date timestampLastCoords = new Date(sharedPreferences.getLong("timestamp", 0));
             if (!DateUtils.isLongerAgoThen5Minutes(timestampLastCoords)) {
                 lastKnownLocation = new GeoPoint(
                         Double.parseDouble(sharedPreferences.getString("latitude", "")),
