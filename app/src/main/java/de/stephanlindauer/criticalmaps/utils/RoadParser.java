@@ -2,9 +2,7 @@ package de.stephanlindauer.criticalmaps.utils;
 
 import android.content.Context;
 
-import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
-import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.util.GeoPoint;
 
 import java.io.BufferedReader;
@@ -35,10 +33,7 @@ public class RoadParser {
             e.printStackTrace();
         }
 
-        RoadManager roadManager = new OSRMRoadManager();
-        Road road = roadManager.getRoad(waypoints);
-
-        return road;
+        return new Road(waypoints);
     }
 
     private static GeoPoint parseLine(String readLine) {
