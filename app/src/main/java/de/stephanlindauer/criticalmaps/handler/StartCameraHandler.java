@@ -10,8 +10,8 @@ import android.provider.MediaStore;
 
 import java.io.File;
 
+import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.fragments.SuperFragment;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
@@ -19,14 +19,12 @@ import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
 
-    private SuperFragment superFragment;
     private File outputFile;
     private Activity activity;
 
 
-    public StartCameraHandler(SuperFragment superFragment) {
-        this.superFragment = superFragment;
-        this.activity = superFragment.getActivity();
+    public StartCameraHandler(Activity mainActivity) {
+        this.activity = mainActivity;
     }
 
     @Override
@@ -50,7 +48,7 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
     @Override
     protected ResultType doInBackground(Void... voids) {
         outputFile = ImageUtils.getNewOutputImageFile();
-        superFragment.setNewCameraOutputFile(outputFile);
+        ((Main)activity).setNewCameraOutputFile(outputFile); // FIXME: 07.09.2015
 
         PackageManager packageManager = activity.getPackageManager();
 
@@ -62,7 +60,7 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageCaptureUri);
-        superFragment.startActivityForResult(cameraIntent, RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+        activity.startActivityForResult(cameraIntent, RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
         return ResultType.SUCCEEDED;
     }
 

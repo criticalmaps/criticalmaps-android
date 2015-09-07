@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 import de.stephanlindauer.criticalmaps.R;
 
-public class RulesFragment extends SuperFragment {
+public class RulesFragment extends Fragment {
 
     private FragmentActivity activity;
     private ArrayList<View> panels;

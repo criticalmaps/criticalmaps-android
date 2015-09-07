@@ -12,6 +12,8 @@ import de.stephanlindauer.criticalmaps.utils.RoadParser;
 
 public class SternfahrtModel {
 
+    public boolean shouldShowSternfahrtRoutes = false;
+
     private static final int[] routeIDs = {
             R.raw.sternfahrt_1_werder,
             R.raw.sternfahrt_2_brandenburg,
