@@ -24,7 +24,9 @@
             <ImageView
                 android:id="@+id/tweet_user_image"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                tools:src="@drawable/ic_logo" />
+
         </RelativeLayout>
 
         <RelativeLayout
