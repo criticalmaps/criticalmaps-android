@@ -25,7 +25,8 @@
         <ListView
             android:id="@+id/tweet_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/view_tweet" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -46,7 +47,8 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
