@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="6dip"
-        android:indeterminate="true" />
+        android:indeterminate="true"
+        tools:background="@android:color/holo_green_dark" />
 
     <TextView
         android:id="@+id/firstLine"

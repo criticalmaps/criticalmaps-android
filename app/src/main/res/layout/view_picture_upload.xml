@@ -9,14 +9,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:background="@android:color/holo_red_light">
 
         <ImageView
             android:id="@+id/picture_preview"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            tools:background="@android:color/holo_purple"/>
 
         <TextView
             android:id="@+id/picture_confirm_text"
@@ -26,6 +28,7 @@
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
             android:textStyle="bold"
-            tools:text="@string/camera_confirm_image_upload"/>
+            tools:text="@string/camera_confirm_image_upload"
+            tools:background="@android:color/holo_orange_light"/>
     </LinearLayout>
 </LinearLayout>
