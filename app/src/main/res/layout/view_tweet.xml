@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -37,7 +38,7 @@
                 android:id="@+id/tweet_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                tools:text="Critical Maps"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tweet_user_name"
                 android:layout_marginTop="5dp"
-                android:text="handle"
+                tools:text="\@CriticalMaps"
                 android:textStyle="italic" />
 
             <TextView
@@ -55,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="01.01.2015" />
+                tools:text="01.01.2015" />
 
             <TextView
                 android:id="@+id/tweet_creation_time"
@@ -64,7 +65,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/tweet_creation_date"
                 android:layout_marginTop="5dp"
-                android:text="19:30" />
+                tools:text="19:30" />
 
         </RelativeLayout>
 
@@ -81,6 +82,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"
-        android:text="Text" />
+        tools:text="@string/lorem_ipsum" />
 
 </RelativeLayout>
