@@ -9,13 +9,13 @@ import java.util.TimeZone;
 
 public class NextEventTimeCalculator {
     public static ArrayList<Date> getNextThreeCriticalMassDates() {
-        Calendar calendar = new GregorianCalendar().getInstance();
+        Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTimeZone(TimeZone.getDefault());
         calendar.set(Calendar.HOUR_OF_DAY, 18);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
-        ArrayList<Date> dateList = new ArrayList<Date>();
+        ArrayList<Date> dateList = new ArrayList<>();
 
         while (dateList.size() < 3) {
             if (isLastFridayOfTheMonth(calendar)) {

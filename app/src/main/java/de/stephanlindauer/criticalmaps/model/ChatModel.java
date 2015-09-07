@@ -87,7 +87,7 @@ public class ChatModel {
     }
 
     public ArrayList<IChatMessage> getSavedAndOutgoingMessages() {
-        ArrayList<IChatMessage> mergeArrayList = new ArrayList<IChatMessage>();
+        ArrayList<IChatMessage> mergeArrayList = new ArrayList<>();
         mergeArrayList.addAll(chatMessages);
         mergeArrayList.addAll(outgoingMassages);
         return mergeArrayList;
