@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- About -->
+    <color name="about_background">@android:color/white</color>
+    <color name="about_heading_background">#ff0a0a0a</color>
+    <color name="about_heading_text">@android:color/white</color>
+    <color name="about_content_text">@android:color/black</color>
+    <color name="about_button_text">@android:color/black</color>
+
+    <!-- Chat -->
+    <color name="chat_background">#222</color>
+
+    <!-- Rules -->
+    <color name="rules_background">@android:color/white</color>
+    <color name="rules_explainer_text">@android:color/black</color>
+    <color name="rules_button_text">@android:color/white</color>
+
+    <!-- Splash -->
+    <color name="splash_background">#1d1d1d</color>
+
+    <!-- Twitter -->
+    <color name="twitter_background">#222</color>
+    <color name="twitter_error_message_text">#b20e17</color>
+
+    <!-- Tweet -->
+    <color name="tweet_progress_bar_background">#222</color>
+
+    <!-- Search for location overlay -->
+    <color name="location_search_background">#444</color>
+
+</resources>

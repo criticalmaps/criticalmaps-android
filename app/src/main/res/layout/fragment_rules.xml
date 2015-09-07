@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
-    android:background="#FFFFFFFF"
+    android:background="@color/rules_background"
     android:orientation="vertical">
 
     <ScrollView
@@ -15,7 +15,6 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#FFFFFFFF"
             android:orientation="vertical">
 
             <Button

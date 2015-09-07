@@ -4,7 +4,7 @@
     android:id="@+id/twitter_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222">
+    android:background="@color/twitter_background">
 
     <TextView
         android:id="@+id/twitter_heading"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/something_went_wrong"
-            android:textColor="#b20e17"
+            android:textColor="@color/twitter_error_message_text"
             android:textStyle="bold" />
 
         <Button

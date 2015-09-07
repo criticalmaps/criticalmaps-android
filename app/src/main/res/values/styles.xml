@@ -3,7 +3,7 @@
 
     <style name="rules_explainer">
         <item name="android:textSize">16dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">@color/rules_explainer_text</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -16,7 +16,7 @@
 
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center|left</item>
-        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColor">@color/rules_button_text</item>
     </style>
 
     <style name="rules_panel_wrapper">
@@ -32,18 +32,18 @@
 
     <style name="about_heading">
         <item name="android:textSize">20dp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">@color/about_heading_text</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">#ff0a0a0a</item>
+        <item name="android:background">@color/about_heading_background</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="about_content">
         <item name="android:textSize">16dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">@color/about_content_text</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
@@ -54,7 +54,7 @@
 
     <style name="about_button">
         <item name="android:textSize">16dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">@color/about_button_text</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginRight">0dp</item>
         <item name="android:layout_marginTop">10dp</item>

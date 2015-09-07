@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222"
+    android:background="@color/chat_background"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
