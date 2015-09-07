@@ -66,8 +66,8 @@
     <!-- fragment_chat -->
     <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
     <string name="chat_send">Send</string>
-    <string name="chat_text">You have 255 characters...</string>
-    <string name="chat_sending">Sending...</string>
+    <string name="chat_text">You have 255 characters &#8230;</string>
+    <string name="chat_sending">Sending &#8230;</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">don\'t forget:</string>
@@ -90,10 +90,10 @@
     </string>
     <string name="camera_upload">Upload image!</string>
     <string name="camera_discard">Nope :-(</string>
-    <string name="camera_uploading_progress">uploading...</string>
+    <string name="camera_uploading_progress">Uploading &#8230;</string>
     <string name="camera_upload_failed_title">Image upload failed</string>
     <string name="camera_upload_failed_message">Please try again</string>
-    <string name="camera_processing_image">Processing image...</string>
+    <string name="camera_processing_image">Processing image &#8230;</string>
     <string name="camera_no_location_no_camera">You can\'t upload images without a GPS signal</string>
     <string name="camera_image_upload_succeeded_title">Image upload worked!</string>
     <string name="camera_image_upload_succeeded_message">The picture is uploaded to gallery on criticalmaps.net </string>

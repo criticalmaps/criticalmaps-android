@@ -56,8 +56,8 @@
     <!-- fragment_chat -->
     <string name="chat_heading">Mesajlar 30 dakika sonra silinecek.</string>
     <string name="chat_send">Gönder</string>
-    <string name="chat_text">En fazla 255 karakter...</string>
-    <string name="chat_sending">Gönderiliyor...</string>
+    <string name="chat_text">En fazla 255 karakter &#8230;</string>
+    <string name="chat_sending">Gönderiliyor &#8230;</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">unutma:</string>
@@ -80,10 +80,10 @@
     </string>
     <string name="camera_upload">Fotoğraf yükle!</string>
     <string name="camera_discard">İptal et :-(</string>
-    <string name="camera_uploading_progress">yükleniyor...</string>
+    <string name="camera_uploading_progress">yükleniyor &#8230;</string>
     <string name="camera_upload_failed_title">Fotoğraf yükleme başarısız</string>
     <string name="camera_upload_failed_message">Lütfen yeniden dene</string>
-    <string name="camera_processing_image">Fotoğraf işleniyor...</string>
+    <string name="camera_processing_image">Fotoğraf işleniyor &#8230;</string>
     <string name="camera_no_location_no_camera">GPS sinyalsiz fotoğraf yükleyemezsin</string>
     <string name="camera_image_upload_succeeded_title">Fotoğraf yüklendi!</string>
     <string name="camera_image_upload_succeeded_message">Fotoğraf, criticalmaps.net galerisine eklendi </string>
