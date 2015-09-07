@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222"
+    android:background="@color/chat_background"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants">
+    android:descendantFocusability="beforeDescendants"
+    tools:menu="actionbar_buttons">
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -33,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:drawSelectorOnTop="false"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                tools:listitem="@layout/view_chatmessage" />
 
         </LinearLayout>
 

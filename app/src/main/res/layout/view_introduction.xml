@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="80dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,71 +13,37 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/introduction_heading"
-            android:textStyle="bold" />
+            style="@style/introduction_paragraph"
+            android:text="@string/introduction_heading" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            style="@style/introduction_paragraph"
             android:drawableRight="@drawable/map_marker_own"
             android:singleLine="true"
-            android:text="@string/introduction_own_icon"
-            android:textStyle="bold" />
+            android:text="@string/introduction_own_icon" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            style="@style/introduction_paragraph"
             android:drawableRight="@drawable/map_marker"
             android:singleLine="true"
-            android:text="@string/introduction_other_icon"
-            android:textStyle="bold" />
+            android:text="@string/introduction_other_icon" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/introduction_close_app"
-            android:textStyle="bold" />
+            style="@style/introduction_paragraph"
+            android:text="@string/introduction_close_app" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/introduction_careful"
-            android:textStyle="bold" />
+            style="@style/introduction_paragraph"
+            android:text="@string/introduction_careful" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/introduction_bugs"
-            android:textStyle="bold" />
+            style="@style/introduction_paragraph"
+            android:text="@string/introduction_bugs" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/introduction_requisites"
-            android:textStyle="bold" />
+            style="@style/introduction_paragraph"
+            android:text="@string/introduction_requisites" />
 
     </LinearLayout>
+
 </LinearLayout>

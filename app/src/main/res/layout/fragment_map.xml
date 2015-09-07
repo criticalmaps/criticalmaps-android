@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:menu="actionbar_buttons">
 
     <RelativeLayout
         android:id="@+id/mapContainer"
@@ -24,6 +26,7 @@
     <include
         android:id="@+id/searchingForLocationOverlayMap"
         layout="@layout/view_searching_for_location_overlay"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </RelativeLayout>

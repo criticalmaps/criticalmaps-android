@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/twitter_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222">
+    android:background="@color/twitter_background"
+    tools:menu="actionbar_buttons">
 
     <TextView
         android:id="@+id/twitter_heading"
@@ -12,7 +14,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border_bottom"
         android:padding="10dp"
-        android:text="@string/twitter_heading" />
+        android:text="@string/twitter_heading"
+        tools:textColor="@android:color/holo_blue_light"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
@@ -23,7 +26,8 @@
         <ListView
             android:id="@+id/tweet_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/view_tweet" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -32,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        tools:background="@android:color/holo_green_dark" />
 
     <LinearLayout
         android:id="@+id/twitter_error"
@@ -43,14 +48,15 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/something_went_wrong"
-            android:textColor="#b20e17"
+            android:textColor="@color/twitter_error_message_text"
             android:textStyle="bold" />
 
         <Button

@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="6dip">
@@ -16,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:layout_toRightOf="@id/icon"
-        android:text="Example application"
+        tools:text="Example application"
         android:textSize="11sp" />
 
     <TextView
@@ -25,6 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dip"
         android:layout_toRightOf="@id/icon"
-        android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata"
+        tools:text="@string/lorem_ipsum"
         android:textSize="14sp" />
 </RelativeLayout>
