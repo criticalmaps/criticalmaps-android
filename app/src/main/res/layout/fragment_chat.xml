@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants">
+    android:descendantFocusability="beforeDescendants"
+    tools:menu="actionbar_buttons">
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="fill_parent"

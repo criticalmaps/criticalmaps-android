@@ -5,7 +5,8 @@
     android:id="@+id/twitter_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/twitter_background">
+    android:background="@color/twitter_background"
+    tools:menu="actionbar_buttons">
 
     <TextView
         android:id="@+id/twitter_heading"
