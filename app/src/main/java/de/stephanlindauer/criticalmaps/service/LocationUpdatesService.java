@@ -1,6 +1,6 @@
 package de.stephanlindauer.criticalmaps.service;
 
-import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -42,10 +42,10 @@ public class LocationUpdatesService {
         return LocationUpdatesService.instance;
     }
 
-    public void initialize(Activity activity) {
-        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+    public void initialize(Application application) {
+        locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         startLocationListening();
-        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        sharedPreferences = application.getSharedPreferences("Main", Context.MODE_PRIVATE);
     }
 
     private void startLocationListening() {

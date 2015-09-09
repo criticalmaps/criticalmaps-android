@@ -60,7 +60,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         initializeNotifications();
 
-        locationUpdatesService.initialize(this);
+        locationUpdatesService.initialize(getApplication());
 
         startSyncService();
     }
@@ -161,7 +161,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     private void initializeNotifications() {
-        trackingInfoNotificationSetter.initialize(getBaseContext(), this);
+        trackingInfoNotificationSetter.initialize(getApplication());
         trackingInfoNotificationSetter.show();
 
         userModel.initialize(this);
