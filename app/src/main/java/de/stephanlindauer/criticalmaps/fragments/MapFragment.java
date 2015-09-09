@@ -114,12 +114,7 @@ public class MapFragment extends Fragment {
             searchingForLocationOverlay.setVisibility(View.GONE);
         }
 
-        for (Overlay element : mapView.getOverlays()) {
-            if (element instanceof Polyline)
-                continue;//don't delete polylines
-
-            mapView.getOverlays().remove(element);
-        }
+        mapView.getOverlays().clear();
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             Marker otherPeoplesMarker = new Marker(mapView);
@@ -142,11 +137,6 @@ public class MapFragment extends Fragment {
             ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
             for (Polyline route : sternfahrtOverlays) {
                 mapView.getOverlays().add(route);
-            }
-        } else {
-            for (Overlay element : mapView.getOverlays()) {
-                if (element instanceof Polyline)
-                    mapView.getOverlays().remove(element);
             }
         }
 
