@@ -32,7 +32,7 @@ public class TrackingInfoNotificationBuilder {
                 .setContentTitle(application.getString(R.string.notification_tracking_title))
                 .setContentText(application.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(application.getString(R.string.notification_tracking_text)))
-                .setPriority(Notification.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(openPendingIntent)
                 .addAction(R.drawable.ic_action_location_found, application.getString(R.string.notification_tracking_open), openPendingIntent)
                 .addAction(R.drawable.ic_action_cancel, application.getString(R.string.notification_tracking_close), closePendingIntent);
