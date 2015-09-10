@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import org.osmdroid.views.overlay.Overlay;
 
 import java.util.ArrayList;
 
+import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
@@ -30,7 +32,7 @@ import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
-public class MapFragment extends SuperFragment {
+public class MapFragment extends Fragment {
 
     //dependencies
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
@@ -112,12 +114,7 @@ public class MapFragment extends SuperFragment {
             searchingForLocationOverlay.setVisibility(View.GONE);
         }
 
-        for (Overlay element : mapView.getOverlays()) {
-            if (element instanceof Polyline)
-                continue;//don't delete polylines
-
-            mapView.getOverlays().remove(element);
-        }
+        mapView.getOverlays().clear();
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             Marker otherPeoplesMarker = new Marker(mapView);
@@ -136,15 +133,10 @@ public class MapFragment extends SuperFragment {
             mapView.getOverlays().add(ownMarker);
         }
 
-        if (shouldShowSternfahrtRoutes) {
+        if (sternfahrtModel.shouldShowSternfahrtRoutes) {
             ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
             for (Polyline route : sternfahrtOverlays) {
                 mapView.getOverlays().add(route);
-            }
-        } else {
-            for (Overlay element : mapView.getOverlays()) {
-                if (element instanceof Polyline)
-                    mapView.getOverlays().remove(element);
             }
         }
 

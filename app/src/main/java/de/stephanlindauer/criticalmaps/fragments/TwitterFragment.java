@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
-public class TwitterFragment extends SuperFragment {
+public class TwitterFragment extends Fragment {
 
     //dependencies
     private TwitterModel twitterModel = TwitterModel.getInstance();

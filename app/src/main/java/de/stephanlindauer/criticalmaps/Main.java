@@ -1,24 +1,39 @@
 package de.stephanlindauer.criticalmaps;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.File;
 
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
+import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
+import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
+import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
+import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
+import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
+import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
@@ -26,9 +41,12 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private final TrackingInfoNotificationSetter trackingInfoNotificationSetter = TrackingInfoNotificationSetter.getInstance();
     private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
     private final UserModel userModel = UserModel.getInstance();
+    private final EventBusProvider eventService = EventBusProvider.getInstance();
+    private final SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
 
     //misc
     private CustomViewPager viewPager;
+    private File newCameraOutputFile;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -45,6 +63,88 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         locationUpdatesService.initialize(this);
 
         startSyncService();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_buttons, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_close:
+                handleCloseRequested();
+                break;
+            case R.id.take_picture:
+                new StartCameraHandler(this).execute();
+                break;
+            case R.id.show_sternfahrt:
+                handleShowSternfahrt(item);
+                break;
+            case R.id.settings_feedback:
+                startFeedbackIntent();
+                break;
+            case R.id.settings_datenschutz:
+                startDatenschutzIntent();
+                break;
+            case R.id.rate_the_app:
+                startRateTheApp();
+            default:
+                break;
+        }
+        return true;
+    }
+
+    public void handleCloseRequested() {
+        new ApplicationCloseHandler(this).execute();
+    }
+
+    private void handleShowSternfahrt(MenuItem item) {
+        item.setChecked(!item.isChecked());
+        sternfahrtModel.shouldShowSternfahrtRoutes = item.isChecked();
+        eventService.post(new NewOverlayConfigEvent());
+    }
+
+    private void startFeedbackIntent() {
+        Intent Email = new Intent(Intent.ACTION_SEND);
+        Email.setType("text/email");
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephanlindauer@posteo.de"});
+        Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps");
+        Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(this.getPackageManager(), this.getPackageName()));
+        startActivity(Intent.createChooser(Email, "Send Feedback:"));
+    }
+
+    private void startDatenschutzIntent() {
+        String url = "http://criticalmaps.net/datenschutzerklaerung.html";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+    private void startRateTheApp() {
+        String str = "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps";
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) {
+            Toast.makeText(this, R.string.something_went_wrong, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (requestCode == RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+            new ProcessCameraResultHandler(this, newCameraOutputFile).execute();
+        }
+    }
+
+    public void setNewCameraOutputFile(File newCameraOutputFile) {
+        this.newCameraOutputFile = newCameraOutputFile;
     }
 
     @Override
