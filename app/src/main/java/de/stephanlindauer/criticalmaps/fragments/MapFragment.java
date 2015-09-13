@@ -132,7 +132,7 @@ public class MapFragment extends Fragment {
         }
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            Marker otherPeoplesMarker = new Marker(mapView);
+            Marker otherPeoplesMarker = new Marker(mapView, resourceProxy);
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
             otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             otherPeoplesMarker.setIcon(locationIcon);
@@ -141,7 +141,7 @@ public class MapFragment extends Fragment {
 
         if (ownLocationModel.ownLocation != null) {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            Marker ownMarker = new Marker(mapView);
+            Marker ownMarker = new Marker(mapView, resourceProxy);
             ownMarker.setPosition(currentUserLocation);
             ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             ownMarker.setIcon(ownLocationIcon);
