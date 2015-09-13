@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,10 @@ public class MapFragment extends Fragment {
     private DefaultResourceProxyImpl resourceProxy;
     private boolean isInitialLocationSet = false;
 
+    //cache drawables
+    private Drawable locationIcon;
+    private Drawable ownLocationIcon;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -66,6 +71,9 @@ public class MapFragment extends Fragment {
         setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
+
+        locationIcon = getResources().getDrawable(R.drawable.map_marker);
+        ownLocationIcon = getResources().getDrawable(R.drawable.map_marker_own);
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
@@ -115,29 +123,31 @@ public class MapFragment extends Fragment {
         }
 
         mapView.getOverlays().clear();
-
-        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            Marker otherPeoplesMarker = new Marker(mapView);
-            otherPeoplesMarker.setPosition(currentOtherUsersLocation);
-            otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-            otherPeoplesMarker.setIcon(getResources().getDrawable(R.drawable.map_marker));
-            mapView.getOverlays().add(otherPeoplesMarker);
-        }
-
-        if (ownLocationModel.ownLocation != null) {
-            GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            Marker ownMarker = new Marker(mapView);
-            ownMarker.setPosition(currentUserLocation);
-            ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-            ownMarker.setIcon(getResources().getDrawable(R.drawable.map_marker_own));
-            mapView.getOverlays().add(ownMarker);
-        }
-
+        
         if (sternfahrtModel.shouldShowSternfahrtRoutes) {
             ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
             for (Polyline route : sternfahrtOverlays) {
                 mapView.getOverlays().add(route);
             }
+        }
+
+        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
+            Marker otherPeoplesMarker = new Marker(mapView, resourceProxy);
+            otherPeoplesMarker.setPosition(currentOtherUsersLocation);
+            otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+            otherPeoplesMarker.setIcon(locationIcon);
+            otherPeoplesMarker.setInfoWindow(null);
+            mapView.getOverlays().add(otherPeoplesMarker);
+        }
+
+        if (ownLocationModel.ownLocation != null) {
+            GeoPoint currentUserLocation = ownLocationModel.ownLocation;
+            Marker ownMarker = new Marker(mapView, resourceProxy);
+            ownMarker.setPosition(currentUserLocation);
+            ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+            ownMarker.setIcon(ownLocationIcon);
+            ownMarker.setInfoWindow(null);
+            mapView.getOverlays().add(ownMarker);
         }
 
         getActivity().runOnUiThread(new Runnable() {
