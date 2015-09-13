@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,10 @@ public class MapFragment extends Fragment {
     private DefaultResourceProxyImpl resourceProxy;
     private boolean isInitialLocationSet = false;
 
+    //cache drawables
+    private Drawable locationIcon;
+    private Drawable ownLocationIcon;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -66,6 +71,9 @@ public class MapFragment extends Fragment {
         setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
+
+        locationIcon = getResources().getDrawable(R.drawable.map_marker);
+        ownLocationIcon = getResources().getDrawable(R.drawable.map_marker_own);
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
@@ -127,7 +135,7 @@ public class MapFragment extends Fragment {
             Marker otherPeoplesMarker = new Marker(mapView);
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
             otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-            otherPeoplesMarker.setIcon(getResources().getDrawable(R.drawable.map_marker));
+            otherPeoplesMarker.setIcon(locationIcon);
             mapView.getOverlays().add(otherPeoplesMarker);
         }
 
@@ -136,7 +144,7 @@ public class MapFragment extends Fragment {
             Marker ownMarker = new Marker(mapView);
             ownMarker.setPosition(currentUserLocation);
             ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-            ownMarker.setIcon(getResources().getDrawable(R.drawable.map_marker_own));
+            ownMarker.setIcon(ownLocationIcon);
             mapView.getOverlays().add(ownMarker);
         }
 
