@@ -115,6 +115,13 @@ public class MapFragment extends Fragment {
         }
 
         mapView.getOverlays().clear();
+        
+        if (sternfahrtModel.shouldShowSternfahrtRoutes) {
+            ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
+            for (Polyline route : sternfahrtOverlays) {
+                mapView.getOverlays().add(route);
+            }
+        }
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             Marker otherPeoplesMarker = new Marker(mapView);
@@ -131,13 +138,6 @@ public class MapFragment extends Fragment {
             ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             ownMarker.setIcon(getResources().getDrawable(R.drawable.map_marker_own));
             mapView.getOverlays().add(ownMarker);
-        }
-
-        if (sternfahrtModel.shouldShowSternfahrtRoutes) {
-            ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
-            for (Polyline route : sternfahrtOverlays) {
-                mapView.getOverlays().add(route);
-            }
         }
 
         getActivity().runOnUiThread(new Runnable() {
