@@ -136,6 +136,7 @@ public class MapFragment extends Fragment {
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
             otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             otherPeoplesMarker.setIcon(locationIcon);
+            otherPeoplesMarker.setInfoWindow(null);
             mapView.getOverlays().add(otherPeoplesMarker);
         }
 
@@ -145,6 +146,7 @@ public class MapFragment extends Fragment {
             ownMarker.setPosition(currentUserLocation);
             ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             ownMarker.setIcon(ownLocationIcon);
+            ownMarker.setInfoWindow(null);
             mapView.getOverlays().add(ownMarker);
         }
 
