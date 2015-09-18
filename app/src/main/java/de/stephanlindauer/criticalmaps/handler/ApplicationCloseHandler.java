@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.ApplicationCloser;
 
