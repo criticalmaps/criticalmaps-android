@@ -66,7 +66,7 @@ public class MapFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        resourceProxy = new DefaultResourceProxyImpl(getActivity());
+        resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
 
         setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
