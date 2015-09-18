@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
-import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
+import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
 
@@ -23,6 +23,8 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onCreate() {
+        startForeground(TrackingInfoNotificationBuilder.NOTIFICATION_ID,
+                TrackingInfoNotificationBuilder.getNotification(getApplication()));
 
         timerPullServer = new Timer();
 
@@ -38,7 +40,6 @@ public class ServerSyncService extends Service {
     @Override
     public void onDestroy() {
         timerPullServer.cancel();
-        TrackingInfoNotificationSetter.getInstance().cancel();
     }
 
     @Override

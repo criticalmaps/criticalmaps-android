@@ -29,7 +29,6 @@ import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.notifications.trackinginfo.TrackingInfoNotificationSetter;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
@@ -38,7 +37,6 @@ import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     //dependencies
-    private final TrackingInfoNotificationSetter trackingInfoNotificationSetter = TrackingInfoNotificationSetter.getInstance();
     private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
     private final UserModel userModel = UserModel.getInstance();
     private final EventBusProvider eventService = EventBusProvider.getInstance();
@@ -57,8 +55,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         setupViewPager();
 
         new PrerequisitesChecker(this).execute();
-
-        initializeNotifications();
 
         userModel.initialize(this);
 
@@ -160,11 +156,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private void startSyncService() {
         Intent syncServiceIntent = new Intent(this, ServerSyncService.class);
         startService(syncServiceIntent);
-    }
-
-    private void initializeNotifications() {
-        trackingInfoNotificationSetter.initialize(getApplication());
-        trackingInfoNotificationSetter.show();
     }
 
     private void setupViewPager() {
