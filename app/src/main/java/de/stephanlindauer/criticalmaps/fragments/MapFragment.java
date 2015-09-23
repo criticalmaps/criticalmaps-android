@@ -13,11 +13,9 @@ import android.widget.RelativeLayout;
 import com.squareup.otto.Subscribe;
 
 import org.osmdroid.DefaultResourceProxyImpl;
-import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.bonuspack.overlays.Polyline;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Overlay;
 
 import java.util.ArrayList;
 
@@ -29,6 +27,7 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
+import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
@@ -132,21 +131,17 @@ public class MapFragment extends Fragment {
         }
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            Marker otherPeoplesMarker = new Marker(mapView, resourceProxy);
+            LocationMarker otherPeoplesMarker = new LocationMarker(mapView, resourceProxy);
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
-            otherPeoplesMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             otherPeoplesMarker.setIcon(locationIcon);
-            otherPeoplesMarker.setInfoWindow(null);
             mapView.getOverlays().add(otherPeoplesMarker);
         }
 
         if (ownLocationModel.ownLocation != null) {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            Marker ownMarker = new Marker(mapView, resourceProxy);
+            LocationMarker ownMarker = new LocationMarker(mapView, resourceProxy);
             ownMarker.setPosition(currentUserLocation);
-            ownMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             ownMarker.setIcon(ownLocationIcon);
-            ownMarker.setInfoWindow(null);
             mapView.getOverlays().add(ownMarker);
         }
 
