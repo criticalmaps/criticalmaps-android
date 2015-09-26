@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -32,6 +33,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
     //const
     public static final int TIME_OUT = 15 * 1000; //15 sec
+    private static final String LOG_TAG = "CM_PullServerHandler";
 
     //dependencies
     private final OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
@@ -52,7 +54,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
         try {
             postRequest.setEntity(new StringEntity(jsonPostString));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
         }
 
         final HttpClient httpClient = new DefaultHttpClient(httpParams);
@@ -70,7 +72,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                 response.getEntity().getContent().close();
             }
         } catch (IOException e) {
-            System.out.println();
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
         }
         return responseString;
     }
@@ -108,7 +110,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                 jsonObject.put("messages", messages);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
         }
         return jsonObject;
     }
