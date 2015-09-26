@@ -15,7 +15,8 @@ this app tracks your location and shares it via a map with all other participant
 
 ## where can i get the app?
 
-https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
+play store: https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
+f-droid: https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps
 
 ## is there a version for ios devices?
                                                           
