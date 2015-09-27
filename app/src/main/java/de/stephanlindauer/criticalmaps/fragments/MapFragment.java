@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +72,8 @@ public class MapFragment extends Fragment {
         mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
         searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
 
-        locationIcon = getResources().getDrawable(R.drawable.map_marker);
-        ownLocationIcon = getResources().getDrawable(R.drawable.map_marker_own);
+        locationIcon = ContextCompat.getDrawable(getActivity(), R.drawable.map_marker);
+        ownLocationIcon = ContextCompat.getDrawable(getActivity() ,R.drawable.map_marker_own);
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
