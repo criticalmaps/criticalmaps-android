@@ -35,5 +35,5 @@ dependencies {
     compile 'org.osmdroid:osmdroid-android:4.3'
     compile 'org.slf4j:slf4j-simple:1.6.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:support-v4:22.2.1'
 }
