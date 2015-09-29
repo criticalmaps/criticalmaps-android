@@ -4,9 +4,8 @@
 
 ## what's "critical mass"?
 
-``` 
-"Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement."
-```
+>Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
+
 http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 ## what's this app?
@@ -21,7 +20,7 @@ f-droid: https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.critical
 
 ## is there a version for ios devices?
                                                           
-yep! here: https://github.com/headione/criticalmaps-ios
+yep! here: https://github.com/CriticalMaps/criticalmaps-ios
 
 ## contribute
 
