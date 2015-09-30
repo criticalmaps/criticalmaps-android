@@ -2,7 +2,10 @@ package de.stephanlindauer.criticalmaps.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +34,19 @@ public class ServerSyncService extends Service {
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
             public void run() {
-                new PullServerHandler().execute();
+                // Since JELLYBEAN AsyncTask makes sure it's started from
+                // the UI thread. Before that we have do to that ourselves.
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            new PullServerHandler().execute();
+                        }
+                    });
+                } else {
+                    new PullServerHandler().execute();
+                }
             }
         };
         timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, PULL_OTHER_LOCATIONS_TIME);
