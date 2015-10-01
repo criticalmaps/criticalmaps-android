@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <item
         android:id="@+id/take_picture"
         android:icon="@drawable/ic_action_camera"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="@string/take_picture" />
     <item
         android:id="@+id/action_close"
         android:icon="@drawable/ic_action_cancel"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="@string/close_button" />
     <item
         android:icon="@drawable/ic_action_overflow"
         android:orderInCategory="11111"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="">
         <menu>
             <!--<item-->
@@ -29,19 +30,19 @@
                 android:id="@+id/show_sternfahrt"
                 android:checkable="true"
                 android:checked="false"
-                android:showAsAction="never"
+                app:showAsAction="never"
                 android:title="@string/show_sternfahrt_routes" />
             <item
                 android:id="@+id/settings_feedback"
-                android:showAsAction="never"
+                app:showAsAction="never"
                 android:title="@string/feedback" />
             <item
                 android:id="@+id/settings_datenschutz"
-                android:showAsAction="never"
+                app:showAsAction="never"
                 android:title="@string/datenschutz" />
             <item
             android:id="@+id/rate_the_app"
-            android:showAsAction="never"
+            app:showAsAction="never"
             android:title="@string/rate_the_app" />
         </menu>
     </item>
