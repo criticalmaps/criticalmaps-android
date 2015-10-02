@@ -1,26 +1,34 @@
 package de.stephanlindauer.criticalmaps.helper.clientinfo;
 
+import android.os.Build;
+import android.text.TextUtils;
 
 public class DeviceInformation {
     public static String getString() {
         String returnString = "";
         returnString += "\n\n---------------------------------------------------------------\n";
         returnString += "OS_VERSION= " + System.getProperty("os.version") + "\n";
-        returnString += "RELEASE= " + android.os.Build.VERSION.RELEASE + "\n";
-        returnString += "DEVICE= " + android.os.Build.DEVICE + "\n";
-        returnString += "MODEL= " + android.os.Build.MODEL + "\n";
-        returnString += "PRODUCT= " + android.os.Build.PRODUCT + "\n";
-        returnString += "BRAND= " + android.os.Build.BRAND + "\n";
-        returnString += "DISPLAY= " + android.os.Build.DISPLAY + "\n";
-        returnString += "CPU_ABI= " + android.os.Build.CPU_ABI + "\n";
-        returnString += "CPU_ABI2= " + android.os.Build.CPU_ABI2 + "\n";
-        returnString += "UNKNOWN= " + android.os.Build.UNKNOWN + "\n";
-        returnString += "HARDWARE= " + android.os.Build.HARDWARE + "\n";
-        returnString += "ID= " + android.os.Build.ID + "\n";
-        returnString += "MANUFACTURER= " + android.os.Build.MANUFACTURER + "\n";
-        returnString += "SERIAL= " + android.os.Build.SERIAL + "\n";
-        returnString += "USER= " + android.os.Build.USER + "\n";
-        returnString += "HOST= " + android.os.Build.HOST + "\n";
+        returnString += "RELEASE= " + Build.VERSION.RELEASE + "\n";
+        returnString += "DEVICE= " + Build.DEVICE + "\n";
+        returnString += "MODEL= " + Build.MODEL + "\n";
+        returnString += "PRODUCT= " + Build.PRODUCT + "\n";
+        returnString += "BRAND= " + Build.BRAND + "\n";
+        returnString += "DISPLAY= " + Build.DISPLAY + "\n";
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            //noinspection deprecation
+            returnString += "CPU_ABI= " + Build.CPU_ABI + "\n";
+            //noinspection deprecation
+            returnString += "CPU_ABI2= " + Build.CPU_ABI2 + "\n";
+        } else {
+            returnString += "SUPPORTED_ABIS= " + TextUtils.join(", ", Build.SUPPORTED_ABIS) + "\n";
+        }
+        returnString += "UNKNOWN= " + Build.UNKNOWN + "\n";
+        returnString += "HARDWARE= " + Build.HARDWARE + "\n";
+        returnString += "ID= " + Build.ID + "\n";
+        returnString += "MANUFACTURER= " + Build.MANUFACTURER + "\n";
+        returnString += "SERIAL= " + Build.SERIAL + "\n";
+        returnString += "USER= " + Build.USER + "\n";
+        returnString += "HOST= " + Build.HOST + "\n";
 
         return returnString;
     }

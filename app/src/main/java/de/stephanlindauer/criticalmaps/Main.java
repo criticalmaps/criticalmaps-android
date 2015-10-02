@@ -1,14 +1,12 @@
 package de.stephanlindauer.criticalmaps;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.TabLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -34,7 +32,7 @@ import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
-public class Main extends FragmentActivity implements ActionBar.TabListener {
+public class Main extends AppCompatActivity {
 
     //dependencies
     private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
@@ -43,7 +41,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private final SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
 
     //misc
-    private CustomViewPager viewPager;
     private File newCameraOutputFile;
 
     @Override
@@ -52,7 +49,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         setContentView(R.layout.activity_main);
 
-        setupViewPager();
+        setupTabs();
 
         new PrerequisitesChecker(this).execute();
 
@@ -158,68 +155,37 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         startService(syncServiceIntent);
     }
 
-    private void setupViewPager() {
-        viewPager = (CustomViewPager) findViewById(R.id.pager);
+    private void setupTabs() {
+        CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getApplication(), getSupportFragmentManager());
         viewPager.setAdapter(tabsPagerAdapter);
 
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_map).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_chat).setTabListener(this).setTag("chat_tab"));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_twitter).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_rules).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.section_about).setTabListener(this));
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setTabsFromPagerAdapter(tabsPagerAdapter);
 
-        registerListenersForSwipedChanges(actionBar);
-    }
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+            private void hideKeyBoard() {
+                EditText editMessageTextfield = (EditText) findViewById(R.id.chat_edit_message);
 
-    private void registerListenersForSwipedChanges(final ActionBar actionBar) {
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                if (editMessageTextfield == null)
+                    return;
 
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+                editMessageTextfield.clearFocus();
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(editMessageTextfield.getWindowToken(), 0);
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {
+                super.onTabUnselected(tab);
 
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
+                if (getResources().getString(R.string.section_chat).equals(tab.getText())) {
+                    hideKeyBoard();
+                }
             }
         });
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    private void hideKeyBoard() {
-        EditText editMessageTextfield = (EditText) findViewById(R.id.chat_edit_message);
-
-        if (editMessageTextfield == null)
-            return;
-
-        editMessageTextfield.clearFocus();
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(editMessageTextfield.getWindowToken(), 0);
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        if ("chat_tab".equals(tab.getTag())) {
-            hideKeyBoard();
-        }
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        //hack
     }
 
     @Override

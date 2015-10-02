@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<de.stephanlindauer.criticalmaps.helper.CustomViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pager"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent" >
+
+    <!-- TODO
+         tabMode="fixed" with tabGravity="center" should look nicer,
+         but causes a line break in "Twitter" -->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable"
+        app:tabGravity="center" />
+
+    <de.stephanlindauer.criticalmaps.helper.CustomViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
