@@ -24,10 +24,6 @@ android {
         warning 'InvalidPackage' // https://github.com/square/okio/issues/58
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
 }
 
 dependencies {
