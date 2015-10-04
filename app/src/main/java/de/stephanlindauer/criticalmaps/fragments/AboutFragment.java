@@ -1,30 +1,18 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.utils.IntentUtil.URLOpenOnActivityOnClickListener;
 
 public class AboutFragment extends Fragment {
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        public void onClick(View view) {
-            String url = getUrlForId(view.getId());
-            Intent websiteIntent = new Intent(android.content.Intent.ACTION_VIEW);
-            websiteIntent.setData(Uri.parse(url));
-            startActivity(websiteIntent);
-        }
-    };
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_about, container, false);
     }
@@ -36,19 +24,8 @@ public class AboutFragment extends Fragment {
         Button facebookButton = (Button) getActivity().findViewById(R.id.about_facebook);
         Button twitterButton = (Button) getActivity().findViewById(R.id.about_twitter);
 
-        facebookButton.setOnClickListener(clickListener);
-        twitterButton.setOnClickListener(clickListener);
-    }
-
-    private static String getUrlForId(int id) {
-        switch (id) {
-            case R.id.about_facebook:
-                return "https://www.facebook.com/criticalmaps";
-            case R.id.about_twitter:
-                return "https://twitter.com/CriticalMaps";
-            default:
-                return "";
-        }
+        facebookButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
+        twitterButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));
     }
 
 }
