@@ -29,7 +29,7 @@ public class TwitterModel {
         JSONObject jsonObject = new JSONObject(tweetsString);
         JSONArray statusesArray = jsonObject.getJSONArray("statuses");
 
-        for (int i = 0; i < statusesArray.length(); i++) {
+        for (int i = 0, statusesArrayLength = statusesArray.length(); i < statusesArrayLength; i++) {
             JSONObject currentStatus = statusesArray.getJSONObject(i);
             Tweet tweet = new Tweet()
                     .setUserName(currentStatus.getJSONObject("user").getString("name"))

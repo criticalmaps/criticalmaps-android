@@ -72,7 +72,7 @@ public class ChatModel {
     public JSONArray getOutgoingMessagesAsJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (int i = 0; i < outgoingMassages.size(); i++) {
+        for (int i = 0, size = outgoingMassages.size(); i < size; i++) {
             OutgoingChatMessage outgoingChatMessage = outgoingMassages.get(i);
             try {
                 JSONObject messageObject = new JSONObject();
