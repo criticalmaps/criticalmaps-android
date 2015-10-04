@@ -2,37 +2,28 @@ package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.HttpClientProvider;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
     //const
-    public static final int TIME_OUT = 15 * 1000; //15 sec
     private static final String LOG_TAG = "CM_PullServerHandler";
 
     //dependencies
@@ -46,35 +37,20 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String jsonPostString = getJsonObject().toString();
 
-        final HttpPost postRequest = new HttpPost(Endpoints.MAIN_POST);
+        final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPostString);
+        final Request postRequest = new Request.Builder().url(Endpoints.MAIN_POST).post(body).build();
 
-        final HttpParams httpParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
+        final OkHttpClient okHttpClient = HttpClientProvider.get();
 
         try {
-            postRequest.setEntity(new StringEntity(jsonPostString));
-        } catch (UnsupportedEncodingException e) {
-            Log.e(LOG_TAG, Log.getStackTraceString(e));
-        }
-
-        final HttpClient httpClient = new DefaultHttpClient(httpParams);
-
-        String responseString = "";
-        try {
-            HttpResponse response = httpClient.execute(postRequest);
-            StatusLine statusLine = response.getStatusLine();
-            if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                response.getEntity().writeTo(out);
-                out.close();
-                responseString = out.toString();
-            } else {
-                response.getEntity().getContent().close();
+            final Response response = okHttpClient.newCall(postRequest).execute();
+            if (response.code() == HttpURLConnection.HTTP_OK) {
+                return response.body().string();
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
         }
-        return responseString;
+        return "";
     }
 
     @Override
