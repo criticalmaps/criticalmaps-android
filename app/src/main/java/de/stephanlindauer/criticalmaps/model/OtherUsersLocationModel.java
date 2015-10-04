@@ -22,7 +22,7 @@ public class OtherUsersLocationModel {
     }
 
     public void setNewJSON(JSONObject jsonObject) throws JSONException {
-        otherUsersLocations = new ArrayList<>();
+        otherUsersLocations = new ArrayList<>(jsonObject.length());
 
         Iterator<String> keys = jsonObject.keys();
         while (keys.hasNext()) {

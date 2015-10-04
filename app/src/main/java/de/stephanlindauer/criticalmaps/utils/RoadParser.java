@@ -18,7 +18,7 @@ public class RoadParser {
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
         String readLine = null;
 
-        ArrayList<GeoPoint> waypoints = new ArrayList<>();
+        ArrayList<GeoPoint> waypoints = new ArrayList<>(1000); // rough average in raw files
 
         try {
             while ((readLine = br.readLine()) != null) {

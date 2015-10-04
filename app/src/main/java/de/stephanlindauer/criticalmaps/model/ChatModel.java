@@ -33,7 +33,7 @@ public class ChatModel {
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {
-            chatMessages = new ArrayList<>();
+            chatMessages = new ArrayList<>(jsonObject.length());
         } else {
             chatMessages.clear();
         }
@@ -87,7 +87,8 @@ public class ChatModel {
     }
 
     public ArrayList<IChatMessage> getSavedAndOutgoingMessages() {
-        ArrayList<IChatMessage> mergeArrayList = new ArrayList<>();
+        int mergedListsSize = chatMessages.size() + outgoingMassages.size();
+        ArrayList<IChatMessage> mergeArrayList = new ArrayList<>(mergedListsSize);
         mergeArrayList.addAll(chatMessages);
         mergeArrayList.addAll(outgoingMassages);
         return mergeArrayList;
