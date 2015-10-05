@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- app -->
-    <string name="app_name" translatable="false">Critical Maps</string>
 
     <!-- nav -->
     <string name="section_map">Mapa</string>
@@ -17,7 +15,7 @@
 
     <!-- activity bar -->
     <string name="tracking">Seguimiento</string>
-    <string name="show_sternfahrt_routes">Show sternfahrt routes</string>
+    <string name="show_sternfahrt_routes">Mostrar la ruta del sternfahrt</string>
     <string name="close_button">Cerrar</string>
     <string name="feedback">Sugerencias</string>
     <string name="datenschutz">Política de privacidad</string>
@@ -33,7 +31,7 @@
     </string>
 
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Tu conexión a internet esta desactivada o bloqueada</string>
+    <string name="prerequisites_no_internet_enabled_title">Tu conexión a internet está desactivada o bloqueada</string>
     <string name="prerequisites_no_internet_enabled_text">Activa tu conexión a internet y reinicia la aplicación</string>
     <string name="prerequisites_no_gps_provider_enabled_title">Tu GPS está desactivado o bloqueado</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Activa el GPS y reinicia la aplicación</string>
@@ -98,7 +96,7 @@
     <string name="camera_image_upload_succeeded_title">Imagen subida!</string>
     <string name="camera_image_upload_succeeded_message">La imagen se ha subido a la galeria en criticalmaps.net </string>
     <string name="camera_no_camera">La cámara no está disponible.</string>
-    <string name="camera_no_camera_no_camera">No puesdes hacer fotos si tu dispositivo no tiene cámara.</string>
+    <string name="camera_no_camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Algo ha fallado</string>
