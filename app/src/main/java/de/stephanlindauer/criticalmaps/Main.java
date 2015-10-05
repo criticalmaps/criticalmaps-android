@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +12,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.io.File;
-
 import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
@@ -30,7 +26,9 @@ import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
+import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
+import java.io.File;
 
 public class Main extends AppCompatActivity {
 
@@ -113,15 +111,11 @@ public class Main extends AppCompatActivity {
     }
 
     private void startDatenschutzIntent() {
-        String url = "http://criticalmaps.net/datenschutzerklaerung.html";
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        IntentUtil.startFromURL(this, "http://criticalmaps.net/datenschutzerklaerung.html");
     }
 
     private void startRateTheApp() {
-        String str = "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps";
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
+        IntentUtil.startFromURL(this, "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps");
     }
 
     @Override
