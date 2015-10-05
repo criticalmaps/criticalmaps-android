@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- nav -->
+    <string name="section_map">Mapa</string>
+    <string name="section_rules">Normas</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">Info</string>
+    <string name="section_chat">Chat</string>
+
+    <!-- close -->
+    <string name="close">Quieres cerrar la app?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
+    <!-- activity bar -->
+    <string name="tracking">Seguimiento</string>
+    <string name="show_sternfahrt_routes">Mostrar la ruta del sternfahrt</string>
+    <string name="close_button">Cerrar</string>
+    <string name="feedback">Sugerencias</string>
+    <string name="datenschutz">Política de privacidad</string>
+    <string name="take_picture">Hacer foto</string>
+    <string name="rate_the_app">Valora la app</string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">Esperando señal GPS</string>
+    <string name="map_overlay_tracking_off">
+        El seguimiento está desactivado. \n
+        Activa el seguimiento para ver a otros ciclistas. \n\n
+        Pulsa aquí!
+    </string>
+
+    <!-- prerequisites -->
+    <string name="prerequisites_no_internet_enabled_title">Tu conexión a internet está desactivada o bloqueada</string>
+    <string name="prerequisites_no_internet_enabled_text">Activa tu conexión a internet y reinicia la aplicación</string>
+    <string name="prerequisites_no_gps_provider_enabled_title">Tu GPS está desactivado o bloqueado</string>
+    <string name="prerequisites_no_gps_provider_enabled_text">Activa el GPS y reinicia la aplicación</string>
+
+    <!-- notification -->
+    <string name="notification_tracking_title">Seguimiento de Critical Maps</string>
+    <string name="notification_tracking_text">Esta App corre en segundo plano y captura tu localización. Cierra la aplicación cuando no quieras ser localizado.</string>
+
+    <!-- fragment_rules -->
+    <string name="rules_corken">Bloqueos!?</string>
+    <string name="rules_corken_explain">Protege a los motorizados de ellos mismos creando bloqueos!</string>
+    <string name="rules_oncoming_traffic">Tráfico de frente</string>
+    <string name="rules_oncoming_traffic_explain">No circules por el carril contrario.</string>
+    <string name="rules_steady">Controla la velocidad!</string>
+    <string name="rules_steady_explain">Cuando vayas en la cabecera: No corras! Cuando vayas a la cola: Cierra huecos!</string>
+    <string name="rules_brake">No hagas paradas bruscas!</string>
+    <string name="rules_brake_explain">Si realmente lo tienes que hacer, intenta avisar a los que van detrás.</string>
+    <string name="rules_green">Cuando vayas en la cabecera: Para en los semáforos en rojo!</string>
+    <string name="rules_green_explain">Cuando llegues a un semáforo en rojo y seas parte de la cabecera de la masa, asegurate de parar cuando la señal de tráfico esta en rojo</string>
+    <string name="rules_friendly">Buen rollo</string>
+    <string name="rules_friendly_explain">No te dejes provocar. Se amigable con la policia, los motorizados y el resto de la gente, incluso si ellos no lo son.</string>
+    <string name="rules_fun">Diviértete!</string>
+    <string name="rules_fun_explain">Disfruta de las calles reconquistadas. Baila con las bicis musicales. HAbla con los motorizados, peatones y hazles saber qué está ocurriendo. Pero lo más importante: pasa un buen rato!</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">Todos los Tweets que contienen \"CriticalMaps\"</string>
+    <string name="twitter_refreshed">Tweets recargados!</string>
+    <string name="twitter_try_again">Inténtalo de nuevo!</string>
+
+    <!-- fragment_chat -->
+    <string name="chat_heading">Los mensajes se borrarán después de 30 minutos.</string>
+    <string name="chat_send">Enviar</string>
+    <string name="chat_text">255 cáracteres disponibles &#8230;</string>
+    <string name="chat_sending">Enviando &#8230;</string>
+
+    <!-- notifications -->
+    <string name="notification_alarm_title">No te olvides:</string>
+    <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la velorution!</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">ahora</string>
+    <string name="timetoword_aminuteago">hace un minuto</string>
+    <string name="timetoword_minutesago">hace %s minutos</string>
+    <string name="timetoword_anhourago">hace una hora</string>
+    <string name="timetoword_hoursago">hace %s horas</string>
+    <string name="timetoword_yesterday">ayer</string>
+    <string name="timetoword_daysago">hace %s días</string>
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
+        <![CDATA[
+        ¿Quieres subir la foto a <a href="http://criticalmaps.net">criticalmaps.net</a>? Allí se pueden ver bajo la licencia creative commons <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> .
+        ]]>
+    </string>
+    <string name="camera_upload">Subir imagen!</string>
+    <string name="camera_discard">No :-(</string>
+    <string name="camera_uploading_progress">Subiendo &#8230;</string>
+    <string name="camera_upload_failed_title">La subida de imagen falló</string>
+    <string name="camera_upload_failed_message">Por favor inténtalo de nuevo</string>
+    <string name="camera_processing_image">Procesando imagen &#8230;</string>
+    <string name="camera_no_location_no_camera">No puedes subir imágenes sin señal GPS</string>
+    <string name="camera_image_upload_succeeded_title">Imagen subida!</string>
+    <string name="camera_image_upload_succeeded_message">La imagen se ha subido a la galeria en criticalmaps.net </string>
+    <string name="camera_no_camera">La cámara no está disponible.</string>
+    <string name="camera_no_camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">Algo ha fallado</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
+    <string name="go_to_settings">Cambiar preferencias</string>
+    <string name="notification_tracking_close">Cerrar</string>
+    <string name="notification_tracking_open">Abrir</string>
+
+    <!-- introduction -->
+    <string name="introduction_heading">Por favor,lee esta introducción rápida</string>
+    <string name="introduction_own_icon">Asi apareces tu:\u0020</string>
+    <string name="introduction_other_icon">Asi aparecen otros ciclistas:\u0020</string>
+    <string name="introduction_close_app">Cierra la aplicación si no quieres que se haga seguimiento de tu localización.</string>
+    <string name="introduction_careful">Presta atención al tráfico y no a esta aplicación</string>
+    <string name="introduction_bugs">Si encuentras problemas con la app, haznoslo saber pulsando sobre el botón de feedback en menu de preferencias</string>
+    <string name="introduction_requisites">Para que esta aplicación funcione correctamente, necesitas una conexión de datos y el GPS activado.</string>
+
+</resources>
