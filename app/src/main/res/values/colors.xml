@@ -16,9 +16,6 @@
     <color name="rules_explainer_text">@android:color/black</color>
     <color name="rules_button_text">@android:color/white</color>
 
-    <!-- Splash -->
-    <color name="splash_background">#1d1d1d</color>
-
     <!-- Twitter -->
     <color name="twitter_background">#222</color>
     <color name="twitter_error_message_text">#b20e17</color>
