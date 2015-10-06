@@ -21,6 +21,7 @@ import org.osmdroid.views.MapView;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -60,8 +61,11 @@ public class MapFragment extends Fragment {
     private boolean isInitialLocationSet = false;
 
     //cache drawables
-    private Drawable locationIcon;
-    private Drawable ownLocationIcon;
+    @BindDrawable(R.drawable.map_marker)
+    Drawable locationIcon;
+
+    @BindDrawable(R.drawable.map_marker_own)
+    Drawable ownLocationIcon;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,9 +80,6 @@ public class MapFragment extends Fragment {
         super.onActivityCreated(savedState);
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
-
-        locationIcon = ContextCompat.getDrawable(getActivity(), R.drawable.map_marker);
-        ownLocationIcon = ContextCompat.getDrawable(getActivity() ,R.drawable.map_marker_own);
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
