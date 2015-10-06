@@ -1,12 +1,9 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-
+import android.support.v7.app.AlertDialog;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.ApplicationCloser;
 
 public class ApplicationCloseHandler {
