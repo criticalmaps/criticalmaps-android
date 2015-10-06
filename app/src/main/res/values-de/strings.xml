@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- nav -->
     <string name="section_map">Map</string>
     <string name="section_rules">Knigge</string>
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
+
+    <!-- close -->
     <string name="close">App wirklich beenden?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+
+    <!-- activity bar -->
     <string name="tracking">Tracking</string>
     <string name="show_sternfahrt_routes">Sternfahrt routen anzeigen</string>
     <string name="close_button">Schließen</string>
@@ -15,12 +20,25 @@
     <string name="datenschutz">Datenschutzerklärung</string>
     <string name="take_picture">Foto aufnehmen</string>
     <string name="rate_the_app">Bewerte die App</string>
-    <string name="notification_tracking_title">Critical Maps Tracking</string>
-    <string name="notification_tracking_text">Die App läuft im Hintergrund und zeichnet deine Location-Daten auf. Bitte vergiss nicht, die App auszuschalten, wenn du nicht mehr getrackt werden willst. </string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">Warte auf GPS-Signal</string>
     <string name="map_overlay_tracking_off">Tracking ist deaktiviert. \n
         Aktiviere Tracking, um die anderen Fahrer*innen sehen zu können. \n\n
         Tappe einfach hier drauf!
     </string>
+
+    <!-- prerequisites -->
+    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
+    <string name="prerequisites_no_internet_enabled_title">Deine Internet-Verbindung ist deaktiviert oder geblockt</string>
+    <string name="prerequisites_no_gps_provider_enabled_title">GPS ist deaktiviert oder geblockt</string>
+    <string name="prerequisites_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
+
+    <!-- notification -->
+    <string name="notification_tracking_title">Critical Maps Tracking</string>
+    <string name="notification_tracking_text">Die App läuft im Hintergrund und zeichnet deine Location-Daten auf. Bitte vergiss nicht, die App auszuschalten, wenn du nicht mehr getrackt werden willst. </string>
+
+    <!-- fragment_rules -->
     <string name="rules_corken">Corken!?</string>
     <string name="rules_corken_explain">Schütze Autofahrer vor sich selbst durch corken!</string>
     <string name="rules_oncoming_traffic">Gegenverkehr</string>
@@ -42,17 +60,30 @@
     <string name="rules_fun_explain">Genieße autofreie Straßen. Fahr ein bisschen mit dem Sound-Rädern mit. Check
         die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!
     </string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">Alle Tweets die \"CriticalMaps\" enthalten</string>
+    <string name="twitter_refreshed">Tweets aktualisiert!</string>
+    <string name="twitter_try_again">Versuch\'s nochmal!</string>
+
+    <!-- fragment_chat -->
     <string name="chat_heading">Nachrichten werden nach 30 Minuten wieder gelöscht.</string>
     <string name="chat_send">Senden</string>
     <string name="chat_text">Du hast 255 Zeichen &#8230;</string>
     <string name="chat_sending">Sende &#8230;</string>
+
+    <!-- fragment_about -->
     <string name="about_heading_social">social krams</string>
     <string name="about_heading_website">website</string>
     <string name="about_heading_contributions">contributions</string>
     <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
     <string name="about_heading_code">code</string>
+
+    <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
     <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>
+
+    <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
     <string name="timetoword_aminuteago">vor einer Minute</string>
     <string name="timetoword_minutesago">vor %s Minuten</string>
@@ -60,6 +91,8 @@
     <string name="timetoword_hoursago">vor %s Stunden</string>
     <string name="timetoword_yesterday">gestern</string>
     <string name="timetoword_daysago">vor %s Tagen</string>
+
+    <!-- camera -->
     <string name="camera_confirm_image_upload">
         <![CDATA[
         Willst du das Foto auf <a href="http://criticalmaps.net">criticalmaps.net</a> hochladen? \nWir veröffentlichen die Bilder dort auf der Karte unter der <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lizenz.
@@ -68,26 +101,24 @@
     <string name="camera_upload">Foto hochladen!</string>
     <string name="camera_discard">Och nööö :-(</string>
     <string name="camera_uploading_progress">Lade hoch &#8230;</string>
-    <string name="camera_image_upload_succeeded_message">Das Bild steht jetzt in der Galerie auf criticalmaps.net</string>
-    <string name="camera_image_upload_succeeded_title">Bilder-Upload erfolgreich!</string>
-    <string name="camera_no_location_no_camera">Ohne GPS-Signal kannst du keine Bilder hochladen</string>
-    <string name="camera_processing_image">Foto wird verarbeitet</string>
-    <string name="camera_upload_failed_message">Bitte versuch es später nochmal</string>
     <string name="camera_upload_failed_title">Hochladen hat nicht funktioniert</string>
-    <string name="cancel">Abbrechen</string>
-    <string name="go_to_settings">zu den Einstellungen</string>
-    <string name="prerequisites_no_gps_provider_enabled_title">GPS ist deaktiviert oder geblockt</string>
-    <string name="prerequisites_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
-    <string name="map_searching_for_location">Warte auf GPS-Signal</string>
-    <string name="ok">OK</string>
-    <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>
+    <string name="camera_upload_failed_message">Bitte versuch es später nochmal</string>
+    <string name="camera_processing_image">Foto wird verarbeitet</string>
+    <string name="camera_no_location_no_camera">Ohne GPS-Signal kannst du keine Bilder hochladen</string>
+    <string name="camera_image_upload_succeeded_title">Bilder-Upload erfolgreich!</string>
+    <string name="camera_image_upload_succeeded_message">Das Bild steht jetzt in der Galerie auf criticalmaps.net</string>
     <string name="camera_no_camera">Keine Kamera vorhanden.</string>
     <string name="camera_no_camera_no_camera">Du kannst keine Bilder aufnehmen, wenn dein Smartfone keine Kamera hat.</string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="ok">OK</string>
+    <string name="go_to_settings">zu den Einstellungen</string>
     <string name="notification_tracking_close">Beenden</string>
     <string name="notification_tracking_open">Öffnen</string>
-    <string name="twitter_heading">Alle Tweets die \"CriticalMaps\" enthalten</string>
-    <string name="twitter_refreshed">Tweets aktualisiert!</string>
-    <string name="twitter_try_again">Versuch\'s nochmal!</string>
+
+    <!-- introduction -->
     <string name="introduction_heading">Lies dir bitte kurz folgende Infos durch, damit du weißt, was hier abgeht.</string>
     <string name="introduction_own_icon">So siehst du aus:\u0020</string>
     <string name="introduction_other_icon">So sehen alle anderen User aus:\u0020</string>
@@ -95,7 +126,5 @@
     <string name="introduction_careful">Sei bitte vorsichtig und achte lieber auf den Verkehr, als auf die App.</string>
     <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
     <string name="introduction_requisites">Damit alles richtig funktioniert brauchst du eine halbwegs stabile mobile Internet-Verbindung und aktiviertes GPS.</string>
-    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
-    <string name="prerequisites_no_internet_enabled_title">Deine Internet-Verbindung ist deaktiviert oder geblockt</string>
 
 </resources>
