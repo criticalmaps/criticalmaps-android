@@ -45,6 +45,11 @@
     <string name="chat_send">Senden</string>
     <string name="chat_text">Du hast 255 Zeichen &#8230;</string>
     <string name="chat_sending">Sende &#8230;</string>
+    <string name="about_heading_social">social krams</string>
+    <string name="about_heading_website">website</string>
+    <string name="about_heading_contributions">contributions</string>
+    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_heading_code">code</string>
     <string name="notification_alarm_title">Nicht vergessen:</string>
     <string name="notification_alarm_text">Critical Mass heute 20 Uhr Heinrichplatz! Viva la velorution!</string>
     <string name="timetoword_justnow">gerade eben</string>

@@ -69,6 +69,15 @@
     <string name="chat_text">You have 255 characters &#8230;</string>
     <string name="chat_sending">Sending &#8230;</string>
 
+    <!-- fragment_about -->
+    <string name="about_heading_social">social stuff</string>
+    <string name="about_heading_website">website</string>
+    <string name="about_text_map_url" translatable="false">criticalmaps.net</string>
+    <string name="about_heading_contributions">contributions</string>
+    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_heading_code">code</string>
+    <string name="about_text_github_url" translatable="false">github.com/criticalmaps/criticalmaps-android</string>
+
     <!-- notifications -->
     <string name="notification_alarm_title">don\'t forget:</string>
     <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la velorution!</string>

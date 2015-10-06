@@ -67,6 +67,13 @@
     <string name="chat_text">255 cáracteres disponibles &#8230;</string>
     <string name="chat_sending">Enviando &#8230;</string>
 
+    <!-- fragment_about -->
+    <string name="about_heading_social">social stuff</string>
+    <string name="about_heading_website">website</string>
+    <string name="about_heading_contributions">contributions</string>
+    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_heading_code">code</string>
+
     <!-- notifications -->
     <string name="notification_alarm_title">No te olvides:</string>
     <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la velorution!</string>
