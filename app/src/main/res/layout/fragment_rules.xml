@@ -146,14 +146,8 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:autoLink="web"
-                android:padding="10dp"
-                android:text="@string/rules_image_source"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                style="@style/rules_image_source_text"
+                android:text="@string/rules_image_source" />
 
         </LinearLayout>
     </ScrollView>
