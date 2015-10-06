@@ -1,13 +1,13 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 
+import android.support.v7.app.AlertDialog;
 import java.io.File;
 
 import de.stephanlindauer.criticalmaps.Main;

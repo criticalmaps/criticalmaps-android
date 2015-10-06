@@ -1,7 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -126,10 +126,10 @@ public class PrerequisitesChecker {
     private Intent createIntent(String action) {
         Intent viewIntent = new Intent(action);
         viewIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK |
-                Intent.FLAG_ACTIVITY_NO_HISTORY |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
-                Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                            Intent.FLAG_ACTIVITY_NO_HISTORY |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
+                            Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         return viewIntent;
     }
 
