@@ -20,6 +20,7 @@
     <string name="feedback">Geribesleme</string>
     <string name="datenschutz">Gizlilik politikası</string>
     <string name="take_picture">Fotoğraf çek</string>
+    <string name="rate_the_app">Rate the App</string>
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">GPS sinyali bekleniyor</string>
@@ -28,6 +29,10 @@
         diğer bisikletlileri görebilmek için izlemeyi etkinleştir. \n\n
         şimdi buraya dokun!
     </string>
+
+    <!-- prerequisites -->
+    <string name="prerequisites_no_internet_enabled_text">Please enable your internet connection and restart the app</string>
+    <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>
     <string name="prerequisites_no_gps_provider_enabled_title">GPS kapalı</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Lütfen GPS etkinleştirin ve uygulamayı yeniden başlatın</string>
 
@@ -52,12 +57,25 @@
     <string name="rules_friendly_explain">Kışkırtılmanıza izin vermeyin. Polis, motorlu taşıtlar ve diğer kişilere dostane davranın, eğer onlar öyle davranmasalar bile.</string>
     <string name="rules_fun">Eğlen!</string>
     <string name="rules_fun_explain">Caddeler sizin de, eğlenin. Motorlu taşıt sürücüleri ve yayalar ile yaptığınız yaptığınız şeyin ne olduğunu aktarın. keyf al!</string>
+    <string name="rules_image_source">Images by criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">miyav</string>
+    <string name="twitter_refreshed">Tweets were refreshed!</string>
+    <string name="twitter_try_again">Try again!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Mesajlar 30 dakika sonra silinecek.</string>
     <string name="chat_send">Gönder</string>
     <string name="chat_text">En fazla 255 karakter &#8230;</string>
     <string name="chat_sending">Gönderiliyor &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">social stuff</string>
+    <string name="about_heading_website">website</string>
+    <string name="about_heading_contributions">contributions</string>
+    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_heading_code">code</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">unutma:</string>
@@ -88,12 +106,23 @@
     <string name="camera_image_upload_succeeded_title">Fotoğraf yüklendi!</string>
     <string name="camera_image_upload_succeeded_message">Fotoğraf, criticalmaps.net galerisine eklendi </string>
     <string name="camera_no_camera">Kamera yok</string>
+    <string name="camera_no_camera_no_camera">You can\'t take pictures if your device doesn\'t have a camera.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Bir terslik oluştu</string>
     <string name="cancel">İptal</string>
     <string name="ok">Tamam</string>
     <string name="go_to_settings">Ayarları değiştir</string>
-    <string name="twitter_heading">miyav</string>
+    <string name="notification_tracking_close">Close</string>
+    <string name="notification_tracking_open">Open</string>
+
+    <!-- introduction -->
+    <string name="introduction_bugs">If you find bugs in the app, please let us know by clicking the feedback-button in the settings-menu.</string>
+    <string name="introduction_careful">Please rather pay attention to traffic instead of the app.</string>
+    <string name="introduction_close_app">Please close the app if you don\'t want to be tracked anymore.</string>
+    <string name="introduction_heading">Please take some time to read this quick introduction.</string>
+    <string name="introduction_other_icon">This is what all the other Users look like:\u0020</string>
+    <string name="introduction_own_icon">This is what you look like:\u0020</string>
+    <string name="introduction_requisites">In order for this app to run properly, you need to have a working mobile data connection and GPS enabled.</string>
 
 </resources>

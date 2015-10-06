@@ -57,6 +57,7 @@
     <string name="rules_friendly_explain">Don\'t allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.</string>
     <string name="rules_fun">Have fun!</string>
     <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
+    <string name="rules_image_source">Images by criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">All Tweets containing \"CriticalMaps\"</string>
@@ -68,6 +69,15 @@
     <string name="chat_send">Send</string>
     <string name="chat_text">You have 255 characters &#8230;</string>
     <string name="chat_sending">Sending &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">social stuff</string>
+    <string name="about_heading_website">website</string>
+    <string name="about_text_map_url" translatable="false">criticalmaps.net</string>
+    <string name="about_heading_contributions">contributions</string>
+    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_heading_code">code</string>
+    <string name="about_text_github_url" translatable="false">github.com/criticalmaps/criticalmaps-android</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">don\'t forget:</string>

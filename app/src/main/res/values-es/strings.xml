@@ -55,6 +55,7 @@
     <string name="rules_friendly_explain">No te dejes provocar. Se amigable con la policia, los motorizados y el resto de la gente, incluso si ellos no lo son.</string>
     <string name="rules_fun">Diviértete!</string>
     <string name="rules_fun_explain">Disfruta de las calles reconquistadas. Baila con las bicis musicales. HAbla con los motorizados, peatones y hazles saber qué está ocurriendo. Pero lo más importante: pasa un buen rato!</string>
+    <string name="rules_image_source">Images by criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">Todos los Tweets que contienen \"CriticalMaps\"</string>
@@ -66,6 +67,13 @@
     <string name="chat_send">Enviar</string>
     <string name="chat_text">255 cáracteres disponibles &#8230;</string>
     <string name="chat_sending">Enviando &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">social stuff</string>
+    <string name="about_heading_website">website</string>
+    <string name="about_heading_contributions">contributions</string>
+    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_heading_code">code</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">No te olvides:</string>

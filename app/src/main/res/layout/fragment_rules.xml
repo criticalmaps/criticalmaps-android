@@ -152,7 +152,7 @@
                 android:layout_gravity="center_horizontal"
                 android:autoLink="web"
                 android:padding="10dp"
-                android:text="Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)"
+                android:text="@string/rules_image_source"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
