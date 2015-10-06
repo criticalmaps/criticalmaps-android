@@ -47,12 +47,7 @@ public class PrerequisitesChecker {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    viewIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK |
-                                            Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                                            Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
-                                            Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                                    Intent viewIntent = createIntent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                     activity.startActivity(viewIntent);
                                     ApplicationCloser.close(activity);
                                 }
@@ -78,12 +73,7 @@ public class PrerequisitesChecker {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent viewIntent = new Intent(Settings.ACTION_SETTINGS);
-                                    viewIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK |
-                                            Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                                            Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
-                                            Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                                    Intent viewIntent = createIntent(Settings.ACTION_SETTINGS);
                                     activity.startActivity(viewIntent);
                                     ApplicationCloser.close(activity);
                                 }
@@ -128,6 +118,16 @@ public class PrerequisitesChecker {
         builder.show();
 
         return false;
+    }
+
+    private Intent createIntent(String action) {
+        Intent viewIntent = new Intent(action);
+        viewIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK |
+                Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
+                Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        return viewIntent;
     }
 
 }
