@@ -57,6 +57,7 @@
     <string name="rules_friendly_explain">Kışkırtılmanıza izin vermeyin. Polis, motorlu taşıtlar ve diğer kişilere dostane davranın, eğer onlar öyle davranmasalar bile.</string>
     <string name="rules_fun">Eğlen!</string>
     <string name="rules_fun_explain">Caddeler sizin de, eğlenin. Motorlu taşıt sürücüleri ve yayalar ile yaptığınız yaptığınız şeyin ne olduğunu aktarın. keyf al!</string>
+    <string name="rules_image_source">Images by criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">miyav</string>

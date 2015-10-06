@@ -60,6 +60,7 @@
     <string name="rules_fun_explain">Genieße autofreie Straßen. Fahr ein bisschen mit dem Sound-Rädern mit. Check
         die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!
     </string>
+    <string name="rules_image_source">Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">Alle Tweets die \"CriticalMaps\" enthalten</string>
