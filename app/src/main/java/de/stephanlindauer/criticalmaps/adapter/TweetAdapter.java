@@ -32,32 +32,39 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.view_tweet, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         Tweet currentTweet = tweets.get(position);
-
-        return buildTweetView(currentTweet, inflater, parent);
+        return buildTweetView(currentTweet, convertView, viewHolder);
     }
 
-    private View buildTweetView(final Tweet tweet, LayoutInflater inflater, ViewGroup parent) {
+    private View buildTweetView(final Tweet tweet, View rowView, ViewHolder viewHolder) {
+        viewHolder.nameTextView = (TextView) rowView.findViewById(R.id.tweet_user_name);
+        viewHolder.textTextView = (TextView) rowView.findViewById(R.id.tweet_text);
+        viewHolder.dateTextView = (TextView) rowView.findViewById(R.id.tweet_creation_date);
+        viewHolder.timeTextView = (TextView) rowView.findViewById(R.id.tweet_creation_time);
+        viewHolder.handleTextView = (TextView) rowView.findViewById(R.id.tweet_user_handle);
+        viewHolder.userImageView = (ImageView) rowView.findViewById(R.id.tweet_user_image);
 
-        View rowView = inflater.inflate(R.layout.view_tweet, parent, false);
+        Picasso.with(context)
+                .load(tweet.getProfileImageUrl())
+                .fit()
+                .centerInside()
+                .into(viewHolder.userImageView);
 
-        TextView nameTextView = (TextView) rowView.findViewById(R.id.tweet_user_name);
-        TextView textTextView = (TextView) rowView.findViewById(R.id.tweet_text);
-        TextView dateTextView = (TextView) rowView.findViewById(R.id.tweet_creation_date);
-        TextView timeTextView = (TextView) rowView.findViewById(R.id.tweet_creation_time);
-        TextView handleTextView = (TextView) rowView.findViewById(R.id.tweet_user_handle);
-        ImageView userImageView = (ImageView) rowView.findViewById(R.id.tweet_user_image);
-
-        Picasso.with(context).load(tweet.getProfileImageUrl()).fit().centerInside().into(userImageView);
-
-        nameTextView.setText(tweet.getUserName());
-        textTextView.setText(Html.fromHtml(tweet.getText()).toString());
-        dateTextView.setText(new SimpleDateFormat("HH:mm").format(tweet.getTimestamp()));
-        timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy").format(tweet.getTimestamp()));
-
-        handleTextView.setText("@" + tweet.getUserScreenName());
+        viewHolder.nameTextView.setText(tweet.getUserName());
+        viewHolder.textTextView.setText(Html.fromHtml(tweet.getText()).toString());
+        viewHolder.dateTextView.setText(new SimpleDateFormat("HH:mm").format(tweet.getTimestamp()));
+        viewHolder.timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy").format(tweet.getTimestamp()));
+        viewHolder.handleTextView.setText("@" + tweet.getUserScreenName());
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +72,16 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
                 context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/aasif/status/" + tweet.getTweetId())));
             }
         });
-
         return rowView;
     }
+
+    static class ViewHolder {
+        TextView nameTextView;
+        TextView textTextView;
+        TextView dateTextView;
+        TextView timeTextView;
+        TextView handleTextView;
+        ImageView userImageView;
+    }
+
 }
