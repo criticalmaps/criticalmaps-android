@@ -15,9 +15,10 @@ public class NextEventTimeCalculator {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
-        ArrayList<Date> dateList = new ArrayList<>();
+        int numberOfRequestedDates = 3;
+        ArrayList<Date> dateList = new ArrayList<>(numberOfRequestedDates);
 
-        while (dateList.size() < 3) {
+        while (dateList.size() < numberOfRequestedDates) {
             if (isLastFridayOfTheMonth(calendar)) {
                 Date asDate = new Date(calendar.getTimeInMillis());
                 if (asDate.getTime() > new Date().getTime()) {

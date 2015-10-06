@@ -41,7 +41,7 @@ public class SternfahrtModel {
         if (allOverLays != null) {
             return allOverLays;
         } else {
-            allOverLays = new ArrayList<>();
+            allOverLays = new ArrayList<>(routeIDs.length);
 
             for(int id : routeIDs) {
                 allOverLays.add(RoadManager.buildRoadOverlay(RoadParser.getRoadFor(context, id), context));
