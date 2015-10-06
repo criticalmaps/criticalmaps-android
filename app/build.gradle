@@ -22,9 +22,14 @@ android {
 
     lintOptions {
         warning 'MissingTranslation'
-        warning 'InvalidPackage' // https://github.com/square/okio/issues/58
+        // https://github.com/square/okio/issues/58
+        // http://jakewharton.github.io/butterknife/
+        warning 'InvalidPackage'
     }
 
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
@@ -38,4 +43,5 @@ dependencies {
     compile 'com.android.support:support-annotations:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

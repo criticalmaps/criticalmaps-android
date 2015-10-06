@@ -66,7 +66,7 @@
     </LinearLayout>
 
     <include
-        android:id="@+id/searchingForLocationOverlayChat"
+        android:id="@+id/searching_for_location_overlay_chat"
         layout="@layout/view_searching_for_location_overlay"
         android:visibility="gone" />
 

@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
@@ -47,13 +49,6 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     }
 
     private View buildTweetView(final Tweet tweet, View rowView, ViewHolder viewHolder) {
-        viewHolder.nameTextView = (TextView) rowView.findViewById(R.id.tweet_user_name);
-        viewHolder.textTextView = (TextView) rowView.findViewById(R.id.tweet_text);
-        viewHolder.dateTextView = (TextView) rowView.findViewById(R.id.tweet_creation_date);
-        viewHolder.timeTextView = (TextView) rowView.findViewById(R.id.tweet_creation_time);
-        viewHolder.handleTextView = (TextView) rowView.findViewById(R.id.tweet_user_handle);
-        viewHolder.userImageView = (ImageView) rowView.findViewById(R.id.tweet_user_image);
-
         Picasso.with(context)
                 .load(tweet.getProfileImageUrl())
                 .fit()
@@ -76,12 +71,22 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     }
 
     static class ViewHolder {
+        @Bind(R.id.tweet_user_name)
         TextView nameTextView;
+        @Bind(R.id.tweet_text)
         TextView textTextView;
+        @Bind(R.id.tweet_creation_date)
         TextView dateTextView;
+        @Bind(R.id.tweet_creation_time)
         TextView timeTextView;
+        @Bind(R.id.tweet_user_handle)
         TextView handleTextView;
+        @Bind(R.id.tweet_user_image)
         ImageView userImageView;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
 }

@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
@@ -25,12 +27,20 @@ public class TwitterFragment extends Fragment {
     private TwitterModel twitterModel = TwitterModel.getInstance();
 
     //view
-    private View twitterView;
-    private ProgressBar loadingSpinner;
-    private SwipeRefreshLayout swipeLayout;
-    private Button errorButton;
+    @Bind(R.id.twitter_error)
+    LinearLayout errorMessage;
 
-    private LinearLayout errorMessage;
+    @Bind(R.id.twitter_error_button)
+    Button errorButton;
+
+    @Bind(R.id.progressSpinner)
+    ProgressBar loadingSpinner;
+
+    @Bind(R.id.tweet_list)
+    ListView tweetListView;
+
+    @Bind(R.id.swipe_container)
+    SwipeRefreshLayout swipeLayout;
 
     //adapter
     private TweetAdapter tweetAdapter;
@@ -41,23 +51,18 @@ public class TwitterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        twitterView = inflater.inflate(R.layout.fragment_twitter, container, false);
-        return twitterView;
+        View view = inflater.inflate(R.layout.fragment_twitter, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        errorMessage = (LinearLayout) getActivity().findViewById(R.id.twitter_error);
-        errorButton = (Button) getActivity().findViewById(R.id.twitter_error_button);
-        loadingSpinner = (ProgressBar) getActivity().findViewById(R.id.progressSpinner);
         tweetAdapter = new TweetAdapter(getActivity(), R.layout.view_tweet, new ArrayList<Tweet>());
-
-        ListView tweetListView = (ListView) getActivity().findViewById(R.id.tweet_list);
         tweetListView.setAdapter(tweetAdapter);
 
-        swipeLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -76,6 +81,12 @@ public class TwitterFragment extends Fragment {
         });
 
         new TwitterGetHandler(this).execute();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     public void displayNewData() {

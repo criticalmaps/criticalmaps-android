@@ -20,7 +20,8 @@ import org.osmdroid.views.MapView;
 
 import java.util.ArrayList;
 
-import de.stephanlindauer.criticalmaps.Main;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
@@ -44,9 +45,15 @@ public class MapFragment extends Fragment {
 
     //view
     private MapView mapView;
-    private ImageButton setCurrentLocationCenter;
-    private RelativeLayout mapContainer;
-    private RelativeLayout searchingForLocationOverlay;
+
+    @Bind(R.id.set_current_location_center)
+    ImageButton setCurrentLocationCenter;
+
+    @Bind(R.id.map_container)
+    RelativeLayout mapContainer;
+
+    @Bind(R.id.searching_for_location_overlay_map)
+    RelativeLayout searchingForLocationOverlay;
 
     //misc
     private DefaultResourceProxyImpl resourceProxy;
@@ -59,7 +66,9 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -67,10 +76,6 @@ public class MapFragment extends Fragment {
         super.onActivityCreated(savedState);
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
-
-        setCurrentLocationCenter = (ImageButton) getActivity().findViewById(R.id.setCurrentLocationCenter);
-        mapContainer = (RelativeLayout) getActivity().findViewById(R.id.mapContainer);
-        searchingForLocationOverlay = (RelativeLayout) getActivity().findViewById(R.id.searchingForLocationOverlayMap);
 
         locationIcon = ContextCompat.getDrawable(getActivity(), R.drawable.map_marker);
         ownLocationIcon = ContextCompat.getDrawable(getActivity() ,R.drawable.map_marker_own);
@@ -171,6 +176,12 @@ public class MapFragment extends Fragment {
     public void onPause() {
         super.onPause();
         eventService.unregister(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     @Subscribe
