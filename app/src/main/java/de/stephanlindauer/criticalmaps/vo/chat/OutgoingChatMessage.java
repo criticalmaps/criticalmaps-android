@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.vo.chat;
 
+import com.squareup.okhttp.internal.Util;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
@@ -39,7 +41,7 @@ public class OutgoingChatMessage implements IChatMessage {
 
     private String urlEncodeMessage(String messageToEncode) {
         try {
-            return URLEncoder.encode(messageToEncode, "UTF-8");
+            return URLEncoder.encode(messageToEncode, Util.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
         }
         return "";

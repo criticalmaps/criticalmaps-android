@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.model;
 
+import com.squareup.okhttp.internal.Util;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +44,7 @@ public class ChatModel {
         while (keys.hasNext()) {
             String key = keys.next();
             JSONObject value = jsonObject.getJSONObject(key);
-            String message = URLDecoder.decode(value.getString("message"), "UTF-8");
+            String message = URLDecoder.decode(value.getString("message"), Util.UTF_8.name());
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
             String identifier = key;
 
