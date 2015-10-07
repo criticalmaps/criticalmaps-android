@@ -8,14 +8,14 @@
     tools:menu="actionbar_buttons">
 
     <RelativeLayout
-        android:id="@+id/mapContainer"
+        android:id="@+id/map_container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />
 
     <ImageButton
-        android:id="@+id/setCurrentLocationCenter"
+        android:id="@+id/set_current_location_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -24,7 +24,7 @@
         android:src="@drawable/ic_action_location_found" />
 
     <include
-        android:id="@+id/searchingForLocationOverlayMap"
+        android:id="@+id/searching_for_location_overlay_map"
         layout="@layout/view_searching_for_location_overlay"
         android:visibility="gone"
         tools:visibility="visible" />
