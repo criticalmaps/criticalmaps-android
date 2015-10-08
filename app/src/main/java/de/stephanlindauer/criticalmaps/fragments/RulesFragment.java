@@ -57,10 +57,18 @@ public class RulesFragment extends Fragment {
             if (currentlyShownPanel != null) {
                 currentlyShownPanel.setVisibility(View.GONE);
             }
-            currentlyShownPanel = panel;
-            panel.setVisibility(View.VISIBLE);
+            if (currentlyShownPanel == panel) {
+                currentlyShownPanel = null;
+            } else {
+                currentlyShownPanel = panel;
+                panel.setVisibility(View.VISIBLE);
+            }
         }
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        currentlyShownPanel = null;
+    }
 }
