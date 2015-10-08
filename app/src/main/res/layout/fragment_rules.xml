@@ -1,155 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1"
-    android:background="@color/rules_background"
-    android:orientation="vertical"
-    tools:menu="actionbar_buttons">
-
-    <ScrollView
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/rules_background"
+        tools:menu="actionbar_buttons">
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
-            <Button
+        <Button
                 android:id="@+id/btnCorken"
                 style="@style/rules_button"
-                android:text="@string/rules_corken" />
+                android:text="@string/rules_corken"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelCorken"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
+            <TextView
                     style="@style/rules_explainer"
-                    android:text="@string/rules_corken_explain" />
+                    android:text="@string/rules_corken_explain"/>
 
-                <ImageView
+            <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_corken" />
-            </LinearLayout>
+                    android:src="@drawable/rules_corken"/>
+        </LinearLayout>
 
-            <Button
+        <Button
                 android:id="@+id/btnOncomingTraffic"
                 style="@style/rules_button"
-                android:text="@string/rules_oncoming_traffic" />
+                android:text="@string/rules_oncoming_traffic"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelOncomingTraffic"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
+            <TextView
                     style="@style/rules_explainer"
-                    android:text="@string/rules_oncoming_traffic_explain" />
+                    android:text="@string/rules_oncoming_traffic_explain"/>
 
-                <ImageView
+            <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_wronglane" />
-            </LinearLayout>
+                    android:src="@drawable/rules_wronglane"/>
+        </LinearLayout>
 
-            <Button
+        <Button
                 android:id="@+id/btnSlow"
                 style="@style/rules_button"
-                android:text="@string/rules_steady" />
+                android:text="@string/rules_steady"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelSlow"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
+            <TextView
                     style="@style/rules_explainer"
-                    android:text="@string/rules_steady_explain" />
+                    android:text="@string/rules_steady_explain"/>
 
-                <ImageView
+            <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_slowly" />
-            </LinearLayout>
+                    android:src="@drawable/rules_slowly"/>
+        </LinearLayout>
 
-            <Button
+        <Button
                 android:id="@+id/btnBrake"
                 style="@style/rules_button"
-                android:text="@string/rules_brake" />
+                android:text="@string/rules_brake"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelBrake"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
+            <TextView
                     style="@style/rules_explainer"
-                    android:text="@string/rules_brake_explain" />
+                    android:text="@string/rules_brake_explain"/>
 
-                <ImageView
+            <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_brake" />
-            </LinearLayout>
+                    android:src="@drawable/rules_brake"/>
+        </LinearLayout>
 
-            <Button
+        <Button
                 android:id="@+id/btnGreen"
                 style="@style/rules_button"
-                android:text="@string/rules_green" />
+                android:text="@string/rules_green"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelGreen"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
+            <TextView
                     style="@style/rules_explainer"
-                    android:text="@string/rules_green_explain" />
+                    android:text="@string/rules_green_explain"/>
 
-                <ImageView
+            <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_green" />
-            </LinearLayout>
+                    android:src="@drawable/rules_green"/>
+        </LinearLayout>
 
-            <Button
+        <Button
                 android:id="@+id/btnFriendly"
                 style="@style/rules_button"
-                android:text="@string/rules_friendly" />
+                android:text="@string/rules_friendly"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelFriendly"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
+            <TextView
                     style="@style/rules_explainer"
-                    android:text="@string/rules_friendly_explain" />
+                    android:text="@string/rules_friendly_explain"/>
 
-                <ImageView
+            <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_friendly" />
-            </LinearLayout>
+                    android:src="@drawable/rules_friendly"/>
+        </LinearLayout>
 
-            <Button
+        <Button
                 android:id="@+id/btnFun"
                 style="@style/rules_button"
-                android:text="@string/rules_fun" />
+                android:text="@string/rules_fun"/>
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/panelFun"
                 style="@style/rules_panel_wrapper">
 
-                <TextView
-                    style="@style/rules_explainer"
-                    android:text="@string/rules_fun_explain" />
-
-                <ImageView
-                    style="@style/rules_image"
-                    android:src="@drawable/rules_fun" />
-            </LinearLayout>
-
             <TextView
-                style="@style/rules_image_source_text"
-                android:text="@string/rules_image_source" />
+                    style="@style/rules_explainer"
+                    android:text="@string/rules_fun_explain"/>
 
+            <ImageView
+                    style="@style/rules_image"
+                    android:src="@drawable/rules_fun"/>
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+        <TextView
+                style="@style/rules_image_source_text"
+                android:text="@string/rules_image_source"/>
+    </LinearLayout>
+</ScrollView>
