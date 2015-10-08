@@ -62,5 +62,9 @@ public class RulesFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        currentlyShownPanel = null;
+    }
 }
