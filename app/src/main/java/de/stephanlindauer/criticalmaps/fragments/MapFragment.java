@@ -177,6 +177,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mapView = null;
         ButterKnife.unbind(this);
     }
 
