@@ -2,7 +2,6 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,12 +148,7 @@ public class MapFragment extends Fragment {
 
         eventService.register(this);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshView();
-            }
-        }, 200);
+        refreshView();
     }
 
     private void handleFirstLocationUpdate() {
@@ -197,13 +191,7 @@ public class MapFragment extends Fragment {
     }
 
     private void animateToLocation(final GeoPoint location) {
-        // TODO handler necessary?
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mapView.getController().animateTo(location);
-            }
-        }, 200);
+        mapView.getController().animateTo(location);
     }
 
     private void setToLocation(GeoPoint lastKnownLocation) {
