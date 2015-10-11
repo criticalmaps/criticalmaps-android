@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,53 +82,37 @@ public class MapFragment extends Fragment {
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
-        mapView.invalidate();
-
-        setLastKnownLocationBoundingBox();
-        setLastKnownLocationMapIcon();
 
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (ownLocationModel.ownLocation != null)
-                    mapView.getController().animateTo(ownLocationModel.ownLocation);
+                    animateToLocation(ownLocationModel.ownLocation);
             }
         });
+
+        setMapAndOverlayState();
     }
 
-    private void setLastKnownLocationBoundingBox() {
-        final GeoPoint lastKnownLocation = locationManager.getLastKnownLocation();
-        if (lastKnownLocation != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mapView.getController().animateTo(lastKnownLocation);
-                }
-            }, 200);
-        }
-    }
-
-    private void setLastKnownLocationMapIcon() {
-        final GeoPoint ownLocation = ownLocationModel.ownLocation;
-        if (ownLocation != null) {
-            isInitialLocationSet = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mapView.getController().animateTo(ownLocation);
-                }
-            }, 200);
-        } else {
+    private void setMapAndOverlayState() {
+        // fresh start or recreated before first location was found
+        if (ownLocationModel.ownLocation == null) {
             searchingForLocationOverlay.setVisibility(View.VISIBLE);
+
+            GeoPoint lastKnownLocation = locationManager.getLastKnownLocation();
+            if (lastKnownLocation != null) {
+                setToLocation(lastKnownLocation);
+            }
+        } else {
+            // if first location was already handled before just set current location
+            if (isInitialLocationSet) {
+                setToLocation(ownLocationModel.ownLocation);
+            }
         }
     }
 
     private void refreshView() {
-        if (ownLocationModel.ownLocation != null) {
-            searchingForLocationOverlay.setVisibility(View.GONE);
-        }
-
         mapView.getOverlays().clear();
-        
+
         if (sternfahrtModel.shouldShowSternfahrtRoutes) {
             ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
             for (Polyline route : sternfahrtOverlays) {
@@ -163,6 +146,12 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        // we got the first location while the app was in background
+        if (ownLocationModel.ownLocation != null && !isInitialLocationSet){
+            handleFirstLocationUpdate();
+        }
+
         eventService.register(this);
 
         new Handler().postDelayed(new Runnable() {
@@ -171,6 +160,12 @@ public class MapFragment extends Fragment {
                 refreshView();
             }
         }, 200);
+    }
+
+    private void handleFirstLocationUpdate() {
+        searchingForLocationOverlay.setVisibility(View.GONE);
+        animateToLocation(ownLocationModel.ownLocation);
+        isInitialLocationSet = true;
     }
 
     @Override
@@ -192,31 +187,30 @@ public class MapFragment extends Fragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
-        setSearchingForLocationOverlayState();
-        refreshView();
-    }
-
-    public void setSearchingForLocationOverlayState() {
-        if (ownLocationModel.ownLocation != null) {
-            searchingForLocationOverlay.setVisibility(View.GONE);
-        }
+        // if this is the first location update handle it accordingly
         if (!isInitialLocationSet) {
-            zoomToCurrentLocation();
-            isInitialLocationSet = true;
+            handleFirstLocationUpdate();
         }
-    }
 
-    private void zoomToCurrentLocation() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mapView.getController().animateTo(ownLocationModel.ownLocation);
-            }
-        }, 200);
+        refreshView();
     }
 
     @Subscribe
     public void handleNewOverlayConfig(NewOverlayConfigEvent e) {
         refreshView();
+    }
+
+    private void animateToLocation(final GeoPoint location) {
+        // TODO handler necessary?
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mapView.getController().animateTo(location);
+            }
+        }, 200);
+    }
+
+    private void setToLocation(GeoPoint lastKnownLocation) {
+        mapView.getController().setCenter(lastKnownLocation);
     }
 }
