@@ -135,12 +135,7 @@ public class MapFragment extends Fragment {
             mapView.getOverlays().add(ownMarker);
         }
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mapView.invalidate();
-            }
-        });
+        mapView.invalidate();
     }
 
     @Override
