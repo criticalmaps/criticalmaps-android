@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:background="@color/location_search_background"
+    android:alpha="0.8"
     tools:showIn="@layout/fragment_map">
 
     <LinearLayout
