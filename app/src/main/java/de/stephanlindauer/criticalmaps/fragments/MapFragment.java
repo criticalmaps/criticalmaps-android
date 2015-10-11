@@ -80,7 +80,7 @@ public class MapFragment extends Fragment {
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
 
-        mapView = MapViewUtils.createMapView(getActivity());
+        mapView = MapViewUtils.createMapView(getActivity(), resourceProxy);
         mapContainer.addView(mapView);
 
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
