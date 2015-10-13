@@ -43,7 +43,7 @@ public class OutgoingChatMessage implements IChatMessage {
         try {
             return URLEncoder.encode(messageToEncode, Util.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
+            return "";
         }
-        return "";
     }
 }
