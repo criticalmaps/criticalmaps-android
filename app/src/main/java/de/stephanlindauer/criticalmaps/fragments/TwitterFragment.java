@@ -44,8 +44,6 @@ public class TwitterFragment extends Fragment {
 
     //adapter
     private TweetAdapter tweetAdapter;
-    //misc
-    private final TwitterFragment thiz = this;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +64,7 @@ public class TwitterFragment extends Fragment {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new TwitterGetHandler(thiz).execute();
+                new TwitterGetHandler(TwitterFragment.this).execute();
             }
         });
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.darker_gray);
@@ -74,7 +72,7 @@ public class TwitterFragment extends Fragment {
         errorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TwitterGetHandler(thiz).execute();
+                new TwitterGetHandler(TwitterFragment.this).execute();
                 loadingSpinner.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.GONE);
             }
