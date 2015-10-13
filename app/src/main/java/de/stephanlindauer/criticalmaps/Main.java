@@ -106,7 +106,7 @@ public class Main extends AppCompatActivity {
         Email.setType("text/email");
         Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephanlindauer@posteo.de"});
         Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps");
-        Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString(this.getPackageManager(), this.getPackageName()));
+        Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString());
         startActivity(Intent.createChooser(Email, "Send Feedback:"));
     }
 
