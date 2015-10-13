@@ -8,6 +8,7 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 public class ImageUtils {
 
@@ -67,6 +68,7 @@ public class ImageUtils {
             }
         }
 
-        return new File(mediaStorageDir.getPath() + File.separator + RandomStringGenerator.getRandomString(32) + ".jpg");
+        final String id = UUID.randomUUID().toString().replace("-", "");
+        return new File(mediaStorageDir.getPath() + File.separator + id + ".jpg");
     }
 }
