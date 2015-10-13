@@ -31,13 +31,14 @@ public class TwitterModel {
 
         for (int i = 0, statusesArrayLength = statusesArray.length(); i < statusesArrayLength; i++) {
             JSONObject currentStatus = statusesArray.getJSONObject(i);
+            final JSONObject user = currentStatus.getJSONObject("user");
             Tweet tweet = new Tweet()
-                    .setUserName(currentStatus.getJSONObject("user").getString("name"))
-                    .setUserScreenName(currentStatus.getJSONObject("user").getString("screen_name"))
+                    .setUserName(user.getString("name"))
+                    .setUserScreenName(user.getString("screen_name"))
                     .setTweetId(currentStatus.getString("id_str"))
                     .setText(currentStatus.getString("text"))
                     .setTimestamp(TwitterUtils.getTwitterDate(currentStatus.getString("created_at")))
-                    .setProfileImageUrl(currentStatus.getJSONObject("user").getString("profile_image_url_https"));
+                    .setProfileImageUrl(user.getString("profile_image_url_https"));
 
             tweets.add(tweet);
         }
