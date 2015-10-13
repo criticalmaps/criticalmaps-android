@@ -82,7 +82,7 @@ public class ChatModel {
                 messageObject.put("timestamp", outgoingChatMessage.getTimestamp().getTime());
                 messageObject.put("identifier", outgoingChatMessage.getIdentifier());
                 jsonArray.put(messageObject);
-            } catch (JSONException e) {
+            } catch (JSONException ignored) {
             }
         }
         return jsonArray;
@@ -97,6 +97,6 @@ public class ChatModel {
     }
 
     public boolean hasOutgoingMessages() {
-        return outgoingMassages.size() > 0;
+        return !outgoingMassages.isEmpty();
     }
 }
