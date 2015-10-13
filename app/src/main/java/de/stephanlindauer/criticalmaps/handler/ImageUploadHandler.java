@@ -46,19 +46,17 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
     @Override
     protected ResultType doInBackground(Void... params) {
         try {
-            HttpURLConnection connection = null;
-            DataOutputStream dataOutputStream = null;
-            String lineEnd = "\r\n";
-            String twoHyphens = "--";
-            String boundary = "*****";
+            final String lineEnd = "\r\n";
+            final String twoHyphens = "--";
+            final String boundary = "*****";
+            final int maxBufferSize = 32 * 1024;
+
             int bytesRead, bytesAvailable, bufferSize;
-            byte[] buffer;
-            int maxBufferSize = 32 * 1024;
 
             FileInputStream fileInputStream = new FileInputStream(imageFileToUpload);
             URL url = new URL(Endpoints.IMAGE_POST);
 
-            connection = (HttpURLConnection) url.openConnection();
+            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setUseCaches(false);
@@ -70,7 +68,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
             connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
 
-            dataOutputStream = new DataOutputStream(connection.getOutputStream());
+            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
             dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
             dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + "data" + "\"" + lineEnd);
@@ -89,7 +87,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             totalAmountBytesToUpload = bytesAvailable;
 
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
+            byte[] buffer = new byte[bufferSize];
 
             bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
@@ -104,9 +102,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             dataOutputStream.writeBytes(lineEnd);
             dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-
             int serverResponseCode = connection.getResponseCode();
-            String serverResponseMessage = connection.getResponseMessage();
 
             if (serverResponseCode != 200) {
                 throw new Exception();
