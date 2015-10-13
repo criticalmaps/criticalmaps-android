@@ -2,35 +2,22 @@ package de.stephanlindauer.criticalmaps.utils;
 
 import android.location.Location;
 import android.location.LocationManager;
-
+import android.support.annotation.Nullable;
 import org.osmdroid.util.GeoPoint;
 
+import static android.location.LocationManager.*;
+
 public class LocationUtils {
+    @Nullable
     public static GeoPoint getBestLastKnownLocation(LocationManager locationManager) {
-        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Location lastKnownLocationGps = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (lastKnownLocationGps != null) {
-                return new GeoPoint(
-                        lastKnownLocationGps.getLatitude(),
-                        lastKnownLocationGps.getLongitude());
-            }
-        }
+        final String[] providers = new String[]{GPS_PROVIDER, NETWORK_PROVIDER, PASSIVE_PROVIDER};
 
-        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            Location lastKnownLocationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (lastKnownLocationNetwork != null) {
-                return new GeoPoint(
-                        lastKnownLocationNetwork.getLatitude(),
-                        lastKnownLocationNetwork.getLongitude());
-            }
-        }
-
-        if (locationManager.getAllProviders().contains(LocationManager.PASSIVE_PROVIDER) && locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
-            Location lastKnownLocationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-            if (lastKnownLocationPassive != null) {
-                return new GeoPoint(
-                        lastKnownLocationPassive.getLatitude(),
-                        lastKnownLocationPassive.getLongitude());
+        for (String provider : providers) {
+            if (locationManager.getAllProviders().contains(provider) && locationManager.isProviderEnabled(provider)) {
+                final Location location = locationManager.getLastKnownLocation(provider);
+                if (location != null) {
+                    return new GeoPoint(location.getLatitude(), location.getLongitude());
+                }
             }
         }
 
