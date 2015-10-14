@@ -9,8 +9,11 @@ public class OwnLocationModel {
     public GeoPoint ownLocation;
 
     public boolean isListeningForLocation = false;
+
     //singleton
     private static OwnLocationModel instance;
+
+    private OwnLocationModel() {}
 
     public static OwnLocationModel getInstance() {
         if (OwnLocationModel.instance == null) {
@@ -29,6 +32,4 @@ public class OwnLocationModel {
         }
         return locationObject;
     }
-
-
 }

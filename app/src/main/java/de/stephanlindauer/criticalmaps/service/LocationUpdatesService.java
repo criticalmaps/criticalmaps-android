@@ -36,6 +36,8 @@ public class LocationUpdatesService {
     //singleton
     private static LocationUpdatesService instance;
 
+    private LocationUpdatesService() {}
+
     public static LocationUpdatesService getInstance() {
         if (LocationUpdatesService.instance == null) {
             LocationUpdatesService.instance = new LocationUpdatesService();

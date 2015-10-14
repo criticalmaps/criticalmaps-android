@@ -8,10 +8,12 @@ import static android.provider.Settings.Secure.getString;
 
 public class UserModel {
 
+    private String uniqueDeviceIdHashed;
+
     //singleton
     private static UserModel instance;
 
-    private String uniqueDeviceIdHashed;
+    private UserModel() {}
 
     public static UserModel getInstance() {
         if (UserModel.instance == null) {

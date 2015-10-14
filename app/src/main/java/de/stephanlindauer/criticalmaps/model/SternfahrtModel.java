@@ -54,6 +54,8 @@ public class SternfahrtModel {
     //singleton
     private static SternfahrtModel instance;
 
+    private SternfahrtModel () {}
+
     public static SternfahrtModel getInstance() {
         if (SternfahrtModel.instance == null) {
             SternfahrtModel.instance = new SternfahrtModel();

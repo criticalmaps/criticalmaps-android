@@ -26,6 +26,8 @@ public class ChatModel {
     //singleton
     private static ChatModel instance;
 
+    private ChatModel() {}
+
     public static ChatModel getInstance() {
         if (ChatModel.instance == null) {
             ChatModel.instance = new ChatModel();
