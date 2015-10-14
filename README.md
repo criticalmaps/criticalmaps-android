@@ -1,37 +1,37 @@
-# critical mass android app
+# Critical Mass Android App
 
 [![Build Status](https://travis-ci.org/criticalmaps/criticalmaps-android.svg)](https://travis-ci.org/criticalmaps/criticalmaps-android)
 
-## what's "critical mass"?
+## What's "Critical Mass"?
 
 >Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
 
 http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
-## what's this app?
+## What's this App?
 
-this app tracks your location and shares it via a map with all other participants of the critical mass bicycle protest. you can use the chat to communicate with all other participants.
+This app tracks your location and shares it via a map with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
 
-## where can i get the app?
+## Where can i get the app?
 
-play store: https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
+Play Store: https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
 
-f-droid: https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps
+F-Droid: https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps
 
-## is there a version for ios devices?
+## Is there a version for iOS devices?
 
-yep! here: https://github.com/CriticalMaps/criticalmaps-ios
+Yep! Here: https://github.com/CriticalMaps/criticalmaps-ios
 
-## contribute
+## Contribute
 
-*   if you can code: just go ahead and send me a pull request.
-*   if you find bugs: file them in the github issue tracking system.
-*   if you have moneyz left to burn: help us finance the server.
+*   If you can code: Just go ahead and send us a pull request.
+*   If you find bugs: File them in the github issue tracking system.
+*   If you have moneyz left to burn: Help us finance the server.
 
-## can i haz more informations?
+## Can i haz more informations?
 
-check: http://criticalmaps.net
+Check: http://criticalmaps.net
 
-## app screenshot
+## App screenshot
 
 ![app-screenshot](https://raw.githubusercontent.com/criticalmaps/media/master/android/screenshots/CriticalMaps-Maps-Berlin.jpg)
