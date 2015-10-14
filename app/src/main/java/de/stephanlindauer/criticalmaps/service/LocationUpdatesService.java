@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.Date;
@@ -63,20 +64,19 @@ public class LocationUpdatesService {
         locationManager.removeUpdates(locationListener);
     }
 
+    @Nullable
     public GeoPoint getLastKnownLocation() {
-        GeoPoint lastKnownLocation = null;
         if (sharedPreferences.contains("latitude") && sharedPreferences.contains("longitude") && sharedPreferences.contains("timestamp")) {
             Date timestampLastCoords = new Date(sharedPreferences.getLong("timestamp", 0));
             if (!DateUtils.isLongerAgoThen5Minutes(timestampLastCoords)) {
-                lastKnownLocation = new GeoPoint(
+                return new GeoPoint(
                         Double.parseDouble(sharedPreferences.getString("latitude", "")),
                         Double.parseDouble(sharedPreferences.getString("longitude", "")));
             }
         } else {
-            lastKnownLocation = LocationUtils.getBestLastKnownLocation(locationManager);
+            return LocationUtils.getBestLastKnownLocation(locationManager);
         }
-
-        return lastKnownLocation;
+        return null;
     }
 
     private final LocationListener locationListener = new LocationListener() {
