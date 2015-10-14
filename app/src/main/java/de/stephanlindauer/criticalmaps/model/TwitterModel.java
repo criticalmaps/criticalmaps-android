@@ -17,6 +17,8 @@ public class TwitterModel {
     //singleton
     private static TwitterModel instance;
 
+    private TwitterModel() {}
+
     public static TwitterModel getInstance() {
         if (TwitterModel.instance == null) {
             TwitterModel.instance = new TwitterModel();

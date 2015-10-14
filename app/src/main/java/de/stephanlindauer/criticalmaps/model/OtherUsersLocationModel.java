@@ -9,10 +9,12 @@ import java.util.Iterator;
 
 public class OtherUsersLocationModel {
 
+    private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<>();
+
     //singleton
     private static OtherUsersLocationModel instance;
 
-    private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<>();
+    private OtherUsersLocationModel() {}
 
     public static OtherUsersLocationModel getInstance() {
         if (OtherUsersLocationModel.instance == null) {

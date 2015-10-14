@@ -9,6 +9,8 @@ public class EventBusProvider {
     //singleton
     private static EventBusProvider instance;
 
+    private EventBusProvider() {}
+
     public static EventBusProvider getInstance() {
         if (instance == null) {
             instance = new EventBusProvider();
