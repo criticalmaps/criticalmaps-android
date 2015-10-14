@@ -32,6 +32,6 @@ yep! here: https://github.com/CriticalMaps/criticalmaps-ios
 
 check: http://criticalmaps.net
 
+## app screenshot
 
-
-[app-screenshot] https://raw.githubusercontent.com/criticalmaps/media/master/android/screenshots/CriticalMaps-Maps-Berlin.jpg
+![app-screenshot](https://raw.githubusercontent.com/criticalmaps/media/master/android/screenshots/CriticalMaps-Maps-Berlin.jpg)
