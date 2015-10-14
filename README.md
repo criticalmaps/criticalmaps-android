@@ -1,4 +1,4 @@
-# critical mass android app 
+# critical mass android app
 
 [![Build Status](https://travis-ci.org/criticalmaps/criticalmaps-android.svg)](https://travis-ci.org/criticalmaps/criticalmaps-android)
 
@@ -19,7 +19,7 @@ play store: https://play.google.com/store/apps/details?id=de.stephanlindauer.cri
 f-droid: https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps
 
 ## is there a version for ios devices?
-                                                          
+
 yep! here: https://github.com/CriticalMaps/criticalmaps-ios
 
 ## contribute
@@ -31,3 +31,7 @@ yep! here: https://github.com/CriticalMaps/criticalmaps-ios
 ## can i haz more informations?
 
 check: http://criticalmaps.net
+
+
+
+[app-screenshot] https://raw.githubusercontent.com/criticalmaps/media/master/android/screenshots/CriticalMaps-Maps-Berlin.jpg
