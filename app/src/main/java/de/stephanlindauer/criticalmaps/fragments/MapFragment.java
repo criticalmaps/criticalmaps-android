@@ -113,7 +113,7 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().clear();
 
         if (sternfahrtModel.shouldShowSternfahrtRoutes) {
-            ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity());
+            ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity().getApplication());
             for (Polyline route : sternfahrtOverlays) {
                 mapView.getOverlays().add(route);
             }
