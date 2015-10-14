@@ -1,4 +1,4 @@
-# critical mass android app 
+# critical mass android app
 
 [![Build Status](https://travis-ci.org/criticalmaps/criticalmaps-android.svg)](https://travis-ci.org/criticalmaps/criticalmaps-android)
 
@@ -10,6 +10,8 @@ http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 ## what's this app?
 
+![critical mass android app][app-screenshot]
+
 this app tracks your location and shares it via a map with all other participants of the critical mass bicycle protest. you can use the chat to communicate with all other participants.
 
 ## where can i get the app?
@@ -19,7 +21,7 @@ play store: https://play.google.com/store/apps/details?id=de.stephanlindauer.cri
 f-droid: https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps
 
 ## is there a version for ios devices?
-                                                          
+
 yep! here: https://github.com/CriticalMaps/criticalmaps-ios
 
 ## contribute
@@ -31,3 +33,8 @@ yep! here: https://github.com/CriticalMaps/criticalmaps-ios
 ## can i haz more informations?
 
 check: http://criticalmaps.net
+
+
+
+
+[app-screenshot]: misc/showcase/CriticalMaps-Maps-Berlin.jpg
