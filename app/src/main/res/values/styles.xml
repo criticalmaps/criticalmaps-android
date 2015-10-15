@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat">
+    </style>
+
     <style name="rules_explainer">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/rules_explainer_text</item>
