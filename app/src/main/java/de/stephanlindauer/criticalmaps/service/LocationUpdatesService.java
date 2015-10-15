@@ -90,7 +90,7 @@ public class LocationUpdatesService {
                     .putString("latitude", String.valueOf(location.getLatitude()))
                     .putString("longitude", String.valueOf(location.getLongitude()))
                     .putLong("timestamp", new Date().getTime())
-                    .commit();
+                    .apply();
         }
 
         @Override
