@@ -26,6 +26,8 @@ import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
+import org.ligi.axt.AXT;
+import org.ligi.axt.simplifications.SimpleTextWatcher;
 
 public class ChatFragment extends Fragment {
 
@@ -108,17 +110,7 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        editMessageTextField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+        editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 sendButton.setVisibility(s.length() == 0 ? View.GONE : View.VISIBLE);
@@ -173,6 +165,7 @@ public class ChatFragment extends Fragment {
     public void onPause() {
         super.onPause();
         eventService.unregister(this);
+        AXT.at(editMessageTextField).hideKeyBoard();
     }
 
     @Override

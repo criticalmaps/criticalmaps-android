@@ -1,36 +1,42 @@
 package de.stephanlindauer.criticalmaps;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.annotation.IdRes;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
-import de.stephanlindauer.criticalmaps.adapter.TabsPagerAdapter;
+
+import java.io.File;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
-import de.stephanlindauer.criticalmaps.helper.CustomViewPager;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
-import java.io.File;
 
-public class Main extends AppCompatActivity {
+public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //dependencies
     private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
@@ -40,6 +46,30 @@ public class Main extends AppCompatActivity {
 
     //misc
     private File newCameraOutputFile;
+    private int currentNavId;
+
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @Bind(R.id.drawer_navigation)
+    NavigationView drawerNavigation;
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        drawerNavigation.setNavigationItemSelectedListener(this);
+
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+        navigateTo(R.id.navigation_map);
+    }
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -47,7 +77,7 @@ public class Main extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        setupTabs();
+        ButterKnife.bind(this);
 
         new PrerequisitesChecker(this).execute();
 
@@ -56,6 +86,7 @@ public class Main extends AppCompatActivity {
         locationUpdatesService.initialize(getApplication());
 
         startSyncService();
+
     }
 
     @Override
@@ -149,42 +180,26 @@ public class Main extends AppCompatActivity {
         startService(syncServiceIntent);
     }
 
-    private void setupTabs() {
-        CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
-
-        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getApplication(), getSupportFragmentManager());
-        viewPager.setAdapter(tabsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setTabsFromPagerAdapter(tabsPagerAdapter);
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-            private void hideKeyBoard() {
-                EditText editMessageTextfield = (EditText) findViewById(R.id.chat_edit_message);
-
-                if (editMessageTextfield == null)
-                    return;
-
-                editMessageTextfield.clearFocus();
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(editMessageTextfield.getWindowToken(), 0);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                super.onTabUnselected(tab);
-
-                if (getResources().getString(R.string.section_chat).equals(tab.getText())) {
-                    hideKeyBoard();
-                }
-            }
-        });
-    }
-
     @Override
     public void onAttachedToWindow() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        item.setChecked(true);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        navigateTo(item.getItemId());
+        return true;
+    }
+
+    private void navigateTo(@IdRes int navId) {
+        if (currentNavId == navId) {
+            return; // no need for action - stupid user got lost and clicked on current
+        }
+        currentNavId = navId;
+        final Fragment nextFragment = FragmentProvider.getFragmentForNavId(navId);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).commit();
     }
 
 }
