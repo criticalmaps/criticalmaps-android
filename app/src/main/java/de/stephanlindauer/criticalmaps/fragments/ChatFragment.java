@@ -4,24 +4,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputFilter;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.TextWatcher;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import butterknife.OnClick;
-import com.squareup.otto.Subscribe;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -51,6 +46,9 @@ public class ChatFragment extends Fragment {
 
     @Bind(R.id.searching_for_location_overlay_chat)
     RelativeLayout searchingForLocationOverlay;
+
+    @Bind(R.id.chat_send_btn)
+    FloatingActionButton sendButton;
 
     //adapter
     private ChatMessageAdapter chatMessageAdapter;
@@ -110,6 +108,23 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        editMessageTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                sendButton.setVisibility(s.length() == 0 ? View.GONE : View.VISIBLE);
+            }
+        });
+
         if (ownLocationModel.ownLocation == null) {
             searchingForLocationOverlay.setVisibility(View.VISIBLE);
         }
@@ -129,8 +144,9 @@ public class ChatFragment extends Fragment {
         chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
         chatListView.setAdapter(chatMessageAdapter);
 
-        if (!isScrolling)
+        if (!isScrolling) {
             chatListView.setSelection(chatListView.getCount());
+        }
     }
 
     private void refreshView() {
@@ -139,8 +155,9 @@ public class ChatFragment extends Fragment {
                 chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
                 chatListView.setAdapter(chatMessageAdapter);
 
-                if (!isScrolling)
+                if (!isScrolling) {
                     chatListView.setSelection(chatListView.getCount());
+                }
             }
         });
     }

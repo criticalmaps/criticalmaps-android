@@ -38,6 +38,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_top"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
@@ -62,6 +63,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_action_send"
                     app:elevation="4dp"
+                    app:fabSize="mini"
+                    android:visibility="gone"
                     android:layout_gravity="bottom"
                     android:layout_margin="8dp"
                     />
