@@ -1,7 +1,10 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +17,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.OnClick;
 import com.squareup.otto.Subscribe;
 
 import butterknife.Bind;
@@ -22,6 +26,7 @@ import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
@@ -38,11 +43,11 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.chat_list)
     ListView chatListView;
 
+    @Bind(R.id.text_input_layout)
+    TextInputLayout textInputLayout;
+
     @Bind(R.id.chat_edit_message)
     EditText editMessageTextField;
-
-    @Bind(R.id.chat_send_btn)
-    Button sendButton;
 
     @Bind(R.id.searching_for_location_overlay_chat)
     RelativeLayout searchingForLocationOverlay;
@@ -74,6 +79,9 @@ public class ChatFragment extends Fragment {
 
         chatListView.setSelection(chatListView.getCount());
 
+        textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
+        editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
+
         chatListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -102,24 +110,18 @@ public class ChatFragment extends Fragment {
             }
         });
 
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleSendClicked();
-            }
-        });
-
         if (ownLocationModel.ownLocation == null) {
             searchingForLocationOverlay.setVisibility(View.VISIBLE);
         }
     }
 
-    private void handleSendClicked() {
+    @OnClick(R.id.chat_send_btn)
+    void handleSendClicked() {
         String message = editMessageTextField.getText().toString();
 
-        if (message.equals(""))
+        if (message.isEmpty()) {
             return;
+        }
 
         chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
 
