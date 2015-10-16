@@ -45,6 +45,10 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     @Override
     protected void onPostExecute(ResultType resultType) {
+        if (!twitterFragment.isAdded()) {
+            return;
+        }
+
         if (resultType == ResultType.FAILED) {
             twitterFragment.showErrorMessage();
         } else {
