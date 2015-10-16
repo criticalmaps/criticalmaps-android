@@ -29,7 +29,7 @@ public class ApplicationCloseHandler {
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.AlertDialogTheme);
         builder.setMessage(R.string.close).setPositiveButton(R.string.yes, dialogClickListener)
                 .setNegativeButton(R.string.no, dialogClickListener).show();
     }
