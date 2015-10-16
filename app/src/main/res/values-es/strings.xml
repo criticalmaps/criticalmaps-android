@@ -65,7 +65,7 @@
     <!-- fragment_chat -->
     <string name="chat_heading">Los mensajes se borrarán después de 30 minutos.</string>
     <string name="chat_send">Enviar</string>
-    <string name="chat_text">255 cáracteres disponibles &#8230;</string>
+    <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Enviando &#8230;</string>
 
     <!-- fragment_about -->

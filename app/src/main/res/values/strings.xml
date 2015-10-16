@@ -67,7 +67,7 @@
     <!-- fragment_chat -->
     <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
     <string name="chat_send">Send</string>
-    <string name="chat_text">You have 255 characters &#8230;</string>
+    <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Sending &#8230;</string>
 
     <!-- fragment_about -->

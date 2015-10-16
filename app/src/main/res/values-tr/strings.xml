@@ -67,7 +67,7 @@
     <!-- fragment_chat -->
     <string name="chat_heading">Mesajlar 30 dakika sonra silinecek.</string>
     <string name="chat_send">Gönder</string>
-    <string name="chat_text">En fazla 255 karakter &#8230;</string>
+    <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Gönderiliyor &#8230;</string>
 
     <!-- fragment_about -->

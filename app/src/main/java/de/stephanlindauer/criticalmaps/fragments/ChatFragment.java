@@ -1,27 +1,27 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.squareup.otto.Subscribe;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
@@ -38,14 +38,17 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.chat_list)
     ListView chatListView;
 
+    @Bind(R.id.text_input_layout)
+    TextInputLayout textInputLayout;
+
     @Bind(R.id.chat_edit_message)
     EditText editMessageTextField;
 
-    @Bind(R.id.chat_send_btn)
-    Button sendButton;
-
     @Bind(R.id.searching_for_location_overlay_chat)
     RelativeLayout searchingForLocationOverlay;
+
+    @Bind(R.id.chat_send_btn)
+    FloatingActionButton sendButton;
 
     //adapter
     private ChatMessageAdapter chatMessageAdapter;
@@ -73,6 +76,9 @@ public class ChatFragment extends Fragment {
         chatMessageAdapter.notifyDataSetChanged();
 
         chatListView.setSelection(chatListView.getCount());
+
+        textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
+        editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
 
         chatListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -102,11 +108,20 @@ public class ChatFragment extends Fragment {
             }
         });
 
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        editMessageTextField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                handleSendClicked();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                sendButton.setVisibility(s.length() == 0 ? View.GONE : View.VISIBLE);
             }
         });
 
@@ -115,11 +130,13 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    private void handleSendClicked() {
+    @OnClick(R.id.chat_send_btn)
+    void handleSendClicked() {
         String message = editMessageTextField.getText().toString();
 
-        if (message.equals(""))
+        if (message.isEmpty()) {
             return;
+        }
 
         chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
 
@@ -127,8 +144,9 @@ public class ChatFragment extends Fragment {
         chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
         chatListView.setAdapter(chatMessageAdapter);
 
-        if (!isScrolling)
+        if (!isScrolling) {
             chatListView.setSelection(chatListView.getCount());
+        }
     }
 
     private void refreshView() {
@@ -137,8 +155,9 @@ public class ChatFragment extends Fragment {
                 chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
                 chatListView.setAdapter(chatMessageAdapter);
 
-                if (!isScrolling)
+                if (!isScrolling) {
                     chatListView.setSelection(chatListView.getCount());
+                }
             }
         });
     }

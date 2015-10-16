@@ -70,7 +70,7 @@
     <!-- fragment_chat -->
     <string name="chat_heading">Nachrichten werden nach 30 Minuten wieder gelöscht.</string>
     <string name="chat_send">Senden</string>
-    <string name="chat_text">Du hast 255 Zeichen &#8230;</string>
+    <string name="chat_text">Deine Nachicht &#8230;</string>
     <string name="chat_sending">Sende &#8230;</string>
 
     <!-- fragment_about -->
