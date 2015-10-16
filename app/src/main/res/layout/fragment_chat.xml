@@ -1,73 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/chat_background"
-    android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants"
-    tools:menu="actionbar_buttons">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:background="@color/chat_background"
+             android:orientation="vertical"
+             android:focusable="true"
+             android:focusableInTouchMode="true"
+             android:descendantFocusability="beforeDescendants"
+             tools:menu="actionbar_buttons">
 
-    <LinearLayout android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
         <TextView
-            android:id="@+id/chat_heading"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_bottom"
-            android:padding="10dp"
-            android:text="@string/chat_heading" />
+                android:id="@+id/chat_heading"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:padding="10dp"
+                android:text="@string/chat_heading"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chat_heading"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ListView
+        <ListView
                 android:id="@+id/chat_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_gravity="bottom"
                 android:drawSelectorOnTop="false"
                 android:orientation="vertical"
-                tools:listitem="@layout/view_chatmessage" />
-
-        </LinearLayout>
+                tools:listitem="@layout/view_chatmessage"/>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/border_top"
-            android:orientation="horizontal">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_top"
+                android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/chat_edit_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/chat_text"
-                android:imeOptions="actionSend"
-                android:maxLength="255"
-                android:singleLine="true" />
+                    android:id="@+id/chat_edit_message"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/chat_text"
+                    android:imeOptions="actionSend"
+                    android:maxLength="255"
+                    android:singleLine="true"/>
 
             <Button
-                android:id="@+id/chat_send_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chat_send" />
+                    android:id="@+id/chat_send_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chat_send"/>
         </LinearLayout>
     </LinearLayout>
 
     <include
-        android:id="@+id/searching_for_location_overlay_chat"
-        layout="@layout/view_searching_for_location_overlay"
-        android:visibility="gone" />
-
-</RelativeLayout>
+            android:id="@+id/searching_for_location_overlay_chat"
+            layout="@layout/view_searching_for_location_overlay"
+            android:visibility="gone"/>
+</FrameLayout>
