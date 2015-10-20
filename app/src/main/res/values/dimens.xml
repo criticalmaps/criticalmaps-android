@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tweet -->
+    <dimen name="tweet_content_margin">10dp</dimen>
+    <dimen name="tweet_content_padding">5dp</dimen>
+    <dimen name="tweet_user_image_dimension">50dp</dimen>
+    <dimen name="tweet_user_image_margin">10dp</dimen>
+
+</resources>
