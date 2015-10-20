@@ -5,85 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ProgressBar
+        android:layout_width="@dimen/tweet_user_image_dimension"
+        android:layout_height="@dimen/tweet_user_image_dimension"
+        android:layout_margin="@dimen/tweet_user_image_margin"
+        android:layout_alignParentLeft="true"
+        android:background="@color/tweet_progress_bar_background" />
+
+    <ImageView
+        android:id="@+id/tweet_user_image"
+        android:layout_width="@dimen/tweet_user_image_dimension"
+        android:layout_height="@dimen/tweet_user_image_dimension"
+        android:layout_margin="@dimen/tweet_user_image_margin"
+        android:layout_alignParentLeft="true"
+        tools:src="@drawable/ic_logo" />
+
+    <TextView
+        android:id="@+id/tweet_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/tweet_content_margin"
+        android:layout_toRightOf="@id/tweet_user_image"
+        android:textStyle="bold"
+        tools:text="Critical Maps" />
 
-        <RelativeLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp">
+    <TextView
+        android:id="@+id/tweet_user_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tweet_user_name"
+        android:layout_marginTop="@dimen/tweet_content_padding"
+        android:layout_toRightOf="@id/tweet_user_image"
+        android:textStyle="italic"
+        tools:text="\@CriticalMaps" />
 
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/tweet_progress_bar_background" />
+    <TextView
+        android:id="@+id/tweet_creation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/tweet_content_margin"
+        android:layout_marginTop="@dimen/tweet_content_margin"
+        tools:text="01.01.2015" />
 
-            <ImageView
-                android:id="@+id/tweet_user_image"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                tools:src="@drawable/ic_logo" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tweet_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Critical Maps"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tweet_user_handle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tweet_user_name"
-                android:layout_marginTop="5dp"
-                tools:text="\@CriticalMaps"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/tweet_creation_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                tools:text="01.01.2015" />
-
-            <TextView
-                android:id="@+id/tweet_creation_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/tweet_creation_date"
-                android:layout_marginTop="5dp"
-                tools:text="19:30" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tweet_creation_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tweet_creation_date"
+        android:layout_marginRight="@dimen/tweet_content_margin"
+        android:layout_marginTop="@dimen/tweet_content_padding"
+        tools:text="19:30" />
 
     <TextView
         android:id="@+id/tweet_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="0dp"
+        android:layout_below="@+id/tweet_user_image"
+        android:layout_marginBottom="@dimen/tweet_content_margin"
+        android:layout_marginLeft="@dimen/tweet_content_margin"
+        android:layout_marginRight="@dimen/tweet_content_margin"
         tools:text="@string/lorem_ipsum" />
 
 </RelativeLayout>
