@@ -20,14 +20,12 @@ import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
-import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
@@ -42,7 +40,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
     private final UserModel userModel = UserModel.getInstance();
     private final EventBusProvider eventService = EventBusProvider.getInstance();
-    private final SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
 
     //misc
     private File newCameraOutputFile;
@@ -105,9 +102,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.take_picture:
                 new StartCameraHandler(this).execute();
                 break;
-            case R.id.show_sternfahrt:
-                handleShowSternfahrt(item);
-                break;
             case R.id.settings_feedback:
                 startFeedbackIntent();
                 break;
@@ -124,12 +118,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     public void handleCloseRequested() {
         new ApplicationCloseHandler(this).execute();
-    }
-
-    private void handleShowSternfahrt(MenuItem item) {
-        item.setChecked(!item.isChecked());
-        sternfahrtModel.shouldShowSternfahrtRoutes = item.isChecked();
-        eventService.post(new NewOverlayConfigEvent());
     }
 
     private void startFeedbackIntent() {

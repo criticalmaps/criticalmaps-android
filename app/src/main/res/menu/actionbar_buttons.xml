@@ -27,12 +27,6 @@
                 <!--android:showAsAction="collapseActionView"-->
                 <!--android:title="@string/tracking" />-->
             <item
-                android:id="@+id/show_sternfahrt"
-                android:checkable="true"
-                android:checked="false"
-                app:showAsAction="never"
-                android:title="@string/show_sternfahrt_routes" />
-            <item
                 android:id="@+id/settings_feedback"
                 app:showAsAction="never"
                 android:title="@string/feedback" />

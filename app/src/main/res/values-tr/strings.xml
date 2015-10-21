@@ -15,7 +15,6 @@
 
     <!-- acivity bar -->
     <string name="tracking">İzleme</string>
-    <string name="show_sternfahrt_routes">Rotaları göster</string>
     <string name="close_button">Kapat</string>
     <string name="feedback">Geribesleme</string>
     <string name="datenschutz">Gizlilik politikası</string>

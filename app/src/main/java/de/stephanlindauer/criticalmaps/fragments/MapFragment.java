@@ -12,22 +12,17 @@ import android.widget.RelativeLayout;
 import com.squareup.otto.Subscribe;
 
 import org.osmdroid.DefaultResourceProxyImpl;
-import org.osmdroid.bonuspack.overlays.Polyline;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
-import de.stephanlindauer.criticalmaps.events.NewOverlayConfigEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.model.SternfahrtModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
@@ -39,7 +34,6 @@ public class MapFragment extends Fragment {
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
     private EventBusProvider eventService = EventBusProvider.getInstance();
-    private SternfahrtModel sternfahrtModel = SternfahrtModel.getInstance();
     private LocationUpdatesService locationManager = LocationUpdatesService.getInstance();
 
     //view
@@ -112,13 +106,6 @@ public class MapFragment extends Fragment {
     private void refreshView() {
         mapView.getOverlays().clear();
 
-        if (sternfahrtModel.shouldShowSternfahrtRoutes) {
-            ArrayList<Polyline> sternfahrtOverlays = sternfahrtModel.getAllOverlays(getActivity().getApplication());
-            for (Polyline route : sternfahrtOverlays) {
-                mapView.getOverlays().add(route);
-            }
-        }
-
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             LocationMarker otherPeoplesMarker = new LocationMarker(mapView, resourceProxy);
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
@@ -182,11 +169,6 @@ public class MapFragment extends Fragment {
             handleFirstLocationUpdate();
         }
 
-        refreshView();
-    }
-
-    @Subscribe
-    public void handleNewOverlayConfig(NewOverlayConfigEvent e) {
         refreshView();
     }
 
