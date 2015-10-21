@@ -17,7 +17,6 @@
 
     <!-- activity bar -->
     <string name="tracking">Tracking</string>
-    <string name="show_sternfahrt_routes">Show sternfahrt routes</string>
     <string name="close_button">Close</string>
     <string name="feedback">Feedback</string>
     <string name="datenschutz">Privacy policy</string>
