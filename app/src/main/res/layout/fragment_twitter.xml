@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border_bottom"
         android:padding="10dp"
-        android:text="@string/twitter_heading"
-        tools:textColor="@android:color/holo_blue_light"/>
+        android:text="@string/twitter_heading" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
