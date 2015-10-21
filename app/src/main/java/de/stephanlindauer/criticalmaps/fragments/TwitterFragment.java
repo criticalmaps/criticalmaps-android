@@ -67,7 +67,10 @@ public class TwitterFragment extends Fragment {
                 new TwitterGetHandler(TwitterFragment.this).execute();
             }
         });
-        swipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+
+        swipeLayout.setColorSchemeResources(
+                R.color.twitter_indicator_color_first,
+                R.color.twitter_indicator_color_second);
 
         errorButton.setOnClickListener(new View.OnClickListener() {
             @Override

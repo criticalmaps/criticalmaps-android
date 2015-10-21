@@ -28,9 +28,18 @@
     <!-- Twitter -->
     <color name="twitter_background">@color/colorPrimaryDark</color>
     <color name="twitter_error_message_text">@color/material_red_900</color>
+    <color name="twitter_indicator_color_first">@color/colorAccent</color>
+    <color name="twitter_indicator_color_second">@color/colorPrimary</color>
 
     <!-- Tweet -->
     <color name="tweet_progress_bar_background">@color/colorPrimary</color>
+
+    <!-- Header/Footer used in chat and twitter fragment -->
+    <color name="border_bottom_background">@color/colorPrimaryDark</color>
+    <color name="border_bottom_divider">@color/colorAccent</color>
+
+    <color name="border_top_background">@color/colorPrimaryDark</color>
+    <color name="border_top_divider">@color/colorPrimary</color>
 
     <!-- Search for location overlay -->
     <color name="location_search_background">@color/window_background</color>
