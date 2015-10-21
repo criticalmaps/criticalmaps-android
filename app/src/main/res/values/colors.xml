@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Material colors used but not present in appcompat -->
+    <color name="material_red_900">#FFB71C1C</color>
+
     <!-- Theme Colors -->
     <color name="colorPrimary">@color/material_grey_800</color>
     <color name="colorPrimaryDark">@color/material_grey_900</color>
     <color name="colorAccent">@color/material_deep_teal_200</color>
+    <color name="window_background">@color/material_grey_850</color> <!-- appcompat default: material_grey_850  -->
 
     <!-- About -->
     <color name="about_background">@android:color/white</color>
-    <color name="about_heading_background">#ff0a0a0a</color>
+    <color name="about_heading_background">@color/colorPrimary</color>
     <color name="about_heading_text">@android:color/white</color>
     <color name="about_content_text">@android:color/black</color>
     <color name="about_button_text">@android:color/black</color>
 
     <!-- Chat -->
-    <color name="chat_background">#222</color>
+    <color name="chat_background">@color/colorPrimaryDark</color>
 
     <!-- Rules -->
     <color name="rules_background">@android:color/white</color>
@@ -22,13 +26,22 @@
     <color name="rules_button_text">@android:color/white</color>
 
     <!-- Twitter -->
-    <color name="twitter_background">#222</color>
-    <color name="twitter_error_message_text">#b20e17</color>
+    <color name="twitter_background">@color/colorPrimaryDark</color>
+    <color name="twitter_error_message_text">@color/material_red_900</color>
+    <color name="twitter_indicator_color_first">@color/colorAccent</color>
+    <color name="twitter_indicator_color_second">@color/colorPrimary</color>
 
     <!-- Tweet -->
-    <color name="tweet_progress_bar_background">#222</color>
+    <color name="tweet_progress_bar_background">@color/colorPrimary</color>
+
+    <!-- Header/Footer used in chat and twitter fragment -->
+    <color name="border_bottom_background">@color/colorPrimaryDark</color>
+    <color name="border_bottom_divider">@color/colorAccent</color>
+
+    <color name="border_top_background">@color/colorPrimaryDark</color>
+    <color name="border_top_divider">@color/colorPrimary</color>
 
     <!-- Search for location overlay -->
-    <color name="location_search_background">#444</color>
+    <color name="location_search_background">@color/window_background</color>
 
 </resources>
