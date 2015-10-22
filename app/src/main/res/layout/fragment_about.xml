@@ -20,19 +20,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/about_facebook"
-                style="@style/about_button"
-                android:drawableTop="@drawable/facebook"
-                android:gravity="left|center_vertical" />
+                android:src="@drawable/facebook"
+                style="@style/about_button" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/about_twitter"
-                style="@style/about_button"
-                android:drawableTop="@drawable/twitter"
-                android:gravity="left|center_vertical" />
+                android:src="@drawable/twitter"
+                style="@style/about_button" />
+            
         </LinearLayout>
 
         <TextView

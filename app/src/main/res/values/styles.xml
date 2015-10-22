@@ -77,16 +77,9 @@
     </style>
 
     <style name="about_button">
-        <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@color/about_button_text</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_marginRight">0dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">10dp</item>
         <item name="android:background">@null</item>
     </style>
 

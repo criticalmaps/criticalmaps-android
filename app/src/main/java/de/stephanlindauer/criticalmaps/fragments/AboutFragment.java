@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,10 +15,10 @@ import de.stephanlindauer.criticalmaps.utils.IntentUtil.URLOpenOnActivityOnClick
 public class AboutFragment extends Fragment {
 
     @Bind(R.id.about_facebook)
-    Button facebookButton;
+    ImageButton facebookButton;
 
     @Bind(R.id.about_twitter)
-    Button twitterButton;
+    ImageButton twitterButton;
 
 
     @Override
