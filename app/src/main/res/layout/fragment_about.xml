@@ -1,72 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/about_background"
-    android:orientation="vertical"
     tools:menu="actionbar_buttons">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/about_heading"
+            android:text="@string/about_heading_social" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/about_heading"
-                android:text="@string/about_heading_social" />
+            <Button
+                android:id="@+id/about_facebook"
+                style="@style/about_button"
+                android:drawableTop="@drawable/facebook"
+                android:gravity="left|center_vertical" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/about_facebook"
-                    style="@style/about_button"
-                    android:drawableTop="@drawable/facebook"
-                    android:gravity="left|center_vertical" />
-
-                <Button
-                    android:id="@+id/about_twitter"
-                    style="@style/about_button"
-                    android:drawableTop="@drawable/twitter"
-                    android:gravity="left|center_vertical" />
-            </LinearLayout>
-
-            <TextView
-                style="@style/about_heading"
-                android:text="@string/about_heading_website" />
-
-            <TextView
-                style="@style/about_content"
-                android:autoLink="web"
-                android:text="@string/about_text_map_url" />
-
-            <TextView
-                style="@style/about_heading"
-                android:text="@string/about_heading_contributions" />
-
-            <TextView
-                style="@style/about_content"
-                android:text="@string/about_text_contributors" />
-
-            <TextView
-                style="@style/about_heading"
-                android:text="@string/about_heading_code" />
-
-            <TextView
-                style="@style/about_content"
-                android:autoLink="web"
-                android:text="@string/about_text_github_url" />
+            <Button
+                android:id="@+id/about_twitter"
+                style="@style/about_button"
+                android:drawableTop="@drawable/twitter"
+                android:gravity="left|center_vertical" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
 
+        <TextView
+            style="@style/about_heading"
+            android:text="@string/about_heading_website" />
+
+        <TextView
+            style="@style/about_content"
+            android:autoLink="web"
+            android:text="@string/about_text_map_url" />
+
+        <TextView
+            style="@style/about_heading"
+            android:text="@string/about_heading_contributions" />
+
+        <TextView
+            style="@style/about_content"
+            android:text="@string/about_text_contributors" />
+
+        <TextView
+            style="@style/about_heading"
+            android:text="@string/about_heading_code" />
+
+        <TextView
+            style="@style/about_content"
+            android:autoLink="web"
+            android:text="@string/about_text_github_url" />
+    </LinearLayout>
+</ScrollView>
