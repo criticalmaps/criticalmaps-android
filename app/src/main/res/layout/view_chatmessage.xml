@@ -9,23 +9,28 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_marginRight="6dip"
+        android:layout_marginEnd="6dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:src="@drawable/chat_avatar" />
 
     <TextView
         android:id="@+id/firstLine"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:layout_toRightOf="@id/icon"
-        tools:text="Example application"
+        tools:text="3 minutes ago"
+        android:layout_toEndOf="@id/icon"
         android:textSize="11sp" />
 
     <TextView
         android:id="@+id/secondLine"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dip"
         android:layout_toRightOf="@id/icon"
+        android:layout_toEndOf="@id/icon"
         tools:text="@string/lorem_ipsum"
         android:textSize="14sp" />
 </RelativeLayout>

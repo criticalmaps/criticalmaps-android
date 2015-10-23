@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="80dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    tools:layout_height="wrap_content">
+    tools:background="@android:color/holo_red_light">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/picture_preview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        tools:src="@android:drawable/sym_def_app_icon"
+        tools:background="@android:color/holo_purple"/>
+
+    <TextView
+        android:id="@+id/picture_confirm_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        tools:background="@android:color/holo_red_light">
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        tools:text="@string/camera_confirm_image_upload"
+        tools:background="@android:color/holo_orange_light"/>
 
-        <ImageView
-            android:id="@+id/picture_preview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            tools:src="@android:drawable/sym_def_app_icon"
-            tools:background="@android:color/holo_purple"/>
-
-        <TextView
-            android:id="@+id/picture_confirm_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginTop="0dp"
-            android:textStyle="bold"
-            tools:text="@string/camera_confirm_image_upload"
-            tools:background="@android:color/holo_orange_light"/>
-    </LinearLayout>
 </LinearLayout>
