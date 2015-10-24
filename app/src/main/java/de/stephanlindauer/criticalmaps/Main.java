@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,7 +28,6 @@ import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
@@ -39,11 +39,11 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     //dependencies
     private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
     private final UserModel userModel = UserModel.getInstance();
-    private final EventBusProvider eventService = EventBusProvider.getInstance();
 
     //misc
     private File newCameraOutputFile;
     private int currentNavId;
+    private final SimpleArrayMap<Integer, Fragment.SavedState> savedFragmentStates = new SimpleArrayMap<>();
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -116,7 +116,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         return true;
     }
 
-    public void handleCloseRequested() {
+    private void handleCloseRequested() {
         new ApplicationCloseHandler(this).execute();
     }
 
@@ -183,11 +183,24 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     private void navigateTo(@IdRes int navId) {
         if (currentNavId == navId) {
-            return; // no need for action - stupid user got lost and clicked on current
+            return; // no need for action
         }
+
+        // save state of current fragment
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        if (currentFragment != null) {
+            Fragment.SavedState state = getSupportFragmentManager().saveFragmentInstanceState(currentFragment);
+            savedFragmentStates.put(currentNavId, state);
+        }
+
         currentNavId = navId;
         final Fragment nextFragment = FragmentProvider.getFragmentForNavId(navId);
+
+        // restore saved state of new fragment if it was shown before
+        if (savedFragmentStates.containsKey(navId)) {
+            nextFragment.setInitialSavedState(savedFragmentStates.get(navId));
+        }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).commit();
     }
-
 }
