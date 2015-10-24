@@ -29,7 +29,6 @@
     <include
         android:id="@+id/searching_for_location_overlay_map"
         layout="@layout/view_searching_for_location_overlay"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:visibility="visible" />
 
 </RelativeLayout>
