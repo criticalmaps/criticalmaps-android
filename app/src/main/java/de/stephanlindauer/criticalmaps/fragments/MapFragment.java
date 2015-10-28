@@ -30,6 +30,11 @@ import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends Fragment {
 
+    // constants
+    private final static String KEY_MAP_ZOOMLEVEL = "map_zoomlevel";
+    private final static String KEY_MAP_POSITION = "map_position";
+    private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
+
     //dependencies
     private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
@@ -59,9 +64,11 @@ public class MapFragment extends Fragment {
     @BindDrawable(R.drawable.map_marker_own)
     Drawable ownLocationIcon;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -83,22 +90,26 @@ public class MapFragment extends Fragment {
             }
         });
 
-        setMapAndOverlayState();
+        if (savedState != null) {
+            Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
+            int[] position = savedState.getIntArray(KEY_MAP_POSITION);
+
+            if (zoomLevel != null && position != null) {
+                mapView.getController().setZoom(zoomLevel);
+                mapView.scrollTo(position[0], position[1]);
+            }
+
+            isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
+        } else {
+            setInitialMapLocation();
+        }
     }
 
-    private void setMapAndOverlayState() {
-        // fresh start or recreated before first location was found
+    private void setInitialMapLocation() {
         if (ownLocationModel.ownLocation == null) {
-            searchingForLocationOverlay.setVisibility(View.VISIBLE);
-
             GeoPoint lastKnownLocation = locationManager.getLastKnownLocation();
             if (lastKnownLocation != null) {
                 setToLocation(lastKnownLocation);
-            }
-        } else {
-            // if first location was already handled before just set current location
-            if (isInitialLocationSet) {
-                setToLocation(ownLocationModel.ownLocation);
             }
         }
     }
@@ -128,9 +139,12 @@ public class MapFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // we got the first location while the app was in background
-        if (ownLocationModel.ownLocation != null && !isInitialLocationSet){
-            handleFirstLocationUpdate();
+        if (ownLocationModel.ownLocation != null) {
+            if (!isInitialLocationSet) {
+                handleFirstLocationUpdate();
+            } else {
+                searchingForLocationOverlay.setVisibility(View.GONE);
+            }
         }
 
         eventService.register(this);
@@ -142,6 +156,15 @@ public class MapFragment extends Fragment {
         searchingForLocationOverlay.setVisibility(View.GONE);
         animateToLocation(ownLocationModel.ownLocation);
         isInitialLocationSet = true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());
+        outState.putIntArray(KEY_MAP_POSITION, new int[]{mapView.getScrollX(), mapView.getScrollY()});
+        outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
     }
 
     @Override
