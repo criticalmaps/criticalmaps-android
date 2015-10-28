@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <ProgressBar
+        android:id="@+id/tweet_user_image_progress"
         android:layout_width="@dimen/tweet_user_image_dimension"
         android:layout_height="@dimen/tweet_user_image_dimension"
         android:layout_margin="@dimen/tweet_user_image_margin"

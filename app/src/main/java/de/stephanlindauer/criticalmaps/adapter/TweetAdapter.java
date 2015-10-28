@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -48,12 +50,31 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         return buildTweetView(currentTweet, convertView, viewHolder);
     }
 
-    private View buildTweetView(final Tweet tweet, View rowView, ViewHolder viewHolder) {
+    private View buildTweetView(final Tweet tweet, View rowView, final ViewHolder viewHolder) {
+        viewHolder.userImageProgress.setVisibility(View.VISIBLE);
         Picasso.with(context)
                 .load(tweet.getProfileImageUrl())
                 .fit()
                 .centerInside()
-                .into(viewHolder.userImageView);
+                .error(R.drawable.chat_avatar)
+                .into(viewHolder.userImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        hideProgressBar();
+                    }
+
+                    @Override
+                    public void onError() {
+                        hideProgressBar();
+                    }
+
+                    private void hideProgressBar() {
+                        final ProgressBar progressBar = viewHolder.userImageProgress;
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
 
         viewHolder.nameTextView.setText(tweet.getUserName());
         viewHolder.textTextView.setText(Html.fromHtml(tweet.getText()).toString());
@@ -83,6 +104,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         TextView handleTextView;
         @Bind(R.id.tweet_user_image)
         ImageView userImageView;
+        @Bind(R.id.tweet_user_image_progress)
+        ProgressBar userImageProgress;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);
