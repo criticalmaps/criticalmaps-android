@@ -31,6 +31,7 @@ import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
+import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
@@ -62,9 +63,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+
         drawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-
+        drawerLayout.setDrawerListener(new DrawerClosingDrawerLayoutListener());
         navigateTo(R.id.navigation_map);
     }
 
