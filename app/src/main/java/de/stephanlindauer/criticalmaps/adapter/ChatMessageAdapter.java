@@ -1,10 +1,10 @@
 package de.stephanlindauer.criticalmaps.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -12,65 +12,77 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
-public class ChatMessageAdapter extends ArrayAdapter<IChatMessage> {
+public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.OutgoingChatMessageViewHolder> {
 
-    private ArrayList<IChatMessage> chatMessages;
-    private Context context;
+    private final ArrayList<IChatMessage> chatMessages;
 
-
-    public ChatMessageAdapter(Context context, int layoutResourceId, ArrayList<IChatMessage> chatMessages) {
-        super(context, layoutResourceId, chatMessages);
+    public ChatMessageAdapter(ArrayList<IChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
-        this.context = context;
+    }
+
+    public class OutgoingChatMessageViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.firstLine)
+        TextView labelView;
+
+        @Bind(R.id.secondLine)
+        TextView valueView;
+
+        private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
+        private final Context context;
+
+        public OutgoingChatMessageViewHolder(View itemView) {
+            super(itemView);
+            context = itemView.getContext();
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(IChatMessage message) {
+            valueView.setText(message.getMessage());
+            if (message instanceof ReceivedChatMessage) {
+                dateFormatter.setTimeZone(TimeZone.getDefault());
+                labelView.setText(TimeToWordStringConverter.getTimeAgo(((ReceivedChatMessage) message).getTimestamp(), context));
+            } else {
+                labelView.setText(R.string.chat_sending);
+            }
+        }
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        IChatMessage currentMessage = chatMessages.get(position);
-
-        if (currentMessage instanceof ReceivedChatMessage)
-            return buildReceivedMessageView((ReceivedChatMessage) currentMessage, inflater, parent);
-        else if (currentMessage instanceof OutgoingChatMessage)
-            return buildOutgoingMessageView((OutgoingChatMessage) currentMessage, inflater, parent);
-
-        return null;
+    public OutgoingChatMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        final View res;
+        if (viewType == 0) {
+            res = inflater.inflate(R.layout.view_chatmessage, parent, false);
+        } else {
+            res = inflater.inflate(R.layout.view_outgoing_chatmessage, parent, false);
+        }
+        return new OutgoingChatMessageViewHolder(res);
     }
 
-    private View buildOutgoingMessageView(OutgoingChatMessage currentMessage, LayoutInflater inflater, ViewGroup parent) {
-
-        View rowView = inflater.inflate(R.layout.view_outgoing_chatmessage, parent, false);
-
-        TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
-        TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);
-
-        labelView.setText(R.string.chat_sending);
-        valueView.setText(currentMessage.getMessage());
-
-        return rowView;
+    @Override
+    public void onBindViewHolder(OutgoingChatMessageViewHolder holder, int position) {
+        holder.bind(chatMessages.get(position));
     }
 
-    private View buildReceivedMessageView(ReceivedChatMessage currentMessage, LayoutInflater inflater, ViewGroup parent) {
+    @Override
+    public int getItemViewType(int position) {
+        if (chatMessages.get(position) instanceof ReceivedChatMessage) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 
-        View rowView = inflater.inflate(R.layout.view_chatmessage, parent, false);
-
-        TextView labelView = (TextView) rowView.findViewById(R.id.firstLine);
-        TextView valueView = (TextView) rowView.findViewById(R.id.secondLine);
-
-        DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
-        dateFormatter.setTimeZone(TimeZone.getDefault());
-
-        labelView.setText(TimeToWordStringConverter.getTimeAgo(currentMessage.getTimestamp(), context));
-        valueView.setText(currentMessage.getMessage());
-
-        return rowView;
+    @Override
+    public int getItemCount() {
+        return chatMessages.size();
     }
 }
