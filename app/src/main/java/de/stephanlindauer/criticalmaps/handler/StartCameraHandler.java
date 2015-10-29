@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
@@ -26,18 +27,10 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
     @Override
     protected void onPreExecute() {
         if (OwnLocationModel.getInstance().ownLocation == null) {
-            new AlertDialog.Builder(activity)
-                    .setMessage(R.string.camera_no_location_no_camera)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-            cancel(true);
+            AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_location_no_camera);
         }
         if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-            new AlertDialog.Builder(activity)
-                    .setMessage(R.string.camera_no_camera_no_camera)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-            cancel(true);
+            AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_camera_no_camera);
         }
     }
 
@@ -63,10 +56,7 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
     @Override
     protected void onPostExecute(ResultType resultType) {
         if (resultType == ResultType.FAILED) {
-            new AlertDialog.Builder(activity)
-                    .setMessage(R.string.camera_no_camera)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
+            AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_camera);
         }
     }
 }
