@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.model;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.squareup.okhttp.internal.Util;
 
 import org.json.JSONArray;
@@ -20,13 +22,15 @@ import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
 public class ChatModel {
 
+    private final ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
+
     private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<>();
-    private ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
     //singleton
     private static ChatModel instance;
 
-    private ChatModel() {}
+    @VisibleForTesting
+    public ChatModel() {}
 
     public static ChatModel getInstance() {
         if (ChatModel.instance == null) {
@@ -48,12 +52,11 @@ public class ChatModel {
             JSONObject value = jsonObject.getJSONObject(key);
             String message = URLDecoder.decode(value.getString("message"), Util.UTF_8.name());
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
-            String identifier = key;
 
             //for i going backwards to delete without side-effects
             for (int i = outgoingMassages.size() - 1; i > -1; i--) {
                 OutgoingChatMessage outgoingMessageToMaybeDelete = outgoingMassages.get(i);
-                if (outgoingMessageToMaybeDelete.getIdentifier().equals(identifier)) {
+                if (outgoingMessageToMaybeDelete.getIdentifier().equals(key)) {
                     outgoingMassages.remove(i);
                 }
             }

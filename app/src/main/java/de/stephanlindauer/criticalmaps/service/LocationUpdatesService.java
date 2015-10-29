@@ -7,13 +7,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
+
 import org.osmdroid.util.GeoPoint;
 
 import java.util.Date;
 
-import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
+import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
@@ -36,7 +36,8 @@ public class LocationUpdatesService {
     //singleton
     private static LocationUpdatesService instance;
 
-    private LocationUpdatesService() {}
+    private LocationUpdatesService() {
+    }
 
     public static LocationUpdatesService getInstance() {
         if (LocationUpdatesService.instance == null) {
@@ -85,7 +86,7 @@ public class LocationUpdatesService {
         @Override
         public void onLocationChanged(final Location location) {
             ownLocationModel.ownLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-            eventService.post(new NewLocationEvent());
+            eventService.post(Events.NEW_LOCATION_EVENT);
             sharedPreferences.edit()
                     .putString("latitude", String.valueOf(location.getLatitude()))
                     .putString("longitude", String.valueOf(location.getLongitude()))
