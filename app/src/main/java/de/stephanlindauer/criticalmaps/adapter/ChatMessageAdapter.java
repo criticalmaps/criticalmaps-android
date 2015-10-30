@@ -19,7 +19,7 @@ import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
-public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.OutgoingChatMessageViewHolder> {
+public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 
     private final ArrayList<IChatMessage> chatMessages;
 
@@ -27,7 +27,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         this.chatMessages = chatMessages;
     }
 
-    public class OutgoingChatMessageViewHolder extends RecyclerView.ViewHolder {
+    public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.firstLine)
         TextView labelView;
@@ -38,7 +38,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
         private final Context context;
 
-        public OutgoingChatMessageViewHolder(View itemView) {
+        public ChatMessageViewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();
             ButterKnife.bind(this, itemView);
@@ -56,7 +56,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     }
 
     @Override
-    public OutgoingChatMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChatMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View res;
         if (viewType == 0) {
@@ -64,11 +64,11 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         } else {
             res = inflater.inflate(R.layout.view_outgoing_chatmessage, parent, false);
         }
-        return new OutgoingChatMessageViewHolder(res);
+        return new ChatMessageViewHolder(res);
     }
 
     @Override
-    public void onBindViewHolder(OutgoingChatMessageViewHolder holder, int position) {
+    public void onBindViewHolder(ChatMessageViewHolder holder, int position) {
         holder.bind(chatMessages.get(position));
     }
 
