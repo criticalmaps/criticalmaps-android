@@ -4,19 +4,30 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.squareup.otto.Subscribe;
+
+import org.ligi.axt.AXT;
+import org.ligi.axt.simplifications.SimpleTextWatcher;
+
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -26,8 +37,6 @@ import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
-import org.ligi.axt.AXT;
-import org.ligi.axt.simplifications.SimpleTextWatcher;
 
 public class ChatFragment extends Fragment {
 
@@ -37,8 +46,8 @@ public class ChatFragment extends Fragment {
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
 
     //view
-    @Bind(R.id.chat_list)
-    ListView chatListView;
+    @Bind(R.id.chat_recycler)
+    RecyclerView chatRecyclerView;
 
     @Bind(R.id.text_input_layout)
     TextInputLayout textInputLayout;
@@ -52,9 +61,6 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.chat_send_btn)
     FloatingActionButton sendButton;
 
-    //adapter
-    private ChatMessageAdapter chatMessageAdapter;
-
     //misc
     private boolean isScrolling = false;
 
@@ -64,6 +70,8 @@ public class ChatFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View chatView = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, chatView);
+
+        chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return chatView;
     }
 
@@ -71,18 +79,12 @@ public class ChatFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        chatMessageAdapter = new ChatMessageAdapter(getActivity(), R.layout.view_chatmessage, chatModel.getSavedAndOutgoingMessages());
-
-        chatListView.setAdapter(chatMessageAdapter);
-
-        chatMessageAdapter.notifyDataSetChanged();
-
-        chatListView.setSelection(chatListView.getCount());
+        chatModelToAdapter();
 
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
         editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
 
-        chatListView.setOnTouchListener(new View.OnTouchListener() {
+        chatRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getActionMasked()) {
@@ -133,31 +135,22 @@ public class ChatFragment extends Fragment {
         chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
 
         editMessageTextField.setText("");
-        chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
-        chatListView.setAdapter(chatMessageAdapter);
-
-        if (!isScrolling) {
-            chatListView.setSelection(chatListView.getCount());
-        }
+        chatModelToAdapter();
     }
 
-    private void refreshView() {
-        getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                chatMessageAdapter = new ChatMessageAdapter(getActivity(), 123, chatModel.getSavedAndOutgoingMessages());
-                chatListView.setAdapter(chatMessageAdapter);
+    private void chatModelToAdapter() {
+        final ArrayList<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
+        chatRecyclerView.setAdapter(new ChatMessageAdapter(savedAndOutgoingMessages));
 
-                if (!isScrolling) {
-                    chatListView.setSelection(chatListView.getCount());
-                }
-            }
-        });
+        if (!isScrolling) {
+            chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        refreshView();
+        chatModelToAdapter();
         eventService.register(this);
     }
 
@@ -182,7 +175,7 @@ public class ChatFragment extends Fragment {
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
         setSearchingForLocationOverlayState();
-        refreshView();
+        chatModelToAdapter();
     }
 
     public void setSearchingForLocationOverlayState() {
