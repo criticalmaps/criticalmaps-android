@@ -2,12 +2,20 @@ package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -15,11 +23,6 @@ import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.provider.HttpClientProvider;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
@@ -32,6 +35,8 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
     private final EventBusProvider eventService = EventBusProvider.getInstance();
     private final UserModel userModel = UserModel.getInstance();
+
+    private final ServerResponseProcessor serverResponseProcessor = new ServerResponseProcessor(otherUsersLocationModel, eventService, chatModel);
 
     @Override
     protected String doInBackground(Void... params) {
@@ -56,16 +61,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject(result);
-            otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
-            chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
-        } catch (Exception ignored) {
-
-        } finally {
-            eventService.post(new NewServerResponseEvent());
-        }
+        serverResponseProcessor.process(result);
     }
 
     private JSONObject getJsonObject() {
