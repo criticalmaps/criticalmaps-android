@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.osmdroid.util.GeoPoint;
@@ -26,12 +27,13 @@ public class LocationUpdatesService {
     private final EventBusProvider eventService = EventBusProvider.getInstance();
 
     //const
-    private final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
-    private final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
+    private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
+    private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
 
     //misc
     private LocationManager locationManager;
     private SharedPreferences sharedPreferences;
+    private boolean isRegisteredForLocationUpdates;
 
     //singleton
     private static LocationUpdatesService instance;
@@ -46,25 +48,27 @@ public class LocationUpdatesService {
         return LocationUpdatesService.instance;
     }
 
-    public void initialize(Application application) {
+    public void initializeAndStartListening(@NonNull Application application) {
         locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
-        startLocationListening();
         sharedPreferences = application.getSharedPreferences("Main", Context.MODE_PRIVATE);
+        startLocationListening();
     }
 
     private void startLocationListening() {
-        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+        }
 
-        ownLocationModel.isListeningForLocation = true;
+        isRegisteredForLocationUpdates = true;
     }
 
     public void stopLocationListening() {
-        if (!ownLocationModel.isListeningForLocation)
+        if (!isRegisteredForLocationUpdates) {
             return;
+        }
 
-        ownLocationModel.isListeningForLocation = false;
         locationManager.removeUpdates(locationListener);
+        isRegisteredForLocationUpdates = false;
     }
 
     @Nullable

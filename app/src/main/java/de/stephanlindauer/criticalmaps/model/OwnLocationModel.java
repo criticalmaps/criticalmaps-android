@@ -8,8 +8,6 @@ public class OwnLocationModel {
 
     public GeoPoint ownLocation;
 
-    public boolean isListeningForLocation = false;
-
     //singleton
     private static OwnLocationModel instance;
 
