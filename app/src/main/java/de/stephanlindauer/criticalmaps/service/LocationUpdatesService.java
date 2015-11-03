@@ -91,8 +91,8 @@ public class LocationUpdatesService {
         return null;
     }
 
-    private void publishNewLocation(GeoPoint newLocation) {
-        ownLocationModel.ownLocation = newLocation;
+    private void publishNewLocation(GeoPoint newLocation, float accuracy) {
+        ownLocationModel.setLocation(newLocation, accuracy);
         eventService.post(Events.NEW_LOCATION_EVENT);
         sharedPreferences.edit()
                 .putString("latitude", String.valueOf(newLocation.getLatitude()))
@@ -142,7 +142,8 @@ public class LocationUpdatesService {
         @Override
         public void onLocationChanged(final Location location) {
             if (shouldPublishNewLocation(location)) {
-                publishNewLocation(new GeoPoint(location.getLatitude(), location.getLongitude()));
+                publishNewLocation(new GeoPoint(location.getLatitude(), location.getLongitude()),
+                        location.getAccuracy());
                 lastPublishedLocation = location;
             }
         }
