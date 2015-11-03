@@ -50,7 +50,9 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
         try {
             final Response response = okHttpClient.newCall(postRequest).execute();
             if (response.code() == HttpURLConnection.HTTP_OK) {
-                return response.body().string();
+                String responseBody = response.body().string();
+                response.body().close();
+                return responseBody;
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
