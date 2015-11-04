@@ -20,11 +20,20 @@
         android:id="@+id/set_current_location_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="5dp"
         android:gravity="center_vertical|center_horizontal"
         android:src="@drawable/ic_action_location_found" />
+
+    <TextView
+        android:id="@+id/map_osm_notice"
+        android:text="@string/osm_credits"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        style="@style/map_osm_notice"/>
 
     <include
         android:id="@+id/searching_for_location_overlay_map"
