@@ -3,11 +3,13 @@ package de.stephanlindauer.criticalmaps.fragments;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
@@ -53,6 +55,9 @@ public class MapFragment extends Fragment {
     @Bind(R.id.searching_for_location_overlay_map)
     RelativeLayout searchingForLocationOverlay;
 
+    @Bind(R.id.map_osm_notice)
+    TextView osmNoticeOverlay;
+
     //misc
     private DefaultResourceProxyImpl resourceProxy;
     private boolean isInitialLocationSet = false;
@@ -79,6 +84,8 @@ public class MapFragment extends Fragment {
         super.onActivityCreated(savedState);
 
         resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
+
+        osmNoticeOverlay.setMovementMethod(LinkMovementMethod.getInstance());
 
         mapView = MapViewUtils.createMapView(getActivity(), resourceProxy);
         mapContainer.addView(mapView);

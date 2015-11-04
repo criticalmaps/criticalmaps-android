@@ -30,6 +30,7 @@
         Activate tracking to be able to see all other cyclists. \n\n
         Just tap here!
     </string>
+    <string name="osm_credits" translatable="false">\u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
 
     <!-- prerequisites -->
     <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>

@@ -10,6 +10,12 @@
     <color name="colorAccent">@color/material_deep_teal_200</color>
     <color name="window_background">@color/material_grey_850</color> <!-- appcompat default: material_grey_850  -->
 
+    <!-- Transparent colors -->
+    <color name="white_60pct">#99FFFFFF</color>
+
+    <!-- Map -->
+    <color name="map_osm_notice">@color/white_60pct</color>
+
     <!-- About -->
     <color name="about_background">@android:color/white</color>
     <color name="about_heading_background">@color/colorPrimary</color>
