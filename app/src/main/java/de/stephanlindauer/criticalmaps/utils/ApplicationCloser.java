@@ -8,7 +8,7 @@ import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 
 public class ApplicationCloser {
     public static void close(Activity activity) {
-        LocationUpdatesService.getInstance().stopLocationListening();
+        LocationUpdatesService.getInstance().handleShutdown();
         Intent syncServiceIntent = new Intent(activity, ServerSyncService.class);
         activity.stopService(syncServiceIntent);
         activity.finish();

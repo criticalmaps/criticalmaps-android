@@ -72,11 +72,8 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
         try {
             jsonObject.put("device", userModel.getUniqueDeviceIdHashed());
 
-            if (ownLocationModel.ownLocation != null) {
-                JSONObject locationObject = new JSONObject();
-                locationObject.put("longitude", Integer.toString(ownLocationModel.ownLocation.getLongitudeE6()));
-                locationObject.put("latitude", Integer.toString(ownLocationModel.ownLocation.getLatitudeE6()));
-                jsonObject.put("location", locationObject);
+            if (ownLocationModel.hasPreciseLocation()) {
+                jsonObject.put("location", ownLocationModel.getLocationJson());
             }
 
             if (chatModel.hasOutgoingMessages()) {

@@ -82,7 +82,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         userModel.initialize(this);
 
-        locationUpdatesService.initialize(getApplication());
+        locationUpdatesService.initializeAndStartListening(getApplication());
 
         startSyncService();
 
