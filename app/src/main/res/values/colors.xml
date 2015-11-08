@@ -12,7 +12,7 @@
 
     <!-- Transparent colors -->
     <color name="white_60pct">#99FFFFFF</color>
-    <color name="transparent_background">#CC424242</color>
+    <color name="transparent_background">#CC424242</color> 
 
     <!-- Map -->
     <color name="map_osm_notice">@color/white_60pct</color>
