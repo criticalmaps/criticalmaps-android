@@ -75,7 +75,7 @@
     <string name="about_heading_website">website</string>
     <string name="about_text_map_url" translatable="false">criticalmaps.net</string>
     <string name="about_heading_contributions">contributions</string>
-    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
+    <string name="about_text_contributors" translatable="false">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)\n&#8226; Luca Gemini (Translation)</string>
     <string name="about_heading_code">code</string>
     <string name="about_text_github_url" translatable="false">github.com/criticalmaps/criticalmaps-android</string>
 
