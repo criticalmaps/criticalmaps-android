@@ -71,7 +71,6 @@
     <string name="about_heading_social">redes sociales</string>
     <string name="about_heading_website">sitio web</string>
     <string name="about_heading_contributions">contribuciones</string>
-    <string name="about_text_contributors">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)</string>
     <string name="about_heading_code">código</string>
 
     <!-- notifications -->
