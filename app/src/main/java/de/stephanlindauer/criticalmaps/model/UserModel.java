@@ -10,18 +10,6 @@ public class UserModel {
 
     private String uniqueDeviceIdHashed;
 
-    //singleton
-    private static UserModel instance;
-
-    private UserModel() {}
-
-    public static UserModel getInstance() {
-        if (UserModel.instance == null) {
-            UserModel.instance = new UserModel();
-        }
-        return UserModel.instance;
-    }
-
     public void initialize(Activity activity) {
         final String androidId = getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         uniqueDeviceIdHashed = AeSimpleSHA1.SHA1(androidId);
