@@ -2,6 +2,8 @@ package de.stephanlindauer.criticalmaps.handler;
 
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
@@ -13,6 +15,7 @@ public class ServerResponseProcessor {
     private final EventBusProvider eventService;
     private final ChatModel chatModel;
 
+    @Inject
     public ServerResponseProcessor(OtherUsersLocationModel otherUsersLocationModel, EventBusProvider eventService, ChatModel chatModel) {
         this.otherUsersLocationModel = otherUsersLocationModel;
         this.eventService = eventService;

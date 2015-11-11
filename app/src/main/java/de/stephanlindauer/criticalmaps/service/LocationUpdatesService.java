@@ -14,6 +14,8 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
@@ -22,9 +24,8 @@ import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
 public class LocationUpdatesService {
 
-    //dependencies
-    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-    private final EventBusProvider eventService = EventBusProvider.getInstance();
+    private final OwnLocationModel ownLocationModel;
+    private final EventBusProvider eventService;
 
     //const
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
@@ -37,18 +38,12 @@ public class LocationUpdatesService {
     private boolean isRegisteredForLocationUpdates;
     private Location lastPublishedLocation;
 
-    //singleton
-    private static LocationUpdatesService instance;
-
-    private LocationUpdatesService() {
+    @Inject
+    public LocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventService) {
+        this.ownLocationModel = ownLocationModel;
+        this.eventService = eventService;
     }
 
-    public static LocationUpdatesService getInstance() {
-        if (LocationUpdatesService.instance == null) {
-            LocationUpdatesService.instance = new LocationUpdatesService();
-        }
-        return LocationUpdatesService.instance;
-    }
 
     public void initializeAndStartListening(@NonNull Application application) {
         locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
