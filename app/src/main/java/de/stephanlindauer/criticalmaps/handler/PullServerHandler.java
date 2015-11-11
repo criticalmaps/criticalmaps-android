@@ -16,13 +16,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import javax.inject.Inject;
+
+import de.stephanlindauer.criticalmaps.AppConstants;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
-import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.provider.HttpClientProvider;
-import de.stephanlindauer.criticalmaps.vo.Endpoints;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
@@ -30,22 +29,27 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     private static final String LOG_TAG = "CM_PullServerHandler";
 
     //dependencies
-    private final OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
-    private final ChatModel chatModel = ChatModel.getInstance();
-    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-    private final EventBusProvider eventService = EventBusProvider.getInstance();
-    private final UserModel userModel = UserModel.getInstance();
+    private final ChatModel chatModel;
+    private final OwnLocationModel ownLocationModel;
+    private final UserModel userModel;
+    private final ServerResponseProcessor serverResponseProcessor;
+    private final OkHttpClient okHttpClient;
 
-    private final ServerResponseProcessor serverResponseProcessor = new ServerResponseProcessor(otherUsersLocationModel, eventService, chatModel);
+    @Inject
+    public PullServerHandler(ChatModel chatModel, OwnLocationModel ownLocationModel, UserModel userModel, ServerResponseProcessor serverResponseProcessor, OkHttpClient okHttpClient) {
+        this.chatModel = chatModel;
+        this.ownLocationModel = ownLocationModel;
+        this.userModel = userModel;
+        this.serverResponseProcessor = serverResponseProcessor;
+        this.okHttpClient = okHttpClient;
+    }
 
     @Override
     protected String doInBackground(Void... params) {
         String jsonPostString = getJsonObject().toString();
 
         final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPostString);
-        final Request postRequest = new Request.Builder().url(Endpoints.MAIN_POST).post(body).build();
-
-        final OkHttpClient okHttpClient = HttpClientProvider.get();
+        final Request postRequest = new Request.Builder().url(AppConstants.MAIN_POST).post(body).build();
 
         try {
             final Response response = okHttpClient.newCall(postRequest).execute();

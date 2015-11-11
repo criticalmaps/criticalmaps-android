@@ -1,22 +1,26 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
+
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
-import de.stephanlindauer.criticalmaps.model.TwitterModel;
-import de.stephanlindauer.criticalmaps.provider.HttpClientProvider;
-import de.stephanlindauer.criticalmaps.vo.Endpoints;
-import de.stephanlindauer.criticalmaps.vo.ResultType;
+
+import org.json.JSONException;
+
 import java.net.HttpURLConnection;
 import java.text.ParseException;
-import org.json.JSONException;
+
+import de.stephanlindauer.criticalmaps.App;
+import de.stephanlindauer.criticalmaps.AppConstants;
+import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
+import de.stephanlindauer.criticalmaps.model.TwitterModel;
+import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     //dependencies
-    private final TwitterModel twitterModel = TwitterModel.getInstance();
+    private final TwitterModel twitterModel = App.components().twitterModel();
     private final TwitterFragment twitterFragment;
 
     private String responseString = "";
@@ -27,9 +31,9 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     @Override
     protected ResultType doInBackground(Void... params) {
-        final Request request = new Request.Builder().url(Endpoints.GET_TWITTER).get().build();
+        final Request request = new Request.Builder().url(AppConstants.GET_TWITTER).get().build();
 
-        final OkHttpClient httpClient = HttpClientProvider.get();
+        final OkHttpClient httpClient = App.components().okHttpClient();
         try {
             final Response response = httpClient.newCall(request).execute();
 

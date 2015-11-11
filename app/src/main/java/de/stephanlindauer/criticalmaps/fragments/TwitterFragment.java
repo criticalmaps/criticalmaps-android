@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
@@ -24,7 +25,7 @@ import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 public class TwitterFragment extends Fragment {
 
     //dependencies
-    private TwitterModel twitterModel = TwitterModel.getInstance();
+    private TwitterModel twitterModel = App.components().twitterModel();
 
     //view
     @Bind(R.id.twitter_error)

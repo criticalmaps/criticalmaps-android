@@ -25,9 +25,12 @@ import org.ligi.axt.simplifications.SimpleTextWatcher;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -41,9 +44,15 @@ import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 public class ChatFragment extends Fragment {
 
     //dependencies
-    private final ChatModel chatModel = ChatModel.getInstance();
-    private final EventBusProvider eventService = EventBusProvider.getInstance();
-    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+
+    @Inject
+    ChatModel chatModel;
+
+    @Inject
+    EventBusProvider eventService;
+
+    @Inject
+    OwnLocationModel ownLocationModel;
 
     //view
     @Bind(R.id.chat_recycler)
@@ -68,6 +77,8 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
+        App.components().inject(this);
         View chatView = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, chatView);
 

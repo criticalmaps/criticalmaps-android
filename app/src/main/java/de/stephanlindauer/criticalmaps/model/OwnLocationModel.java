@@ -13,18 +13,6 @@ public class OwnLocationModel {
     public GeoPoint ownLocation;
     private boolean isLocationPrecise;
 
-    //singleton
-    private static OwnLocationModel instance;
-
-    private OwnLocationModel() {}
-
-    public static OwnLocationModel getInstance() {
-        if (OwnLocationModel.instance == null) {
-            OwnLocationModel.instance = new OwnLocationModel();
-        }
-        return OwnLocationModel.instance;
-    }
-
     public void setLocation(@NonNull GeoPoint location, float accuracy) {
         ownLocation = location;
         isLocationPrecise = (accuracy < ACCURACY_PRECISE_THRESHOLD);
