@@ -15,7 +15,7 @@
     </style>
 
     <style name="rules_explainer">
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/rules_explainer_text</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -55,7 +55,7 @@
     </style>
 
     <style name="about_heading">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/about_heading_text</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">10dp</item>
@@ -66,7 +66,7 @@
     </style>
 
     <style name="about_content">
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/about_content_text</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
