@@ -52,14 +52,16 @@ public class LocationUpdatesService {
     }
 
     private void registerLocationListeners() {
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-        }
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-        }
+        requestLocationUpdatesIfPossible(LocationManager.GPS_PROVIDER);
+        requestLocationUpdatesIfPossible(LocationManager.NETWORK_PROVIDER);
 
         isRegisteredForLocationUpdates = true;
+    }
+
+    private void requestLocationUpdatesIfPossible(String provider) {
+        if (locationManager.isProviderEnabled(provider)) {
+            locationManager.requestLocationUpdates(provider, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+        }
     }
 
     public void handleShutdown() {
