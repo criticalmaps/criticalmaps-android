@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
@@ -19,7 +20,7 @@ import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
-    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+    private OwnLocationModel ownLocationModel = App.components().ownLocationmodel();
 
     private final Activity activity;
     private final File imageFileToUpload;
