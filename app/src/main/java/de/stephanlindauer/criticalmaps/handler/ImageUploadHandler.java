@@ -13,10 +13,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import de.stephanlindauer.criticalmaps.App;
+import de.stephanlindauer.criticalmaps.AppConstants;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
-import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
@@ -55,7 +55,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             int bytesRead, bytesAvailable, bufferSize;
 
             FileInputStream fileInputStream = new FileInputStream(imageFileToUpload);
-            URL url = new URL(Endpoints.IMAGE_POST);
+            URL url = new URL(AppConstants.IMAGE_POST);
 
             final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);

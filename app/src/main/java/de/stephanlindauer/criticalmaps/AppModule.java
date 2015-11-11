@@ -25,7 +25,7 @@ public class AppModule {
     @Singleton
     public OkHttpClient okHttpClient() {
         final OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
+        okHttpClient.setConnectTimeout(AppConstants.HTTP_TIMEOUT, TimeUnit.SECONDS);
         return okHttpClient;
     }
 

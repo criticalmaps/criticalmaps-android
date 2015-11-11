@@ -22,15 +22,15 @@ import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
+import static de.stephanlindauer.criticalmaps.AppConstants.LOCATION_REFRESH_DISTANCE;
+import static de.stephanlindauer.criticalmaps.AppConstants.LOCATION_REFRESH_TIME;
+import static de.stephanlindauer.criticalmaps.AppConstants.MAX_LOCATION_AGE;
+
 public class LocationUpdatesService {
 
+    //dependencies
     private final OwnLocationModel ownLocationModel;
     private final EventBusProvider eventService;
-
-    //const
-    private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
-    private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
-    private static final int MAX_LOCATION_AGE = 30 * 1000; //30 seconds
 
     //misc
     private LocationManager locationManager;
@@ -44,7 +44,6 @@ public class LocationUpdatesService {
         this.eventService = eventService;
     }
 
-
     public void initializeAndStartListening(@NonNull Application application) {
         locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         sharedPreferences = application.getSharedPreferences("Main", Context.MODE_PRIVATE);
@@ -52,14 +51,16 @@ public class LocationUpdatesService {
     }
 
     private void registerLocationListeners() {
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-        }
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-        }
+        requestLocationUpdatesIfPossible(LocationManager.GPS_PROVIDER);
+        requestLocationUpdatesIfPossible(LocationManager.NETWORK_PROVIDER);
 
         isRegisteredForLocationUpdates = true;
+    }
+
+    private void requestLocationUpdatesIfPossible(String gpsProvider) {
+        if (locationManager.isProviderEnabled(gpsProvider)) {
+            locationManager.requestLocationUpdates(gpsProvider, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+        }
     }
 
     public void handleShutdown() {
@@ -107,7 +108,7 @@ public class LocationUpdatesService {
         long timeDelta = location.getTime() - lastPublishedLocation.getTime();
         boolean isSignificantlyNewer = timeDelta > MAX_LOCATION_AGE;
         boolean isSignificantlyOlder = timeDelta < -MAX_LOCATION_AGE;
-        boolean isNewer = timeDelta > 0;
+
 
         if (isSignificantlyNewer) {
             return true;
@@ -121,6 +122,7 @@ public class LocationUpdatesService {
         boolean isSignificantlyLessAccurate = accuracyDelta > 120;
 
         boolean isFromSameProvider = location.getProvider().equals(lastPublishedLocation.getProvider());
+        boolean isNewer = timeDelta > 0;
 
         if (isMoreAccurate) {
             return true;

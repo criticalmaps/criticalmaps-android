@@ -18,10 +18,10 @@ import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
 
+import de.stephanlindauer.criticalmaps.AppConstants;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.vo.Endpoints;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
@@ -49,7 +49,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
         String jsonPostString = getJsonObject().toString();
 
         final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPostString);
-        final Request postRequest = new Request.Builder().url(Endpoints.MAIN_POST).post(body).build();
+        final Request postRequest = new Request.Builder().url(AppConstants.MAIN_POST).post(body).build();
 
         try {
             final Response response = okHttpClient.newCall(postRequest).execute();
