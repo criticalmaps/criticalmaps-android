@@ -29,8 +29,6 @@
 
     <!-- Rules -->
     <color name="rules_background">@android:color/white</color>
-    <color name="rules_explainer_text">@android:color/black</color>
-    <color name="rules_button_text">@android:color/white</color>
 
     <!-- Twitter -->
     <color name="twitter_background">@color/colorPrimaryDark</color>
