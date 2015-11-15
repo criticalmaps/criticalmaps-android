@@ -30,7 +30,6 @@ public class LocationUpdatesService {
     //const
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
-    private static final int MAX_LOCATION_AGE = 30 * 1000; //30 seconds
 
     //misc
     private LocationManager locationManager;
@@ -77,7 +76,7 @@ public class LocationUpdatesService {
     public GeoPoint getLastKnownLocation() {
         if (sharedPreferences.contains("latitude") && sharedPreferences.contains("longitude") && sharedPreferences.contains("timestamp")) {
             Date timestampLastCoords = new Date(sharedPreferences.getLong("timestamp", 0));
-            if (!DateUtils.isLongerAgoThen5Minutes(timestampLastCoords)) {
+            if (DateUtils.isNotLongerAgoThen(timestampLastCoords, 5, 0)) {
                 return new GeoPoint(
                         Double.parseDouble(sharedPreferences.getString("latitude", "")),
                         Double.parseDouble(sharedPreferences.getString("longitude", "")));
@@ -88,13 +87,14 @@ public class LocationUpdatesService {
         return null;
     }
 
-    private void publishNewLocation(GeoPoint newLocation, float accuracy) {
-        ownLocationModel.setLocation(newLocation, accuracy);
+    private void publishNewLocation(Location location) {
+        GeoPoint newLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        ownLocationModel.setLocation(newLocation, location.getAccuracy(), location.getTime());
         eventService.post(Events.NEW_LOCATION_EVENT);
         sharedPreferences.edit()
                 .putString("latitude", String.valueOf(newLocation.getLatitude()))
                 .putString("longitude", String.valueOf(newLocation.getLongitude()))
-                .putLong("timestamp", new Date().getTime())
+                .putLong("timestamp", location.getTime())
                 .apply();
     }
 
@@ -107,8 +107,8 @@ public class LocationUpdatesService {
         // Average speed of the CM is ~4 m/s so anything over 30 seconds old, may already
         // be well over 120m off. So a newer fix is assumed to be always better.
         long timeDelta = location.getTime() - lastPublishedLocation.getTime();
-        boolean isSignificantlyNewer = timeDelta > MAX_LOCATION_AGE;
-        boolean isSignificantlyOlder = timeDelta < -MAX_LOCATION_AGE;
+        boolean isSignificantlyNewer = timeDelta > OwnLocationModel.MAX_LOCATION_AGE;
+        boolean isSignificantlyOlder = timeDelta < -OwnLocationModel.MAX_LOCATION_AGE;
         boolean isNewer = timeDelta > 0;
 
         if (isSignificantlyNewer) {
@@ -139,8 +139,7 @@ public class LocationUpdatesService {
         @Override
         public void onLocationChanged(final Location location) {
             if (shouldPublishNewLocation(location)) {
-                publishNewLocation(new GeoPoint(location.getLatitude(), location.getLongitude()),
-                        location.getAccuracy());
+                publishNewLocation(location);
                 lastPublishedLocation = location;
             }
         }
