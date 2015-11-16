@@ -1,5 +1,9 @@
 package de.stephanlindauer.criticalmaps;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
@@ -20,6 +24,12 @@ import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 
 @Module
 public class AppModule {
+
+    private final App application;
+
+    public AppModule(@NonNull App application) {
+        this.application = application;
+    }
 
     @Provides
     @Singleton
@@ -75,9 +85,17 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public LocationUpdatesService provideLocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
-        return new LocationUpdatesService(ownLocationModel, eventBusProvider);
+    public LocationUpdatesService provideLocationUpdatesService(
+            OwnLocationModel ownLocationModel,
+            EventBusProvider eventBusProvider,
+            SharedPreferences sharedPreferences) {
+        return new LocationUpdatesService(ownLocationModel, eventBusProvider, sharedPreferences);
     }
 
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences() {
+        return application.getSharedPreferences("Main", Context.MODE_PRIVATE);
+    }
 
 }
