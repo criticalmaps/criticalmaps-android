@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
@@ -37,9 +39,11 @@ import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //dependencies
-    private final LocationUpdatesService locationUpdatesService = LocationUpdatesService.getInstance();
-    private final UserModel userModel = UserModel.getInstance();
+    @Inject
+    LocationUpdatesService locationUpdatesService;
+
+    @Inject
+    UserModel userModel;
 
     //misc
     private File newCameraOutputFile;
@@ -74,6 +78,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
+        App.components().inject(this);
+
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
@@ -82,7 +88,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         userModel.initialize(this);
 
-        locationUpdatesService.initialize(getApplication());
+        locationUpdatesService.initializeAndStartListening(getApplication());
 
         startSyncService();
 

@@ -17,9 +17,12 @@ import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.BindDrawable;
 import butterknife.ButterKnife;
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
@@ -38,10 +41,18 @@ public class MapFragment extends Fragment {
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
 
     //dependencies
-    private OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
-    private OtherUsersLocationModel otherUsersLocationModel = OtherUsersLocationModel.getInstance();
-    private EventBusProvider eventService = EventBusProvider.getInstance();
-    private LocationUpdatesService locationManager = LocationUpdatesService.getInstance();
+
+    @Inject
+    OwnLocationModel ownLocationModel;
+
+    @Inject
+    OtherUsersLocationModel otherUsersLocationModel;
+
+    @Inject
+    EventBusProvider eventService;
+
+    @Inject
+    LocationUpdatesService locationManager;
 
     //view
     private MapView mapView;
@@ -83,6 +94,7 @@ public class MapFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
+        App.components().inject(this);
         resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
 
         osmNoticeOverlay.setMovementMethod(LinkMovementMethod.getInstance());

@@ -5,10 +5,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
+
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
@@ -26,7 +26,7 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
 
     @Override
     protected void onPreExecute() {
-        if (OwnLocationModel.getInstance().ownLocation == null) {
+        if (App.components().ownLocationmodel().ownLocation == null) {
             AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_location_no_camera);
         }
         if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
