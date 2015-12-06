@@ -33,5 +33,6 @@
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer" />
+        app:menu="@menu/drawer"
+        android:background="@color/transparent_background"/>
 </android.support.v4.widget.DrawerLayout>

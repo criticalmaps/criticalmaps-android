@@ -14,18 +14,6 @@ public class TwitterModel {
 
     private ArrayList<Tweet> tweets = new ArrayList<>();
 
-    //singleton
-    private static TwitterModel instance;
-
-    private TwitterModel() {}
-
-    public static TwitterModel getInstance() {
-        if (TwitterModel.instance == null) {
-            TwitterModel.instance = new TwitterModel();
-        }
-        return TwitterModel.instance;
-    }
-
     public void setTweetsFromJsonString(String tweetsString) throws JSONException, ParseException {
         tweets.clear();
         JSONObject jsonObject = new JSONObject(tweetsString);

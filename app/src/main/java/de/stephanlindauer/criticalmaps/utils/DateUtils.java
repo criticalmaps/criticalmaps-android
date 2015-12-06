@@ -1,10 +1,12 @@
 package de.stephanlindauer.criticalmaps.utils;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 public class DateUtils {
-    public static boolean isLongerAgoThen5Minutes(Date timestamp) {
+    public static boolean isNotLongerAgoThen(@NonNull Date timestamp, int minutes, int seconds) {
         long differenceInMs = timestamp.getTime() - new Date().getTime();
-        return differenceInMs >= 5 * 60 * 1000;
+        return differenceInMs <= (minutes * 60 + seconds) * 1000;
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LicensePanelView">
+        <attr name="name" format="reference" />
+        <attr name="link" format="reference" />
+        <attr name="copyright" format="reference" />
+        <attr name="notice" format="reference" />
+    </declare-styleable>
+</resources>

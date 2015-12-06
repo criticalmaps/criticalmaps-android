@@ -6,18 +6,6 @@ public class EventBusProvider {
 
     private final Bus bus = new Bus();
 
-    //singleton
-    private static EventBusProvider instance;
-
-    private EventBusProvider() {}
-
-    public static EventBusProvider getInstance() {
-        if (instance == null) {
-            instance = new EventBusProvider();
-        }
-        return instance;
-    }
-
     public void post(Object event) {
         bus.post(event);
     }
