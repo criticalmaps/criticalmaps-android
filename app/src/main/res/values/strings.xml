@@ -78,6 +78,11 @@
     <string name="about_text_contributors" translatable="false">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translation) \n&#8226; Tobias Preuss (Code)\n&#8226; Luca Gemini (Translation)</string>
     <string name="about_heading_code">code</string>
     <string name="about_text_github_url" translatable="false">github.com/criticalmaps/criticalmaps-android</string>
+    <string name="about_heading_opensource">open source licenses</string>
+    <string name="about_text_opensource">We are using the following open source libraries. Huge thanks to everyone involved in these projects!</string>
+    <string name="about_license_website">website</string>
+    <string name="about_license_more">more</string>
+    <string name="about_license_less">less</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">don\'t forget:</string>
