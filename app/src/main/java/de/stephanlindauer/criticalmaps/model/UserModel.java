@@ -18,9 +18,9 @@ public class UserModel {
     public void initialize(Activity activity) {
         final String androidId = getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        final GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.add(Calendar.HOUR, 6);
-        final String dateString = new SimpleDateFormat("yyyy-mm-dd").format(gregorianCalendar);
+        final String dateString = new SimpleDateFormat("yyyy-MM-dd").format(gregorianCalendar.getTime());
 
         changingDeviceToken = AeSimpleSHA1.SHA1(androidId + dateString);
     }
