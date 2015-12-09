@@ -12,15 +12,15 @@ import static android.provider.Settings.Secure.getString;
 
 public class UserModel {
 
-    private String uniqueDeviceId;
+    private String changingDeviceToken;
 
     public void initialize(Activity activity) {
         final String androidId = getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         final String dateString = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
-        uniqueDeviceId = AeSimpleSHA1.SHA1(androidId + dateString);
+        changingDeviceToken = AeSimpleSHA1.SHA1(androidId + dateString);
     }
 
-    public String getUniqueDeviceId() {
-        return uniqueDeviceId;
+    public String getChangingDeviceToken() {
+        return changingDeviceToken;
     }
 }
