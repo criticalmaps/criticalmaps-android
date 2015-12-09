@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.provider.Settings;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 
@@ -16,7 +17,11 @@ public class UserModel {
 
     public void initialize(Activity activity) {
         final String androidId = getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        final String dateString = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.add(Calendar.HOUR, 6);
+        final String dateString = new SimpleDateFormat("yyyy-mm-dd").format(gregorianCalendar);
+
         changingDeviceToken = AeSimpleSHA1.SHA1(androidId + dateString);
     }
 
