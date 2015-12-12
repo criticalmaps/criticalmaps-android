@@ -9,6 +9,7 @@
         tools:menu="actionbar_buttons">
 
     <LinearLayout
+            android:id="@+id/rules_subcontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
