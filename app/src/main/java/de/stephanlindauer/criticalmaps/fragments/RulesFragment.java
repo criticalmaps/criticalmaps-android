@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.LayoutTransition;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -7,8 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 
 public class RulesFragment extends Fragment {
@@ -18,11 +22,16 @@ public class RulesFragment extends Fragment {
 
     private View currentlyShownPanel;
 
+    @Bind(R.id.rules_subcontainer)
+    LinearLayout linearLayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_rules, container, false);
+        View view = inflater.inflate(R.layout.fragment_rules, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -41,7 +50,11 @@ public class RulesFragment extends Fragment {
             Integer activePanelId = (Integer) savedInstanceState.get(KEY_ACTIVE_PANEL_ID);
             if (activePanelId != null) {
                 currentlyShownPanel = findViewById(activePanelId);
-                currentlyShownPanel.setVisibility(View.VISIBLE); // TODO don't animate here?
+                LayoutTransition layoutTransition = linearLayout.getLayoutTransition();
+                long durationAppearing = layoutTransition.getDuration(LayoutTransition.APPEARING);
+                layoutTransition.setDuration(LayoutTransition.APPEARING, 0);
+                currentlyShownPanel.setVisibility(View.VISIBLE);
+                layoutTransition.setDuration(LayoutTransition.APPEARING, durationAppearing);
             }
 
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -108,6 +121,7 @@ public class RulesFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        ButterKnife.unbind(this);
         currentlyShownPanel = null;
     }
 }
