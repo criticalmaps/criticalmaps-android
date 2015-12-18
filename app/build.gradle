@@ -44,7 +44,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.ligi:AXT:0.35'
     compile 'com.google.dagger:dagger:2.0.2'
