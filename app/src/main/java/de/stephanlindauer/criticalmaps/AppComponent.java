@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps;
 
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 
@@ -23,6 +24,8 @@ public interface AppComponent {
 
     void inject(ChatFragment chatFragment);
 
+    Picasso picasso();
+
     OwnLocationModel ownLocationmodel();
 
     LocationUpdatesService locationUpdatesService();
@@ -30,5 +33,4 @@ public interface AppComponent {
     TwitterModel twitterModel();
 
     OkHttpClient okHttpClient();
-
 }
