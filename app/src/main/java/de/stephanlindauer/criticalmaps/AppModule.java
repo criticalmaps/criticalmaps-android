@@ -1,6 +1,10 @@
 package de.stephanlindauer.criticalmaps;
 
+import android.app.Application;
+
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +12,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
 import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
@@ -20,6 +23,17 @@ import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
 
 @Module
 public class AppModule {
+    private final Application application;
+
+    public AppModule(Application application) {
+        this.application = application;
+    }
+
+    @Provides
+    @Singleton
+    public  Application provideApplication() {
+        return application;
+    }
 
     @Provides
     @Singleton
@@ -27,6 +41,14 @@ public class AppModule {
         final OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
         return okHttpClient;
+    }
+
+    @Provides
+    @Singleton
+    public Picasso providePicasso(Application app, OkHttpClient client) {
+        return new Picasso.Builder(app)
+                .downloader(new OkHttpDownloader(client))
+                .build();
     }
 
     @Provides
@@ -72,12 +94,9 @@ public class AppModule {
         return new EventBusProvider();
     }
 
-
     @Provides
     @Singleton
     public LocationUpdatesService provideLocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
         return new LocationUpdatesService(ownLocationModel, eventBusProvider);
     }
-
-
 }
