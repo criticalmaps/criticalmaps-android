@@ -23,9 +23,8 @@ import de.stephanlindauer.criticalmaps.vo.ResultType;
 
 public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType> {
 
-
-    private Activity activity;
-    private File newCameraOutputFile;
+    private final Activity activity;
+    private final File newCameraOutputFile;
     private File processedImageFile;
     private ProgressDialog progressDialog;
 
@@ -49,12 +48,16 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
         try {
             Bitmap rotatedBitmap = ImageUtils.rotateBitmap(newCameraOutputFile);
             Bitmap scaledBitmap = ImageUtils.resize(rotatedBitmap, 1024, 1024);
+            if (scaledBitmap != rotatedBitmap) {
+                rotatedBitmap.recycle();
+            }
 
             processedImageFile = ImageUtils.getNewOutputImageFile();
             FileOutputStream fOut = new FileOutputStream(processedImageFile);
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
             fOut.flush();
             fOut.close();
+            scaledBitmap.recycle();
         } catch (Exception e) {
             return ResultType.FAILED;
         }
@@ -64,12 +67,12 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
     @Override
     protected void onPostExecute(ResultType resultType) {
+        progressDialog.dismiss();
+
         if (resultType == ResultType.FAILED) {
             Toast.makeText(activity, R.string.something_went_wrong, Toast.LENGTH_LONG).show();
             return;
         }
-
-        progressDialog.dismiss();
 
         LayoutInflater factory = LayoutInflater.from(activity);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -79,8 +82,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
         image.setImageBitmap(BitmapFactory.decodeFile(processedImageFile.getPath(), new BitmapFactory.Options()));
 
-        TextView text;
-        text = (TextView) view.findViewById(R.id.picture_confirm_text);
+        TextView text = (TextView) view.findViewById(R.id.picture_confirm_text);
         text.setLinksClickable(true);
         text.setText(Html.fromHtml(activity.getString(R.string.camera_confirm_image_upload)));
 

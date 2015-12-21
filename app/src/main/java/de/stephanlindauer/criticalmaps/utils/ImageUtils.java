@@ -15,24 +15,35 @@ public class ImageUtils {
     public static Bitmap rotateBitmap(File photoFile) {
         Bitmap sourceBitmap = BitmapFactory.decodeFile(photoFile.getPath());
 
-        ExifInterface exif = null;
+        String orientString = null;
         try {
-            exif = new ExifInterface(photoFile.getPath());
+            ExifInterface exif = new ExifInterface(photoFile.getPath());
+            orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+
+        int orientation = Integer.parseInt(orientString);
         int rotationAngle = 0;
 
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            rotationAngle = 90;
+        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            rotationAngle = 180;
+        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            rotationAngle = 270;
+        }
+
+        if (rotationAngle == 0) {
+            return sourceBitmap;
+        }
 
         Matrix matrix = new Matrix();
         matrix.setRotate(rotationAngle);
 
-        Bitmap rotatedBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(),
+                sourceBitmap.getHeight(), matrix, true);
+        sourceBitmap.recycle();
 
         return rotatedBitmap;
     }
@@ -52,20 +63,19 @@ public class ImageUtils {
                 finalHeight = (int) ((float) maxWidth / ratioBitmap);
             }
             image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-            return image;
-        } else {
-            return image;
         }
+
+        return image;
     }
 
 
     public static File getNewOutputImageFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CriticalMaps");
+        File mediaStorageDir = new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "CriticalMaps");
 
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            return null;
         }
 
         final String id = UUID.randomUUID().toString().replace("-", "");
