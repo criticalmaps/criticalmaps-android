@@ -4,13 +4,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
@@ -18,13 +20,18 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
+import okio.Buffer;
+import okio.BufferedSink;
+import okio.ForwardingSink;
+import okio.Okio;
+
 
 public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
-    private OwnLocationModel ownLocationModel = App.components().ownLocationmodel();
+
+    private final OwnLocationModel ownLocationModel = App.components().ownLocationmodel();
 
     private final Activity activity;
     private final File imageFileToUpload;
-    private int totalAmountBytesToUpload;
     private ProgressDialog progressDialog;
 
     public ImageUploadHandler(File imageFileToUpload, Activity activity) {
@@ -39,6 +46,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(false);
+        progressDialog.setProgressNumberFormat(null);
         progressDialog.setMax(100);
         progressDialog.setProgress(0);
         progressDialog.show();
@@ -46,99 +54,50 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
     @Override
     protected ResultType doInBackground(Void... params) {
+
+        final OkHttpClient okHttpClient = App.components().okHttpClient();
+
+        final ProgressListener progressListener = new ProgressListener() {
+            @Override
+            public void update(long bytesRead, long contentLength) {
+                onProgressUpdate((int) ((100 * bytesRead) / contentLength));
+            }
+        };
+
+        RequestBody requestBody = new MultipartBuilder()
+                .type(MultipartBuilder.FORM)
+                .addFormDataPart("data", ownLocationModel.getLocationJson().toString())
+                .addFormDataPart("uploaded_file", imageFileToUpload.getName(),
+                        new ProgressRequestBody(
+                                RequestBody.create(MediaType.parse("image/jpeg"), imageFileToUpload),
+                                progressListener))
+                .build();
+
+        Request request = new Request.Builder().url(Endpoints.IMAGE_POST).post(requestBody).build();
+
+        Response response = null;
         try {
-            final String lineEnd = "\r\n";
-            final String twoHyphens = "--";
-            final String boundary = "*****";
-            final int maxBufferSize = 32 * 1024;
+            response = okHttpClient.newCall(request).execute();
 
-            int bytesRead, bytesAvailable, bufferSize;
-
-            FileInputStream fileInputStream = new FileInputStream(imageFileToUpload);
-            URL url = new URL(Endpoints.IMAGE_POST);
-
-            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setUseCaches(false);
-
-            connection.setRequestMethod("POST");
-
-            connection.setRequestProperty("Connection", "Keep-Alive");
-            connection.setRequestProperty("ENCTYPE", "multipart/form-data");
-            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            connection.setRequestProperty("uploaded_file", imageFileToUpload.getName());
-
-            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
-
-            dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + "data" + "\"" + lineEnd);
-            dataOutputStream.writeBytes("Content-Type: text/plain" + lineEnd);
-            dataOutputStream.writeBytes(lineEnd);
-            dataOutputStream.writeBytes(ownLocationModel.getLocationJson().toString());
-            dataOutputStream.writeBytes(lineEnd);
-
-            dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
-                    + imageFileToUpload.getName() + "\"" + lineEnd);
-
-            dataOutputStream.writeBytes(lineEnd);
-
-            bytesAvailable = fileInputStream.available();
-            totalAmountBytesToUpload = bytesAvailable;
-
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            byte[] buffer = new byte[bufferSize];
-
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-            while (bytesRead > 0) {
-                dataOutputStream.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                publishProgress(bytesAvailable);
+            if (response.isSuccessful() && response.body().string().equals("success")) {
+                    return ResultType.SUCCEEDED;
             }
-
-            dataOutputStream.writeBytes(lineEnd);
-            dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            int serverResponseCode = connection.getResponseCode();
-
-            if (serverResponseCode != 200) {
-                throw new Exception();
+        } catch (Exception ignored) {
+        } finally {
+            if (response != null) {
+                try {
+                    response.body().close();
+                } catch (IOException ignored) {
+                }
             }
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            StringBuilder stringBuilder = new StringBuilder();
-            String responseString;
-            while ((responseString = bufferedReader.readLine()) != null) {
-                stringBuilder.append(responseString);
-            }
-
-            if (!stringBuilder.toString().equals("success")) {
-                return ResultType.FAILED;
-            }
-
-            fileInputStream.close();
-            dataOutputStream.flush();
-            dataOutputStream.close();
-        } catch (Exception e) {
-            return ResultType.FAILED;
         }
 
-        return ResultType.SUCCEEDED;
+        return ResultType.FAILED;
     }
 
     @Override
-    protected void onProgressUpdate(Integer... stillLeftToUpload) {
-        int alreadyUploaded = totalAmountBytesToUpload - stillLeftToUpload[0];
-
-        int onePercent = totalAmountBytesToUpload / 100;
-        int percentUploaded = alreadyUploaded / onePercent;
-
-        progressDialog.setProgress(percentUploaded);
+    protected void onProgressUpdate(Integer... progress) {
+        progressDialog.setProgress(progress[0]);
     }
 
     @Override
@@ -151,5 +110,46 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             AlertBuilder.show(activity, R.string.camera_upload_failed_title, R.string.camera_upload_failed_message);
         }
         imageFileToUpload.delete();
+    }
+
+    private static class ProgressRequestBody extends RequestBody {
+        private final RequestBody requestBody;
+        private final ProgressListener progressListener;
+
+        public ProgressRequestBody(RequestBody requestBody, ProgressListener progressListener) {
+            this.requestBody = requestBody;
+            this.progressListener = progressListener;
+        }
+
+        @Override
+        public MediaType contentType() {
+            return requestBody.contentType();
+        }
+
+        @Override
+        public long contentLength() throws IOException {
+            return requestBody.contentLength();
+        }
+
+        @Override
+        public void writeTo(BufferedSink sink) throws IOException {
+            final long totalBytes = contentLength();
+            BufferedSink progressSink = Okio.buffer(new ForwardingSink(sink) {
+                private long bytesWritten = 0L;
+
+                @Override
+                public void write(Buffer source, long byteCount) throws IOException {
+                    bytesWritten += byteCount;
+                    progressListener.update(bytesWritten, totalBytes);
+                    super.write(source, byteCount);
+                }
+            });
+            requestBody.writeTo(progressSink);
+            progressSink.flush();
+        }
+    }
+
+    private interface ProgressListener {
+        void update(long bytesRead, long contentLength);
     }
 }
