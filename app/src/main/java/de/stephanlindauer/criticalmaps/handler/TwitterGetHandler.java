@@ -10,7 +10,6 @@ import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
-import java.net.HttpURLConnection;
 import java.text.ParseException;
 import org.json.JSONException;
 
@@ -34,8 +33,9 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
         try {
             final Response response = httpClient.newCall(request).execute();
 
-            if (response.code() == HttpURLConnection.HTTP_OK) {
+            if (response.isSuccessful()) {
                 responseString = response.body().string();
+                response.body().close();
                 return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
