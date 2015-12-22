@@ -14,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
 
@@ -53,10 +52,10 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
         try {
             final Response response = okHttpClient.newCall(postRequest).execute();
-            if (response.code() == HttpURLConnection.HTTP_OK) {
-                String responseBody = response.body().string();
+            if (response.isSuccessful()) {
+                String responseBodyString = response.body().string();
                 response.body().close();
-                return responseBody;
+                return responseBodyString;
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
