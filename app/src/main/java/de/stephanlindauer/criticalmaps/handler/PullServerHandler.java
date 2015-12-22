@@ -65,8 +65,9 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        serverResponseProcessor.process(result);
+        if (!result.isEmpty()) {
+            serverResponseProcessor.process(result);
+        }
     }
 
     private JSONObject getJsonObject() {
