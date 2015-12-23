@@ -19,9 +19,11 @@ import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
 
-    private final int PULL_OTHER_LOCATIONS_TIME = 12 * 1000; // 12 sec -> 5 times a minute
-
+    private final int SERVER_SYNC_INTERVAL = 12 * 1000; // 12 sec -> 5 times a minute
     private Timer timerPullServer;
+
+    @Inject
+    LocationUpdatesService locationUpdatesService;
 
     @Inject
     Provider<PullServerHandler> pullServerHandler;
@@ -33,12 +35,12 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onCreate() {
-
         App.components().inject(this);
-
 
         startForeground(TrackingInfoNotificationBuilder.NOTIFICATION_ID,
                 TrackingInfoNotificationBuilder.getNotification(getApplication()));
+
+        locationUpdatesService.initializeAndStartListening(getApplication());
 
         timerPullServer = new Timer();
 
@@ -60,11 +62,12 @@ public class ServerSyncService extends Service {
                 }
             }
         };
-        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, PULL_OTHER_LOCATIONS_TIME);
+        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
     @Override
     public void onDestroy() {
+        locationUpdatesService.handleShutdown();
         timerPullServer.cancel();
     }
 
