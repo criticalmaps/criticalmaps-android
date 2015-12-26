@@ -26,8 +26,8 @@ public class ServerResponseProcessor {
         try {
             final JSONObject jsonObject = new JSONObject(jsonString);
             otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
-            eventService.post(Events.NEW_SERVER_RESPONSE_EVENT);
             chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
+            eventService.post(Events.NEW_SERVER_RESPONSE_EVENT);
         } catch (Exception ignored) {
         }
     }
