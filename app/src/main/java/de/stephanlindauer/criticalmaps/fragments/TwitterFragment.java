@@ -46,9 +46,6 @@ public class TwitterFragment extends Fragment {
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeLayout;
 
-    @Bind(R.id.twitter_new_tweet_button)
-    FloatingActionButton newTweetButton;
-
     //adapter
     private TweetAdapter tweetAdapter;
 
