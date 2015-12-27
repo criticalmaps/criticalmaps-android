@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
+import de.stephanlindauer.criticalmaps.handler.PostTweetHandler;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
@@ -43,6 +45,9 @@ public class TwitterFragment extends Fragment {
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeLayout;
 
+    @Bind(R.id.twitter_new_tweet_button)
+    FloatingActionButton newTweetButton;
+
     //adapter
     private TweetAdapter tweetAdapter;
 
@@ -66,6 +71,12 @@ public class TwitterFragment extends Fragment {
             @Override
             public void onRefresh() {
                 new TwitterGetHandler(TwitterFragment.this).execute();
+            }
+        });
+
+        newTweetButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new PostTweetHandler(getActivity()).execute();
             }
         });
 

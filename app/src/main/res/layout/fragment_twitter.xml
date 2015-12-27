@@ -38,6 +38,16 @@
         android:layout_centerVertical="true"
         tools:background="@android:color/holo_green_dark" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/twitter_new_tweet_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/plus" />
+
     <LinearLayout
         android:id="@+id/twitter_error"
         android:layout_width="wrap_content"
