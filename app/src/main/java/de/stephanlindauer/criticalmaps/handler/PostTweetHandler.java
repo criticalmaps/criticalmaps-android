@@ -19,6 +19,13 @@ public class PostTweetHandler {
     }
 
     public void execute() {
+        Intent twitterAppIntent = getTwitterAppIntent();
+        Intent intentToStart = twitterAppIntent != null ? twitterAppIntent : getFallbackWebIntent();
+
+        activity.startActivity(intentToStart);
+    }
+
+    private Intent getTwitterAppIntent() {
         Intent tweetIntent = new Intent(Intent.ACTION_SEND);
         tweetIntent.putExtra(Intent.EXTRA_TEXT, "#" + HASHTAG);
         tweetIntent.setType("text/plain");
@@ -26,26 +33,20 @@ public class PostTweetHandler {
         PackageManager packManager = activity.getPackageManager();
         List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
 
-        boolean resolved = false;
         for (ResolveInfo resolveInfo : resolvedInfoList) {
             if (resolveInfo.activityInfo.packageName.startsWith("com.twitter.android")) {
                 tweetIntent.setClassName(
                         resolveInfo.activityInfo.packageName,
                         resolveInfo.activityInfo.name);
-                resolved = true;
-                break;
+                return tweetIntent;
             }
         }
-        if (resolved) {
-            activity.startActivity(tweetIntent);
-        } else {
-            launchFallbackIntent();
-        }
+        return null;
     }
 
-    private void launchFallbackIntent() {
+    private Intent getFallbackWebIntent() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(FALLBACK_URL));
-        activity.startActivity(intent);
+        return intent;
     }
 }
