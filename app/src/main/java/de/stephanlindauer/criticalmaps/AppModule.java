@@ -19,7 +19,7 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 
 @Module
 public class AppModule {
@@ -96,7 +96,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public LocationUpdatesService provideLocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
-        return new LocationUpdatesService(ownLocationModel, eventBusProvider);
+    public LocationUpdateManager provideLocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
+        return new LocationUpdateManager(ownLocationModel, eventBusProvider);
     }
 }

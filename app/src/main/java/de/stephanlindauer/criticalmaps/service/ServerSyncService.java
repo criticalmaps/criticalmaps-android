@@ -15,6 +15,7 @@ import javax.inject.Provider;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
@@ -23,7 +24,7 @@ public class ServerSyncService extends Service {
     private Timer timerPullServer;
 
     @Inject
-    LocationUpdatesService locationUpdatesService;
+    LocationUpdateManager locationUpdateManager;
 
     @Inject
     Provider<PullServerHandler> pullServerHandler;
@@ -40,7 +41,7 @@ public class ServerSyncService extends Service {
         startForeground(TrackingInfoNotificationBuilder.NOTIFICATION_ID,
                 TrackingInfoNotificationBuilder.getNotification(getApplication()));
 
-        locationUpdatesService.initializeAndStartListening(getApplication());
+        locationUpdateManager.initializeAndStartListening(getApplication());
 
         timerPullServer = new Timer();
 
@@ -67,7 +68,7 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onDestroy() {
-        locationUpdatesService.handleShutdown();
+        locationUpdateManager.handleShutdown();
         timerPullServer.cancel();
     }
 

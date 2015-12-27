@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.service;
+package de.stephanlindauer.criticalmaps.managers;
 
 import android.app.Application;
 import android.content.Context;
@@ -22,7 +22,7 @@ import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
-public class LocationUpdatesService {
+public class LocationUpdateManager {
 
     private final OwnLocationModel ownLocationModel;
     private final EventBusProvider eventService;
@@ -38,7 +38,7 @@ public class LocationUpdatesService {
     private Location lastPublishedLocation;
 
     @Inject
-    public LocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventService) {
+    public LocationUpdateManager(OwnLocationModel ownLocationModel, EventBusProvider eventService) {
         this.ownLocationModel = ownLocationModel;
         this.eventService = eventService;
     }
