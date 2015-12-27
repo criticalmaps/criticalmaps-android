@@ -41,7 +41,7 @@ public class ServerSyncService extends Service {
         startForeground(TrackingInfoNotificationBuilder.NOTIFICATION_ID,
                 TrackingInfoNotificationBuilder.getNotification(getApplication()));
 
-        locationUpdateManager.initializeAndStartListening(getApplication());
+        locationUpdateManager.initializeAndStartListening();
 
         timerPullServer = new Timer();
 
