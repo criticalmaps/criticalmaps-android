@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
@@ -74,12 +75,6 @@ public class TwitterFragment extends Fragment {
             }
         });
 
-        newTweetButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new PostTweetHandler(getActivity()).execute();
-            }
-        });
-
         swipeLayout.setColorSchemeResources(
                 R.color.twitter_indicator_color_first,
                 R.color.twitter_indicator_color_second);
@@ -117,5 +112,10 @@ public class TwitterFragment extends Fragment {
         swipeLayout.setVisibility(View.GONE);
         loadingSpinner.setVisibility(View.GONE);
         errorMessage.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.twitter_new_tweet_button)
+    void handleNewTweetClicked(View view) {
+        new PostTweetHandler(getActivity()).execute();
     }
 }
