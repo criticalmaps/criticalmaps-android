@@ -19,20 +19,20 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 
 @Module
 public class AppModule {
-    private final Application application;
+    private final App app;
 
-    public AppModule(Application application) {
-        this.application = application;
+    public AppModule(App app) {
+        this.app = app;
     }
 
     @Provides
     @Singleton
-    public  Application provideApplication() {
-        return application;
+    public App provideApp() {
+        return app;
     }
 
     @Provides
@@ -45,7 +45,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Picasso providePicasso(Application app, OkHttpClient client) {
+    public Picasso providePicasso(App app, OkHttpClient client) {
         return new Picasso.Builder(app)
                 .downloader(new OkHttpDownloader(client))
                 .build();
@@ -96,7 +96,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public LocationUpdatesService provideLocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
-        return new LocationUpdatesService(ownLocationModel, eventBusProvider);
+    public LocationUpdateManager provideLocationUpdatesService(App app, OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
+        return new LocationUpdateManager(app, ownLocationModel, eventBusProvider);
     }
 }

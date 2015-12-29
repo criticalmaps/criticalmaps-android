@@ -1,13 +1,11 @@
-package de.stephanlindauer.criticalmaps.service;
+package de.stephanlindauer.criticalmaps.managers;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.osmdroid.util.GeoPoint;
@@ -16,13 +14,14 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
-public class LocationUpdatesService {
+public class LocationUpdateManager {
 
     private final OwnLocationModel ownLocationModel;
     private final EventBusProvider eventService;
@@ -32,21 +31,22 @@ public class LocationUpdatesService {
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
 
     //misc
+    private final App app;
     private LocationManager locationManager;
     private SharedPreferences sharedPreferences;
     private boolean isRegisteredForLocationUpdates;
     private Location lastPublishedLocation;
 
     @Inject
-    public LocationUpdatesService(OwnLocationModel ownLocationModel, EventBusProvider eventService) {
+    public LocationUpdateManager(App app, OwnLocationModel ownLocationModel, EventBusProvider eventService) {
+        this.app = app;
         this.ownLocationModel = ownLocationModel;
         this.eventService = eventService;
+        sharedPreferences = app.getSharedPreferences("Main", Context.MODE_PRIVATE);
     }
 
-
-    public void initializeAndStartListening(@NonNull Application application) {
-        locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
-        sharedPreferences = application.getSharedPreferences("Main", Context.MODE_PRIVATE);
+    public void initializeAndStartListening() {
+        locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
         registerLocationListeners();
     }
 

@@ -30,7 +30,7 @@ import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.service.LocationUpdatesService;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends Fragment {
@@ -52,7 +52,7 @@ public class MapFragment extends Fragment {
     EventBusProvider eventService;
 
     @Inject
-    LocationUpdatesService locationManager;
+    LocationUpdateManager locationUpdateManager;
 
     //view
     private MapView mapView;
@@ -126,7 +126,7 @@ public class MapFragment extends Fragment {
 
     private void setInitialMapLocation() {
         if (ownLocationModel.ownLocation == null) {
-            GeoPoint lastKnownLocation = locationManager.getLastKnownLocation();
+            GeoPoint lastKnownLocation = locationUpdateManager.getLastKnownLocation();
             if (lastKnownLocation != null) {
                 setToLocation(lastKnownLocation);
             }
