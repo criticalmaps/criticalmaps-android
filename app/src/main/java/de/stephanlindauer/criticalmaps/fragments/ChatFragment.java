@@ -44,7 +44,6 @@ import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 public class ChatFragment extends Fragment {
 
     //dependencies
-
     @Inject
     ChatModel chatModel;
 
@@ -64,14 +63,12 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.chat_edit_message)
     EditText editMessageTextField;
 
-    @Bind(R.id.searching_for_location_overlay_chat)
-    RelativeLayout searchingForLocationOverlay;
-
     @Bind(R.id.chat_send_btn)
     FloatingActionButton sendButton;
 
     //misc
     private boolean isScrolling = false;
+    private boolean isTextInputEnabled = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -131,7 +128,7 @@ public class ChatFragment extends Fragment {
         });
 
         if (ownLocationModel.ownLocation == null) {
-            searchingForLocationOverlay.setVisibility(View.VISIBLE);
+            setTextInputEnabled(false);
         }
     }
 
@@ -180,7 +177,7 @@ public class ChatFragment extends Fragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
-        setSearchingForLocationOverlayState();
+        setTextInputEnabled(true);
     }
 
     @Subscribe
@@ -188,9 +185,15 @@ public class ChatFragment extends Fragment {
         chatModelToAdapter();
     }
 
-    public void setSearchingForLocationOverlayState() {
-        if (ownLocationModel.ownLocation != null) {
-            searchingForLocationOverlay.setVisibility(View.GONE);
+    public void setTextInputEnabled(final boolean enabled) {
+        if (!enabled) {
+            editMessageTextField.setEnabled(false);
+            textInputLayout.setHint(getString(R.string.map_searching_for_location));
+            isTextInputEnabled = false;
+        } else if (!isTextInputEnabled) {
+            editMessageTextField.setEnabled(true);
+            textInputLayout.setHint(getString(R.string.chat_text));
+            isTextInputEnabled = true;
         }
     }
 }
