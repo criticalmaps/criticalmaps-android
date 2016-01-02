@@ -1,9 +1,14 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -15,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -92,6 +96,14 @@ public class ChatFragment extends Fragment {
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
         editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
 
+        Drawable wrappedDrawable = DrawableCompat.wrap(sendButton.getDrawable());
+        DrawableCompat.setTintMode(wrappedDrawable, PorterDuff.Mode.SRC_ATOP);
+        ColorStateList colorStateList = ContextCompat.getColorStateList(getActivity(),
+                R.color.chat_fab_drawable_states);
+        DrawableCompat.setTintList(wrappedDrawable, colorStateList);
+        sendButton.setImageDrawable(wrappedDrawable);
+        sendButton.setEnabled(false);
+
         chatRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -123,7 +135,7 @@ public class ChatFragment extends Fragment {
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                sendButton.setVisibility(s.length() == 0 ? View.GONE : View.VISIBLE);
+                sendButton.setEnabled(s.length() != 0);
             }
         });
 
@@ -185,7 +197,7 @@ public class ChatFragment extends Fragment {
         chatModelToAdapter();
     }
 
-    public void setTextInputEnabled(final boolean enabled) {
+    private void setTextInputEnabled(final boolean enabled) {
         if (!enabled) {
             editMessageTextField.setEnabled(false);
             textInputLayout.setHint(getString(R.string.map_searching_for_location));
