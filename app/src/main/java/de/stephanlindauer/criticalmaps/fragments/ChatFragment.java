@@ -185,7 +185,6 @@ public class ChatFragment extends Fragment {
 
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
-        setSearchingForLocationOverlayState();
         chatModelToAdapter();
     }
 
