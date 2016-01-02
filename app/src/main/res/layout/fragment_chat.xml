@@ -64,13 +64,9 @@
                     app:elevation="4dp"
                     app:fabSize="mini"
                     android:visibility="gone"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
                     />
         </LinearLayout>
     </LinearLayout>
-    <include
-            android:id="@+id/searching_for_location_overlay_chat"
-            layout="@layout/view_searching_for_location_overlay"
-            android:visibility="gone"/>
 </FrameLayout>
