@@ -1,5 +1,9 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -74,6 +78,7 @@ public class ChatFragment extends Fragment {
     private boolean isScrolling = false;
     private boolean isTextInputEnabled = true;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -135,13 +140,34 @@ public class ChatFragment extends Fragment {
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                sendButton.setEnabled(s.length() != 0);
+                setSendButtonEnabledWithAnimation(s.length() != 0);
             }
         });
 
         if (ownLocationModel.ownLocation == null) {
             setTextInputEnabled(false);
         }
+    }
+
+    private void setSendButtonEnabledWithAnimation(final boolean enabled) {
+        if (sendButton.isEnabled() == enabled) {
+            return;
+        }
+
+        final AnimatorSet animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
+                R.animator.chat_fab_state_change);
+        animatorSet.setTarget(sendButton);
+
+        // flip button state for color change after first half of the animation
+        final ArrayList<Animator> animations = animatorSet.getChildAnimations();
+        animations.get(0).addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                sendButton.setEnabled(enabled);
+            }
+        });
+
+        animatorSet.start();
     }
 
     @OnClick(R.id.chat_send_btn)
