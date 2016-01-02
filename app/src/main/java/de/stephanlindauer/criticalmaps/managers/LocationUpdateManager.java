@@ -31,7 +31,6 @@ public class LocationUpdateManager {
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
 
     //misc
-    private final App app;
     private LocationManager locationManager;
     private SharedPreferences sharedPreferences;
     private boolean isRegisteredForLocationUpdates;
@@ -39,14 +38,13 @@ public class LocationUpdateManager {
 
     @Inject
     public LocationUpdateManager(App app, OwnLocationModel ownLocationModel, EventBusProvider eventService) {
-        this.app = app;
         this.ownLocationModel = ownLocationModel;
         this.eventService = eventService;
         sharedPreferences = app.getSharedPreferences("Main", Context.MODE_PRIVATE);
+        locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
     }
 
     public void initializeAndStartListening() {
-        locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
         registerLocationListeners();
     }
 
