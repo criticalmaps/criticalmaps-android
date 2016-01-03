@@ -63,7 +63,7 @@
                     android:src="@drawable/ic_action_send"
                     app:elevation="4dp"
                     app:fabSize="mini"
-                    android:visibility="gone"
+                    app:backgroundTint="@color/chat_fab_background_states"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
                     />
