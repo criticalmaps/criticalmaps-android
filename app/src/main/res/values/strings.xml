@@ -9,6 +9,7 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">About</string>
     <string name="section_chat">Chat</string>
+    <string name="section_settings">Settings</string>
 
     <!-- close -->
     <string name="close">Really close the app?</string>
@@ -133,4 +134,5 @@
     <string name="introduction_requisites">In order for this app to run properly, you need to have a working mobile data connection and GPS enabled.</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
+
 </resources>

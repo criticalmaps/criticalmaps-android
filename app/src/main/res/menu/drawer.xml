@@ -10,20 +10,21 @@
             android:id="@+id/navigation_chat"
             android:icon="@drawable/ic_chat"
             android:title="@string/section_chat" />
-
         <item
             android:id="@+id/navigation_twitter"
             android:icon="@drawable/ic_twitter"
             android:title="@string/section_twitter" />
-
         <item
             android:id="@+id/navigation_rules"
             android:icon="@drawable/ic_rules"
             android:title="@string/section_rules" />
-
         <item
             android:id="@+id/navigation_about"
             android:icon="@drawable/ic_info"
             android:title="@string/section_about" />
+        <item
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/section_settings" />
     </group>
 </menu>
