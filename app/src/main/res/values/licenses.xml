@@ -177,4 +177,24 @@
     WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </string>
 
+    <!-- Typed Preferences -->
+    <string translatable="false" name="licenses_name_typed_preferences">Typed Preferences</string>
+    <string translatable="false" name="licenses_link_typed_preferences">https://github.com/johnjohndoe/TypedPreferences</string>
+    <string translatable="false" name="licenses_copyright_typed_preferences">Copyright 2014–2016 Tobias Preuss</string>
+    <string translatable="false" name="licenses_notice_typed_preferences" tools:ignore="TypographyOther">
+    Copyright 2014–2016 Tobias Preuss\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+    </string>
+
 </resources>
