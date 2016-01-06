@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps;
 
-import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
@@ -23,6 +24,7 @@ import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 
 @Module
 public class AppModule {
+
     private final App app;
 
     public AppModule(App app) {
@@ -96,7 +98,18 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public LocationUpdateManager provideLocationUpdatesService(App app, OwnLocationModel ownLocationModel, EventBusProvider eventBusProvider) {
-        return new LocationUpdateManager(app, ownLocationModel, eventBusProvider);
+    public LocationUpdateManager provideLocationUpdatesService(
+            OwnLocationModel ownLocationModel,
+            EventBusProvider eventBusProvider,
+            SharedPreferences sharedPreferences) {
+        return new LocationUpdateManager(
+                app, ownLocationModel, eventBusProvider, sharedPreferences);
     }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences() {
+        return app.getSharedPreferences("Main", Context.MODE_PRIVATE);
+    }
+
 }
