@@ -32,10 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <data android:scheme="criticalmaps" />
             </intent-filter>
-            <receiver
-                android:name="de.stephanlindauer.Receiver" android:exported="true"></receiver>
         </activity>
 
+        <receiver
+            android:name="de.stephanlindauer.criticalmaps.receivers.Receiver"
+            android:exported="true"/>
         <service
             android:name=".service.ServerSyncService"/>
 
