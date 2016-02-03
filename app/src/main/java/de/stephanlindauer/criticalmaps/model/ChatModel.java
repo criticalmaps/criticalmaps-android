@@ -1,7 +1,5 @@
 package de.stephanlindauer.criticalmaps.model;
 
-import android.support.annotation.VisibleForTesting;
-
 import com.squareup.okhttp.internal.Util;
 
 import org.json.JSONArray;
@@ -25,19 +23,6 @@ public class ChatModel {
     private final ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
     private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<>();
-
-    //singleton
-    private static ChatModel instance;
-
-    @VisibleForTesting
-    public ChatModel() {}
-
-    public static ChatModel getInstance() {
-        if (ChatModel.instance == null) {
-            ChatModel.instance = new ChatModel();
-        }
-        return ChatModel.instance;
-    }
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {

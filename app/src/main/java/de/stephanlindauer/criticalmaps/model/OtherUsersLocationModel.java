@@ -11,18 +11,6 @@ public class OtherUsersLocationModel {
 
     private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<>();
 
-    //singleton
-    private static OtherUsersLocationModel instance;
-
-    private OtherUsersLocationModel() {}
-
-    public static OtherUsersLocationModel getInstance() {
-        if (OtherUsersLocationModel.instance == null) {
-            OtherUsersLocationModel.instance = new OtherUsersLocationModel();
-        }
-        return OtherUsersLocationModel.instance;
-    }
-
     public void setNewJSON(JSONObject jsonObject) throws JSONException {
         otherUsersLocations = new ArrayList<>(jsonObject.length());
 

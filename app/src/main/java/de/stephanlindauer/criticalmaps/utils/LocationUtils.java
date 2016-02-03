@@ -13,7 +13,7 @@ public class LocationUtils {
         final String[] providers = new String[]{GPS_PROVIDER, NETWORK_PROVIDER, PASSIVE_PROVIDER};
 
         for (String provider : providers) {
-            if (locationManager.getAllProviders().contains(provider) && locationManager.isProviderEnabled(provider)) {
+            if (locationManager.isProviderEnabled(provider)) {
                 final Location location = locationManager.getLastKnownLocation(provider);
                 if (location != null) {
                     return new GeoPoint(location.getLatitude(), location.getLongitude());

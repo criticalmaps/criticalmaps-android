@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.LayoutTransition;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import butterknife.Bind;
@@ -26,6 +28,9 @@ public class AboutFragment extends Fragment {
 
     @Bind(R.id.about_scrollview)
     ScrollView scrollView;
+
+    @Bind(R.id.about_subcontainer)
+    LinearLayout linearLayout;
 
 
     @Override
@@ -54,6 +59,16 @@ public class AboutFragment extends Fragment {
                     });
                 }
             }
+        }
+
+        LayoutTransition layoutTransition = linearLayout.getLayoutTransition();
+        if (layoutTransition != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            // make LicensePanelView animations look nice
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+            // stop settings from bubbling up to ScrollView to prevent scroll animation
+            // on state restore and panel close
+            layoutTransition.setAnimateParentHierarchy(false);
+            linearLayout.setLayoutTransition(layoutTransition);
         }
 
         facebookButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));

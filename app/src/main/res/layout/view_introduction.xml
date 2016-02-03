@@ -18,14 +18,14 @@
             style="@style/introduction_paragraph"
             android:drawableRight="@drawable/map_marker_own"
             android:drawableEnd="@drawable/map_marker_own"
-            android:singleLine="true"
+            android:gravity="center_vertical"
             android:text="@string/introduction_own_icon" />
 
         <TextView
             style="@style/introduction_paragraph"
             android:drawableRight="@drawable/map_marker"
-            android:drawableEnd="@drawable/map_marker_own"
-            android:singleLine="true"
+            android:drawableEnd="@drawable/map_marker"
+            android:gravity="center_vertical"
             android:text="@string/introduction_other_icon" />
 
         <TextView

@@ -1,9 +1,18 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -15,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -25,9 +33,12 @@ import org.ligi.axt.simplifications.SimpleTextWatcher;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -41,9 +52,14 @@ import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 public class ChatFragment extends Fragment {
 
     //dependencies
-    private final ChatModel chatModel = ChatModel.getInstance();
-    private final EventBusProvider eventService = EventBusProvider.getInstance();
-    private final OwnLocationModel ownLocationModel = OwnLocationModel.getInstance();
+    @Inject
+    ChatModel chatModel;
+
+    @Inject
+    EventBusProvider eventService;
+
+    @Inject
+    OwnLocationModel ownLocationModel;
 
     //view
     @Bind(R.id.chat_recycler)
@@ -55,19 +71,20 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.chat_edit_message)
     EditText editMessageTextField;
 
-    @Bind(R.id.searching_for_location_overlay_chat)
-    RelativeLayout searchingForLocationOverlay;
-
     @Bind(R.id.chat_send_btn)
     FloatingActionButton sendButton;
 
     //misc
     private boolean isScrolling = false;
+    private boolean isTextInputEnabled = true;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
+        App.components().inject(this);
         View chatView = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, chatView);
 
@@ -83,6 +100,14 @@ public class ChatFragment extends Fragment {
 
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
         editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
+
+        Drawable wrappedDrawable = DrawableCompat.wrap(sendButton.getDrawable());
+        DrawableCompat.setTintMode(wrappedDrawable, PorterDuff.Mode.SRC_ATOP);
+        ColorStateList colorStateList = ContextCompat.getColorStateList(getActivity(),
+                R.color.chat_fab_drawable_states);
+        DrawableCompat.setTintList(wrappedDrawable, colorStateList);
+        sendButton.setImageDrawable(wrappedDrawable);
+        sendButton.setEnabled(false);
 
         chatRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -115,13 +140,34 @@ public class ChatFragment extends Fragment {
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                sendButton.setVisibility(s.length() == 0 ? View.GONE : View.VISIBLE);
+                setSendButtonEnabledWithAnimation(s.length() != 0);
             }
         });
 
         if (ownLocationModel.ownLocation == null) {
-            searchingForLocationOverlay.setVisibility(View.VISIBLE);
+            setTextInputEnabled(false);
         }
+    }
+
+    private void setSendButtonEnabledWithAnimation(final boolean enabled) {
+        if (sendButton.isEnabled() == enabled) {
+            return;
+        }
+
+        final AnimatorSet animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
+                R.animator.chat_fab_state_change);
+        animatorSet.setTarget(sendButton);
+
+        // flip button state for color change after first half of the animation
+        final ArrayList<Animator> animations = animatorSet.getChildAnimations();
+        animations.get(0).addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                sendButton.setEnabled(enabled);
+            }
+        });
+
+        animatorSet.start();
     }
 
     @OnClick(R.id.chat_send_btn)
@@ -169,18 +215,23 @@ public class ChatFragment extends Fragment {
 
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
-        setSearchingForLocationOverlayState();
+        setTextInputEnabled(true);
     }
 
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
-        setSearchingForLocationOverlayState();
         chatModelToAdapter();
     }
 
-    public void setSearchingForLocationOverlayState() {
-        if (ownLocationModel.ownLocation != null) {
-            searchingForLocationOverlay.setVisibility(View.GONE);
+    private void setTextInputEnabled(final boolean enabled) {
+        if (!enabled) {
+            editMessageTextField.setEnabled(false);
+            textInputLayout.setHint(getString(R.string.map_searching_for_location));
+            isTextInputEnabled = false;
+        } else if (!isTextInputEnabled) {
+            editMessageTextField.setEnabled(true);
+            textInputLayout.setHint(getString(R.string.chat_text));
+            isTextInputEnabled = true;
         }
     }
 }

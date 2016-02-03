@@ -12,6 +12,7 @@
 
     <!-- Transparent colors -->
     <color name="white_60pct">#99FFFFFF</color>
+    <color name="transparent_background">#CC424242</color>
 
     <!-- Map -->
     <color name="map_osm_notice">@color/white_60pct</color>
@@ -28,8 +29,6 @@
 
     <!-- Rules -->
     <color name="rules_background">@android:color/white</color>
-    <color name="rules_explainer_text">@android:color/black</color>
-    <color name="rules_button_text">@android:color/white</color>
 
     <!-- Twitter -->
     <color name="twitter_background">@color/colorPrimaryDark</color>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- AOSP Support Libraries -->
+    <string translatable="false" name="licenses_name_aospsupport">AOSP Support Libraries</string>
+    <string translatable="false" name="licenses_link_aospsupport">https://android.googlesource.com/platform/frameworks/support</string>
+    <string translatable="false" name="licenses_copyright_aospsupport">Copyright 2014 The Android Open Source Project</string>
+    <string translatable="false" name="licenses_notice_aospsupport" tools:ignore="TypographyOther">
+    Copyright (C) 2014 The Android Open Source Project\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- AXT -->
+    <string translatable="false" name="licenses_name_axt">AXT</string>
+    <string translatable="false" name="licenses_link_axt">https://github.com/ligi/AXT</string>
+    <string translatable="false" name="licenses_copyright_axt">Copyright 2013 ligi</string>
+    <string translatable="false" name="licenses_notice_axt">
+    Copyright 2013 ligi\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- Butterknife -->
+    <string translatable="false" name="licenses_name_butterknife">Butterknife</string>
+    <string translatable="false" name="licenses_link_butterknife">https://github.com/JakeWharton/butterknife</string>
+    <string translatable="false" name="licenses_copyright_butterknife">Copyright 2013 Jake Wharton</string>
+    <string translatable="false" name="licenses_notice_butterknife">
+    Copyright 2013 Jake Wharton\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- Otto -->
+    <string translatable="false" name="licenses_name_otto">Otto</string>
+    <string translatable="false" name="licenses_link_otto">https://github.com/square/otto</string>
+    <string translatable="false" name="licenses_copyright_otto">Copyright 2012 Square, Inc.\nCopyright 2010 Google, Inc.</string>
+    <string translatable="false" name="licenses_notice_otto">
+    Copyright 2013 Square, Inc.\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- OkHttp -->
+    <string translatable="false" name="licenses_name_okhttp">OkHttp</string>
+    <string translatable="false" name="licenses_link_okhttp">https://github.com/square/okhttp</string>
+    <string translatable="false" name="licenses_copyright_okhttp">Copyright 2014 Square, Inc.</string>
+    <string translatable="false" name="licenses_notice_okhttp">
+    Copyright 2014 Square, Inc.\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+    <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- osmdroid -->
+    <string translatable="false" name="licenses_name_osmdroid">osmdroid</string>
+    <string translatable="false" name="licenses_link_osmdroid">https://github.com/osmdroid/osmdroid</string>
+    <string translatable="false" name="licenses_copyright_osmdroid">Copyright osmdroid</string>
+    <string translatable="false" name="licenses_notice_osmdroid">
+        Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
+    </string>
+
+
+    <!-- OSMBonusPack -->
+    <string translatable="false" name="licenses_name_osmbonuspack">OSMBonusPack</string>
+    <string translatable="false" name="licenses_link_osmbonuspack">https://github.com/MKergall/osmbonuspack</string>
+    <string translatable="false" name="licenses_copyright_osmbonuspack">Copyright OSMBonusPack</string>
+    <string translatable="false" name="licenses_notice_osmbonuspack">
+    The components inside this GitHub project are under LGPL licence, with an important simplification: The constraints described in Section 5.d and 5.e of the <a href="https://github.com/MKergall/osmbonuspack/blob/master/LICENSE.md">LGPL LICENCE</a> are DISCARDED.\n
+    \n
+    This means that you are allowed to convey a Combined Work without providing the user any way to recombine or relink the application, and without providing any shared library mechanism.\n
+    \n
+    In other terms, you are allowed to include the OSMBonusPack library in your Android application, without making your application open source.\n
+    </string>
+
+
+    <!-- Picasso -->
+    <string translatable="false" name="licenses_name_picasso">Picasso</string>
+    <string translatable="false" name="licenses_link_picasso">https://github.com/square/picasso</string>
+    <string translatable="false" name="licenses_copyright_picasso">Copyright 2013 Square, Inc.</string>
+    <string translatable="false" name="licenses_notice_picasso">
+    Copyright 2013 Square, Inc.\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- SLF4J -->
+    <string translatable="false" name="licenses_name_slf4j">SLF4J</string>
+    <string translatable="false" name="licenses_link_slf4j">https://github.com/qos-ch/slf4j</string>
+    <string translatable="false" name="licenses_copyright_slf4j">Copyright © 2004–2014 QOS.ch</string>
+    <string translatable="false" name="licenses_notice_slf4j" tools:ignore="TypographyOther">
+    Copyright (c) 2004-2014 QOS.ch\n
+    All rights reserved.\n
+    \n
+    Permission is hereby granted, free  of charge, to any person obtaining
+    a  copy  of this  software  and  associated  documentation files  (the
+    "Software"), to  deal in  the Software without  restriction, including
+    without limitation  the rights to  use, copy, modify,  merge, publish,
+    distribute,  sublicense, and/or sell  copies of  the Software,  and to
+    permit persons to whom the Software  is furnished to do so, subject to
+    the following conditions:\n
+    \n
+    The  above  copyright  notice  and  this permission  notice  shall  be
+    included in all copies or substantial portions of the Software.\n
+    \n
+    THE  SOFTWARE IS  PROVIDED  "AS  IS", WITHOUT  WARRANTY  OF ANY  KIND,
+    EXPRESS OR  IMPLIED, INCLUDING  BUT NOT LIMITED  TO THE  WARRANTIES OF
+    MERCHANTABILITY,    FITNESS    FOR    A   PARTICULAR    PURPOSE    AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+    OF CONTRACT, TORT OR OTHERWISE,  ARISING FROM, OUT OF OR IN CONNECTION
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </string>
+
+    <!-- Typed Preferences -->
+    <string translatable="false" name="licenses_name_typed_preferences">Typed Preferences</string>
+    <string translatable="false" name="licenses_link_typed_preferences">https://github.com/johnjohndoe/TypedPreferences</string>
+    <string translatable="false" name="licenses_copyright_typed_preferences">Copyright 2014–2016 Tobias Preuss</string>
+    <string translatable="false" name="licenses_notice_typed_preferences" tools:ignore="TypographyOther">
+    Copyright 2014–2016 Tobias Preuss\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+    </string>
+
+</resources>

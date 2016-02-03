@@ -20,13 +20,16 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 
-    private ArrayList<Tweet> tweets;
-    private Context context;
+    private final ArrayList<Tweet> tweets;
+    private final Context context;
+
+    final Picasso picasso = App.components().picasso();
 
     public TweetAdapter(Context context, int layoutResourceId, ArrayList<Tweet> tweets) {
         super(context, layoutResourceId, tweets);
@@ -52,8 +55,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
     private View buildTweetView(final Tweet tweet, View rowView, final ViewHolder viewHolder) {
         viewHolder.userImageProgress.setVisibility(View.VISIBLE);
-        Picasso.with(context)
-                .load(tweet.getProfileImageUrl())
+        picasso.load(tweet.getProfileImageUrl())
                 .fit()
                 .centerInside()
                 .error(R.drawable.chat_avatar)

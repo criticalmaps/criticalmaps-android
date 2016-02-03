@@ -10,14 +10,24 @@ import android.os.Looper;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
 
-    private final int PULL_OTHER_LOCATIONS_TIME = 12 * 1000; // 12 sec -> 5 times a minute
-
+    private final int SERVER_SYNC_INTERVAL = 12 * 1000; // 12 sec -> 5 times a minute
     private Timer timerPullServer;
+
+    @Inject
+    LocationUpdateManager locationUpdateManager;
+
+    @Inject
+    Provider<PullServerHandler> pullServerHandler;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -26,8 +36,12 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onCreate() {
+        App.components().inject(this);
+
         startForeground(TrackingInfoNotificationBuilder.NOTIFICATION_ID,
                 TrackingInfoNotificationBuilder.getNotification(getApplication()));
+
+        locationUpdateManager.initializeAndStartListening();
 
         timerPullServer = new Timer();
 
@@ -41,19 +55,20 @@ public class ServerSyncService extends Service {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            new PullServerHandler().execute();
+                           pullServerHandler.get().execute();
                         }
                     });
                 } else {
-                    new PullServerHandler().execute();
+                    pullServerHandler.get().execute();
                 }
             }
         };
-        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, PULL_OTHER_LOCATIONS_TIME);
+        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
     @Override
     public void onDestroy() {
+        locationUpdateManager.handleShutdown();
         timerPullServer.cancel();
     }
 
