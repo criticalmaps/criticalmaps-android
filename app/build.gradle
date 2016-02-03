@@ -11,8 +11,8 @@ android {
         applicationId "de.stephanlindauer.criticalmaps"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 24
-        versionName "2.0.6"
+        versionCode 25
+        versionName "2.1.0"
     }
 
     buildTypes {

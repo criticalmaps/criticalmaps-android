@@ -14,7 +14,7 @@ This app tracks your location and shares it via a map with all other participant
 
 ## Where can i get the app?
 
-[![Android app on Google Play](https://developer.android.com/images/brand/en_app_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps)
+[![Android app on Google Play](https://raw.githubusercontent.com/criticalmaps/media/master/android/readme/play-store-badge.png)](https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps)
 [![Android app on FDroid](https://f-droid.org/wiki/images/c/c4/F-Droid-button_available-on.png)](https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps)
 
 ## Is there a version for iOS devices?
@@ -33,4 +33,4 @@ Check: http://criticalmaps.net
 
 ## App screenshot
 
-![app-screenshot](https://raw.githubusercontent.com/criticalmaps/media/master/android/screenshots/CriticalMaps-Maps-Berlin.jpg)
+![app-screenshot](https://raw.githubusercontent.com/criticalmaps/media/master/android/readme/screenshot.jpg)
