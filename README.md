@@ -8,7 +8,7 @@
 
 http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
-## What's this App?
+## What's this app?
 
 This app tracks your location and shares it via a map with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
 
@@ -27,7 +27,7 @@ Yep! Here: https://github.com/CriticalMaps/criticalmaps-ios
 *   If you find bugs: File them in the github issue tracking system.
 *   If you have moneyz left to burn: Help us finance the server.
 
-## Can i haz more informations?
+## Can i haz more information?
 
 Check: http://criticalmaps.net
 
