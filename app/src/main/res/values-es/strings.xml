@@ -53,7 +53,7 @@
     <string name="rules_friendly">Buen rollo</string>
     <string name="rules_friendly_explain">No te dejes provocar. Se amigable con la policia, los motorizados y el resto de la gente, incluso si ellos no lo son.</string>
     <string name="rules_fun">Diviértete!</string>
-    <string name="rules_fun_explain">Disfruta de las calles reconquistadas. Baila con las bicis musicales. HAbla con los motorizados, peatones y hazles saber qué está ocurriendo. Pero lo más importante: pasa un buen rato!</string>
+    <string name="rules_fun_explain">Disfruta de las calles reconquistadas. Baila con las bicis musicales. Habla con los motorizados, peatones y hazles saber qué está ocurriendo. Pero lo más importante: pasa un buen rato!</string>
     <string name="rules_image_source">Imágenes por criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
@@ -72,6 +72,14 @@
     <string name="about_heading_website">sitio web</string>
     <string name="about_heading_contributions">contribuciones</string>
     <string name="about_heading_code">código</string>
+
+
+    <string name="about_heading_code">código</string>
+    <string name="about_heading_opensource">licencias de código abierto</string>
+    <string name="about_text_opensource">Usamos las siguientes bibliotecas de código abierto. Agradecemos a todas las personas involucradas en estos proyectos</string>
+    <string name="about_license_website">sitio web</string>
+    <string name="about_license_more">más</string>
+    <string name="about_license_less">menos</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">No te olvides:</string>
@@ -121,4 +129,6 @@
     <string name="introduction_bugs">Si encuentras problemas con la app, haznoslo saber pulsando sobre el botón de feedback en menu de preferencias</string>
     <string name="introduction_requisites">Para que esta aplicación funcione correctamente, necesitas una conexión de datos y el GPS activado.</string>
 
+    <string name="open_drawer">Abrir cajón</string>
+    <string name="close_drawer">Cerrar cajón</string>
 </resources>
