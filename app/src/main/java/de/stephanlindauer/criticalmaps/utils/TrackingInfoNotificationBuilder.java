@@ -34,8 +34,8 @@ public class TrackingInfoNotificationBuilder {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(application.getString(R.string.notification_tracking_text)))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(openPendingIntent)
-                .addAction(R.drawable.ic_action_location_found, application.getString(R.string.notification_tracking_open), openPendingIntent)
-                .addAction(R.drawable.ic_action_cancel, application.getString(R.string.notification_tracking_close), closePendingIntent);
+                .addAction(R.drawable.ic_gps_fixed_white_24dp, application.getString(R.string.notification_tracking_open), openPendingIntent)
+                .addAction(R.drawable.ic_clear_white_24dp, application.getString(R.string.notification_tracking_close), closePendingIntent);
 
         return builder.build();
     }
