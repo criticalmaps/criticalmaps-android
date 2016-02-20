@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- app -->
+
+    <!-- nav -->
+    <string name="section_map">Mapa</string>
+    <string name="section_rules">Normes</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">Informació</string>
+    <string name="section_chat">Xat</string>
+
+    <!-- close -->
+    <string name="close">Segur que vols tancar l\'app?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
+    <!-- activity bar -->
+    <string name="tracking">Seguiment</string>
+    <string name="close_button">Tanca</string>
+    <string name="feedback">Suggeriments</string>
+    <string name="datenschutz">Política de privacitat</string>
+    <string name="take_picture">Fes una foto</string>
+    <string name="rate_the_app">Valorar l\'app</string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">Esperant el senyal GPS</string>
+    <string name="map_overlay_tracking_off">
+        Seguiment desactivat. \n
+        Activar el seguiment per poder veure a tots els altres ciclistes. \n\n
+        Prem aquí!
+    </string>
+
+    <!-- prerequisites -->
+    <string name="prerequisites_no_internet_enabled_title">La teva connexió a internet està desactivada o bloquejada</string>
+    <string name="prerequisites_no_internet_enabled_text">Si us plau, activa la teva connexió a Internet i torna a iniciar l\'aplicació</string>
+    <string name="prerequisites_no_gps_provider_enabled_title">El teu GPS està desactivat o bloquejat</string>
+    <string name="prerequisites_no_gps_provider_enabled_text">Si us plau, activa el GPS i torna a iniciar l\'aplicació</string>
+
+    <!-- notification -->
+    <string name="notification_tracking_title">seguiment de Critical Maps</string>
+    <string name="notification_tracking_text">L\'aplicació s\'executa en segon pla i registra les teves dades de localització. Si us plau, tanca l\'app quan ja no vulguis ser rastrejat</string>
+
+    <!-- fragment_rules -->
+    <string name="rules_corken">Taponar!?</string>
+    <string name="rules_corken_explain">Protegeix els conductors d\'ells mateixos taponant el pas!</string>
+    <string name="rules_oncoming_traffic">Trànsit apropant-se</string>
+    <string name="rules_oncoming_traffic_explain">No condueixis pel carril contrari.</string>
+    <string name="rules_steady">Sigues pacient i espera</string>
+    <string name="rules_steady_explain">Quan es condueix a la part davantera: Cap excés de velocitat! Quan es condueix a la part posterior: Tanca les escletxes!</string>
+    <string name="rules_brake">no frenis bruscament!</string>
+    <string name="rules_brake_explain">Però, si realment ho has de fer, mira d\'alertar als de darrere teu.</string>
+    <string name="rules_green">Quan siguis a la capçalera: Atura\'t als semàfors en vermell!</string>
+    <string name="rules_green_explain">Si vas al capdavant de la Massa, quan arribis a un semàfor vermell assegura\'t de parar. Anticipa\'t al canvi de semàfor! Ajudaràs a compactar la massa. </string>
+    <string name="rules_friendly">Prent\'ho amb calma</string>
+    <string name="rules_friendly_explain">No deixis que t\'enfurismin. Sigues amigable amb la policia, conductors a motor i vianants, fins i tot si ells no ho són. Un somriure sempre es millor que un insult.</string>
+    <string name="rules_fun">Diverteix-te!</string>
+    <string name="rules_fun_explain">Gaudeix dels carrers recuperats. Coneix altres ciclistes com tu a la Massa. Xerra amb altres conductors i vianants, i dóna a conèixer la Massa Crítica. El més important: Pássa\'t-ho bé!</string>
+    <string name="rules_image_source">Imatges per criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">Tots els tuits que contenen \"CriticalMaps\"</string>
+    <string name="twitter_refreshed">Tuits renovats!</string>
+    <string name="twitter_try_again">Torna-ho a provar!</string>
+
+    <!-- fragment_chat -->
+    <string name="chat_heading">Els missatges s\'esborraran en 30 minuts</string>
+    <string name="chat_send">Enviar</string>
+    <string name="chat_text">Tens 255 caràcters &#8230;</string>
+    <string name="chat_sending">Enviant &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">xarxes socials</string>
+    <string name="about_heading_website">lloc web</string>
+    <string name="about_heading_contributions">contribucions</string>
+    <string name="about_heading_code">codi</string>
+
+    <string name="about_heading_opensource">llicències de codi obert</string>
+    <string name="about_text_opensource">Fem servir les següents biblioteques de codi obert. Agraïm a totes les persones involucrades en aquests projectes</string>
+    <string name="about_license_website">lloc web</string>
+    <string name="about_license_more">mes</string>
+    <string name="about_license_less">menys</string>
+
+    <!-- notifications -->
+    <string name="notification_alarm_title">No te n\'oblidis:</string>
+    <string name="notification_alarm_text">Massa Crítica avui a les 20h a l\'Arc de Tromf! Visca la Bicicleta!</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">ara mateix</string>
+    <string name="timetoword_aminuteago">fa un minut</string>
+    <string name="timetoword_minutesago">fa %s minuts</string>
+    <string name="timetoword_anhourago">fa una hora</string>
+    <string name="timetoword_hoursago">fa %s hores</string>
+    <string name="timetoword_yesterday">ahir</string>
+    <string name="timetoword_daysago">fa %s dies</string>
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
+        <![CDATA[
+        Vols pujar la foto a <a href="http://criticalmaps.net">criticalmaps.net</a>? \n;Publicarem les fotos sota llicència Creative Commons <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+        ]]>
+    </string>
+    <string name="camera_upload">Puja la foto!</string>
+    <string name="camera_discard">No :-(</string>
+    <string name="camera_uploading_progress">Pujant &#8230;</string>
+    <string name="camera_upload_failed_title">Error en pujar la imatge</string>
+    <string name="camera_upload_failed_message">Si us plau, torna-ho a provar</string>
+    <string name="camera_processing_image">Processant la imatge &#8230;</string>
+    <string name="camera_no_location_no_camera">No pots pujar imatges sense senyal GPS</string>
+    <string name="camera_image_upload_succeeded_title">Pujada d\'imatges finalitzada correctament</string>
+    <string name="camera_image_upload_succeeded_message">Imatge pujada a una galeria de criticalmaps.net </string>
+    <string name="camera_no_camera">Cap càmera disponible.</string>
+    <string name="camera_no_camera_no_camera">No pots fer fotos si el teu dispositiu no disposa d\'una càmera </string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">Quelcom ha fallat.</string>
+    <string name="cancel">Cancel·la</string>
+    <string name="ok">D\'acord</string>
+    <string name="go_to_settings">Canvia la configuració</string>
+    <string name="notification_tracking_close">Tanca</string>
+    <string name="notification_tracking_open">Obre</string>
+
+    <!-- introduction -->
+    <string name="introduction_heading">Dedica una estona a llegir aquesta breu introducció.</string>
+    <string name="introduction_own_icon">Així se\'t veu:\u0020</string>
+    <string name="introduction_other_icon">Així es veuen tots els altres usuaris:\u0020</string>
+    <string name="introduction_close_app">Si us plau, tanca l\'aplicació si ja no vols ser rastrejat.</string>
+    <string name="introduction_careful">Si us plau, para atenció al trànsit i no a l\'aplicació.</string>
+    <string name="introduction_bugs">Si trobes errors en l\'aplicació, fes-nos-los arribar clicant al botó "Suggeriments" del menú de configuració.</string>
+    <string name="introduction_requisites">Per tal que aquesta aplicació funcioni degudament, cal utilitzar una connexió de dades mòbils i tenir el GPS habilitat.</string>
+
+    <string name="open_drawer">Obrir calaix</string>
+    <string name="close_drawer">Tancar calaix</string>
+</resources>
