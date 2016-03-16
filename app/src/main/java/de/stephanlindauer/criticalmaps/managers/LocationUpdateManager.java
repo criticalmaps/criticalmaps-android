@@ -40,6 +40,27 @@ public class LocationUpdateManager {
     private LongPreference timeStampPreference;
     private boolean isRegisteredForLocationUpdates;
     private Location lastPublishedLocation;
+    private final LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            if (shouldPublishNewLocation(location)) {
+                publishNewLocation(location);
+                lastPublishedLocation = location;
+            }
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+        }
+    };
 
     @Inject
     public LocationUpdateManager(App app,
@@ -144,25 +165,4 @@ public class LocationUpdateManager {
         return false;
     }
 
-    private final LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            if (shouldPublishNewLocation(location)) {
-                publishNewLocation(location);
-                lastPublishedLocation = location;
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-        }
-    };
 }
