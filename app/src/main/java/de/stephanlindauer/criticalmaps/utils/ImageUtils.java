@@ -5,12 +5,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
 public class ImageUtils {
+
+    private static final String LOG_TAG = "CM_ImageUtils";
 
     public static Bitmap rotateBitmap(File photoFile) {
         Bitmap sourceBitmap = BitmapFactory.decodeFile(photoFile.getPath());
@@ -20,7 +23,7 @@ public class ImageUtils {
             ExifInterface exif = new ExifInterface(photoFile.getPath());
             orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
         }
 
         int orientation = Integer.parseInt(orientString);

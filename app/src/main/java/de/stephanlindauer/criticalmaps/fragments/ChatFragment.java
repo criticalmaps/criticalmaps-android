@@ -121,6 +121,8 @@ public class ChatFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         isScrolling = false;
                         return false;
+                    default:
+                        break;
                 }
                 return false;
             }
