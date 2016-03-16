@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
@@ -20,9 +21,9 @@ import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
 public class ChatModel {
 
-    private final ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
+    private final List<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
-    private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<>();
+    private List<ReceivedChatMessage> chatMessages = new ArrayList<>();
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {
