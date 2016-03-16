@@ -1,12 +1,15 @@
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class AeSimpleSHA1 {
+
+    private static final String LOG_TAG = "CM_AeSimpleSHA1";
 
     @Nullable
     public static String SHA1(String text) {
@@ -16,7 +19,7 @@ public class AeSimpleSHA1 {
             final byte[] sha1hash = md.digest();
             return convertToHex(sha1hash);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
             return null;
         }
     }

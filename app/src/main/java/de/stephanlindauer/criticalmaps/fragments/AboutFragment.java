@@ -45,19 +45,17 @@ public class AboutFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             // pre KK ScrollViews don't automatically save/restore their scroll state
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                final int scrollviewPosition = savedInstanceState.getInt(KEY_SCROLLVIEW_POSITION, 0);
+            final int scrollviewPosition = savedInstanceState.getInt(KEY_SCROLLVIEW_POSITION, 0);
 
-                if (scrollviewPosition != 0) {
-                    // needs to be put on the queue so it executes when the view becomes visible
-                    scrollView.post(new Runnable() {
-                        public void run() {
-                            scrollView.scrollTo(0, scrollviewPosition);
-                        }
-                    });
-                }
+            if (scrollviewPosition != 0) {
+                // needs to be put on the queue so it executes when the view becomes visible
+                scrollView.post(new Runnable() {
+                    public void run() {
+                        scrollView.scrollTo(0, scrollviewPosition);
+                    }
+                });
             }
         }
 

@@ -31,7 +31,7 @@ public class LocationUpdateManager {
 
     //const
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
-    private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
+    private static final long LOCATION_REFRESH_TIME = 12 * 1000L; //12 seconds
 
     //misc
     private LocationManager locationManager;
