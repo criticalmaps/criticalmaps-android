@@ -51,10 +51,10 @@
     <string name="rules_brake_explain">Però, si realment ho has de fer, mira d\'alertar als de darrere teu.</string>
     <string name="rules_green">Quan siguis a la capçalera: Atura\'t als semàfors en vermell!</string>
     <string name="rules_green_explain">Si vas al capdavant de la Massa, quan arribis a un semàfor vermell assegura\'t de parar. Anticipa\'t al canvi de semàfor! Ajudaràs a compactar la massa. </string>
-    <string name="rules_friendly">Prent\'ho amb calma</string>
+    <string name="rules_friendly">Pren-t\'ho amb calma</string>
     <string name="rules_friendly_explain">No deixis que t\'enfurismin. Sigues amigable amb la policia, conductors a motor i vianants, fins i tot si ells no ho són. Un somriure sempre es millor que un insult.</string>
     <string name="rules_fun">Diverteix-te!</string>
-    <string name="rules_fun_explain">Gaudeix dels carrers recuperats. Coneix altres ciclistes com tu a la Massa. Xerra amb altres conductors i vianants, i dóna a conèixer la Massa Crítica. El més important: Pássa\'t-ho bé!</string>
+    <string name="rules_fun_explain">Gaudeix dels carrers recuperats. Coneix altres ciclistes com tu a la Massa. Xerra amb altres conductors i vianants, i dóna a conèixer la Massa Crítica. El més important: pássa-t\'ho bé!</string>
     <string name="rules_image_source">Imatges per criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
@@ -125,7 +125,7 @@
     <string name="introduction_other_icon">Així es veuen tots els altres usuaris:\u0020</string>
     <string name="introduction_close_app">Si us plau, tanca l\'aplicació si ja no vols ser rastrejat.</string>
     <string name="introduction_careful">Si us plau, para atenció al trànsit i no a l\'aplicació.</string>
-    <string name="introduction_bugs">Si trobes errors en l\'aplicació, fes-nos-los arribar clicant al botó "Suggeriments" del menú de configuració.</string>
+    <string name="introduction_bugs">Si trobes errors en l\'aplicació, fes-nos-els arribar clicant al botó "Suggeriments" del menú de configuració.</string>
     <string name="introduction_requisites">Per tal que aquesta aplicació funcioni degudament, cal utilitzar una connexió de dades mòbils i tenir el GPS habilitat.</string>
 
     <string name="open_drawer">Obrir calaix</string>
