@@ -11,6 +11,8 @@ public class MapViewUtils {
 
     private static final int TILE_SIZE_PIXELS = 256; //osmdroid default
 
+    private MapViewUtils() {}
+
     public static MapView createMapView(Activity activity, DefaultResourceProxyImpl resourceProxy) {
 
         MapView mapView = new MapView(activity, TILE_SIZE_PIXELS, resourceProxy);
