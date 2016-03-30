@@ -106,4 +106,24 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <style name="settings_route_heading">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/about_heading_text</item>
+    </style>
+
+    <style name="settings_route_item">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:background">@color/about_heading_background</item>
+        <item name="android:textColor">@color/white_60pct</item>
+    </style>
+
 </resources>
+

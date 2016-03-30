@@ -49,4 +49,8 @@
     <!-- Search for location overlay -->
     <color name="location_search_background">@color/window_background</color>
 
+    <!-- Settings -->
+    <color name="settings_heading_text">@android:color/white</color>
+    <color name="settings_item_text">@color/white_60pct</color>
+
 </resources>

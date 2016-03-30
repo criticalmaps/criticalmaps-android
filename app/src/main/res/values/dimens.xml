@@ -7,4 +7,7 @@
     <dimen name="tweet_user_image_dimension">50dp</dimen>
     <dimen name="tweet_user_image_margin">10dp</dimen>
 
+    <!-- Settings -->
+    <dimen name="settings_padding">10dp</dimen>
+
 </resources>

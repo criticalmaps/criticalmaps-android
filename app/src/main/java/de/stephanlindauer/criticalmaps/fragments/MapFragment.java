@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.squareup.otto.Subscribe;
 
 import org.osmdroid.DefaultResourceProxyImpl;
+import org.osmdroid.bonuspack.kml.KmlDocument;
+import org.osmdroid.bonuspack.overlays.FolderOverlay;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
 
 import javax.inject.Inject;
 
@@ -26,11 +29,11 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends Fragment {
@@ -134,7 +137,23 @@ public class MapFragment extends Fragment {
     }
 
     private void refreshView() {
-        mapView.getOverlays().clear();
+//        mapView.getOverlays().clear();
+
+        for (Overlay overlay : mapView.getOverlays()) {
+            System.out.println(overlay);
+            if (overlay instanceof FolderOverlay) {
+                FolderOverlay fo = (FolderOverlay) overlay;
+                System.out.println(fo.getName());
+            }
+        }
+        System.out.println();
+
+        KmlDocument kmlDocument = new KmlDocument();
+        kmlDocument.parseKMLStream(getResources().openRawResource(R.raw.sternfahrt_ahrensfelde), null);
+        FolderOverlay folderOverlay = (FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(mapView, null, null, kmlDocument);
+        folderOverlay.setName("jungfern");
+
+        mapView.getOverlays().add(folderOverlay);
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             LocationMarker otherPeoplesMarker = new LocationMarker(mapView, resourceProxy);
