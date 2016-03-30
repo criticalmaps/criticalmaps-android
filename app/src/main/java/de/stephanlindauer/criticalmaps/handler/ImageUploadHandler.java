@@ -60,7 +60,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         final ProgressListener progressListener = new ProgressListener() {
             @Override
             public void update(long bytesRead, long contentLength) {
-                onProgressUpdate((int) ((100 * bytesRead) / contentLength));
+                publishProgress((int) ((100 * bytesRead) / contentLength));
             }
         };
 

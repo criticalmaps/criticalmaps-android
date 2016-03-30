@@ -15,15 +15,24 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import javax.inject.Inject;
+
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.utils.ApplicationCloser;
-import de.stephanlindauer.criticalmaps.vo.SharedPrefsKeys;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
+import info.metadude.android.typedpreferences.BooleanPreference;
 
 public class PrerequisitesChecker {
+
+    @Inject
+    SharedPreferences sharedPreferences;
+
     private final Activity activity;
 
     public PrerequisitesChecker(Activity activity) {
         this.activity = activity;
+        App.components().inject(this);
     }
 
     public void execute() {
@@ -69,9 +78,11 @@ public class PrerequisitesChecker {
     }
 
     private boolean checkForIntroductionShown() {
-        final SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        final BooleanPreference introductionAlreadyShownPreference = new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.INTRODUCTION_ALREADY_SHOWN);
 
-        if (sharedPreferences.contains(SharedPrefsKeys.introductionAlreadyShown) && sharedPreferences.getBoolean(SharedPrefsKeys.introductionAlreadyShown, true)) {
+        if (introductionAlreadyShownPreference.isSet() &&
+                introductionAlreadyShownPreference.get()) {
             return true;
         }
 
@@ -86,10 +97,7 @@ public class PrerequisitesChecker {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        sharedPreferences
-                                .edit()
-                                .putBoolean(SharedPrefsKeys.introductionAlreadyShown, true)
-                                .commit();
+                        introductionAlreadyShownPreference.set(true);
                         break;
                 }
             }
