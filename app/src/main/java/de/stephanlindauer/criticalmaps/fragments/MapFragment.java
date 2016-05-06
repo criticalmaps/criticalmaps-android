@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import com.squareup.otto.Subscribe;
 
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.bonuspack.kml.KmlDocument;
+import org.osmdroid.bonuspack.kml.Style;
 import org.osmdroid.bonuspack.overlays.FolderOverlay;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -34,6 +37,7 @@ import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.utils.KmlStyle;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 public class MapFragment extends Fragment {
@@ -141,15 +145,23 @@ public class MapFragment extends Fragment {
 
         for (Overlay overlay : mapView.getOverlays()) {
             System.out.println(overlay);
+            if (overlay instanceof LocationMarker) {
+                //remove all the non static markers
+                mapView.getOverlays().remove(overlay);
+            }
+
+            //static maerkers like routes should not be removed
             if (overlay instanceof FolderOverlay) {
                 FolderOverlay fo = (FolderOverlay) overlay;
                 System.out.println(fo.getName());
             }
         }
 
+
+
         KmlDocument kmlDocument = new KmlDocument();
         kmlDocument.parseKMLStream(getResources().openRawResource(R.raw.sternfahrt_ahrensfelde), null);
-        FolderOverlay folderOverlay = (FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(mapView, null, null, kmlDocument);
+        FolderOverlay folderOverlay = (FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(mapView, null, new KmlStyle(getActivity()), kmlDocument);
         folderOverlay.setName("jungfern");
 
         mapView.getOverlays().add(folderOverlay);
