@@ -10,16 +10,20 @@ import de.stephanlindauer.criticalmaps.vo.RoutesCategory;
 public class RoutesModel {
     public final List<RoutesCategory> routesCategories = new ArrayList<RoutesCategory>() {
         {
-            add(new RoutesCategory("Sternfahrt")
-                    .add(new RouteConfiguration("Ahrensfelde", R.raw.sternfahrt_ahrensfelde))
-                    .add(new RouteConfiguration("Alt-Tempelhof", R.raw.sternfahrt_alttempelhof)));
-            add(new RoutesCategory("Kreisfahrt")
-                    .add(new RouteConfiguration("Bundesplatz", R.raw.sternfahrt_bundesplatz))
-                    .add(new RouteConfiguration("Eberswalde", R.raw.sternfahrt_eberswalde)));
+            RoutesCategory sternfahrtCategory = new RoutesCategory("Sternfahrt");
+            sternfahrtCategory.add(new RouteConfiguration("Ahrensfelde", R.raw.sternfahrt_ahrensfelde, sternfahrtCategory));
+            sternfahrtCategory.add(new RouteConfiguration("Alt-Tempelhof", R.raw.sternfahrt_alttempelhof, sternfahrtCategory));
+            add(sternfahrtCategory);
+
+            RoutesCategory kreisfahrtCategory = new RoutesCategory("Kreisfahrt");
+            kreisfahrtCategory.add(new RouteConfiguration("Bundesplatz", R.raw.sternfahrt_bundesplatz, kreisfahrtCategory));
+            kreisfahrtCategory.add(new RouteConfiguration("Eberswalde", R.raw.sternfahrt_eberswalde, kreisfahrtCategory));
+            add(kreisfahrtCategory);
         }
     };
 
-    private RoutesModel() {    }
+    private RoutesModel() {
+    }
 
     public static RoutesModel getInstance() {
         if (RoutesModel.instance == null) {

@@ -13,4 +13,10 @@ public interface SharedPrefsKeys {
     String TIME_STAMP =
             BuildConfig.APPLICATION_ID + ".TIME_STAMP";
 
+    String ROUTE_PREFIX =
+            BuildConfig.APPLICATION_ID + ".ROUTE_PREFIX";
+
+    String ROUTES_CATEGORY_PREFIX =
+            BuildConfig.APPLICATION_ID + ".ROUTES_CATEGORY_PREFIX";
+
 }
