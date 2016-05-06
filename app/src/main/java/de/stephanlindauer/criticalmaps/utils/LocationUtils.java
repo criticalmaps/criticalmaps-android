@@ -8,6 +8,9 @@ import org.osmdroid.util.GeoPoint;
 import static android.location.LocationManager.*;
 
 public class LocationUtils {
+
+    private LocationUtils() {}
+
     @Nullable
     public static GeoPoint getBestLastKnownLocation(LocationManager locationManager) {
         final String[] providers = new String[]{GPS_PROVIDER, NETWORK_PROVIDER, PASSIVE_PROVIDER};

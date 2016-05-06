@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,12 +27,12 @@ import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 
-    private final ArrayList<Tweet> tweets;
+    private final List<Tweet> tweets;
     private final Context context;
 
     final Picasso picasso = App.components().picasso();
 
-    public TweetAdapter(Context context, int layoutResourceId, ArrayList<Tweet> tweets) {
+    public TweetAdapter(Context context, int layoutResourceId, List<Tweet> tweets) {
         super(context, layoutResourceId, tweets);
         this.tweets = tweets;
         this.context = context;

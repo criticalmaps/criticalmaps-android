@@ -9,6 +9,8 @@ import org.osmdroid.views.MapView;
 
 public class MapViewUtils {
 
+    private MapViewUtils() {}
+
     public static MapView createMapView(Activity activity, DefaultResourceProxyImpl resourceProxy) {
 
         MapView mapView = new MapView(activity, resourceProxy);

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -21,9 +22,9 @@ import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 
-    private final ArrayList<IChatMessage> chatMessages;
+    private final List<IChatMessage> chatMessages;
 
-    public ChatMessageAdapter(ArrayList<IChatMessage> chatMessages) {
+    public ChatMessageAdapter(List<IChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
 
