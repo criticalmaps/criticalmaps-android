@@ -2,39 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
+        android:id="@+id/routes_settings_container"    android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/settings_padding">
-
-        <Switch
-            android:id="@+id/button"
-            style="@style/settings_route_heading"
-              android:text="Sternfahrt"
-             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/checkBox1"
-                style="@style/settings_route_item"
-                android:text="New CheckBox 1" />
-
-            <CheckBox
-                android:id="@+id/checkBox2"
-                style="@style/settings_route_item"
-
-                android:text="New CheckBox 2" />
-        </LinearLayout>
-    </LinearLayout>
-
+        android:layout_height="match_parent"></LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+    <Switch
+        android:id="@+id/sternfahrt_routes_button"
+        style="@style/settings_route_heading" />
+    <LinearLayout
+        android:id="@+id/sternfahrt_routes_checkboxes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"        >
+    </LinearLayout>
+</LinearLayout>

@@ -146,7 +146,6 @@ public class MapFragment extends Fragment {
                 System.out.println(fo.getName());
             }
         }
-        System.out.println();
 
         KmlDocument kmlDocument = new KmlDocument();
         kmlDocument.parseKMLStream(getResources().openRawResource(R.raw.sternfahrt_ahrensfelde), null);

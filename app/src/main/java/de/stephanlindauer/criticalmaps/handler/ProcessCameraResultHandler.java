@@ -74,9 +74,8 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
             return;
         }
 
-        LayoutInflater factory = LayoutInflater.from(activity);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        final View view = factory.inflate(R.layout.view_picture_upload, null);
+        final View view = LayoutInflater.from(activity).inflate(R.layout.view_picture_upload, null);
 
         ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
 

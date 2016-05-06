@@ -1,38 +1,32 @@
 package de.stephanlindauer.criticalmaps.model;
 
-import android.content.Context;
-import android.os.AsyncTask;
-
-import org.osmdroid.bonuspack.overlays.Polyline;
-import org.osmdroid.bonuspack.routing.RoadManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.vo.RouteConfiguration;
+import de.stephanlindauer.criticalmaps.vo.RoutesCategory;
 
 public class RoutesModel {
-
-    private static final List<RouteConfiguration> routeConfigurations = new ArrayList<RouteConfiguration>() {
+    public final List<RoutesCategory> routesCategories = new ArrayList<RoutesCategory>() {
         {
-            add(new RouteConfiguration("Sternfahrt", "Ahrensfelde", R.raw.sternfahrt_ahrensfelde));
-            add(new RouteConfiguration("Sternfahrt", "Alt-Tempelhof", R.raw.sternfahrt_alttempelhof));
+            add(new RoutesCategory("Sternfahrt")
+                    .add(new RouteConfiguration("Ahrensfelde", R.raw.sternfahrt_ahrensfelde))
+                    .add(new RouteConfiguration("Alt-Tempelhof", R.raw.sternfahrt_alttempelhof)));
+            add(new RoutesCategory("Kreisfahrt")
+                    .add(new RouteConfiguration("Bundesplatz", R.raw.sternfahrt_bundesplatz))
+                    .add(new RouteConfiguration("Eberswalde", R.raw.sternfahrt_eberswalde)));
         }
     };
 
-    //singleton
-    private static RoutesModel instance;
-
-    private RoutesModel() {
-
-    }
+    private RoutesModel() {    }
 
     public static RoutesModel getInstance() {
         if (RoutesModel.instance == null) {
             RoutesModel.instance = new RoutesModel();
         }
         return RoutesModel.instance;
-    }
+    }    //singleton
+
+    private static RoutesModel instance;
 }
