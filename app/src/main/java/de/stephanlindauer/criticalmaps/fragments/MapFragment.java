@@ -150,14 +150,13 @@ public class MapFragment extends Fragment {
                 mapView.getOverlays().remove(overlay);
             }
 
-            //static maerkers like routes should not be removed
+            //static markers like routes should not be removed
+            // TODO this gets added everytime now. make sure it gets aded when i needs to get added.
             if (overlay instanceof FolderOverlay) {
                 FolderOverlay fo = (FolderOverlay) overlay;
                 System.out.println(fo.getName());
             }
         }
-
-
 
         KmlDocument kmlDocument = new KmlDocument();
         kmlDocument.parseKMLStream(getResources().openRawResource(R.raw.sternfahrt_ahrensfelde), null);
