@@ -16,12 +16,12 @@
         android:orientation="vertical"
         tools:background="@android:color/holo_red_light">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:alpha="0.5"
-            android:src="@drawable/location"
+            android:src="@drawable/ic_device_location_searching"
             tools:background="@android:color/holo_purple"/>
 
         <TextView

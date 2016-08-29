@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
     <item
         android:id="@+id/take_picture"
-        android:icon="@drawable/ic_photo_camera_white_24dp"
+        android:icon="@drawable/ic_image_camera_alt"
         app:showAsAction="always"
         android:title="@string/take_picture" />
     <item
         android:id="@+id/action_close"
-        android:icon="@drawable/ic_clear_white_24dp"
+        android:icon="@drawable/ic_content_clear"
         app:showAsAction="always"
         android:title="@string/close_button" />
     <item
