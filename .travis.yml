@@ -4,8 +4,11 @@ jdk: oraclejdk8
 
 android:
   components:
-    - platform-tools
+    # workaround to always get the newest sdk tools
+    # see: https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943
     - tools
+    - tools
+    - platform-tools
 
     # The BuildTools version used by your project
     - build-tools-23.0.3
