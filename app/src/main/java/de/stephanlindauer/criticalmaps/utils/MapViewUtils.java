@@ -3,15 +3,14 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 
 public class MapViewUtils {
 
-    public static MapView createMapView(Activity activity, DefaultResourceProxyImpl resourceProxy) {
+    public static MapView createMapView(Activity activity) {
 
-        MapView mapView = new MapView(activity, resourceProxy);
+        MapView mapView = new MapView(activity);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
