@@ -25,7 +25,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="5dp"
         android:gravity="center_vertical|center_horizontal"
-        android:src="@drawable/ic_action_location_found" />
+        android:src="@drawable/ic_maps_my_location" />
 
     <TextView
         android:id="@+id/map_osm_notice"

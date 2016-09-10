@@ -10,6 +10,8 @@
     <color name="colorAccent">@color/material_deep_teal_200</color>
     <color name="window_background">@color/material_grey_850</color> <!-- appcompat default: material_grey_850  -->
 
+    <color name="icon_color">@android:color/white</color>
+
     <!-- Transparent colors -->
     <color name="white_60pct">#99FFFFFF</color>
     <color name="transparent_background">#CC424242</color>
