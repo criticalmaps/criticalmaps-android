@@ -64,9 +64,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
-        drawerLayout.setDrawerListener(mDrawerToggle);
+        drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        drawerLayout.setDrawerListener(new DrawerClosingDrawerLayoutListener());
+        drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
         navigateTo(R.id.navigation_map);
     }
 
