@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
-import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
@@ -70,7 +69,6 @@ public class MapFragment extends Fragment {
     TextView osmNoticeOverlay;
 
     //misc
-    private DefaultResourceProxyImpl resourceProxy;
     private boolean isInitialLocationSet = false;
 
     //cache drawables
@@ -95,11 +93,10 @@ public class MapFragment extends Fragment {
         super.onActivityCreated(savedState);
 
         App.components().inject(this);
-        resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
 
         osmNoticeOverlay.setMovementMethod(LinkMovementMethod.getInstance());
 
-        mapView = MapViewUtils.createMapView(getActivity(), resourceProxy);
+        mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
 
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +134,7 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().clear();
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            LocationMarker otherPeoplesMarker = new LocationMarker(mapView, resourceProxy);
+            LocationMarker otherPeoplesMarker = new LocationMarker(mapView);
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
             otherPeoplesMarker.setIcon(locationIcon);
             mapView.getOverlays().add(otherPeoplesMarker);
@@ -145,7 +142,7 @@ public class MapFragment extends Fragment {
 
         if (ownLocationModel.ownLocation != null) {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            LocationMarker ownMarker = new LocationMarker(mapView, resourceProxy);
+            LocationMarker ownMarker = new LocationMarker(mapView);
             ownMarker.setPosition(currentUserLocation);
             ownMarker.setIcon(ownLocationIcon);
             mapView.getOverlays().add(ownMarker);
