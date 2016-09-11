@@ -55,8 +55,8 @@ Tapez ici!
     <!--fragment_chat-->
     <string name="chat_heading">Les messages seront supprimer après 30 minutes</string>
     <string name="chat_send">Envoyer</string>
-    <string name="chat_text">Votre message...</string>
-    <string name="chat_sending">Envoi en cours...</string>
+    <string name="chat_text">Votre message…</string>
+    <string name="chat_sending">Envoi en cours…</string>
     <!--fragment_about-->
     <string name="about_heading_social">médias sociaux</string>
     <string name="about_heading_website">Site internet</string>
@@ -68,21 +68,21 @@ Tapez ici!
     <!--time to word-->
     <string name="timetoword_justnow">il y a peu de temps</string>
     <string name="timetoword_aminuteago">il y a une minute</string>
-    <string name="timetoword_minutesago">il y a %s minutes</string>
+    <string name="timetoword_minutesago">il y a %d minutes</string>
     <string name="timetoword_anhourago">il y a une heure</string>
-    <string name="timetoword_hoursago">il y a %s heures</string>
+    <string name="timetoword_hoursago">il y a %d heures</string>
     <string name="timetoword_yesterday">hier</string>
-    <string name="timetoword_daysago">il y a %s jours</string>
+    <string name="timetoword_daysago">il y a %d jours</string>
     <!--camera-->
   <string name="camera_confirm_image_upload">
 Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps.net"&gt;criticalmaps.net&lt;/a&gt; ? Nous y publierons les photos sur la carte et sous licence &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;CC BY-SA 4.0&lt;/a&gt;.
 </string>
     <string name="camera_upload">Ajoute une photo!</string>
     <string name="camera_discard">Non :-(</string>
-    <string name="camera_uploading_progress">Téléchargement...</string>
+    <string name="camera_uploading_progress">Téléchargement…</string>
     <string name="camera_upload_failed_title">Téléchargement de l\'image échoué</string>
     <string name="camera_upload_failed_message">Réessayer</string>
-    <string name="camera_processing_image">Traitement d\'image...</string>
+    <string name="camera_processing_image">Traitement d\'image…</string>
     <string name="camera_no_location_no_camera">Tu ne peux pas télécharger des images sans signal GPS.</string>
     <string name="camera_image_upload_succeeded_title">Image téléchargé</string>
     <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>

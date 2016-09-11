@@ -82,11 +82,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">şimdi</string>
     <string name="timetoword_aminuteago">bir dakika önce</string>
-    <string name="timetoword_minutesago">%s dakika önce</string>
+    <string name="timetoword_minutesago">%d dakika önce</string>
     <string name="timetoword_anhourago">bir saat önce</string>
-    <string name="timetoword_hoursago">%s saat önce</string>
+    <string name="timetoword_hoursago">%d saat önce</string>
     <string name="timetoword_yesterday">dün</string>
-    <string name="timetoword_daysago">%s gün önce</string>
+    <string name="timetoword_daysago">%d gün önce</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">

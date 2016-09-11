@@ -13,6 +13,7 @@ android {
         targetSdkVersion 22
         versionCode 28
         versionName "2.2.1"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {

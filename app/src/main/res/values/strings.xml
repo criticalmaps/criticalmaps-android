@@ -91,11 +91,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>
     <string name="timetoword_aminuteago">a minute ago</string>
-    <string name="timetoword_minutesago">%s minutes ago</string>
+    <string name="timetoword_minutesago">%d minutes ago</string>
     <string name="timetoword_anhourago">an hour ago</string>
-    <string name="timetoword_hoursago">%s hours ago</string>
+    <string name="timetoword_hoursago">%d hours ago</string>
     <string name="timetoword_yesterday">yesterday</string>
-    <string name="timetoword_daysago">%s days ago</string>
+    <string name="timetoword_daysago">%d days ago</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">

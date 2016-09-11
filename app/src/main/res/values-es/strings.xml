@@ -86,11 +86,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">ahora</string>
     <string name="timetoword_aminuteago">hace un minuto</string>
-    <string name="timetoword_minutesago">hace %s minutos</string>
+    <string name="timetoword_minutesago">hace %d minutos</string>
     <string name="timetoword_anhourago">hace una hora</string>
-    <string name="timetoword_hoursago">hace %s horas</string>
+    <string name="timetoword_hoursago">hace %d horas</string>
     <string name="timetoword_yesterday">ayer</string>
-    <string name="timetoword_daysago">hace %s días</string>
+    <string name="timetoword_daysago">hace %d días</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">

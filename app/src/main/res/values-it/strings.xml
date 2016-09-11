@@ -80,11 +80,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">adesso</string>
     <string name="timetoword_aminuteago">un minuto fa</string>
-    <string name="timetoword_minutesago">due minuti fa</string>
+    <string name="timetoword_minutesago">%d minuti fa</string>
     <string name="timetoword_anhourago">un\'ora fa</string>
-    <string name="timetoword_hoursago">due ore fa</string>
+    <string name="timetoword_hoursago">%d ore fa</string>
     <string name="timetoword_yesterday">ieri</string>
-    <string name="timetoword_daysago">due giorni fa</string>
+    <string name="timetoword_daysago">%d giorni fa</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
