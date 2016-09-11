@@ -25,6 +25,11 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
     }
 
     @Override
+    protected void onPreExecute() {
+        twitterFragment.swipeLayout.setRefreshing(true);
+    }
+
+    @Override
     protected ResultType doInBackground(Void... params) {
         final Request request = new Request.Builder().url(Endpoints.GET_TWITTER).get().build();
 
@@ -48,6 +53,8 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
         if (!twitterFragment.isAdded()) {
             return;
         }
+
+        twitterFragment.swipeLayout.setRefreshing(false);
 
         if (resultType == ResultType.FAILED) {
             twitterFragment.showErrorMessage();
