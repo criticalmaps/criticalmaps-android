@@ -17,11 +17,11 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import java.io.File;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
@@ -46,13 +46,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private int currentNavId;
     private final SimpleArrayMap<Integer, Fragment.SavedState> savedFragmentStates = new SimpleArrayMap<>();
 
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    @Bind(R.id.drawer_navigation)
+    @BindView(R.id.drawer_navigation)
     NavigationView drawerNavigation;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @Override

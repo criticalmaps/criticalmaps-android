@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.R;
 
 public class RulesFragment extends Fragment {
@@ -22,15 +23,16 @@ public class RulesFragment extends Fragment {
 
     private View currentlyShownPanel;
 
-    @Bind(R.id.rules_subcontainer)
+    @BindView(R.id.rules_subcontainer)
     LinearLayout linearLayout;
+    private Unbinder unbinder;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_rules, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -121,7 +123,7 @@ public class RulesFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         currentlyShownPanel = null;
     }
 }

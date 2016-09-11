@@ -1,10 +1,6 @@
 package de.stephanlindauer.criticalmaps;
 
-import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.Picasso;
-
-import javax.inject.Singleton;
-
 import dagger.Component;
 import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
 import de.stephanlindauer.criticalmaps.fragments.MapFragment;
@@ -12,6 +8,8 @@ import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
+import javax.inject.Singleton;
+import okhttp3.OkHttpClient;
 
 @Singleton
 @Component(modules = {AppModule.class})

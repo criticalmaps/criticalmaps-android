@@ -1,11 +1,8 @@
 package de.stephanlindauer.criticalmaps.model;
 
-import com.squareup.okhttp.internal.Util;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
+import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -13,10 +10,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
-
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import okhttp3.internal.Util;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ChatModel {
 

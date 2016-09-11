@@ -11,8 +11,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil.URLOpenOnActivityOnClickListener;
 
@@ -20,24 +21,25 @@ public class AboutFragment extends Fragment {
 
     private static final String KEY_SCROLLVIEW_POSITION = "scrollview_position";
 
-    @Bind(R.id.about_facebook)
+    @BindView(R.id.about_facebook)
     ImageButton facebookButton;
 
-    @Bind(R.id.about_twitter)
+    @BindView(R.id.about_twitter)
     ImageButton twitterButton;
 
-    @Bind(R.id.about_scrollview)
+    @BindView(R.id.about_scrollview)
     ScrollView scrollView;
 
-    @Bind(R.id.about_subcontainer)
+    @BindView(R.id.about_subcontainer)
     LinearLayout linearLayout;
+    private Unbinder unbinder;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -87,6 +89,6 @@ public class AboutFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

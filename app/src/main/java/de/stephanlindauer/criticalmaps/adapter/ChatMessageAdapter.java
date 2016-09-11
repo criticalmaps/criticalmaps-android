@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
@@ -29,10 +29,10 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
     public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.firstLine)
+        @BindView(R.id.firstLine)
         TextView labelView;
 
-        @Bind(R.id.secondLine)
+        @BindView(R.id.secondLine)
         TextView valueView;
 
         private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
