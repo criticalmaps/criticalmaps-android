@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import butterknife.BindView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
@@ -94,19 +94,19 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tweet_user_name)
+        @BindView(R.id.tweet_user_name)
         TextView nameTextView;
-        @Bind(R.id.tweet_text)
+        @BindView(R.id.tweet_text)
         TextView textTextView;
-        @Bind(R.id.tweet_creation_date)
+        @BindView(R.id.tweet_creation_date)
         TextView dateTextView;
-        @Bind(R.id.tweet_creation_time)
+        @BindView(R.id.tweet_creation_time)
         TextView timeTextView;
-        @Bind(R.id.tweet_user_handle)
+        @BindView(R.id.tweet_user_handle)
         TextView handleTextView;
-        @Bind(R.id.tweet_user_image)
+        @BindView(R.id.tweet_user_image)
         ImageView userImageView;
-        @Bind(R.id.tweet_user_image_progress)
+        @BindView(R.id.tweet_user_image_progress)
         ProgressBar userImageProgress;
 
         public ViewHolder(View view) {

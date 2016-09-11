@@ -15,29 +15,31 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 
 
 public class LicensePanelView extends LinearLayout {
 
-    @Bind(R.id.about_license_name)
+    @BindView(R.id.about_license_name)
     TextView nameView;
 
-    @Bind(R.id.about_license_link)
+    @BindView(R.id.about_license_link)
     TextView linkView;
 
-    @Bind(R.id.about_license_copyright)
+    @BindView(R.id.about_license_copyright)
     TextView copyrightView;
 
-    @Bind(R.id.about_license_notice)
+    @BindView(R.id.about_license_notice)
     TextView noticeView;
 
-    @Bind(R.id.about_license_expandcollapse)
+    @BindView(R.id.about_license_expandcollapse)
     TextView expandCollapseView;
+    private Unbinder unbinder;
 
 
     public LicensePanelView(Context context) {
@@ -53,7 +55,7 @@ public class LicensePanelView extends LinearLayout {
 
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.license_panel_view, this, true);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         LayoutTransition layoutTransition = getLayoutTransition();
         if (layoutTransition != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
@@ -103,7 +105,7 @@ public class LicensePanelView extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

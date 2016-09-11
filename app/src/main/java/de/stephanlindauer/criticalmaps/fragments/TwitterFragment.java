@@ -11,9 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import butterknife.BindView;
+import butterknife.Unbinder;
 import java.util.ArrayList;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.stephanlindauer.criticalmaps.App;
@@ -30,30 +31,31 @@ public class TwitterFragment extends Fragment {
     private TwitterModel twitterModel = App.components().twitterModel();
 
     //view
-    @Bind(R.id.twitter_error)
+    @BindView(R.id.twitter_error)
     LinearLayout errorMessage;
 
-    @Bind(R.id.twitter_error_button)
+    @BindView(R.id.twitter_error_button)
     Button errorButton;
 
-    @Bind(R.id.progressSpinner)
+    @BindView(R.id.progressSpinner)
     ProgressBar loadingSpinner;
 
-    @Bind(R.id.tweet_list)
+    @BindView(R.id.tweet_list)
     ListView tweetListView;
 
-    @Bind(R.id.swipe_container)
+    @BindView(R.id.swipe_container)
     SwipeRefreshLayout swipeLayout;
 
     //adapter
     private TweetAdapter tweetAdapter;
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -90,7 +92,7 @@ public class TwitterFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public void displayNewData() {
