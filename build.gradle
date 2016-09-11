@@ -1,6 +1,7 @@
 buildscript {
     ext {
-        support_version="24.2.0"
+        support_version = "24.2.0"
+        dagger_version = "2.6.1"
     }
 
     repositories {
@@ -9,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.3'
-         // http://stackoverflow.com/a/33889117/322642
+        // http://stackoverflow.com/a/33889117/322642
         classpath 'com.github.JakeWharton:sdk-manager-plugin:220bf7a88a7072df3ed16dc8466fb144f2817070'
 
         classpath 'de.mobilej.unmock:UnMockPlugin:0.5.0'
