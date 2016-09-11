@@ -87,11 +87,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">ara mateix</string>
     <string name="timetoword_aminuteago">fa un minut</string>
-    <string name="timetoword_minutesago">fa %s minuts</string>
+    <string name="timetoword_minutesago">fa %d minuts</string>
     <string name="timetoword_anhourago">fa una hora</string>
-    <string name="timetoword_hoursago">fa %s hores</string>
+    <string name="timetoword_hoursago">fa %d hores</string>
     <string name="timetoword_yesterday">ahir</string>
-    <string name="timetoword_daysago">fa %s dies</string>
+    <string name="timetoword_daysago">fa %d dies</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">

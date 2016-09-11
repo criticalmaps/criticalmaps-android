@@ -85,11 +85,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
     <string name="timetoword_aminuteago">vor einer Minute</string>
-    <string name="timetoword_minutesago">vor %s Minuten</string>
+    <string name="timetoword_minutesago">vor %d Minuten</string>
     <string name="timetoword_anhourago">vor einer Stunde</string>
-    <string name="timetoword_hoursago">vor %s Stunden</string>
+    <string name="timetoword_hoursago">vor %d Stunden</string>
     <string name="timetoword_yesterday">gestern</string>
-    <string name="timetoword_daysago">vor %s Tagen</string>
+    <string name="timetoword_daysago">vor %d Tagen</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
