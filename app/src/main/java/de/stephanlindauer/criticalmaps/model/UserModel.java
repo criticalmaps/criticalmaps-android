@@ -6,6 +6,7 @@ import android.provider.Settings;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 
@@ -20,7 +21,7 @@ public class UserModel {
 
         final GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.add(Calendar.HOUR, 6);
-        final String dateString = new SimpleDateFormat("yyyy-MM-dd").format(gregorianCalendar.getTime());
+        final String dateString = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(gregorianCalendar.getTime());
 
         changingDeviceToken = AeSimpleSHA1.SHA1(androidId + dateString);
     }

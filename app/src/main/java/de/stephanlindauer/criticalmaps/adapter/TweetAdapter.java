@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
@@ -80,8 +81,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
         viewHolder.nameTextView.setText(tweet.getUserName());
         viewHolder.textTextView.setText(Html.fromHtml(tweet.getText()).toString());
-        viewHolder.dateTextView.setText(new SimpleDateFormat("HH:mm").format(tweet.getTimestamp()));
-        viewHolder.timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy").format(tweet.getTimestamp()));
+        viewHolder.dateTextView.setText(new SimpleDateFormat("HH:mm", Locale.US).format(tweet.getTimestamp()));
+        viewHolder.timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(tweet.getTimestamp()));
         viewHolder.handleTextView.setText("@" + tweet.getUserScreenName());
 
         rowView.setOnClickListener(new View.OnClickListener() {
