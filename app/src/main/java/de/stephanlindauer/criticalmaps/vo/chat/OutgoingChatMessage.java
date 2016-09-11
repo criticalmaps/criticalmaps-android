@@ -1,13 +1,11 @@
 package de.stephanlindauer.criticalmaps.vo.chat;
 
-import com.squareup.okhttp.internal.Util;
-
+import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
+import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
-
-import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
+import okhttp3.internal.Util;
 
 public class OutgoingChatMessage implements IChatMessage {
 

@@ -2,25 +2,21 @@ package de.stephanlindauer.criticalmaps;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.picasso.OkHttpDownloader;
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Singleton;
+import okhttp3.OkHttpClient;
 
 @Module
 public class AppModule {
@@ -40,16 +36,16 @@ public class AppModule {
     @Provides
     @Singleton
     public OkHttpClient provideOKHttpClient() {
-        final OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
-        return okHttpClient;
+        return new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build();
     }
 
     @Provides
     @Singleton
     public Picasso providePicasso(App app, OkHttpClient client) {
         return new Picasso.Builder(app)
-                .downloader(new OkHttpDownloader(client))
+                .downloader(new OkHttp3Downloader(client))
                 .build();
     }
 

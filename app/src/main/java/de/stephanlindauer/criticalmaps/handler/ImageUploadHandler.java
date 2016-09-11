@@ -3,23 +3,20 @@ package de.stephanlindauer.criticalmaps.handler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import java.io.File;
-import java.io.IOException;
-
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
+import java.io.File;
+import java.io.IOException;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okio.Buffer;
 import okio.BufferedSink;
 import okio.ForwardingSink;
@@ -64,8 +61,8 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             }
         };
 
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
                 .addFormDataPart("data", ownLocationModel.getLocationJson().toString())
                 .addFormDataPart("uploaded_file", imageFileToUpload.getName(),
                         new ProgressRequestBody(
@@ -85,10 +82,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         } catch (Exception ignored) {
         } finally {
             if (response != null) {
-                try {
-                    response.body().close();
-                } catch (IOException ignored) {
-                }
+                response.body().close();
             }
         }
 
