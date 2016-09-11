@@ -60,7 +60,7 @@
                     android:id="@+id/chat_send_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_content_send"
+                    app:srcCompat="@drawable/ic_content_send"
                     app:elevation="4dp"
                     app:fabSize="mini"
                     app:backgroundTint="@color/chat_fab_background_states"
