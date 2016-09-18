@@ -26,10 +26,9 @@
         Aktiviere Tracking, um die anderen Fahrer*innen sehen zu können. \n\n
         Tappe einfach hier drauf!
     </string>
-
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
     <string name="prerequisites_no_internet_enabled_title">Deine Internet-Verbindung ist deaktiviert oder geblockt</string>
+    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
     <string name="prerequisites_no_gps_provider_enabled_title">GPS ist deaktiviert oder geblockt</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
 
@@ -77,6 +76,11 @@
     <string name="about_heading_website">website</string>
     <string name="about_heading_contributions">contributions</string>
     <string name="about_heading_code">code</string>
+    <string name="about_heading_opensource">open source lizenzen</string>
+    <string name="about_text_opensource">Wir benutzen die folgenden Open-source-Bibliotheken. Vielen Dank an alle Beteiligten!</string>
+    <string name="about_license_website">webseite</string>
+    <string name="about_license_more">mehr</string>
+    <string name="about_license_less">weniger</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
@@ -125,12 +129,6 @@
     <string name="introduction_careful">Sei bitte vorsichtig und achte lieber auf den Verkehr, als auf die App.</string>
     <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
     <string name="introduction_requisites">Damit alles richtig funktioniert brauchst du eine halbwegs stabile mobile Internet-Verbindung und aktiviertes GPS.</string>
-    <string name="about_heading_opensource">open source lizenzen</string>
-    <string name="about_license_more">mehr</string>
-    <string name="about_license_less">weniger</string>
-    <string name="about_license_website">webseite</string>
-    <string name="close_drawer">Menü schließen</string>
     <string name="open_drawer">Menü öffnen</string>
-    <string name="about_text_opensource">Wir benutzen die folgenden Open-source-Bibliotheken. Vielen Dank an alle Beteiligten!</string>
-
+    <string name="close_drawer">Menü schließen</string>
 </resources>

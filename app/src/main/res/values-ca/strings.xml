@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- app -->
-
     <!-- nav -->
     <string name="section_map">Mapa</string>
     <string name="section_rules">Normes</string>
@@ -73,7 +71,6 @@
     <string name="about_heading_website">lloc web</string>
     <string name="about_heading_contributions">contribucions</string>
     <string name="about_heading_code">codi</string>
-
     <string name="about_heading_opensource">llicències de codi obert</string>
     <string name="about_text_opensource">Fem servir les següents biblioteques de codi obert. Agraïm a totes les persones involucrades en aquests projectes</string>
     <string name="about_license_website">lloc web</string>
@@ -127,7 +124,6 @@
     <string name="introduction_careful">Si us plau, para atenció al trànsit i no a l\'aplicació.</string>
     <string name="introduction_bugs">Si trobes errors en l\'aplicació, fes-nos-els arribar clicant al botó "Suggeriments" del menú de configuració.</string>
     <string name="introduction_requisites">Per tal que aquesta aplicació funcioni degudament, cal utilitzar una connexió de dades mòbils i tenir el GPS habilitat.</string>
-
     <string name="open_drawer">Obrir calaix</string>
     <string name="close_drawer">Tancar calaix</string>
 </resources>

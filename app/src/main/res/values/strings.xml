@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- app -->
-    <string name="app_name" translatable="false">Critical Maps</string>
-
     <!-- nav -->
     <string name="section_map">Map</string>
     <string name="section_rules">Rules</string>
@@ -30,8 +27,6 @@
         Activate tracking to be able to see all other cyclists. \n\n
         Just tap here!
     </string>
-    <string name="osm_credits" translatable="false">\u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
-
     <!-- prerequisites -->
     <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>
     <string name="prerequisites_no_internet_enabled_text">Please enable your internet connection and restart the app</string>
@@ -73,11 +68,8 @@
     <!-- fragment_about -->
     <string name="about_heading_social">social stuff</string>
     <string name="about_heading_website">website</string>
-    <string name="about_text_map_url" translatable="false">criticalmaps.net</string>
     <string name="about_heading_contributions">contributions</string>
-    <string name="about_text_contributors" translatable="false">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translations) \n&#8226; Tobias Preuss (Code)\n&#8226; Luca Gemini (Translations)\n&#8226; Lena Osswald (Translations)\n&#8226; Rodrigo Aguilera (Translations)</string>
     <string name="about_heading_code">code</string>
-    <string name="about_text_github_url" translatable="false">github.com/criticalmaps/criticalmaps-android</string>
     <string name="about_heading_opensource">open source licenses</string>
     <string name="about_text_opensource">We are using the following open source libraries. Huge thanks to everyone involved in these projects!</string>
     <string name="about_license_website">website</string>

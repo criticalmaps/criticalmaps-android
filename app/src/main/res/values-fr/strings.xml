@@ -1,38 +1,42 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--app-->
-    <!--nav-->
+    <!-- nav -->
     <string name="section_map">Plan</string>
     <string name="section_rules">Règles</string>
     <string name="section_twitter">Twitter</string>
     <string name="section_about">À propos</string>
     <string name="section_chat">Discussion instantanée</string>
-    <!--close-->
+
+    <!-- close -->
     <string name="close">Êtes-vous certain de vouloir fermer l\'application?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
-    <!--activity bar-->
+
+    <!-- activity bar -->
     <string name="tracking">Tracking</string>
     <string name="close_button">Fermer</string>
     <string name="feedback">Commentaires</string>
     <string name="datenschutz">Confidentialité</string>
     <string name="take_picture">Prenez une photo</string>
     <string name="rate_the_app">Évaluer l\'application</string>
-    <!--fragment_map-->
+
+    <!-- fragment_map -->
     <string name="map_searching_for_location">Attente d\'un signal GPS valide</string>
-  <string name="map_overlay_tracking_off">Le repérage est désactivé.
+    <string name="map_overlay_tracking_off">Le repérage est désactivé.
 Activez votre dispositif de repérage afin de pouvoir voir tout les autres cyclistes.
 Tapez ici!
 </string>
-    <!--prerequisites-->
+    <!-- prerequisites -->
     <string name="prerequisites_no_internet_enabled_title">Votre connexion internet est désactivée ou blockée</string>
     <string name="prerequisites_no_internet_enabled_text">Veuillez activer votre connexion internet et redémarrer l\'application.</string>
     <string name="prerequisites_no_gps_provider_enabled_title">Votre GPS est désactivé ou blocké</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Veuillez activer votre dispositiv de repérage par GPS et redémarrer l\'application.</string>
-    <!--notification-->
+
+    <!-- notification -->
     <string name="notification_tracking_title">Repérage Critical Maps</string>
     <string name="notification_tracking_text">L\'application est encore active et enregistre votre données de localisation. Veuillez fermer l\'application si vous voulez arrêter le repérage.</string>
-    <!--fragment_rules-->
+
+    <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
     <string name="rules_corken_explain">Protéger les automobilistes en corking!</string>
     <string name="rules_oncoming_traffic">Traffic venant en sens inverse</string>
@@ -48,24 +52,28 @@ Tapez ici!
     <string name="rules_fun">Amusez-vous!</string>
     <string name="rules_fun_explain">Profiter des rues reclamés. Explorez les Sound Bikes. Parlez aux automobilistes, piétons et expliquer à eux ce qui se passe. Le plus important: Amusez-vous!</string>
     <string name="rules_image_source">Images de criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
-    <!--fragment_twitter-->
+
+    <!-- fragment_twitter -->
     <string name="twitter_heading">Tout les tweets contenant \"CriticalMaps\"</string>
     <string name="twitter_refreshed">Les tweets ont été réactualisés.</string>
     <string name="twitter_try_again">Réessayez!</string>
-    <!--fragment_chat-->
+
+    <!-- fragment_chat -->
     <string name="chat_heading">Les messages seront supprimer après 30 minutes</string>
     <string name="chat_send">Envoyer</string>
     <string name="chat_text">Votre message…</string>
     <string name="chat_sending">Envoi en cours…</string>
-    <!--fragment_about-->
+
+    <!-- fragment_about -->
     <string name="about_heading_social">médias sociaux</string>
     <string name="about_heading_website">Site internet</string>
     <string name="about_heading_contributions">Contributions</string>
     <string name="about_heading_code">code</string>
-    <!--notifications-->
+    <!-- notifications -->
     <string name="notification_alarm_title">n\'oubliez pas:</string>
     <string name="notification_alarm_text">Critical Mass aujourd\'hui à 20h00 à Heinrichplatz! Viva la velorution!</string>
-    <!--time to word-->
+
+    <!-- time to word -->
     <string name="timetoword_justnow">il y a peu de temps</string>
     <string name="timetoword_aminuteago">il y a une minute</string>
     <string name="timetoword_minutesago">il y a %d minutes</string>
@@ -73,8 +81,9 @@ Tapez ici!
     <string name="timetoword_hoursago">il y a %d heures</string>
     <string name="timetoword_yesterday">hier</string>
     <string name="timetoword_daysago">il y a %d jours</string>
-    <!--camera-->
-  <string name="camera_confirm_image_upload">
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
 Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps.net"&gt;criticalmaps.net&lt;/a&gt; ? Nous y publierons les photos sur la carte et sous licence &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;CC BY-SA 4.0&lt;/a&gt;.
 </string>
     <string name="camera_upload">Ajoute une photo!</string>
@@ -88,14 +97,16 @@ Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps
     <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>
     <string name="camera_no_camera">Appareil photo non disponible</string>
     <string name="camera_no_camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
-    <!--misc-->
+
+    <!-- misc -->
     <string name="something_went_wrong">Il y a eu un problème</string>
     <string name="cancel">Annuler</string>
     <string name="ok">D\'accord</string>
     <string name="go_to_settings">Modifier des paramètres</string>
     <string name="notification_tracking_close">Fermer</string>
     <string name="notification_tracking_open">Ouvrir</string>
-    <!--introduction-->
+
+    <!-- introduction -->
     <string name="introduction_heading">Prends le temps de lire cette petite introduction s\'il te plaît.</string>
     <string name="introduction_own_icon">C\'est comme cela que vous apparaissez:\u0020</string>
     <string name="introduction_other_icon">Et cela, c\'est les autres utilisateurs:\u0020</string>
