@@ -125,5 +125,12 @@
     <string name="introduction_careful">Sei bitte vorsichtig und achte lieber auf den Verkehr, als auf die App.</string>
     <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
     <string name="introduction_requisites">Damit alles richtig funktioniert brauchst du eine halbwegs stabile mobile Internet-Verbindung und aktiviertes GPS.</string>
+    <string name="about_heading_opensource">open source lizenzen</string>
+    <string name="about_license_more">mehr</string>
+    <string name="about_license_less">weniger</string>
+    <string name="about_license_website">webseite</string>
+    <string name="close_drawer">Menü schließen</string>
+    <string name="open_drawer">Menü öffnen</string>
+    <string name="about_text_opensource">Wir benutzen die folgenden Open-source-Bibliotheken. Vielen Dank an alle Beteiligten!</string>
 
 </resources>
