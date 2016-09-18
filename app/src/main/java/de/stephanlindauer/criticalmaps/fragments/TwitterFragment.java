@@ -44,7 +44,7 @@ public class TwitterFragment extends Fragment {
     ListView tweetListView;
 
     @BindView(R.id.swipe_container)
-    SwipeRefreshLayout swipeLayout;
+    public SwipeRefreshLayout swipeLayout;
 
     //adapter
     private TweetAdapter tweetAdapter;
