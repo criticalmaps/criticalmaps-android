@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public class ImageUtils {
 
+    private ImageUtils() {}
+
     public static Bitmap rotateBitmap(File photoFile) {
         Bitmap sourceBitmap = BitmapFactory.decodeFile(photoFile.getPath());
 

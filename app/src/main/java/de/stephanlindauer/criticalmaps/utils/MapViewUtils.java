@@ -7,6 +7,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 
 public class MapViewUtils {
+    private MapViewUtils() {}
 
     public static MapView createMapView(Activity activity) {
 

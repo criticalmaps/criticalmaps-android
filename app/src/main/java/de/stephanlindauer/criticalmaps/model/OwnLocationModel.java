@@ -21,7 +21,7 @@ public class OwnLocationModel {
 
     public void setLocation(@NonNull GeoPoint location, float accuracy, long time) {
         ownLocation = location;
-        isLocationPrecise = (accuracy < ACCURACY_PRECISE_THRESHOLD);
+        isLocationPrecise = accuracy < ACCURACY_PRECISE_THRESHOLD;
         timeOfFix = time;
     }
 

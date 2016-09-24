@@ -6,13 +6,14 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
 import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
 
 public class TwitterModel {
 
-    private ArrayList<Tweet> tweets = new ArrayList<>();
+    private List<Tweet> tweets = new ArrayList<>();
 
     public void setTweetsFromJsonString(String tweetsString) throws JSONException, ParseException {
         tweets.clear();
@@ -34,7 +35,7 @@ public class TwitterModel {
         }
     }
 
-    public ArrayList<Tweet> getTweets() {
+    public List<Tweet> getTweets() {
         return tweets;
     }
 }
