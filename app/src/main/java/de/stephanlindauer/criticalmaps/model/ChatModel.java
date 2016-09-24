@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import okhttp3.internal.Util;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,9 +18,9 @@ import org.json.JSONObject;
 
 public class ChatModel {
 
-    private final ArrayList<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
+    private final List<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
-    private ArrayList<ReceivedChatMessage> chatMessages = new ArrayList<>();
+    private List<ReceivedChatMessage> chatMessages = new ArrayList<>();
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {

@@ -143,16 +143,25 @@ public class LicensePanelView extends LinearLayout {
     }
 
     protected static class SavedState extends BaseSavedState {
-        private final int visibility;
+        public static final Parcelable.Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
 
-        private SavedState(Parcelable superState, int visibility) {
-            super(superState);
-            this.visibility = visibility;
-        }
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+        private final int visibility;
 
         private SavedState(Parcel in) {
             super(in);
             visibility = in.readInt();
+        }
+
+        private SavedState(Parcelable superState, int visibility) {
+            super(superState);
+            this.visibility = visibility;
         }
 
         public int getVisibility() {
@@ -164,15 +173,5 @@ public class LicensePanelView extends LinearLayout {
             super.writeToParcel(out, flags);
             out.writeInt(visibility);
         }
-
-        public static final Parcelable.Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 }
