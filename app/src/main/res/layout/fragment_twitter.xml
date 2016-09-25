@@ -31,14 +31,6 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <ProgressBar
-        android:id="@+id/progressSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        tools:background="@android:color/holo_green_dark" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/twitter_new_tweet_button"
         android:layout_width="wrap_content"
@@ -53,9 +45,7 @@
         android:id="@+id/twitter_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/progressSpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
