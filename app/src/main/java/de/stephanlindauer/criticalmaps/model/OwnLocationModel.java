@@ -37,8 +37,8 @@ public class OwnLocationModel {
     public JSONObject getLocationJson() {
         JSONObject locationObject = new JSONObject();
         try {
-            locationObject.put("longitude", Integer.toString(ownLocation.getLongitudeE6()));
-            locationObject.put("latitude", Integer.toString(ownLocation.getLatitudeE6()));
+            locationObject.put("longitude", Integer.toString((int)(ownLocation.getLongitude() * 1000000.0D)));
+            locationObject.put("latitude", Integer.toString((int)(ownLocation.getLatitude() * 1000000.0D)));
         } catch (JSONException e) {
             e.printStackTrace();
         }
