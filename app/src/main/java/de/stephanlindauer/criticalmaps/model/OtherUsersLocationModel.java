@@ -18,10 +18,10 @@ public class OtherUsersLocationModel {
         while (keys.hasNext()) {
             String key = keys.next();
             JSONObject value = jsonObject.getJSONObject(key);
-            Integer latitude = Integer.parseInt(value.getString("latitude"));
-            Integer longitude = Integer.parseInt(value.getString("longitude"));
+            int latitudeE6 = Integer.parseInt(value.getString("latitude"));
+            int longitudeE6 = Integer.parseInt(value.getString("longitude"));
 
-            otherUsersLocations.add(new GeoPoint(latitude, longitude));
+            otherUsersLocations.add(new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
         }
     }
 
