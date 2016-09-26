@@ -9,14 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-
 import butterknife.BindView;
-import butterknife.Unbinder;
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
@@ -24,6 +20,7 @@ import de.stephanlindauer.criticalmaps.handler.PostTweetHandler;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import java.util.ArrayList;
 
 public class TwitterFragment extends Fragment {
 
@@ -36,9 +33,6 @@ public class TwitterFragment extends Fragment {
 
     @BindView(R.id.twitter_error_button)
     Button errorButton;
-
-    @BindView(R.id.progressSpinner)
-    ProgressBar loadingSpinner;
 
     @BindView(R.id.tweet_list)
     ListView tweetListView;
@@ -81,7 +75,6 @@ public class TwitterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 new TwitterGetHandler(TwitterFragment.this).execute();
-                loadingSpinner.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.GONE);
             }
         });
@@ -98,7 +91,6 @@ public class TwitterFragment extends Fragment {
     public void displayNewData() {
         swipeLayout.setRefreshing(false);
         errorMessage.setVisibility(View.GONE);
-        loadingSpinner.setVisibility(View.GONE);
 
         swipeLayout.setVisibility(View.VISIBLE);
         tweetAdapter.clear();
@@ -108,7 +100,6 @@ public class TwitterFragment extends Fragment {
 
     public void showErrorMessage() {
         swipeLayout.setVisibility(View.GONE);
-        loadingSpinner.setVisibility(View.GONE);
         errorMessage.setVisibility(View.VISIBLE);
     }
 
