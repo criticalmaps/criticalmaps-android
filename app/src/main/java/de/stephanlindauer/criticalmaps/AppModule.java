@@ -96,10 +96,9 @@ public class AppModule {
     @Singleton
     public LocationUpdateManager provideLocationUpdatesService(
             OwnLocationModel ownLocationModel,
-            EventBusProvider eventBusProvider,
-            SharedPreferences sharedPreferences) {
+            EventBusProvider eventBusProvider) {
         return new LocationUpdateManager(
-                app, ownLocationModel, eventBusProvider, sharedPreferences);
+                app, ownLocationModel, eventBusProvider);
     }
 
     @Provides
@@ -107,5 +106,4 @@ public class AppModule {
     SharedPreferences provideSharedPreferences() {
         return app.getSharedPreferences("Main", Context.MODE_PRIVATE);
     }
-
 }

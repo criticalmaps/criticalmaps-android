@@ -1,7 +1,6 @@
 package de.stephanlindauer.criticalmaps.managers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,19 +9,13 @@ import android.support.annotation.Nullable;
 
 import org.osmdroid.util.GeoPoint;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.prefs.GeoPointPreference;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.utils.DateUtils;
 import de.stephanlindauer.criticalmaps.utils.LocationUtils;
-import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
-import info.metadude.android.typedpreferences.LongPreference;
 
 public class LocationUpdateManager {
 
@@ -35,9 +28,6 @@ public class LocationUpdateManager {
 
     //misc
     private LocationManager locationManager;
-    private SharedPreferences sharedPreferences;
-    private GeoPointPreference lastKnownLocationPreference;
-    private LongPreference timeStampPreference;
     private boolean isRegisteredForLocationUpdates;
     private Location lastPublishedLocation;
     private final LocationListener locationListener = new LocationListener() {
@@ -65,20 +55,14 @@ public class LocationUpdateManager {
     @Inject
     public LocationUpdateManager(App app,
                                  OwnLocationModel ownLocationModel,
-                                 EventBusProvider eventService,
-                                 SharedPreferences sharedPreferences) {
+                                 EventBusProvider eventService) {
         this.ownLocationModel = ownLocationModel;
         this.eventService = eventService;
-        this.sharedPreferences = sharedPreferences;
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
     }
 
 
     public void initializeAndStartListening() {
-        lastKnownLocationPreference = new GeoPointPreference(
-                sharedPreferences, SharedPrefsKeys.LAST_KNOWN_LOCATION);
-        timeStampPreference = new LongPreference(
-                sharedPreferences, SharedPrefsKeys.TIME_STAMP);
         registerLocationListeners();
     }
 
@@ -106,26 +90,13 @@ public class LocationUpdateManager {
 
     @Nullable
     public GeoPoint getLastKnownLocation() {
-        if (lastKnownLocationPreference == null || timeStampPreference == null) {
-            return null;
-        }
-        if (lastKnownLocationPreference.isSet() && timeStampPreference.isSet()) {
-            Date timeStampLastCoords = new Date(timeStampPreference.get());
-            if (DateUtils.isNotLongerAgoThen(timeStampLastCoords, 5, 0)) {
-                return lastKnownLocationPreference.get();
-            }
-        } else {
-            return LocationUtils.getBestLastKnownLocation(locationManager);
-        }
-        return null;
+        return LocationUtils.getBestLastKnownLocation(locationManager);
     }
 
     private void publishNewLocation(Location location) {
         GeoPoint newLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
         ownLocationModel.setLocation(newLocation, location.getAccuracy(), location.getTime());
         eventService.post(Events.NEW_LOCATION_EVENT);
-        lastKnownLocationPreference.set(newLocation);
-        timeStampPreference.set(location.getTime());
     }
 
     private boolean shouldPublishNewLocation(Location location) {
