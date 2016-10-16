@@ -5,9 +5,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import org.osmdroid.util.GeoPoint;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -15,7 +16,6 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.utils.LocationUtils;
 
 public class LocationUpdateManager {
 
@@ -61,8 +61,17 @@ public class LocationUpdateManager {
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
     }
 
-
     public void initializeAndStartListening() {
+        // To get a quick first location, query all providers for last known location and treat them
+        // like regular fixes by piping them through our normal flow
+        final List<String> providers = locationManager.getAllProviders();
+        for (String provider : providers) {
+            Location location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                locationListener.onLocationChanged(location);
+            }
+        }
+
         registerLocationListeners();
     }
 
@@ -86,11 +95,6 @@ public class LocationUpdateManager {
 
         locationManager.removeUpdates(locationListener);
         isRegisteredForLocationUpdates = false;
-    }
-
-    @Nullable
-    public GeoPoint getLastKnownLocation() {
-        return LocationUtils.getBestLastKnownLocation(locationManager);
     }
 
     private void publishNewLocation(Location location) {
@@ -135,5 +139,4 @@ public class LocationUpdateManager {
 
         return false;
     }
-
 }

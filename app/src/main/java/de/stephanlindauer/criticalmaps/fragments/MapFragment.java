@@ -19,7 +19,6 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
-import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
@@ -37,7 +36,6 @@ public class MapFragment extends Fragment {
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
 
     //dependencies
-
     @Inject
     OwnLocationModel ownLocationModel;
 
@@ -46,9 +44,6 @@ public class MapFragment extends Fragment {
 
     @Inject
     EventBusProvider eventService;
-
-    @Inject
-    LocationUpdateManager locationUpdateManager;
 
     //view
     private MapView mapView;
@@ -114,17 +109,6 @@ public class MapFragment extends Fragment {
             }
 
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
-        } else {
-            setInitialMapLocation();
-        }
-    }
-
-    private void setInitialMapLocation() {
-        if (ownLocationModel.ownLocation == null) {
-            GeoPoint lastKnownLocation = locationUpdateManager.getLastKnownLocation();
-            if (lastKnownLocation != null) {
-                setToLocation(lastKnownLocation);
-            }
         }
     }
 
