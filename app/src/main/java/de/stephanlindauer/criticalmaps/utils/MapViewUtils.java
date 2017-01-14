@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.app.Activity;
 import android.view.ViewGroup;
 
+import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 
@@ -11,6 +12,7 @@ public class MapViewUtils {
 
     public static MapView createMapView(Activity activity) {
 
+        Configuration.getInstance().setMapViewHardwareAccelerated(true);
         MapView mapView = new MapView(activity);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
