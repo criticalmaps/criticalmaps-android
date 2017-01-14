@@ -15,7 +15,6 @@ buildscript {
         classpath 'com.github.JakeWharton:sdk-manager-plugin:220bf7a88a7072df3ed16dc8466fb144f2817070'
 
         classpath 'de.mobilej.unmock:UnMockPlugin:0.5.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     }
 }
 
