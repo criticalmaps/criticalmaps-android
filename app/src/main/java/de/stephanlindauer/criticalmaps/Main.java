@@ -131,7 +131,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void startDatenschutzIntent() {
-        IntentUtil.startFromURL(this, "http://criticalmaps.net/datenschutzerklaerung.html");
+        IntentUtil.startFromURL(this, "http://criticalmaps.net/info#Datenschutzerklärung");
     }
 
     private void startRateTheApp() {
