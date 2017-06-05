@@ -26,10 +26,9 @@
         Aktiviere Tracking, um die anderen Fahrer*innen sehen zu können. \n\n
         Tappe einfach hier drauf!
     </string>
-
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
     <string name="prerequisites_no_internet_enabled_title">Deine Internet-Verbindung ist deaktiviert oder geblockt</string>
+    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
     <string name="prerequisites_no_gps_provider_enabled_title">GPS ist deaktiviert oder geblockt</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
 
@@ -77,6 +76,11 @@
     <string name="about_heading_website">website</string>
     <string name="about_heading_contributions">contributions</string>
     <string name="about_heading_code">code</string>
+    <string name="about_heading_opensource">open source lizenzen</string>
+    <string name="about_text_opensource">Wir benutzen die folgenden Open-source-Bibliotheken. Vielen Dank an alle Beteiligten!</string>
+    <string name="about_license_website">webseite</string>
+    <string name="about_license_more">mehr</string>
+    <string name="about_license_less">weniger</string>
 
     <!-- notifications -->
     <string name="notification_alarm_title">Nicht vergessen:</string>
@@ -85,11 +89,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
     <string name="timetoword_aminuteago">vor einer Minute</string>
-    <string name="timetoword_minutesago">vor %s Minuten</string>
+    <string name="timetoword_minutesago">vor %d Minuten</string>
     <string name="timetoword_anhourago">vor einer Stunde</string>
-    <string name="timetoword_hoursago">vor %s Stunden</string>
+    <string name="timetoword_hoursago">vor %d Stunden</string>
     <string name="timetoword_yesterday">gestern</string>
-    <string name="timetoword_daysago">vor %s Tagen</string>
+    <string name="timetoword_daysago">vor %d Tagen</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
@@ -125,5 +129,6 @@
     <string name="introduction_careful">Sei bitte vorsichtig und achte lieber auf den Verkehr, als auf die App.</string>
     <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
     <string name="introduction_requisites">Damit alles richtig funktioniert brauchst du eine halbwegs stabile mobile Internet-Verbindung und aktiviertes GPS.</string>
-
+    <string name="open_drawer">Menü öffnen</string>
+    <string name="close_drawer">Menü schließen</string>
 </resources>

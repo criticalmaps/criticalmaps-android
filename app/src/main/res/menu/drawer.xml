@@ -4,7 +4,7 @@
         <item
             android:id="@+id/navigation_map"
             android:checked="true"
-            android:icon="@drawable/ic_map"
+            android:icon="@drawable/ic_maps_map"
             android:title="@string/section_map" />
         <item
             android:id="@+id/navigation_chat"
@@ -18,12 +18,12 @@
 
         <item
             android:id="@+id/navigation_rules"
-            android:icon="@drawable/ic_rules"
+            android:icon="@drawable/ic_maps_traffic"
             android:title="@string/section_rules" />
 
         <item
             android:id="@+id/navigation_about"
-            android:icon="@drawable/ic_info"
+            android:icon="@drawable/ic_action_info_outline"
             android:title="@string/section_about" />
     </group>
 </menu>

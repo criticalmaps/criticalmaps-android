@@ -26,6 +26,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.Unbinder;
 import com.squareup.otto.Subscribe;
 
 import org.ligi.axt.AXT;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.stephanlindauer.criticalmaps.App;
@@ -62,21 +63,22 @@ public class ChatFragment extends Fragment {
     OwnLocationModel ownLocationModel;
 
     //view
-    @Bind(R.id.chat_recycler)
+    @BindView(R.id.chat_recycler)
     RecyclerView chatRecyclerView;
 
-    @Bind(R.id.text_input_layout)
+    @BindView(R.id.text_input_layout)
     TextInputLayout textInputLayout;
 
-    @Bind(R.id.chat_edit_message)
+    @BindView(R.id.chat_edit_message)
     EditText editMessageTextField;
 
-    @Bind(R.id.chat_send_btn)
+    @BindView(R.id.chat_send_btn)
     FloatingActionButton sendButton;
 
     //misc
     private boolean isScrolling = false;
     private boolean isTextInputEnabled = true;
+    private Unbinder unbinder;
 
 
     @Override
@@ -86,7 +88,7 @@ public class ChatFragment extends Fragment {
 
         App.components().inject(this);
         View chatView = inflater.inflate(R.layout.fragment_chat, container, false);
-        ButterKnife.bind(this, chatView);
+        unbinder = ButterKnife.bind(this, chatView);
 
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return chatView;
@@ -210,7 +212,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Subscribe

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- nav -->
     <string name="section_map">Mapa</string>
     <string name="section_rules">Normas</string>
@@ -28,7 +27,6 @@
         Activa el seguimiento para ver a otros ciclistas. \n\n
         Pulsa aquí!
     </string>
-
     <!-- prerequisites -->
     <string name="prerequisites_no_internet_enabled_title">Tu conexión a internet está desactivada o bloqueada</string>
     <string name="prerequisites_no_internet_enabled_text">Activa tu conexión a internet y reinicia la aplicación</string>
@@ -72,7 +70,6 @@
     <string name="about_heading_website">sitio web</string>
     <string name="about_heading_contributions">contribuciones</string>
     <string name="about_heading_code">código</string>
-
     <string name="about_heading_opensource">licencias de código abierto</string>
     <string name="about_text_opensource">Usamos las siguientes bibliotecas de código abierto. Agradecemos a todas las personas involucradas en estos proyectos</string>
     <string name="about_license_website">sitio web</string>
@@ -86,11 +83,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">ahora</string>
     <string name="timetoword_aminuteago">hace un minuto</string>
-    <string name="timetoword_minutesago">hace %s minutos</string>
+    <string name="timetoword_minutesago">hace %d minutos</string>
     <string name="timetoword_anhourago">hace una hora</string>
-    <string name="timetoword_hoursago">hace %s horas</string>
+    <string name="timetoword_hoursago">hace %d horas</string>
     <string name="timetoword_yesterday">ayer</string>
-    <string name="timetoword_daysago">hace %s días</string>
+    <string name="timetoword_daysago">hace %d días</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
@@ -126,7 +123,6 @@
     <string name="introduction_careful">Presta atención al tráfico y no a esta aplicación</string>
     <string name="introduction_bugs">Si encuentras problemas con la app, haznoslo saber pulsando sobre el botón de feedback en menu de preferencias</string>
     <string name="introduction_requisites">Para que esta aplicación funcione correctamente, necesitas una conexión de datos y el GPS activado.</string>
-
     <string name="open_drawer">Abrir cajón</string>
     <string name="close_drawer">Cerrar cajón</string>
 </resources>

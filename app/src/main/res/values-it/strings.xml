@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- nav -->
     <string name="section_map">Mappa</string>
     <string name="section_rules">Regole</string>
@@ -28,7 +27,6 @@
         Ativa la tracciatura per seguire gli altri ciclisti. \n\n
         Premi qui­!
     </string>
-
     <!-- prerequisites -->
     <string name="prerequisites_no_internet_enabled_title">La tua connessione a internet è disattivata o bloccata</string>
     <string name="prerequisites_no_internet_enabled_text">Attiva la tua connessione internet e riavvia l\'applicazione</string>
@@ -72,7 +70,6 @@
     <string name="about_heading_website">Pagina web</string>
     <string name="about_heading_contributions">Contributi</string>
     <string name="about_heading_code">cÃ³digo</string>
-
     <!-- notifications -->
     <string name="notification_alarm_title">non dimenticarti:</string>
     <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la ciclorivoluzione!</string>
@@ -80,11 +77,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">adesso</string>
     <string name="timetoword_aminuteago">un minuto fa</string>
-    <string name="timetoword_minutesago">due minuti fa</string>
+    <string name="timetoword_minutesago">%d minuti fa</string>
     <string name="timetoword_anhourago">un\'ora fa</string>
-    <string name="timetoword_hoursago">due ore fa</string>
+    <string name="timetoword_hoursago">%d ore fa</string>
     <string name="timetoword_yesterday">ieri</string>
-    <string name="timetoword_daysago">due giorni fa</string>
+    <string name="timetoword_daysago">%d giorni fa</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
@@ -120,5 +117,4 @@
     <string name="introduction_careful">Fai attenzione alla guida, non a questa applicazione! </string>
     <string name="introduction_bugs">Se hai problemi con l\'applicazione, faccelo sapere tramite il tasto Suggerimenti nel menù impostazioni</string>
     <string name="introduction_requisites">Perchè l\'applicazione funzioni correttamente è necessario attivare il GPS e avere una connessione dati.</string>
-
-</resources>
+    </resources>

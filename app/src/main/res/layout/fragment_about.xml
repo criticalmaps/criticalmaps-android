@@ -29,12 +29,12 @@
 
             <ImageButton
                 android:id="@+id/about_facebook"
-                android:src="@drawable/facebook"
+                app:srcCompat="@drawable/facebook"
                 style="@style/about_button" />
 
             <ImageButton
                 android:id="@+id/about_twitter"
-                android:src="@drawable/twitter"
+                app:srcCompat="@drawable/twitter"
                 style="@style/about_button" />
 
         </LinearLayout>
@@ -135,14 +135,6 @@
             app:link="@string/licenses_link_picasso"
             app:copyright="@string/licenses_copyright_picasso"
             app:notice="@string/licenses_notice_picasso"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_slf4j"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_slf4j"
-            app:link="@string/licenses_link_slf4j"
-            app:copyright="@string/licenses_copyright_slf4j"
-            app:notice="@string/licenses_notice_slf4j"/>
 
         <de.stephanlindauer.criticalmaps.views.LicensePanelView
             android:id="@+id/about_license_typed_preferences"

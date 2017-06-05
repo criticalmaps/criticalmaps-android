@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Turkish Translation, Caner Başaran <basaran.caner@gmail.com>, 2015 -->
 <resources>
     <!-- nav -->
     <string name="section_map">Harita</string>
@@ -13,7 +12,7 @@
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
 
-    <!-- acivity bar -->
+    <!-- activity bar -->
     <string name="tracking">İzleme</string>
     <string name="close_button">Kapat</string>
     <string name="feedback">Geribesleme</string>
@@ -28,10 +27,9 @@
         diğer bisikletlileri görebilmek için izlemeyi etkinleştir. \n\n
         şimdi buraya dokun!
     </string>
-
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_text">Lütfen, internet bağlantınızı etkinleştirip, uygulamayı yeniden başlatın</string>
     <string name="prerequisites_no_internet_enabled_title">İnternet bağlantınız devredışı veya engellenmiş</string>
+    <string name="prerequisites_no_internet_enabled_text">Lütfen, internet bağlantınızı etkinleştirip, uygulamayı yeniden başlatın</string>
     <string name="prerequisites_no_gps_provider_enabled_title">GPS kapalı</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Lütfen GPS etkinleştirin ve uygulamayı yeniden başlatın</string>
 
@@ -74,7 +72,6 @@
     <string name="about_heading_website">website</string>
     <string name="about_heading_contributions">katkıcılar</string>
     <string name="about_heading_code">kod</string>
-
     <!-- notifications -->
     <string name="notification_alarm_title">unutma:</string>
     <string name="notification_alarm_text">Kritik Kitle bugün 20:00 de Heinrichplatz!</string>
@@ -82,11 +79,11 @@
     <!-- time to word -->
     <string name="timetoword_justnow">şimdi</string>
     <string name="timetoword_aminuteago">bir dakika önce</string>
-    <string name="timetoword_minutesago">%s dakika önce</string>
+    <string name="timetoword_minutesago">%d dakika önce</string>
     <string name="timetoword_anhourago">bir saat önce</string>
-    <string name="timetoword_hoursago">%s saat önce</string>
+    <string name="timetoword_hoursago">%d saat önce</string>
     <string name="timetoword_yesterday">dün</string>
-    <string name="timetoword_daysago">%s gün önce</string>
+    <string name="timetoword_daysago">%d gün önce</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
@@ -115,12 +112,11 @@
     <string name="notification_tracking_open">Aç</string>
 
     <!-- introduction -->
-    <string name="introduction_bugs">Uygulamada hata bulursanız, lütfen ayarlar menüsü içinde Geribesleme\'den bildirin.</string>
-    <string name="introduction_careful">Lütfen uygulama yerine daha çok trafiğe dikkat edin.</string>
-    <string name="introduction_close_app">Artık izlenmek istemiyorsan, uygulamayı kapatabilirsin.</string>
     <string name="introduction_heading">Lütfen hızlı tanıtıma biraz zaman ayırın.</string>
-    <string name="introduction_other_icon">Diğer tüm kullanıcılar böyle gözüküyor:\u0020</string>
     <string name="introduction_own_icon">Böyle gözüküyorsun:\u0020</string>
+    <string name="introduction_other_icon">Diğer tüm kullanıcılar böyle gözüküyor:\u0020</string>
+    <string name="introduction_close_app">Artık izlenmek istemiyorsan, uygulamayı kapatabilirsin.</string>
+    <string name="introduction_careful">Lütfen uygulama yerine daha çok trafiğe dikkat edin.</string>
+    <string name="introduction_bugs">Uygulamada hata bulursanız, lütfen ayarlar menüsü içinde Geribesleme\'den bildirin.</string>
     <string name="introduction_requisites">Uygulamanın düzgün çalışması için mobil veri bağlantısı ve etkinleştirilmiş GPS gerekir.</string>
-
-</resources>
+    </resources>

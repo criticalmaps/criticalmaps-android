@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- app -->
+    <string name="app_name" translatable="false">Critical Maps</string>
+    <string name="osm_credits" translatable="false">\u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
+    <string name="about_text_map_url" translatable="false">criticalmaps.net</string>
+    <string name="about_text_contributors" translatable="false">&#8226; Gitti la Mar (Logo) \n&#8226; Jan Rabe (Code) \n&#8226; Christian Balster (Code) \n&#8226; Ligi (Code) \n&#8226; Caner Başaran (Translations) \n&#8226; Tobias Preuss (Code)\n&#8226; Luca Gemini (Translations)\n&#8226; Lena Osswald (Translations)\n&#8226; Rodrigo Aguilera (Translations)</string>
+    <string name="about_text_github_url" translatable="false">github.com/criticalmaps/criticalmaps-android</string>
+
+    <!-- Design time placeholders -->
+    <string name="lorem_ipsum" translatable="false">
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+    </string>
+</resources>
+

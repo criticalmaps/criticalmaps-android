@@ -1,16 +1,15 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
 import java.text.ParseException;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.json.JSONException;
 
 public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
@@ -23,6 +22,11 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     public TwitterGetHandler(TwitterFragment twitterFragment) {
         this.twitterFragment = twitterFragment;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        twitterFragment.swipeLayout.setRefreshing(true);
     }
 
     @Override
@@ -49,6 +53,8 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
         if (!twitterFragment.isAdded()) {
             return;
         }
+
+        twitterFragment.swipeLayout.setRefreshing(false);
 
         if (resultType == ResultType.FAILED) {
             twitterFragment.showErrorMessage();

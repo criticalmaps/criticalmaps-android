@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import butterknife.BindView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
@@ -38,8 +39,9 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -81,8 +83,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
         viewHolder.nameTextView.setText(tweet.getUserName());
         viewHolder.textTextView.setText(Html.fromHtml(tweet.getText()).toString());
-        viewHolder.dateTextView.setText(new SimpleDateFormat("HH:mm").format(tweet.getTimestamp()));
-        viewHolder.timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy").format(tweet.getTimestamp()));
+        viewHolder.dateTextView.setText(new SimpleDateFormat("HH:mm", Locale.US).format(tweet.getTimestamp()));
+        viewHolder.timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(tweet.getTimestamp()));
         viewHolder.handleTextView.setText("@" + tweet.getUserScreenName());
 
         rowView.setOnClickListener(new View.OnClickListener() {
@@ -95,19 +97,19 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tweet_user_name)
+        @BindView(R.id.tweet_user_name)
         TextView nameTextView;
-        @Bind(R.id.tweet_text)
+        @BindView(R.id.tweet_text)
         TextView textTextView;
-        @Bind(R.id.tweet_creation_date)
+        @BindView(R.id.tweet_creation_date)
         TextView dateTextView;
-        @Bind(R.id.tweet_creation_time)
+        @BindView(R.id.tweet_creation_time)
         TextView timeTextView;
-        @Bind(R.id.tweet_user_handle)
+        @BindView(R.id.tweet_user_handle)
         TextView handleTextView;
-        @Bind(R.id.tweet_user_image)
+        @BindView(R.id.tweet_user_image)
         ImageView userImageView;
-        @Bind(R.id.tweet_user_image_progress)
+        @BindView(R.id.tweet_user_image_progress)
         ProgressBar userImageProgress;
 
         public ViewHolder(View view) {

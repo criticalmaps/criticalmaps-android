@@ -10,18 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.squareup.otto.Subscribe;
-
-import org.osmdroid.DefaultResourceProxyImpl;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-
-import javax.inject.Inject;
-
-import butterknife.Bind;
 import butterknife.BindDrawable;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import com.squareup.otto.Subscribe;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -30,8 +23,10 @@ import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
+import javax.inject.Inject;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
 
 public class MapFragment extends Fragment {
 
@@ -41,7 +36,6 @@ public class MapFragment extends Fragment {
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
 
     //dependencies
-
     @Inject
     OwnLocationModel ownLocationModel;
 
@@ -51,26 +45,22 @@ public class MapFragment extends Fragment {
     @Inject
     EventBusProvider eventService;
 
-    @Inject
-    LocationUpdateManager locationUpdateManager;
-
     //view
     private MapView mapView;
 
-    @Bind(R.id.set_current_location_center)
+    @BindView(R.id.set_current_location_center)
     ImageButton setCurrentLocationCenter;
 
-    @Bind(R.id.map_container)
+    @BindView(R.id.map_container)
     RelativeLayout mapContainer;
 
-    @Bind(R.id.searching_for_location_overlay_map)
+    @BindView(R.id.searching_for_location_overlay_map)
     RelativeLayout searchingForLocationOverlay;
 
-    @Bind(R.id.map_osm_notice)
+    @BindView(R.id.map_osm_notice)
     TextView osmNoticeOverlay;
 
     //misc
-    private DefaultResourceProxyImpl resourceProxy;
     private boolean isInitialLocationSet = false;
 
     //cache drawables
@@ -79,6 +69,7 @@ public class MapFragment extends Fragment {
 
     @BindDrawable(R.drawable.map_marker_own)
     Drawable ownLocationIcon;
+    private Unbinder unbinder;
 
 
     @Override
@@ -86,7 +77,7 @@ public class MapFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -95,11 +86,10 @@ public class MapFragment extends Fragment {
         super.onActivityCreated(savedState);
 
         App.components().inject(this);
-        resourceProxy = new DefaultResourceProxyImpl(getActivity().getApplication());
 
         osmNoticeOverlay.setMovementMethod(LinkMovementMethod.getInstance());
 
-        mapView = MapViewUtils.createMapView(getActivity(), resourceProxy);
+        mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
 
         setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
@@ -119,17 +109,6 @@ public class MapFragment extends Fragment {
             }
 
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
-        } else {
-            setInitialMapLocation();
-        }
-    }
-
-    private void setInitialMapLocation() {
-        if (ownLocationModel.ownLocation == null) {
-            GeoPoint lastKnownLocation = locationUpdateManager.getLastKnownLocation();
-            if (lastKnownLocation != null) {
-                setToLocation(lastKnownLocation);
-            }
         }
     }
 
@@ -137,7 +116,7 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().clear();
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            LocationMarker otherPeoplesMarker = new LocationMarker(mapView, resourceProxy);
+            LocationMarker otherPeoplesMarker = new LocationMarker(mapView);
             otherPeoplesMarker.setPosition(currentOtherUsersLocation);
             otherPeoplesMarker.setIcon(locationIcon);
             mapView.getOverlays().add(otherPeoplesMarker);
@@ -145,7 +124,7 @@ public class MapFragment extends Fragment {
 
         if (ownLocationModel.ownLocation != null) {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            LocationMarker ownMarker = new LocationMarker(mapView, resourceProxy);
+            LocationMarker ownMarker = new LocationMarker(mapView);
             ownMarker.setPosition(currentUserLocation);
             ownMarker.setIcon(ownLocationIcon);
             mapView.getOverlays().add(ownMarker);
@@ -196,7 +175,7 @@ public class MapFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mapView = null;
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Subscribe

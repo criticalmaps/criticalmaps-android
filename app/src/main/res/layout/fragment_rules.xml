@@ -2,6 +2,7 @@
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rules_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +31,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_corken"/>
+                    app:srcCompat="@drawable/rules_corken"/>
         </LinearLayout>
 
         <Button
@@ -48,7 +49,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_wronglane"/>
+                    app:srcCompat="@drawable/rules_wronglane"/>
         </LinearLayout>
 
         <Button
@@ -66,7 +67,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_slowly"/>
+                    app:srcCompat="@drawable/rules_slowly"/>
         </LinearLayout>
 
         <Button
@@ -84,7 +85,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_brake"/>
+                    app:srcCompat="@drawable/rules_brake"/>
         </LinearLayout>
 
         <Button
@@ -102,7 +103,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_green"/>
+                    app:srcCompat="@drawable/rules_green"/>
         </LinearLayout>
 
         <Button
@@ -120,7 +121,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_friendly"/>
+                    app:srcCompat="@drawable/rules_friendly"/>
         </LinearLayout>
 
         <Button
@@ -138,7 +139,7 @@
 
             <ImageView
                     style="@style/rules_image"
-                    android:src="@drawable/rules_fun"/>
+                    app:srcCompat="@drawable/rules_fun"/>
         </LinearLayout>
 
         <TextView

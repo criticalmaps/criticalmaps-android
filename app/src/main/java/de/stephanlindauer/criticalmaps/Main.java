@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.SimpleArrayMap;
@@ -17,11 +18,11 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import java.io.File;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
@@ -46,13 +47,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private int currentNavId;
     private final SimpleArrayMap<Integer, Fragment.SavedState> savedFragmentStates = new SimpleArrayMap<>();
 
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    @Bind(R.id.drawer_navigation)
+    @BindView(R.id.drawer_navigation)
     NavigationView drawerNavigation;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @Override
@@ -64,9 +65,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
-        drawerLayout.setDrawerListener(mDrawerToggle);
+        drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        drawerLayout.setDrawerListener(new DrawerClosingDrawerLayoutListener());
+        drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
         navigateTo(R.id.navigation_map);
     }
 
@@ -131,7 +132,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void startDatenschutzIntent() {
-        IntentUtil.startFromURL(this, "http://criticalmaps.net/datenschutzerklaerung.html");
+        IntentUtil.startFromURL(this, "http://criticalmaps.net/info#Datenschutzerklärung");
     }
 
     private void startRateTheApp() {
@@ -175,7 +176,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         navigateTo(item.getItemId());
