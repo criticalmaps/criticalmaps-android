@@ -92,7 +92,7 @@
     <!-- camera -->
     <string name="camera_confirm_image_upload">
         <![CDATA[
-        Willst du das Foto auf <a href="http://criticalmaps.net">criticalmaps.net</a> hochladen? \nWir ver&ouml;ffentlichen die Bilder dort auf der Karte unter der <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lizenz.
+        Do you want to upload your picture to <a href="http://criticalmaps.net">criticalmaps.net</a>? \nIt will be published under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.
         ]]>
     </string>
     <string name="camera_upload">Upload image!</string>
