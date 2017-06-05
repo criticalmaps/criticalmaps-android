@@ -3,7 +3,7 @@ apply plugin: 'de.mobilej.unmock'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '25.0.3'
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
