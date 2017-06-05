@@ -12,6 +12,14 @@ android {
         versionCode 28
         versionName "2.2.1"
         vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        'butterknife.minSdk': getMinSdkVersion().getApiString()
+                ]
+            }
+        }
     }
 
     buildTypes {
