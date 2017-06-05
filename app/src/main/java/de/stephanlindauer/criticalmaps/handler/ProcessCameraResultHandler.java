@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,7 +84,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
         image.setImageBitmap(BitmapFactory.decodeFile(processedImageFile.getPath(), new BitmapFactory.Options()));
 
         TextView text = (TextView) view.findViewById(R.id.picture_confirm_text);
-        text.setLinksClickable(true);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
         text.setText(Html.fromHtml(activity.getString(R.string.camera_confirm_image_upload)));
 
         builder.setView(view);

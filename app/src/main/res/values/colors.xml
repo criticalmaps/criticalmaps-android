@@ -18,6 +18,8 @@
 
     <!-- Map -->
     <color name="map_osm_notice">@color/white_60pct</color>
+    <color name="map_loading_tile_color">@color/colorPrimary</color>
+    <color name="map_loading_line_color">@color/colorPrimary</color>
 
     <!-- About -->
     <color name="about_background">@android:color/white</color>
