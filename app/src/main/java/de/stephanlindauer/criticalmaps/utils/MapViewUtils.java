@@ -8,6 +8,9 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 
 import de.stephanlindauer.criticalmaps.BuildConfig;
+import de.stephanlindauer.criticalmaps.R;
+
+import static android.support.v4.content.ContextCompat.getColor;
 
 public class MapViewUtils {
     private MapViewUtils() {}
@@ -28,6 +31,12 @@ public class MapViewUtils {
         mapView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         mapView.setTilesScaledToDpi(true);
+        mapView.getOverlayManager()
+                .getTilesOverlay()
+                .setLoadingBackgroundColor(getColor(activity, R.color.map_loading_tile_color));
+        mapView.getOverlayManager()
+                .getTilesOverlay()
+                .setLoadingLineColor(getColor(activity, R.color.map_loading_line_color));
 
         return mapView;
     }
