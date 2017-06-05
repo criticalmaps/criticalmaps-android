@@ -29,12 +29,12 @@
 
             <ImageButton
                 android:id="@+id/about_facebook"
-                android:src="@drawable/facebook"
+                app:srcCompat="@drawable/facebook"
                 style="@style/about_button" />
 
             <ImageButton
                 android:id="@+id/about_twitter"
-                android:src="@drawable/twitter"
+                app:srcCompat="@drawable/twitter"
                 style="@style/about_button" />
 
         </LinearLayout>
