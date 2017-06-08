@@ -96,7 +96,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_close:
                 handleCloseRequested();
@@ -112,8 +111,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             case R.id.rate_the_app:
                 startRateTheApp();
-            default:
                 break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
