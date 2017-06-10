@@ -21,8 +21,6 @@ import android.widget.Toast;
 import butterknife.BindView;
 import java.io.File;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
@@ -30,7 +28,6 @@ import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
-import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
@@ -39,10 +36,6 @@ import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Inject
-    UserModel userModel;
-
-    //misc
     private File newCameraOutputFile;
     private int currentNavId;
     private final SimpleArrayMap<Integer, Fragment.SavedState> savedFragmentStates = new SimpleArrayMap<>();
@@ -82,8 +75,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         ButterKnife.bind(this);
 
         new PrerequisitesChecker(this).execute();
-
-        userModel.initialize(this);
 
         startSyncService();
     }
