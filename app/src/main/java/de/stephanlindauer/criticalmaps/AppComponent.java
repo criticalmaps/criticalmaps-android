@@ -24,6 +24,8 @@ public interface AppComponent {
 
     void inject(PrerequisitesChecker prerequisitesChecker);
 
+    App app();
+
     Picasso picasso();
 
     OwnLocationModel ownLocationmodel();

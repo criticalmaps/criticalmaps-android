@@ -43,14 +43,13 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
         String jsonPostString = getJsonObject().toString();
 
         final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPostString);
-        final Request postRequest = new Request.Builder().url(Endpoints.MAIN_POST).post(body).build();
+        final Request request = new Request.Builder().url(Endpoints.MAIN_POST).post(body).build();
 
         try {
-            final Response response = okHttpClient.newCall(postRequest).execute();
+            final Response response = okHttpClient.newCall(request).execute();
             if (response.isSuccessful()) {
-                String responseBodyString = response.body().string();
-                response.body().close();
-                return responseBodyString;
+                //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
+                return response.body().string();
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));

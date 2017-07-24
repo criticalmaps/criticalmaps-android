@@ -24,9 +24,7 @@
     <!-- About -->
     <color name="about_background">@android:color/white</color>
     <color name="about_heading_background">@color/colorPrimary</color>
-    <color name="about_heading_text">@android:color/white</color>
     <color name="about_content_text">@android:color/black</color>
-    <color name="about_button_text">@android:color/black</color>
 
     <!-- Chat -->
     <color name="chat_background">@color/colorPrimaryDark</color>

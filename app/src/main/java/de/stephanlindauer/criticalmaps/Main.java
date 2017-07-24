@@ -21,8 +21,6 @@ import android.widget.Toast;
 import butterknife.BindView;
 import java.io.File;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
@@ -30,19 +28,13 @@ import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
-import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
-import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Inject
-    UserModel userModel;
-
-    //misc
     private File newCameraOutputFile;
     private int currentNavId;
     private final SimpleArrayMap<Integer, Fragment.SavedState> savedFragmentStates = new SimpleArrayMap<>();
@@ -82,10 +74,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         ButterKnife.bind(this);
 
         new PrerequisitesChecker(this).execute();
-
-        userModel.initialize(this);
-
-        startSyncService();
     }
 
     @Override
@@ -96,7 +84,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_close:
                 handleCloseRequested();
@@ -112,8 +99,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             case R.id.rate_the_app:
                 startRateTheApp();
-            default:
                 break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
@@ -163,11 +151,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             new ApplicationCloseHandler(this).execute();
         }
         super.onNewIntent(intent);
-    }
-
-    private void startSyncService() {
-        Intent syncServiceIntent = new Intent(this, ServerSyncService.class);
-        startService(syncServiceIntent);
     }
 
     @Override

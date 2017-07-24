@@ -77,4 +77,16 @@ public class ServerSyncService extends Service {
         stopSelf();
         super.onTaskRemoved(rootIntent);
     }
+
+    public static void startService() {
+        App app = App.components().app();
+        Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
+        app.startService(syncServiceIntent);
+    }
+
+    public static void stopService() {
+        App app = App.components().app();
+        Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
+        app.stopService(syncServiceIntent);
+    }
 }

@@ -58,7 +58,7 @@ public class AppModule {
     @Provides
     @Singleton
     public UserModel provideUserModel() {
-        return new UserModel();
+        return new UserModel(app);
     }
 
 
