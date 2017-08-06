@@ -101,11 +101,11 @@ public class MapFragment extends Fragment {
 
         if (savedState != null) {
             Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
-            int[] position = savedState.getIntArray(KEY_MAP_POSITION);
+            GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
 
             if (zoomLevel != null && position != null) {
                 mapView.getController().setZoom(zoomLevel);
-                mapView.scrollTo(position[0], position[1]);
+                setToLocation(position);
             }
 
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
@@ -161,7 +161,7 @@ public class MapFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());
-        outState.putIntArray(KEY_MAP_POSITION, new int[]{mapView.getScrollX(), mapView.getScrollY()});
+        outState.putParcelable(KEY_MAP_POSITION, (GeoPoint) mapView.getMapCenter());
         outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
     }
 
@@ -197,7 +197,7 @@ public class MapFragment extends Fragment {
         mapView.getController().animateTo(location);
     }
 
-    private void setToLocation(GeoPoint lastKnownLocation) {
-        mapView.getController().setCenter(lastKnownLocation);
+    private void setToLocation(final GeoPoint location) {
+        mapView.getController().setCenter(location);
     }
 }

@@ -7,12 +7,12 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -35,9 +35,12 @@ import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final static String KEY_NAVID = "main_navid";
+    private final static String KEY_SAVEDFRAGMENTSTATES = "main_savedfragmentstate";
+
     private File newCameraOutputFile;
     private int currentNavId;
-    private final SimpleArrayMap<Integer, Fragment.SavedState> savedFragmentStates = new SimpleArrayMap<>();
+    private SparseArray<Fragment.SavedState> savedFragmentStates = new SparseArray<>();
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -60,7 +63,17 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
-        navigateTo(R.id.navigation_map);
+
+        if (savedInstanceState != null) {
+            SparseArray<Fragment.SavedState> restoredStates = savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
+            if (restoredStates != null) {
+                savedFragmentStates = restoredStates;
+            }
+
+            currentNavId = savedInstanceState.getInt(KEY_NAVID);
+        } else {
+            navigateTo(R.id.navigation_map);
+        }
     }
 
     @Override
@@ -159,6 +172,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_NAVID, currentNavId);
+        outState.putSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES, savedFragmentStates);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -181,10 +201,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         currentNavId = navId;
         final Fragment nextFragment = FragmentProvider.getFragmentForNavId(navId);
 
-        // restore saved state of new fragment if it was shown before
-        if (savedFragmentStates.containsKey(navId)) {
-            nextFragment.setInitialSavedState(savedFragmentStates.get(navId));
-        }
+        // restore saved state of new fragment if it was shown before; otherwise passing null is ok
+        nextFragment.setInitialSavedState(savedFragmentStates.get(navId));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).commit();
     }
