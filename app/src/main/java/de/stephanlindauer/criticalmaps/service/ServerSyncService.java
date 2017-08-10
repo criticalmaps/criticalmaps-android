@@ -43,6 +43,9 @@ public class ServerSyncService extends Service {
 
         locationUpdateManager.initializeAndStartListening();
 
+    }
+
+    private void startPullServerTimer() {
         timerPullServer = new Timer();
 
         TimerTask timerTaskPullServer = new TimerTask() {
@@ -55,7 +58,7 @@ public class ServerSyncService extends Service {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                           pullServerHandler.get().execute();
+                            pullServerHandler.get().execute();
                         }
                     });
                 } else {
@@ -66,10 +69,18 @@ public class ServerSyncService extends Service {
         timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
+    private void stopPullServerTimer() {
+        if (timerPullServer != null) {
+            timerPullServer.cancel();
+            timerPullServer = null;
+        }
+    }
+
     @Override
     public void onDestroy() {
         locationUpdateManager.handleShutdown();
         timerPullServer.cancel();
+        stopPullServerTimer();
     }
 
     @Override
