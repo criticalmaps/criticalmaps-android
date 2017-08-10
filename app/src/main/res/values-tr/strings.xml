@@ -28,8 +28,6 @@
         şimdi buraya dokun!
     </string>
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">İnternet bağlantınız devredışı veya engellenmiş</string>
-    <string name="prerequisites_no_internet_enabled_text">Lütfen, internet bağlantınızı etkinleştirip, uygulamayı yeniden başlatın</string>
     <string name="prerequisites_no_gps_provider_enabled_title">GPS kapalı</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Lütfen GPS etkinleştirin ve uygulamayı yeniden başlatın</string>
 

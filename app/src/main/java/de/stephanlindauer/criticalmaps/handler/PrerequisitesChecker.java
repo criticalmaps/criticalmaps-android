@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -39,12 +37,8 @@ public class PrerequisitesChecker {
         if (!checkForLocationProvider()) {
             return;
         }
-        if (!checkForInternetAvailable()) {
-            return;
-        }
-        if (!checkForIntroductionShown()) {
-            return;
-        }
+
+        showIntroductionIfNotShownBefore();
     }
 
     private boolean checkForLocationProvider() {
@@ -62,22 +56,7 @@ public class PrerequisitesChecker {
         }
     }
 
-    private boolean checkForInternetAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
-            showAlertDialog(
-                    activity,
-                    R.string.prerequisites_no_internet_enabled_title,
-                    R.string.prerequisites_no_internet_enabled_text,
-                    Settings.ACTION_SETTINGS);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean checkForIntroductionShown() {
+    private boolean showIntroductionIfNotShownBefore() {
         final BooleanPreference introductionAlreadyShownPreference = new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.INTRODUCTION_ALREADY_SHOWN);
 
@@ -140,5 +119,4 @@ public class PrerequisitesChecker {
                             Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         return viewIntent;
     }
-
 }

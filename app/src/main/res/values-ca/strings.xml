@@ -29,8 +29,6 @@
     </string>
 
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">La teva connexió a internet està desactivada o bloquejada</string>
-    <string name="prerequisites_no_internet_enabled_text">Si us plau, activa la teva connexió a Internet i torna a iniciar l\'aplicació</string>
     <string name="prerequisites_no_gps_provider_enabled_title">El teu GPS està desactivat o bloquejat</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Si us plau, activa el GPS i torna a iniciar l\'aplicació</string>
 

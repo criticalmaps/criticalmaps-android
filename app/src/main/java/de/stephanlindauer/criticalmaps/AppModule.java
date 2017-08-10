@@ -6,6 +6,7 @@ import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
+import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
 import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
@@ -97,6 +98,13 @@ public class AppModule {
             OwnLocationModel ownLocationModel,
             EventBusProvider eventBusProvider) {
         return new LocationUpdateManager(app, ownLocationModel, eventBusProvider);
+    }
+
+    @Provides
+    @Singleton
+    public NetworkConnectivityChangeHandler provideNetworkConnectivityChangeHandler(
+            EventBusProvider eventBusProvider) {
+        return new NetworkConnectivityChangeHandler(app, eventBusProvider);
     }
 
     @Provides

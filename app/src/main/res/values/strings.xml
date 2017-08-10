@@ -27,9 +27,12 @@
         Activate tracking to be able to see all other cyclists. \n\n
         Just tap here!
     </string>
+    <string name="map_no_internet_connection_title">No internet connection</string>
+    <string name="map_no_internet_connection_text">Without an internet connection you won\'t be able
+        to see other users, send your location or write or read chat messages. Basically the app is
+        pretty much useless like this :(\nPlease check your settings and enable mobile data.</string>
+
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>
-    <string name="prerequisites_no_internet_enabled_text">Please enable your internet connection and restart the app</string>
     <string name="prerequisites_no_gps_provider_enabled_title">Your GPS is deactivated or blocked</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
 
@@ -64,6 +67,7 @@
     <string name="chat_send">Send</string>
     <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Sending &#8230;</string>
+    <string name="chat_no_data_connection_hint">No internet connection &#8230;</string>
 
     <!-- fragment_about -->
     <string name="about_heading_social">social stuff</string>

@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 
+import com.squareup.otto.Subscribe;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,20 +16,30 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import de.stephanlindauer.criticalmaps.App;
+import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
+import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
+import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
 
     private final int SERVER_SYNC_INTERVAL = 12 * 1000; // 12 sec -> 5 times a minute
+
     private Timer timerPullServer;
 
     @Inject
     LocationUpdateManager locationUpdateManager;
 
     @Inject
+    NetworkConnectivityChangeHandler networkConnectivityChangeHandler;
+
+    @Inject
     Provider<PullServerHandler> pullServerHandler;
+
+    @Inject
+    EventBusProvider eventBusProvider;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -43,6 +55,9 @@ public class ServerSyncService extends Service {
 
         locationUpdateManager.initializeAndStartListening();
 
+        networkConnectivityChangeHandler.start();
+
+        eventBusProvider.register(this);
     }
 
     private void startPullServerTimer() {
@@ -78,8 +93,9 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onDestroy() {
+        eventBusProvider.unregister(this);
         locationUpdateManager.handleShutdown();
-        timerPullServer.cancel();
+        networkConnectivityChangeHandler.stop();
         stopPullServerTimer();
     }
 
@@ -87,6 +103,15 @@ public class ServerSyncService extends Service {
     public void onTaskRemoved(Intent rootIntent) {
         stopSelf();
         super.onTaskRemoved(rootIntent);
+    }
+
+    @Subscribe
+    public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
+        if (e.isConnected && timerPullServer == null) {
+            startPullServerTimer();
+        } else {
+            stopPullServerTimer();
+        }
     }
 
     public static void startService() {
