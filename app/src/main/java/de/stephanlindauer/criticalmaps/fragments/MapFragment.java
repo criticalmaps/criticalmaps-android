@@ -2,19 +2,21 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.squareup.otto.Subscribe;
+
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
@@ -49,7 +51,7 @@ public class MapFragment extends Fragment {
     private MapView mapView;
 
     @BindView(R.id.set_current_location_center)
-    ImageButton setCurrentLocationCenter;
+    FloatingActionButton setCurrentLocationCenter;
 
     @BindView(R.id.map_container)
     RelativeLayout mapContainer;
@@ -69,6 +71,7 @@ public class MapFragment extends Fragment {
 
     @BindDrawable(R.drawable.map_marker_own)
     Drawable ownLocationIcon;
+
     private Unbinder unbinder;
 
 

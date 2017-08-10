@@ -17,16 +17,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <ImageButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/set_current_location_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
+        android:layout_margin="12dp"
         android:gravity="center_vertical|center_horizontal"
-        app:srcCompat="@drawable/ic_maps_my_location" />
+        app:srcCompat="@drawable/ic_maps_my_location"
+        app:fabSize="mini"
+        tools:ignore="RelativeOverlap,RtlHardcoded" />
 
     <TextView
         android:id="@+id/map_osm_notice"
