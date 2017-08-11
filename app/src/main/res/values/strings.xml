@@ -29,8 +29,16 @@
     </string>
     <string name="map_no_internet_connection_title">No internet connection</string>
     <string name="map_no_internet_connection_text">Without an internet connection you won\'t be able
-        to see other users, send your location or write or read chat messages. Basically the app is
+        to see other users, share your location or write or read chat messages. Basically the app is
         pretty much useless like this :(\nPlease check your settings and enable mobile data.</string>
+    <string name="map_no_gps_title">No GPS available</string>
+    <string name="map_no_gps_text">This device has neither GPS or network location capabilities.
+        Other users won\'t be able to see your location, but you can still follow the Mass.</string>
+    <string name="map_gps_disabled_title">GPS is disabled</string>
+    <string name="map_gps_disabled_text">Currently GPS and network location on your device are
+        disabled. This means other users won\'t be able to see your location. You can still follow
+        the Mass, but remember that the app depends on as many people as possible sharing their
+        location.\nSo please consider enabling location services in your device settings.</string>
 
     <!-- prerequisites -->
     <string name="prerequisites_no_gps_provider_enabled_title">Your GPS is deactivated or blocked</string>
