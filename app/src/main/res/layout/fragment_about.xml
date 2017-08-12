@@ -23,18 +23,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/about_facebook"
-                app:srcCompat="@drawable/facebook"
+                app:srcCompat="@drawable/ic_facebook_logo"
                 style="@style/about_button" />
 
             <ImageButton
                 android:id="@+id/about_twitter"
-                app:srcCompat="@drawable/twitter"
+                app:srcCompat="@drawable/ic_twitter_social_icon_rounded_square_color"
                 style="@style/about_button" />
 
         </LinearLayout>
