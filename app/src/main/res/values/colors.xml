@@ -3,6 +3,7 @@
 
     <!-- Material colors used but not present in appcompat -->
     <color name="material_red_900">#FFB71C1C</color>
+    <color name="material_orange_600">#FFFB8C00</color>
 
     <!-- Theme Colors -->
     <color name="colorPrimary">@color/material_grey_800</color>
@@ -25,6 +26,7 @@
     <color name="map_loading_tile_color">@color/colorPrimary</color>
     <color name="map_loading_line_color">@color/colorPrimary</color>
     <color name="map_fab_warning">@color/material_red_900</color>
+    <color name="map_fab_searching">@color/material_orange_600</color>
 
     <!-- About -->
     <color name="about_background">@android:color/white</color>

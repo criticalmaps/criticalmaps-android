@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -102,6 +103,12 @@ public class MapFragment extends Fragment {
         }
     };
 
+    private final View.OnClickListener searchingForLocationOnClickListener =  new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -182,6 +189,7 @@ public class MapFragment extends Fragment {
     }
 
     private void handleFirstLocationUpdate() {
+        setGpsStatusFixed();
         animateToLocation(ownLocationModel.ownLocation);
         isInitialLocationSet = true;
     }
@@ -231,22 +239,45 @@ public class MapFragment extends Fragment {
     @Subscribe
     public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
         if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
-            setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
-            setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
-            setCurrentLocationCenter.setOnClickListener(noGpsOnClickListener);
+            setGpsStatusNonexistent();
         } else if (e.status == GpsStatusChangedEvent.Status.OFF) {
-            setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
-            setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
-            setCurrentLocationCenter.setOnClickListener(GpsDisabledOnClickListener);
+            setGpsStatusDisabled();
         } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||
                 e.status == GpsStatusChangedEvent.Status.HIGH_ACCURACY) {
-            setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
-            setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_fixed_white_24dp);
-            setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
+            if (ownLocationModel.ownLocation != null) {
+                setGpsStatusFixed();
+            } else {
+                setGpsStatusSearching();
+            }
         }
+    }
+
+    private void setGpsStatusNonexistent() {
+        setCurrentLocationCenter.setBackgroundTintList(
+                ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
+        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
+        setCurrentLocationCenter.setOnClickListener(noGpsOnClickListener);
+    }
+
+    private void setGpsStatusDisabled() {
+        setCurrentLocationCenter.setBackgroundTintList(
+                ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
+        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
+        setCurrentLocationCenter.setOnClickListener(GpsDisabledOnClickListener);
+    }
+
+    private void setGpsStatusFixed() {
+        setCurrentLocationCenter.setBackgroundTintList(
+                ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
+        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_fixed_white_24dp);
+        setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
+    }
+
+    private void setGpsStatusSearching() {
+        setCurrentLocationCenter.setBackgroundTintList(
+                ContextCompat.getColorStateList(getActivity(), R.color.map_fab_searching));
+        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_not_fixed_white_24dp);
+        setCurrentLocationCenter.setOnClickListener(searchingForLocationOnClickListener);
     }
 
     private void animateToLocation(final GeoPoint location) {

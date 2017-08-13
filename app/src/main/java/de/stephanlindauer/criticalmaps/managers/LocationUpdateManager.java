@@ -43,12 +43,11 @@ public class LocationUpdateManager {
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
-            // TODO
-            // LocationProvider.OUT_OF_SERVICE if the provider is out of service, and this is not
-            // expected to change in the near future;
-            // LocationProvider.TEMPORARILY_UNAVAILABLE if the provider is temporarily unavailable
-            // but is expected to be available shortly;
-            // LocationProvider.AVAILABLE if the provider is currently available.
+            // Notes after some testing:
+            // - seems to be only called for GPS provider
+            // - calls not necessarily consistent with location fixes
+            // - recurrent AVAILABLE calls for GPS
+            // -> not usable
         }
 
         @Override
