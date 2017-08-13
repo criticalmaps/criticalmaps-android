@@ -66,6 +66,7 @@
                     app:backgroundTint="@color/chat_fab_background_states"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
+                    android:contentDescription="@string/chat_send"
                     />
         </LinearLayout>
     </LinearLayout>
