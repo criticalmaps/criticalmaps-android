@@ -1,15 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'de.mobilej.unmock'
 
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
-    }
-}
-
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
