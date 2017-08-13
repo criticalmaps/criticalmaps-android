@@ -232,12 +232,12 @@ public class MapFragment extends Fragment {
     public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
         if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
             setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.material_red_900));
+                    ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
             setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
             setCurrentLocationCenter.setOnClickListener(noGpsOnClickListener);
         } else if (e.status == GpsStatusChangedEvent.Status.OFF) {
             setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.material_red_900));
+                    ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
             setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
             setCurrentLocationCenter.setOnClickListener(GpsDisabledOnClickListener);
         } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||

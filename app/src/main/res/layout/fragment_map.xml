@@ -25,7 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="12dp"
         android:gravity="center_vertical|center_horizontal"
-        app:backgroundTint="@color/material_red_900"
+        app:backgroundTint="@color/map_fab_warning"
         app:srcCompat="@drawable/ic_sync_problem_white_24dp"
         app:fabSize="mini"
         android:visibility="gone"
