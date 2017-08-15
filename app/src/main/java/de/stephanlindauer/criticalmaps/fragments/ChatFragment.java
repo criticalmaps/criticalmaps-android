@@ -42,6 +42,7 @@ import butterknife.OnClick;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
+import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
@@ -78,6 +79,7 @@ public class ChatFragment extends Fragment {
     //misc
     private boolean isScrolling = false;
     private boolean isTextInputEnabled = true;
+    private boolean isDataConnectionAvailable = true;
     private Unbinder unbinder;
 
 
@@ -145,10 +147,6 @@ public class ChatFragment extends Fragment {
                 setSendButtonEnabledWithAnimation(s.length() != 0);
             }
         });
-
-        if (ownLocationModel.ownLocation == null) {
-            setTextInputEnabled(false);
-        }
     }
 
     private void setSendButtonEnabledWithAnimation(final boolean enabled) {
@@ -216,21 +214,36 @@ public class ChatFragment extends Fragment {
     }
 
     @Subscribe
-    public void handleNewLocation(NewLocationEvent e) {
-        setTextInputEnabled(true);
-    }
-
-    @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
         chatModelToAdapter();
     }
 
-    private void setTextInputEnabled(final boolean enabled) {
-        if (!enabled) {
+    @Subscribe
+    public void handleNewLocation(NewLocationEvent e) {
+        setTextInputState(ownLocationModel.ownLocation != null, isDataConnectionAvailable);
+    }
+
+    @Subscribe
+    public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
+        isDataConnectionAvailable = e.isConnected;
+        setTextInputState(ownLocationModel.ownLocation != null, isDataConnectionAvailable);
+    }
+
+    private void setTextInputState(final boolean locationKnown, final boolean dataEnabled) {
+        if (!locationKnown || !dataEnabled) {
+            // FIXME fix this hacky mess of state handling
+            setSendButtonEnabledWithAnimation(false);
             editMessageTextField.setEnabled(false);
-            textInputLayout.setHint(getString(R.string.map_searching_for_location));
+            if (dataEnabled) {
+                textInputLayout.setHint(getString(R.string.map_searching_for_location));
+            } else {
+                textInputLayout.setHint(getString(R.string.chat_no_data_connection_hint));
+            }
             isTextInputEnabled = false;
         } else if (!isTextInputEnabled) {
+            if (editMessageTextField.getText().length() > 0) {
+                setSendButtonEnabledWithAnimation(true);
+            }
             editMessageTextField.setEnabled(true);
             textInputLayout.setHint(getString(R.string.chat_text));
             isTextInputEnabled = true;

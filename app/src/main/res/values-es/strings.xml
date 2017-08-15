@@ -28,8 +28,6 @@
         Pulsa aquí!
     </string>
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Tu conexión a internet está desactivada o bloqueada</string>
-    <string name="prerequisites_no_internet_enabled_text">Activa tu conexión a internet y reinicia la aplicación</string>
     <string name="prerequisites_no_gps_provider_enabled_title">Tu GPS está desactivado o bloqueado</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Activa el GPS y reinicia la aplicación</string>
 

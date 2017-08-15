@@ -48,7 +48,4 @@
     <color name="border_top_background">@color/colorPrimaryDark</color>
     <color name="border_top_divider">@color/colorPrimary</color>
 
-    <!-- Search for location overlay -->
-    <color name="location_search_background">@color/window_background</color>
-
 </resources>

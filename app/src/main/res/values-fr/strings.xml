@@ -27,8 +27,6 @@ Activez votre dispositif de repérage afin de pouvoir voir tout les autres cycli
 Tapez ici!
 </string>
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Votre connexion internet est désactivée ou blockée</string>
-    <string name="prerequisites_no_internet_enabled_text">Veuillez activer votre connexion internet et redémarrer l\'application.</string>
     <string name="prerequisites_no_gps_provider_enabled_title">Votre GPS est désactivé ou blocké</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Veuillez activer votre dispositiv de repérage par GPS et redémarrer l\'application.</string>
 

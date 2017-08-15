@@ -27,8 +27,6 @@
         Tappe einfach hier drauf!
     </string>
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Deine Internet-Verbindung ist deaktiviert oder geblockt</string>
-    <string name="prerequisites_no_internet_enabled_text">Bitte aktivieren deine Internet-Verbindung und starte die App erneut</string>
     <string name="prerequisites_no_gps_provider_enabled_title">GPS ist deaktiviert oder geblockt</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Bitte aktivieren GPS und starte die App erneut</string>
 

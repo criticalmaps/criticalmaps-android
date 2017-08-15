@@ -79,11 +79,11 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final View view = factory.inflate(R.layout.view_picture_upload, null);
 
-        ImageView image = (ImageView) view.findViewById(R.id.picture_preview);
+        ImageView image = view.findViewById(R.id.picture_preview);
 
         image.setImageBitmap(BitmapFactory.decodeFile(processedImageFile.getPath(), new BitmapFactory.Options()));
 
-        TextView text = (TextView) view.findViewById(R.id.picture_confirm_text);
+        TextView text = view.findViewById(R.id.picture_confirm_text);
         text.setMovementMethod(LinkMovementMethod.getInstance());
         text.setText(Html.fromHtml(activity.getString(R.string.camera_confirm_image_upload)));
 

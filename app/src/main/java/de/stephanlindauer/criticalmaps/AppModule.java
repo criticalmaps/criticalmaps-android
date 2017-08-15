@@ -6,6 +6,7 @@ import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
+import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
 import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
@@ -36,17 +37,13 @@ public class AppModule {
     @Provides
     @Singleton
     public OkHttpClient provideOKHttpClient() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .build();
+        return new OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS).build();
     }
 
     @Provides
     @Singleton
     public Picasso providePicasso(App app, OkHttpClient client) {
-        return new Picasso.Builder(app)
-                .downloader(new OkHttp3Downloader(client))
-                .build();
+        return new Picasso.Builder(app).downloader(new OkHttp3Downloader(client)).build();
     }
 
     @Provides
@@ -76,7 +73,10 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ServerResponseProcessor serverResponseProcessor(OtherUsersLocationModel otherUsersLocationModel, EventBusProvider eventService, ChatModel chatModel) {
+    public ServerResponseProcessor serverResponseProcessor(
+            OtherUsersLocationModel otherUsersLocationModel,
+            EventBusProvider eventService,
+            ChatModel chatModel) {
         return new ServerResponseProcessor(otherUsersLocationModel, eventService, chatModel);
     }
 
@@ -94,11 +94,17 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public LocationUpdateManager provideLocationUpdatesService(
+    public LocationUpdateManager provideLocationUpdateManager(
             OwnLocationModel ownLocationModel,
             EventBusProvider eventBusProvider) {
-        return new LocationUpdateManager(
-                app, ownLocationModel, eventBusProvider);
+        return new LocationUpdateManager(app, ownLocationModel, eventBusProvider);
+    }
+
+    @Provides
+    @Singleton
+    public NetworkConnectivityChangeHandler provideNetworkConnectivityChangeHandler(
+            EventBusProvider eventBusProvider) {
+        return new NetworkConnectivityChangeHandler(app, eventBusProvider);
     }
 
     @Provides

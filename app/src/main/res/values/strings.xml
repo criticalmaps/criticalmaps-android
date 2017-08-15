@@ -27,9 +27,20 @@
         Activate tracking to be able to see all other cyclists. \n\n
         Just tap here!
     </string>
+    <string name="map_no_internet_connection_title">No internet connection</string>
+    <string name="map_no_internet_connection_text">Without an internet connection you won\'t be able
+        to see other users, share your location or write or read chat messages. Basically the app is
+        pretty much useless like this :(\nPlease check your settings and enable mobile data.</string>
+    <string name="map_no_gps_title">No GPS available</string>
+    <string name="map_no_gps_text">This device has neither GPS or network location capabilities.
+        Other users won\'t be able to see your location, but you can still follow the Mass.</string>
+    <string name="map_gps_disabled_title">GPS is disabled</string>
+    <string name="map_gps_disabled_text">Currently GPS and network location on your device are
+        disabled. This means other users won\'t be able to see your location. You can still follow
+        the Mass, but remember that the app depends on as many people as possible sharing their
+        location.\nSo please consider enabling location services in your device settings.</string>
+
     <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>
-    <string name="prerequisites_no_internet_enabled_text">Please enable your internet connection and restart the app</string>
     <string name="prerequisites_no_gps_provider_enabled_title">Your GPS is deactivated or blocked</string>
     <string name="prerequisites_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
 
@@ -64,6 +75,7 @@
     <string name="chat_send">Send</string>
     <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Sending &#8230;</string>
+    <string name="chat_no_data_connection_hint">No internet connection &#8230;</string>
 
     <!-- fragment_about -->
     <string name="about_heading_social">social stuff</string>
