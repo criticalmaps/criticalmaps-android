@@ -195,7 +195,7 @@ public class MapFragment extends Fragment {
 
     private void handleFirstLocationUpdate() {
         setGpsStatusFixed();
-        animateToLocation(ownLocationModel.ownLocation);
+        zoomToLocation(ownLocationModel.ownLocation, 12);
         isInitialLocationSet = true;
     }
 
@@ -300,6 +300,12 @@ public class MapFragment extends Fragment {
             gpsSearchingAnimator.cancel();
             setCurrentLocationCenter.setAlpha(1.0f);
         }
+    }
+
+    private void zoomToLocation(final GeoPoint location, final int zoomLevel) {
+        // TODO use setCenter() + zoomTo() here; currently broken and ends up in a wrong location
+        mapView.getController().setZoom(zoomLevel);
+        animateToLocation(location);
     }
 
     private void animateToLocation(final GeoPoint location) {
