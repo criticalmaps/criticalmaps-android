@@ -1,7 +1,11 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -69,6 +73,7 @@ public class MapFragment extends Fragment {
 
     //misc
     private boolean isInitialLocationSet = false;
+    private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
     @BindDrawable(R.drawable.map_marker)
@@ -253,31 +258,48 @@ public class MapFragment extends Fragment {
     }
 
     private void setGpsStatusNonexistent() {
-        setCurrentLocationCenter.setBackgroundTintList(
-                ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
-        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
-        setCurrentLocationCenter.setOnClickListener(noGpsOnClickListener);
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                noGpsOnClickListener);
     }
 
     private void setGpsStatusDisabled() {
-        setCurrentLocationCenter.setBackgroundTintList(
-                ContextCompat.getColorStateList(getActivity(), R.color.map_fab_warning));
-        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
-        setCurrentLocationCenter.setOnClickListener(GpsDisabledOnClickListener);
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                GpsDisabledOnClickListener);
     }
 
     private void setGpsStatusFixed() {
-        setCurrentLocationCenter.setBackgroundTintList(
-                ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
-        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_fixed_white_24dp);
-        setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.colorAccent, R.drawable.ic_gps_fixed_white_24dp,
+                centerLocationOnClickListener);
     }
 
     private void setGpsStatusSearching() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_searching, R.drawable.ic_gps_not_fixed_white_24dp,
+                searchingForLocationOnClickListener);
+
+        gpsSearchingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                getActivity(),
+                R.animator.map_gps_fab_searching_animation);
+        gpsSearchingAnimator.setTarget(setCurrentLocationCenter);
+        gpsSearchingAnimator.start();
+    }
+
+    private void setGpsStatusCommon(@ColorRes int colorResId, @DrawableRes int iconResId,
+                                    View.OnClickListener onClickListener) {
         setCurrentLocationCenter.setBackgroundTintList(
-                ContextCompat.getColorStateList(getActivity(), R.color.map_fab_searching));
-        setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_not_fixed_white_24dp);
-        setCurrentLocationCenter.setOnClickListener(searchingForLocationOnClickListener);
+                ContextCompat.getColorStateList(getActivity(), colorResId));
+        setCurrentLocationCenter.setImageResource(iconResId);
+        setCurrentLocationCenter.setOnClickListener(onClickListener);
+    }
+
+    private void cancelGpsSearchingAnimationIfRunning() {
+        if (gpsSearchingAnimator != null) {
+            gpsSearchingAnimator.cancel();
+            setCurrentLocationCenter.setAlpha(1.0f);
+        }
     }
 
     private void animateToLocation(final GeoPoint location) {
