@@ -32,7 +32,7 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import javax.inject.Inject;
@@ -54,7 +54,7 @@ public class MapFragment extends Fragment {
     OtherUsersLocationModel otherUsersLocationModel;
 
     @Inject
-    EventBusProvider eventService;
+    EventBus eventBus;
 
     //view
     private MapView mapView;
@@ -188,7 +188,7 @@ public class MapFragment extends Fragment {
             handleFirstLocationUpdate();
         }
 
-        eventService.register(this);
+        eventBus.register(this);
 
         refreshView();
     }
@@ -211,7 +211,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        eventService.unregister(this);
+        eventBus.unregister(this);
     }
 
     @Override

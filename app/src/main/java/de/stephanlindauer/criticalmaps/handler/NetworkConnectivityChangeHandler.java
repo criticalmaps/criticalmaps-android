@@ -14,18 +14,18 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.Events;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 
 public class NetworkConnectivityChangeHandler extends BroadcastReceiver {
 
     private final App app;
-    private final EventBusProvider eventBus;
+    private final EventBus eventBus;
 
     private ConnectivityManager connectivityManager;
     private boolean isConnected;
 
     @Inject
-    public NetworkConnectivityChangeHandler(App app, EventBusProvider eventBus) {
+    public NetworkConnectivityChangeHandler(App app, EventBus eventBus) {
         this.app = app;
         this.eventBus = eventBus;
         connectivityManager = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);

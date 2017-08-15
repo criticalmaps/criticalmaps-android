@@ -20,7 +20,7 @@ import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
@@ -40,7 +40,7 @@ public class ServerSyncService extends Service {
     Provider<PullServerHandler> pullServerHandler;
 
     @Inject
-    EventBusProvider eventBusProvider;
+    EventBus eventBus;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -58,7 +58,7 @@ public class ServerSyncService extends Service {
 
         networkConnectivityChangeHandler.start();
 
-        eventBusProvider.register(this);
+        eventBus.register(this);
     }
 
     private void startPullServerTimer() {
@@ -94,7 +94,7 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onDestroy() {
-        eventBusProvider.unregister(this);
+        eventBus.unregister(this);
         locationUpdateManager.handleShutdown();
         networkConnectivityChangeHandler.stop();
         stopPullServerTimer();

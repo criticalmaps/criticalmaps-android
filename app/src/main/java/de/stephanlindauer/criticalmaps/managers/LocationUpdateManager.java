@@ -18,12 +18,12 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 
 public class LocationUpdateManager {
 
     private final OwnLocationModel ownLocationModel;
-    private final EventBusProvider eventService;
+    private final EventBus eventBus;
 
     //const
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
@@ -64,9 +64,9 @@ public class LocationUpdateManager {
     @Inject
     public LocationUpdateManager(App app,
                                  OwnLocationModel ownLocationModel,
-                                 EventBusProvider eventService) {
+                                 EventBus eventBus) {
         this.ownLocationModel = ownLocationModel;
-        this.eventService = eventService;
+        this.eventBus = eventBus;
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
     }
 
@@ -77,7 +77,7 @@ public class LocationUpdateManager {
 
     private void postStatusEvent() {
         setEventStatus();
-        eventService.post(Events.GPS_STATUS_CHANGED_EVENT);
+        eventBus.post(Events.GPS_STATUS_CHANGED_EVENT);
     }
 
     private void setEventStatus() {
@@ -98,7 +98,7 @@ public class LocationUpdateManager {
 
     public void initializeAndStartListening() {
         setEventStatus();
-        eventService.register(this);
+        eventBus.register(this);
 
         // Short-circuit here: if neither GPS or Network provider exists don't start listening
         if (Events.GPS_STATUS_CHANGED_EVENT.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
@@ -135,13 +135,13 @@ public class LocationUpdateManager {
 
     public void handleShutdown() {
         locationManager.removeUpdates(locationListener);
-        eventService.unregister(this);
+        eventBus.unregister(this);
     }
 
     private void publishNewLocation(Location location) {
         GeoPoint newLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
         ownLocationModel.setLocation(newLocation, location.getAccuracy(), location.getTime());
-        eventService.post(Events.NEW_LOCATION_EVENT);
+        eventBus.post(Events.NEW_LOCATION_EVENT);
     }
 
     private boolean shouldPublishNewLocation(Location location) {
