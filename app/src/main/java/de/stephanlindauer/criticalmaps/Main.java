@@ -29,6 +29,7 @@ import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
+import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
@@ -87,6 +88,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         ButterKnife.bind(this);
 
         new PrerequisitesChecker(this).execute();
+
+        ServerSyncService.startService();
     }
 
     @Override

@@ -68,8 +68,6 @@ public class LocationUpdateManager {
         this.ownLocationModel = ownLocationModel;
         this.eventService = eventService;
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
-        setEventStatus();
-        eventService.register(this);
     }
 
     @Produce
@@ -99,6 +97,9 @@ public class LocationUpdateManager {
     }
 
     public void initializeAndStartListening() {
+        setEventStatus();
+        eventService.register(this);
+
         // Short-circuit here: if neither GPS or Network provider exists don't start listening
         if (Events.GPS_STATUS_CHANGED_EVENT.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
             return;
@@ -133,8 +134,8 @@ public class LocationUpdateManager {
     }
 
     public void handleShutdown() {
-        eventService.unregister(this);
         locationManager.removeUpdates(locationListener);
+        eventService.unregister(this);
     }
 
     private void publishNewLocation(Location location) {
