@@ -26,7 +26,12 @@ public class DeviceInformation {
         returnString += "HARDWARE= " + Build.HARDWARE + "\n";
         returnString += "ID= " + Build.ID + "\n";
         returnString += "MANUFACTURER= " + Build.MANUFACTURER + "\n";
-        returnString += "SERIAL= " + Build.SERIAL + "\n";
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            //noinspection deprecation
+            returnString += "SERIAL= " + Build.SERIAL + "\n";
+        } else {
+            returnString += "SERIAL= " + Build.getSerial() + "\n";
+        }
         returnString += "USER= " + Build.USER + "\n";
         returnString += "HOST= " + Build.HOST + "\n";
 

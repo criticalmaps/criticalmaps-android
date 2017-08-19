@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
 import de.stephanlindauer.criticalmaps.BuildConfig;
@@ -25,7 +26,8 @@ public class MapViewUtils {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
-        mapView.getController().setZoom(12);
+        mapView.getController().setZoom(1);
+        mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
         mapView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

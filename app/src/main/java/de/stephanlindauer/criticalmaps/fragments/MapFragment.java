@@ -1,7 +1,11 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -68,6 +73,7 @@ public class MapFragment extends Fragment {
 
     //misc
     private boolean isInitialLocationSet = false;
+    private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
     @BindDrawable(R.drawable.map_marker)
@@ -99,6 +105,12 @@ public class MapFragment extends Fragment {
             AlertBuilder.show(getActivity(),
                     R.string.map_gps_disabled_title,
                     R.string.map_gps_disabled_text);
+        }
+    };
+
+    private final View.OnClickListener searchingForLocationOnClickListener =  new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -182,7 +194,8 @@ public class MapFragment extends Fragment {
     }
 
     private void handleFirstLocationUpdate() {
-        animateToLocation(ownLocationModel.ownLocation);
+        setGpsStatusFixed();
+        zoomToLocation(ownLocationModel.ownLocation, 12);
         isInitialLocationSet = true;
     }
 
@@ -231,22 +244,68 @@ public class MapFragment extends Fragment {
     @Subscribe
     public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
         if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
-            setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.material_red_900));
-            setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
-            setCurrentLocationCenter.setOnClickListener(noGpsOnClickListener);
+            setGpsStatusNonexistent();
         } else if (e.status == GpsStatusChangedEvent.Status.OFF) {
-            setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.material_red_900));
-            setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_off_white_24dp);
-            setCurrentLocationCenter.setOnClickListener(GpsDisabledOnClickListener);
+            setGpsStatusDisabled();
         } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||
                 e.status == GpsStatusChangedEvent.Status.HIGH_ACCURACY) {
-            setCurrentLocationCenter.setBackgroundTintList(
-                    ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
-            setCurrentLocationCenter.setImageResource(R.drawable.ic_gps_fixed_white_24dp);
-            setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
+            if (ownLocationModel.ownLocation != null) {
+                setGpsStatusFixed();
+            } else {
+                setGpsStatusSearching();
+            }
         }
+    }
+
+    private void setGpsStatusNonexistent() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                noGpsOnClickListener);
+    }
+
+    private void setGpsStatusDisabled() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                GpsDisabledOnClickListener);
+    }
+
+    private void setGpsStatusFixed() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.colorAccent, R.drawable.ic_gps_fixed_white_24dp,
+                centerLocationOnClickListener);
+    }
+
+    private void setGpsStatusSearching() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_searching, R.drawable.ic_gps_not_fixed_white_24dp,
+                searchingForLocationOnClickListener);
+
+        gpsSearchingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                getActivity(),
+                R.animator.map_gps_fab_searching_animation);
+        gpsSearchingAnimator.setTarget(setCurrentLocationCenter);
+        gpsSearchingAnimator.start();
+    }
+
+    private void setGpsStatusCommon(@ColorRes int colorResId, @DrawableRes int iconResId,
+                                    View.OnClickListener onClickListener) {
+        setCurrentLocationCenter.setBackgroundTintList(
+                ContextCompat.getColorStateList(getActivity(), colorResId));
+        setCurrentLocationCenter.setImageResource(iconResId);
+        setCurrentLocationCenter.setOnClickListener(onClickListener);
+    }
+
+    private void cancelGpsSearchingAnimationIfRunning() {
+        if (gpsSearchingAnimator != null) {
+            gpsSearchingAnimator.cancel();
+            setCurrentLocationCenter.setAlpha(1.0f);
+        }
+    }
+
+    private void zoomToLocation(final GeoPoint location, final int zoomLevel) {
+        // TODO use setCenter() + zoomTo() here; currently broken and ends up in a wrong location
+        mapView.getController().setZoom(zoomLevel);
+        animateToLocation(location);
     }
 
     private void animateToLocation(final GeoPoint location) {

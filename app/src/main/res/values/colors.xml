@@ -3,6 +3,7 @@
 
     <!-- Material colors used but not present in appcompat -->
     <color name="material_red_900">#FFB71C1C</color>
+    <color name="material_orange_600">#FFFB8C00</color>
 
     <!-- Theme Colors -->
     <color name="colorPrimary">@color/material_grey_800</color>
@@ -16,10 +17,16 @@
     <color name="white_60pct">#99FFFFFF</color>
     <color name="transparent_background">#CC424242</color>
 
+    <!-- Navigation Drawer -->
+    <color name="nav_item_icon_tint">@android:color/white</color>
+    <color name="nav_item_text">@android:color/white</color>
+
     <!-- Map -->
     <color name="map_osm_notice">@color/white_60pct</color>
     <color name="map_loading_tile_color">@color/colorPrimary</color>
     <color name="map_loading_line_color">@color/colorPrimary</color>
+    <color name="map_fab_warning">@color/material_red_900</color>
+    <color name="map_fab_searching">@color/material_orange_600</color>
 
     <!-- About -->
     <color name="about_background">@android:color/white</color>

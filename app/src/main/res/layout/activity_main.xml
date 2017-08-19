@@ -30,8 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
+        app:itemIconTint="@color/nav_item_icon_tint"
+        app:itemTextColor="@color/nav_item_text"
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/drawer"
         android:background="@color/transparent_background"/>

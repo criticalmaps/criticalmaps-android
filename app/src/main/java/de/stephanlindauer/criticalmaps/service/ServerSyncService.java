@@ -25,6 +25,7 @@ import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final int SERVER_SYNC_INTERVAL = 12 * 1000; // 12 sec -> 5 times a minute
 
     private Timer timerPullServer;

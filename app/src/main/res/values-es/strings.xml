@@ -6,6 +6,8 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
+    <string name="open_drawer">Abrir cajón</string>
+    <string name="close_drawer">Cerrar cajón</string>
 
     <!-- close -->
     <string name="close">Quieres cerrar la app?</string>
@@ -13,7 +15,6 @@
     <string name="no">No</string>
 
     <!-- activity bar -->
-    <string name="tracking">Seguimiento</string>
     <string name="close_button">Cerrar</string>
     <string name="feedback">Sugerencias</string>
     <string name="datenschutz">Política de privacidad</string>
@@ -22,18 +23,12 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Esperando señal GPS</string>
-    <string name="map_overlay_tracking_off">
-        El seguimiento está desactivado. \n
-        Activa el seguimiento para ver a otros ciclistas. \n\n
-        Pulsa aquí!
-    </string>
-    <!-- prerequisites -->
-    <string name="prerequisites_no_gps_provider_enabled_title">Tu GPS está desactivado o bloqueado</string>
-    <string name="prerequisites_no_gps_provider_enabled_text">Activa el GPS y reinicia la aplicación</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Seguimiento de Critical Maps</string>
     <string name="notification_tracking_text">Esta App corre en segundo plano y captura tu localización. Cierra la aplicación cuando no quieras ser localizado.</string>
+    <string name="notification_tracking_close">Cerrar</string>
+    <string name="notification_tracking_open">Abrir</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Bloqueos!?</string>
@@ -54,7 +49,6 @@
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">Todos los Tweets que contienen \"CriticalMaps\"</string>
-    <string name="twitter_refreshed">Tweets recargados!</string>
     <string name="twitter_try_again">Inténtalo de nuevo!</string>
 
     <!-- fragment_chat -->
@@ -73,10 +67,6 @@
     <string name="about_license_website">sitio web</string>
     <string name="about_license_more">más</string>
     <string name="about_license_less">menos</string>
-
-    <!-- notifications -->
-    <string name="notification_alarm_title">No te olvides:</string>
-    <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la velorution!</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">ahora</string>
@@ -107,11 +97,7 @@
 
     <!-- misc -->
     <string name="something_went_wrong">Algo ha fallado</string>
-    <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
-    <string name="go_to_settings">Cambiar preferencias</string>
-    <string name="notification_tracking_close">Cerrar</string>
-    <string name="notification_tracking_open">Abrir</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Por favor,lee esta introducción rápida</string>
@@ -121,6 +107,4 @@
     <string name="introduction_careful">Presta atención al tráfico y no a esta aplicación</string>
     <string name="introduction_bugs">Si encuentras problemas con la app, haznoslo saber pulsando sobre el botón de feedback en menu de preferencias</string>
     <string name="introduction_requisites">Para que esta aplicación funcione correctamente, necesitas una conexión de datos y el GPS activado.</string>
-    <string name="open_drawer">Abrir cajón</string>
-    <string name="close_drawer">Cerrar cajón</string>
 </resources>

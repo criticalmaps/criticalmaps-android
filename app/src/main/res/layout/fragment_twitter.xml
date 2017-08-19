@@ -39,7 +39,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="12dp"
         android:layout_marginRight="12dp"
-        app:srcCompat="@drawable/ic_content_add" />
+        app:srcCompat="@drawable/ic_content_add"
+        tools:ignore="RtlHardcoded" />
 
     <LinearLayout
         android:id="@+id/twitter_error"
