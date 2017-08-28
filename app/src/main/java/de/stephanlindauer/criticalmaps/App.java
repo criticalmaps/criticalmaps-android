@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps;
 
 import android.app.Application;
 
+
 public class App extends Application {
 
     private static AppComponent appComponent;

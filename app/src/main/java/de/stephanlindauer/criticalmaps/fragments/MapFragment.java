@@ -1,28 +1,39 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.squareup.otto.Subscribe;
+
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
+import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import javax.inject.Inject;
 import org.osmdroid.util.GeoPoint;
@@ -49,19 +60,20 @@ public class MapFragment extends Fragment {
     private MapView mapView;
 
     @BindView(R.id.set_current_location_center)
-    ImageButton setCurrentLocationCenter;
+    FloatingActionButton setCurrentLocationCenter;
 
     @BindView(R.id.map_container)
     RelativeLayout mapContainer;
 
-    @BindView(R.id.searching_for_location_overlay_map)
-    RelativeLayout searchingForLocationOverlay;
-
     @BindView(R.id.map_osm_notice)
     TextView osmNoticeOverlay;
 
+    @BindView((R.id.map_no_data_connectivity))
+    FloatingActionButton noDataConnectivityButton;
+
     //misc
     private boolean isInitialLocationSet = false;
+    private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
     @BindDrawable(R.drawable.map_marker)
@@ -69,7 +81,38 @@ public class MapFragment extends Fragment {
 
     @BindDrawable(R.drawable.map_marker_own)
     Drawable ownLocationIcon;
+
     private Unbinder unbinder;
+
+    //OnClickListeners for location FAB
+    private final View.OnClickListener centerLocationOnClickListener =  new View.OnClickListener() {
+        public void onClick(View v) {
+            if (ownLocationModel.ownLocation != null)
+                animateToLocation(ownLocationModel.ownLocation);
+        }
+    };
+
+    private final View.OnClickListener noGpsOnClickListener =  new View.OnClickListener() {
+        public void onClick(View v) {
+            AlertBuilder.show(getActivity(),
+                    R.string.map_no_gps_title,
+                    R.string.map_no_gps_text);
+        }
+    };
+
+    private final View.OnClickListener GpsDisabledOnClickListener =  new View.OnClickListener() {
+        public void onClick(View v) {
+            AlertBuilder.show(getActivity(),
+                    R.string.map_gps_disabled_title,
+                    R.string.map_gps_disabled_text);
+        }
+    };
+
+    private final View.OnClickListener searchingForLocationOnClickListener =  new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
+        }
+    };
 
 
     @Override
@@ -92,20 +135,24 @@ public class MapFragment extends Fragment {
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
 
-        setCurrentLocationCenter.setOnClickListener(new View.OnClickListener() {
+        setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
+
+        noDataConnectivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                if (ownLocationModel.ownLocation != null)
-                    animateToLocation(ownLocationModel.ownLocation);
+                AlertBuilder.show(getActivity(),
+                        R.string.map_no_internet_connection_title,
+                        R.string.map_no_internet_connection_text);
             }
         });
 
         if (savedState != null) {
             Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
-            int[] position = savedState.getIntArray(KEY_MAP_POSITION);
+            GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
 
             if (zoomLevel != null && position != null) {
                 mapView.getController().setZoom(zoomLevel);
-                mapView.scrollTo(position[0], position[1]);
+                setToLocation(position);
             }
 
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
@@ -137,12 +184,8 @@ public class MapFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (ownLocationModel.ownLocation != null) {
-            if (!isInitialLocationSet) {
-                handleFirstLocationUpdate();
-            } else {
-                searchingForLocationOverlay.setVisibility(View.GONE);
-            }
+        if (ownLocationModel.ownLocation != null && !isInitialLocationSet) {
+            handleFirstLocationUpdate();
         }
 
         eventService.register(this);
@@ -151,8 +194,8 @@ public class MapFragment extends Fragment {
     }
 
     private void handleFirstLocationUpdate() {
-        searchingForLocationOverlay.setVisibility(View.GONE);
-        animateToLocation(ownLocationModel.ownLocation);
+        setGpsStatusFixed();
+        zoomToLocation(ownLocationModel.ownLocation, 12);
         isInitialLocationSet = true;
     }
 
@@ -161,7 +204,7 @@ public class MapFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());
-        outState.putIntArray(KEY_MAP_POSITION, new int[]{mapView.getScrollX(), mapView.getScrollY()});
+        outState.putParcelable(KEY_MAP_POSITION, (GeoPoint) mapView.getMapCenter());
         outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
     }
 
@@ -193,11 +236,83 @@ public class MapFragment extends Fragment {
         refreshView();
     }
 
+    @Subscribe
+    public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
+        noDataConnectivityButton.setVisibility(e.isConnected ? View.GONE : View.VISIBLE);
+    }
+
+    @Subscribe
+    public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
+        if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
+            setGpsStatusNonexistent();
+        } else if (e.status == GpsStatusChangedEvent.Status.OFF) {
+            setGpsStatusDisabled();
+        } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||
+                e.status == GpsStatusChangedEvent.Status.HIGH_ACCURACY) {
+            if (ownLocationModel.ownLocation != null) {
+                setGpsStatusFixed();
+            } else {
+                setGpsStatusSearching();
+            }
+        }
+    }
+
+    private void setGpsStatusNonexistent() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                noGpsOnClickListener);
+    }
+
+    private void setGpsStatusDisabled() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                GpsDisabledOnClickListener);
+    }
+
+    private void setGpsStatusFixed() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.colorAccent, R.drawable.ic_gps_fixed_white_24dp,
+                centerLocationOnClickListener);
+    }
+
+    private void setGpsStatusSearching() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_searching, R.drawable.ic_gps_not_fixed_white_24dp,
+                searchingForLocationOnClickListener);
+
+        gpsSearchingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                getActivity(),
+                R.animator.map_gps_fab_searching_animation);
+        gpsSearchingAnimator.setTarget(setCurrentLocationCenter);
+        gpsSearchingAnimator.start();
+    }
+
+    private void setGpsStatusCommon(@ColorRes int colorResId, @DrawableRes int iconResId,
+                                    View.OnClickListener onClickListener) {
+        setCurrentLocationCenter.setBackgroundTintList(
+                ContextCompat.getColorStateList(getActivity(), colorResId));
+        setCurrentLocationCenter.setImageResource(iconResId);
+        setCurrentLocationCenter.setOnClickListener(onClickListener);
+    }
+
+    private void cancelGpsSearchingAnimationIfRunning() {
+        if (gpsSearchingAnimator != null) {
+            gpsSearchingAnimator.cancel();
+            setCurrentLocationCenter.setAlpha(1.0f);
+        }
+    }
+
+    private void zoomToLocation(final GeoPoint location, final int zoomLevel) {
+        // TODO use setCenter() + zoomTo() here; currently broken and ends up in a wrong location
+        mapView.getController().setZoom(zoomLevel);
+        animateToLocation(location);
+    }
+
     private void animateToLocation(final GeoPoint location) {
         mapView.getController().animateTo(location);
     }
 
-    private void setToLocation(GeoPoint lastKnownLocation) {
-        mapView.getController().setCenter(lastKnownLocation);
+    private void setToLocation(final GeoPoint location) {
+        mapView.getController().setCenter(location);
     }
 }

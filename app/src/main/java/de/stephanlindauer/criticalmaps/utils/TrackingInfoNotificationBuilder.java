@@ -28,14 +28,14 @@ public class TrackingInfoNotificationBuilder {
         PendingIntent closePendingIntent = PendingIntent.getActivity(application, INTENT_CLOSE_ID, closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(application)
-                .setSmallIcon(R.drawable.ic_logo)
+                .setSmallIcon(R.drawable.ic_logo_notification)
                 .setContentTitle(application.getString(R.string.notification_tracking_title))
                 .setContentText(application.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(application.getString(R.string.notification_tracking_text)))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(openPendingIntent)
-                .addAction(R.drawable.ic_gps_fixed_white_24dp, application.getString(R.string.notification_tracking_open), openPendingIntent)
-                .addAction(R.drawable.ic_clear_white_24dp, application.getString(R.string.notification_tracking_close), closePendingIntent);
+                .addAction(R.drawable.ic_gps_fixed_white_24dp_notification, application.getString(R.string.notification_tracking_open), openPendingIntent)
+                .addAction(R.drawable.ic_clear_white_24dp_notification, application.getString(R.string.notification_tracking_close), closePendingIntent);
 
         return builder.build();
     }

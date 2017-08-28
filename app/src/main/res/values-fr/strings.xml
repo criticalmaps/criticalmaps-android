@@ -6,6 +6,8 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">À propos</string>
     <string name="section_chat">Discussion instantanée</string>
+    <string name="open_drawer">Ouvrir le menu</string>
+    <string name="close_drawer">Fermer le menu</string>
 
     <!-- close -->
     <string name="close">Êtes-vous certain de vouloir fermer l\'application?</string>
@@ -13,7 +15,6 @@
     <string name="no">Non</string>
 
     <!-- activity bar -->
-    <string name="tracking">Tracking</string>
     <string name="close_button">Fermer</string>
     <string name="feedback">Commentaires</string>
     <string name="datenschutz">Confidentialité</string>
@@ -22,19 +23,12 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attente d\'un signal GPS valide</string>
-    <string name="map_overlay_tracking_off">Le repérage est désactivé.
-Activez votre dispositif de repérage afin de pouvoir voir tout les autres cyclistes.
-Tapez ici!
-</string>
-    <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Votre connexion internet est désactivée ou blockée</string>
-    <string name="prerequisites_no_internet_enabled_text">Veuillez activer votre connexion internet et redémarrer l\'application.</string>
-    <string name="prerequisites_no_gps_provider_enabled_title">Votre GPS est désactivé ou blocké</string>
-    <string name="prerequisites_no_gps_provider_enabled_text">Veuillez activer votre dispositiv de repérage par GPS et redémarrer l\'application.</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Repérage Critical Maps</string>
     <string name="notification_tracking_text">L\'application est encore active et enregistre votre données de localisation. Veuillez fermer l\'application si vous voulez arrêter le repérage.</string>
+    <string name="notification_tracking_close">Fermer</string>
+    <string name="notification_tracking_open">Ouvrir</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
@@ -55,7 +49,6 @@ Tapez ici!
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">Tout les tweets contenant \"CriticalMaps\"</string>
-    <string name="twitter_refreshed">Les tweets ont été réactualisés.</string>
     <string name="twitter_try_again">Réessayez!</string>
 
     <!-- fragment_chat -->
@@ -69,9 +62,6 @@ Tapez ici!
     <string name="about_heading_website">Site internet</string>
     <string name="about_heading_contributions">Contributions</string>
     <string name="about_heading_code">code</string>
-    <!-- notifications -->
-    <string name="notification_alarm_title">n\'oubliez pas:</string>
-    <string name="notification_alarm_text">Critical Mass aujourd\'hui à 20h00 à Heinrichplatz! Viva la velorution!</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">il y a peu de temps</string>
@@ -100,11 +90,7 @@ Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps
 
     <!-- misc -->
     <string name="something_went_wrong">Il y a eu un problème</string>
-    <string name="cancel">Annuler</string>
     <string name="ok">D\'accord</string>
-    <string name="go_to_settings">Modifier des paramètres</string>
-    <string name="notification_tracking_close">Fermer</string>
-    <string name="notification_tracking_open">Ouvrir</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Prends le temps de lire cette petite introduction s\'il te plaît.</string>
@@ -114,6 +100,4 @@ Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps
     <string name="introduction_careful">Soyez vigilant à la circulation au lieu de regarder l\'application</string>
     <string name="introduction_bugs">Si vous trouver des bugs dans l\'application, contactez-nous en cliquant sur feedback dans les paramètres.</string>
     <string name="introduction_requisites">Afin de permettre un bon fonctionnement de l\'application, vous devez avoir accès au résau mobile et activer votre GPS.</string>
-    <string name="open_drawer">Ouvrir le menu</string>
-    <string name="close_drawer">Fermer le menu</string>
 </resources>

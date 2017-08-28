@@ -6,6 +6,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import com.squareup.otto.Produce;
+
 import org.osmdroid.util.GeoPoint;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import javax.inject.Inject;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
+import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
 
@@ -28,7 +31,6 @@ public class LocationUpdateManager {
 
     //misc
     private LocationManager locationManager;
-    private boolean isRegisteredForLocationUpdates;
     private Location lastPublishedLocation;
     private final LocationListener locationListener = new LocationListener() {
         @Override
@@ -41,14 +43,21 @@ public class LocationUpdateManager {
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
+            // Notes after some testing:
+            // - seems to be only called for GPS provider
+            // - calls not necessarily consistent with location fixes
+            // - recurrent AVAILABLE calls for GPS
+            // -> not usable
         }
 
         @Override
         public void onProviderEnabled(String s) {
+            postStatusEvent();
         }
 
         @Override
         public void onProviderDisabled(String s) {
+            postStatusEvent();
         }
     };
 
@@ -61,7 +70,41 @@ public class LocationUpdateManager {
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
     }
 
+    @Produce
+    public GpsStatusChangedEvent produceStatusEvent() {
+        return Events.GPS_STATUS_CHANGED_EVENT;
+    }
+
+    private void postStatusEvent() {
+        setEventStatus();
+        eventService.post(Events.GPS_STATUS_CHANGED_EVENT);
+    }
+
+    private void setEventStatus() {
+        if (locationManager.getProvider(LocationManager.GPS_PROVIDER) == null
+                && locationManager.getProvider(LocationManager.NETWORK_PROVIDER) == null) {
+            Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.NONEXISTENT;
+            return;
+        }
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.HIGH_ACCURACY;
+        } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.LOW_ACCURACY;
+        } else {
+            Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.OFF;
+        }
+    }
+
     public void initializeAndStartListening() {
+        setEventStatus();
+        eventService.register(this);
+
+        // Short-circuit here: if neither GPS or Network provider exists don't start listening
+        if (Events.GPS_STATUS_CHANGED_EVENT.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
+            return;
+        }
+
         // To get a quick first location, query all providers for last known location and treat them
         // like regular fixes by piping them through our normal flow
         final List<String> providers = locationManager.getAllProviders();
@@ -76,25 +119,23 @@ public class LocationUpdateManager {
     }
 
     private void registerLocationListeners() {
-        requestLocationUpdatesIfPossible(LocationManager.GPS_PROVIDER);
-        requestLocationUpdatesIfPossible(LocationManager.NETWORK_PROVIDER);
-
-        isRegisteredForLocationUpdates = true;
+        // register existing providers; if one isn't enabled, the listener will take care of that
+        requestLocationUpdatesIfProviderExists(LocationManager.GPS_PROVIDER);
+        requestLocationUpdatesIfProviderExists(LocationManager.NETWORK_PROVIDER);
     }
 
-    private void requestLocationUpdatesIfPossible(String provider) {
-        if (locationManager.isProviderEnabled(provider)) {
-            locationManager.requestLocationUpdates(provider, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+    private void requestLocationUpdatesIfProviderExists(String provider) {
+        if (locationManager.getProvider(provider) != null) {
+            locationManager.requestLocationUpdates(provider,
+                    LOCATION_REFRESH_TIME,
+                    LOCATION_REFRESH_DISTANCE,
+                    locationListener);
         }
     }
 
     public void handleShutdown() {
-        if (!isRegisteredForLocationUpdates) {
-            return;
-        }
-
         locationManager.removeUpdates(locationListener);
-        isRegisteredForLocationUpdates = false;
+        eventService.unregister(this);
     }
 
     private void publishNewLocation(Location location) {

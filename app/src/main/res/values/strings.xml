@@ -6,6 +6,8 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">About</string>
     <string name="section_chat">Chat</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
 
     <!-- close -->
     <string name="close">Really close the app?</string>
@@ -13,7 +15,6 @@
     <string name="no">Nope</string>
 
     <!-- activity bar -->
-    <string name="tracking">Tracking</string>
     <string name="close_button">Close</string>
     <string name="feedback">Feedback</string>
     <string name="datenschutz">Privacy policy</string>
@@ -22,20 +23,24 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Waiting for GPS signal</string>
-    <string name="map_overlay_tracking_off">
-        Tracking ist turned off. \n
-        Activate tracking to be able to see all other cyclists. \n\n
-        Just tap here!
-    </string>
-    <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">Your internet connection is deactivated or blocked</string>
-    <string name="prerequisites_no_internet_enabled_text">Please enable your internet connection and restart the app</string>
-    <string name="prerequisites_no_gps_provider_enabled_title">Your GPS is deactivated or blocked</string>
-    <string name="prerequisites_no_gps_provider_enabled_text">Please enable GPS and restart the app</string>
+    <string name="map_no_internet_connection_title">No internet connection</string>
+    <string name="map_no_internet_connection_text">Without an internet connection you won\'t be able
+        to see other users, share your location or write or read chat messages. Basically the app is
+        pretty much useless like this :(\nPlease check your settings and enable mobile data.</string>
+    <string name="map_no_gps_title">No GPS available</string>
+    <string name="map_no_gps_text">This device has neither GPS or network location capabilities.
+        Other users won\'t be able to see your location, but you can still follow the Mass.</string>
+    <string name="map_gps_disabled_title">GPS is disabled</string>
+    <string name="map_gps_disabled_text">Currently GPS and network location on your device are
+        disabled. This means other users won\'t be able to see your location. You can still follow
+        the Mass, but remember that the app depends on as many people as possible sharing their
+        location.\nSo please consider enabling location services in your device settings.</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Critical Maps Tracking</string>
     <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don\'t want to be tracked anymore.</string>
+    <string name="notification_tracking_close">Close</string>
+    <string name="notification_tracking_open">Open</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
@@ -56,7 +61,6 @@
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">All Tweets containing \"CriticalMaps\"</string>
-    <string name="twitter_refreshed">Tweets were refreshed!</string>
     <string name="twitter_try_again">Try again!</string>
 
     <!-- fragment_chat -->
@@ -64,6 +68,7 @@
     <string name="chat_send">Send</string>
     <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Sending &#8230;</string>
+    <string name="chat_no_data_connection_hint">No internet connection &#8230;</string>
 
     <!-- fragment_about -->
     <string name="about_heading_social">social stuff</string>
@@ -75,10 +80,6 @@
     <string name="about_license_website">website</string>
     <string name="about_license_more">more</string>
     <string name="about_license_less">less</string>
-
-    <!-- notifications -->
-    <string name="notification_alarm_title">don\'t forget:</string>
-    <string name="notification_alarm_text">Critical Mass today 20:00 at Heinrichplatz! Viva la velorution!</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>
@@ -109,11 +110,7 @@
 
     <!-- misc -->
     <string name="something_went_wrong">Something went wrong.</string>
-    <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
-    <string name="go_to_settings">Change settings</string>
-    <string name="notification_tracking_close">Close</string>
-    <string name="notification_tracking_open">Open</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Please take some time to read this quick introduction.</string>
@@ -123,6 +120,4 @@
     <string name="introduction_careful">Please rather pay attention to traffic instead of the app.</string>
     <string name="introduction_bugs">If you find bugs in the app, please let us know by clicking the feedback-button in the settings-menu.</string>
     <string name="introduction_requisites">In order for this app to run properly, you need to have a working mobile data connection and GPS enabled.</string>
-    <string name="open_drawer">Open drawer</string>
-    <string name="close_drawer">Close drawer</string>
 </resources>

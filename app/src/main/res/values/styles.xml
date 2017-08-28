@@ -75,7 +75,9 @@
     <style name="about_button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
         <item name="android:background">@null</item>
     </style>
 
@@ -104,6 +106,13 @@
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">?android:textColorSecondaryInverse</item>
         <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="picture_upload_confirmation_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
     </style>
 
 </resources>

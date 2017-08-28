@@ -13,7 +13,6 @@
     <string name="no">Hayır</string>
 
     <!-- activity bar -->
-    <string name="tracking">İzleme</string>
     <string name="close_button">Kapat</string>
     <string name="feedback">Geribesleme</string>
     <string name="datenschutz">Gizlilik politikası</string>
@@ -22,22 +21,13 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">GPS sinyali bekleniyor</string>
-    <string name="map_overlay_tracking_off">
-        izleme kapalı. \n
-        diğer bisikletlileri görebilmek için izlemeyi etkinleştir. \n\n
-        şimdi buraya dokun!
-    </string>
-    <!-- prerequisites -->
-    <string name="prerequisites_no_internet_enabled_title">İnternet bağlantınız devredışı veya engellenmiş</string>
-    <string name="prerequisites_no_internet_enabled_text">Lütfen, internet bağlantınızı etkinleştirip, uygulamayı yeniden başlatın</string>
-    <string name="prerequisites_no_gps_provider_enabled_title">GPS kapalı</string>
-    <string name="prerequisites_no_gps_provider_enabled_text">Lütfen GPS etkinleştirin ve uygulamayı yeniden başlatın</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Konum İzlenmekte</string>
     <string name="notification_tracking_text">Devredışı bırakmak için, ayarlar - izleme kapalı
-        veya x-tuşu ile kapat.
-    </string>
+        veya x-tuşu ile kapat.</string>
+    <string name="notification_tracking_close">Kapat</string>
+    <string name="notification_tracking_open">Aç</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Kapanma!?</string>
@@ -58,7 +48,6 @@
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">miyav</string>
-    <string name="twitter_refreshed">Tivitler yenilendi!</string>
     <string name="twitter_try_again">Tekrar deneyin!</string>
 
     <!-- fragment_chat -->
@@ -72,9 +61,6 @@
     <string name="about_heading_website">website</string>
     <string name="about_heading_contributions">katkıcılar</string>
     <string name="about_heading_code">kod</string>
-    <!-- notifications -->
-    <string name="notification_alarm_title">unutma:</string>
-    <string name="notification_alarm_text">Kritik Kitle bugün 20:00 de Heinrichplatz!</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">şimdi</string>
@@ -105,11 +91,7 @@
 
     <!-- misc -->
     <string name="something_went_wrong">Bir terslik oluştu</string>
-    <string name="cancel">İptal</string>
     <string name="ok">Tamam</string>
-    <string name="go_to_settings">Ayarları değiştir</string>
-    <string name="notification_tracking_close">Kapat</string>
-    <string name="notification_tracking_open">Aç</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Lütfen hızlı tanıtıma biraz zaman ayırın.</string>
@@ -119,4 +101,4 @@
     <string name="introduction_careful">Lütfen uygulama yerine daha çok trafiğe dikkat edin.</string>
     <string name="introduction_bugs">Uygulamada hata bulursanız, lütfen ayarlar menüsü içinde Geribesleme\'den bildirin.</string>
     <string name="introduction_requisites">Uygulamanın düzgün çalışması için mobil veri bağlantısı ve etkinleştirilmiş GPS gerekir.</string>
-    </resources>
+</resources>
