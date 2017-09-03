@@ -118,7 +118,11 @@ public class ServerSyncService extends Service {
     public static void startService() {
         App app = App.components().app();
         Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
-        app.startService(syncServiceIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            app.startForegroundService(syncServiceIntent);
+        } else {
+            app.startService(syncServiceIntent);
+        }
     }
 
     public static void stopService() {
