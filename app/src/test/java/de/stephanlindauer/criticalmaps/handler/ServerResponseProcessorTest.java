@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.unittest;
+package de.stephanlindauer.criticalmaps.handler;
 
 import org.junit.Test;
 import org.ligi.axt.AXT;
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import de.stephanlindauer.criticalmaps.events.Events;
-import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;

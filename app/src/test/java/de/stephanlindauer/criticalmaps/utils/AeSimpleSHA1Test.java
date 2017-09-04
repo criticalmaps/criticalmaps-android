@@ -1,6 +1,5 @@
-package de.stephanlindauer.criticalmaps.unittest;
+package de.stephanlindauer.criticalmaps.utils;
 
-import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
