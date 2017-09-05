@@ -70,7 +70,8 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
         try {
             jsonObject.put("device", userModel.getChangingDeviceToken());
 
-            if (ownLocationModel.hasPreciseLocation() && ownLocationModel.isLocationFresh()) {
+            if (ownLocationModel.ownLocation != null && ownLocationModel.hasPreciseLocation()
+                    && ownLocationModel.isLocationFresh()) {
                 jsonObject.put("location", ownLocationModel.getLocationJson());
             }
 
