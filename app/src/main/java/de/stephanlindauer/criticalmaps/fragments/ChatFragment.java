@@ -49,7 +49,7 @@ import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
-import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 
 public class ChatFragment extends Fragment {
 

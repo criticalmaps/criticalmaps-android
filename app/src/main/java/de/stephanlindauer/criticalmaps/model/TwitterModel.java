@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
-import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 
 public class TwitterModel {
 

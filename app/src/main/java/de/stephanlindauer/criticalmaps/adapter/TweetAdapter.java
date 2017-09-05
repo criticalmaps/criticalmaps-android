@@ -24,7 +24,7 @@ import java.util.Locale;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 

@@ -11,7 +11,7 @@ import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
-import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
