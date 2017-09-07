@@ -64,6 +64,27 @@
     </string>
 
 
+    <!-- Dagger 2 -->
+    <string translatable="false" name="licenses_name_dagger2">Dagger 2</string>
+    <string translatable="false" name="licenses_link_dagger2">https://github.com/google/dagger</string>
+    <string translatable="false" name="licenses_copyright_dagger2">Copyright 2012 The Dagger Authors</string>
+    <string translatable="false" name="licenses_notice_dagger2">
+    Copyright 2012 The Dagger Authors\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
     <!-- Otto -->
     <string translatable="false" name="licenses_name_otto">Otto</string>
     <string translatable="false" name="licenses_link_otto">https://github.com/square/otto</string>

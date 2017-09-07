@@ -11,7 +11,7 @@ import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +26,7 @@ public class ServerResponseProcessorTest {
     public void testThatBasicChatMessagesAreParsed() throws IOException, URISyntaxException {
         final String json = AXT.at(new File(getClass().getClassLoader().getResource("simple_server_response.json").toURI())).readToString();
         final ChatModel chatModel = new ChatModel();
-        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), mock(EventBusProvider.class), chatModel);
+        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
 
         tested.process(json);
 
@@ -37,7 +37,7 @@ public class ServerResponseProcessorTest {
     public void testThatBasicChatMessagesAreSorted() throws IOException, URISyntaxException {
         final String json = AXT.at(new File(getClass().getClassLoader().getResource("simple_server_response.json").toURI())).readToString();
         final ChatModel chatModel = new ChatModel();
-        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), mock(EventBusProvider.class), chatModel);
+        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
 
         tested.process(json);
 
@@ -51,7 +51,7 @@ public class ServerResponseProcessorTest {
     @Test
     public void testThatEventIsFiredForValidJSON() throws IOException, URISyntaxException {
         final String json = AXT.at(new File(getClass().getClassLoader().getResource("simple_server_response.json").toURI())).readToString();
-        final EventBusProvider eventMock = mock(EventBusProvider.class);
+        final EventBus eventMock = mock(EventBus.class);
         final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
 
         tested.process(json);
@@ -61,7 +61,7 @@ public class ServerResponseProcessorTest {
 
     @Test
     public void testThatNoEventIsFiredForInvalidJSON() throws IOException, URISyntaxException {
-        final EventBusProvider eventMock = mock(EventBusProvider.class);
+        final EventBus eventMock = mock(EventBus.class);
         final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
 
         tested.process("borken");

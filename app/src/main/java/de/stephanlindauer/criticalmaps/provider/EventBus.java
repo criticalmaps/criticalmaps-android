@@ -2,7 +2,7 @@ package de.stephanlindauer.criticalmaps.provider;
 
 import com.squareup.otto.Bus;
 
-public class EventBusProvider {
+public class EventBus {
 
     private final Bus bus = new Bus();
 

@@ -14,7 +14,8 @@ import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
+
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
@@ -75,9 +76,9 @@ public class AppModule {
     @Singleton
     public ServerResponseProcessor serverResponseProcessor(
             OtherUsersLocationModel otherUsersLocationModel,
-            EventBusProvider eventService,
+            EventBus eventBus,
             ChatModel chatModel) {
-        return new ServerResponseProcessor(otherUsersLocationModel, eventService, chatModel);
+        return new ServerResponseProcessor(otherUsersLocationModel, eventBus, chatModel);
     }
 
     @Provides
@@ -88,23 +89,23 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public EventBusProvider provideEventBusProvider() {
-        return new EventBusProvider();
+    public EventBus provideEventBus() {
+        return new EventBus();
     }
 
     @Provides
     @Singleton
     public LocationUpdateManager provideLocationUpdateManager(
             OwnLocationModel ownLocationModel,
-            EventBusProvider eventBusProvider) {
-        return new LocationUpdateManager(app, ownLocationModel, eventBusProvider);
+            EventBus eventBus) {
+        return new LocationUpdateManager(app, ownLocationModel, eventBus);
     }
 
     @Provides
     @Singleton
     public NetworkConnectivityChangeHandler provideNetworkConnectivityChangeHandler(
-            EventBusProvider eventBusProvider) {
-        return new NetworkConnectivityChangeHandler(app, eventBusProvider);
+            EventBus eventBus) {
+        return new NetworkConnectivityChangeHandler(app, eventBus);
     }
 
     @Provides

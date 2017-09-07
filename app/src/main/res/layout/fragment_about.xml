@@ -98,6 +98,14 @@
             app:notice="@string/licenses_notice_butterknife"/>
 
         <de.stephanlindauer.criticalmaps.views.LicensePanelView
+            android:id="@+id/about_license_dagger2"
+            style="@style/about_license_panel"
+            app:name="@string/licenses_name_dagger2"
+            app:link="@string/licenses_link_dagger2"
+            app:copyright="@string/licenses_copyright_dagger2"
+            app:notice="@string/licenses_notice_dagger2"/>
+
+        <de.stephanlindauer.criticalmaps.views.LicensePanelView
             android:id="@+id/about_license_otto"
             style="@style/about_license_panel"
             app:name="@string/licenses_name_otto"

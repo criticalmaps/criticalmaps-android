@@ -48,7 +48,7 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
 
 public class ChatFragment extends Fragment {
@@ -58,7 +58,7 @@ public class ChatFragment extends Fragment {
     ChatModel chatModel;
 
     @Inject
-    EventBusProvider eventService;
+    EventBus eventBus;
 
     @Inject
     OwnLocationModel ownLocationModel;
@@ -197,13 +197,13 @@ public class ChatFragment extends Fragment {
     public void onResume() {
         super.onResume();
         chatModelToAdapter();
-        eventService.register(this);
+        eventBus.register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        eventService.unregister(this);
+        eventBus.unregister(this);
         AXT.at(editMessageTextField).hideKeyBoard();
     }
 
