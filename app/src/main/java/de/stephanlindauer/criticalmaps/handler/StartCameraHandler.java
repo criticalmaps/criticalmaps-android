@@ -26,11 +26,13 @@ public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
 
     @Override
     protected void onPreExecute() {
-        if (App.components().ownLocationmodel().ownLocation == null) {
-            AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_location_no_camera);
-        }
         if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_camera_no_camera);
+            cancel(true);
+        }
+        else if (App.components().ownLocationmodel().ownLocation == null) {
+            AlertBuilder.show(activity,R.string.something_went_wrong,R.string.camera_no_location_no_camera);
+            cancel(true);
         }
     }
 

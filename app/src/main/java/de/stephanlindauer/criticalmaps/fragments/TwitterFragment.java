@@ -19,7 +19,7 @@ import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
 import de.stephanlindauer.criticalmaps.handler.PostTweetHandler;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
-import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 import java.util.ArrayList;
 
 public class TwitterFragment extends Fragment {

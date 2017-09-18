@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.vo.twitter;
+package de.stephanlindauer.criticalmaps.model.twitter;
 
 import java.util.Date;
 

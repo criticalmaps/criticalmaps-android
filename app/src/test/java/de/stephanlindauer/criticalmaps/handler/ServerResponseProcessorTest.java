@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.unittest;
+package de.stephanlindauer.criticalmaps.handler;
 
 import org.junit.Test;
 import org.ligi.axt.AXT;
@@ -8,13 +8,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import de.stephanlindauer.criticalmaps.events.Events;
-import de.stephanlindauer.criticalmaps.handler.ServerResponseProcessor;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
-import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -44,7 +43,7 @@ public class ServerResponseProcessorTest {
         final ReceivedChatMessage message0 = (ReceivedChatMessage) chatModel.getSavedAndOutgoingMessages().get(0);
         final ReceivedChatMessage message1 = (ReceivedChatMessage) chatModel.getSavedAndOutgoingMessages().get(1);
 
-        assertThat(message0.getTimestamp()).isBefore(message1.getTimestamp());
+        assertThat(message0.getTimestamp()).isLessThan(message1.getTimestamp());
     }
 
 

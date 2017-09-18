@@ -1,4 +1,4 @@
-package de.stephanlindauer.criticalmaps.vo.chat;
+package de.stephanlindauer.criticalmaps.model.chat;
 
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;

@@ -19,14 +19,14 @@ public class OwnLocationModel {
     private boolean isLocationPrecise;
     private long timeOfFix;
 
-    public void setLocation(@NonNull GeoPoint location, float accuracy, long time) {
+    public void setLocation(@NonNull GeoPoint location, float accuracy, long timestamp) {
         ownLocation = location;
         isLocationPrecise = accuracy < ACCURACY_PRECISE_THRESHOLD;
-        timeOfFix = time;
+        timeOfFix = timestamp;
     }
 
     public boolean hasPreciseLocation() {
-        return (ownLocation != null) && isLocationPrecise;
+        return ownLocation != null && isLocationPrecise;
     }
 
     public boolean isLocationFresh() {

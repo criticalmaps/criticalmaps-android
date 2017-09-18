@@ -1,8 +1,8 @@
 package de.stephanlindauer.criticalmaps.model;
 
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
-import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
