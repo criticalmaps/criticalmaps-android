@@ -16,6 +16,12 @@
             android:icon="@drawable/ic_twitter"
             android:title="@string/section_twitter" />
 
+
+        <item
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/section_settings" />
+
         <item
             android:id="@+id/navigation_rules"
             android:icon="@drawable/ic_maps_traffic"
