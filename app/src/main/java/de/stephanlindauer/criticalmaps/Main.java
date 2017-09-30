@@ -79,6 +79,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onCreate(Bundle bundle) {
+        setTheme(R.style.AppTheme); // has to be before super!
+
         super.onCreate(bundle);
 
         App.components().inject(this);
