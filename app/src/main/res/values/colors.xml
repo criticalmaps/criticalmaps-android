@@ -36,6 +36,10 @@
     <color name="map_loading_line_color">@color/colorPrimary</color>
     <color name="map_fab_warning">@color/material_red_900</color>
     <color name="map_fab_searching">@color/material_orange_600</color>
+    <color name="map_marker_foreground">@android:color/white</color>
+    <color name="map_marker_background">@color/colorPrimary</color>
+    <color name="map_marker_own_foreground">@android:color/white</color>
+    <color name="map_marker_own_background">#FF1E8CBF</color>
 
     <!-- About -->
     <color name="about_background">@android:color/white</color>

@@ -89,7 +89,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         ButterKnife.bind(this);
 
-        new PrerequisitesChecker(this).execute();
+        new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
 
         ServerSyncService.startService();
     }

@@ -17,7 +17,7 @@
     <application
         android:allowBackup="true"
         android:name=".App"
-        android:icon="@drawable/ic_launcher_48dp"
+        android:icon="@mipmap/ic_launcher_48dp"
         android:label="@string/app_name">
 
         <activity
