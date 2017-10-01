@@ -9,6 +9,7 @@ import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -76,10 +76,7 @@ public class MapFragment extends Fragment {
     private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
-    @BindDrawable(R.drawable.map_marker)
     Drawable locationIcon;
-
-    @BindDrawable(R.drawable.map_marker_own)
     Drawable ownLocationIcon;
 
     private Unbinder unbinder;
@@ -121,6 +118,10 @@ public class MapFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        locationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker);
+        ownLocationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker_own);
+
         return view;
     }
 
