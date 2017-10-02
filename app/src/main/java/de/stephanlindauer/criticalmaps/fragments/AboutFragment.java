@@ -64,14 +64,12 @@ public class AboutFragment extends Fragment {
         }
 
         LayoutTransition layoutTransition = linearLayout.getLayoutTransition();
-        if (layoutTransition != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // make LicensePanelView animations look nice
-            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-            // stop settings from bubbling up to ScrollView to prevent scroll animation
-            // on state restore and panel close
-            layoutTransition.setAnimateParentHierarchy(false);
-            linearLayout.setLayoutTransition(layoutTransition);
-        }
+        // make LicensePanelView animations look nice
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+        // stop settings from bubbling up to ScrollView to prevent scroll animation
+        // on state restore and panel close
+        layoutTransition.setAnimateParentHierarchy(false);
+        linearLayout.setLayoutTransition(layoutTransition);
 
         facebookButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
         twitterButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));

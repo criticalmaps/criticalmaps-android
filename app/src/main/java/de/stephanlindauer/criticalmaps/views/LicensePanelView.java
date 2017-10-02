@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps.views;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.StringRes;
@@ -56,15 +55,6 @@ public class LicensePanelView extends LinearLayout {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.license_panel_view, this, true);
         unbinder = ButterKnife.bind(this);
-
-        LayoutTransition layoutTransition = getLayoutTransition();
-        if (layoutTransition != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            // workaround to prevent clipping issues when there is no CHANGING
-            // animation on the parent layout
-            layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 0);
-            layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, null);
-            setLayoutTransition(layoutTransition);
-        }
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LicensePanelView, defStyleAttr, 0);
         int nameRes = a.getResourceId(R.styleable.LicensePanelView_name, 0);
