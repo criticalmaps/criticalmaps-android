@@ -118,6 +118,9 @@ public class LicensePanelView extends LinearLayout {
             //noinspection ResourceType
             noticeView.setVisibility(savedState.getVisibility());
             layoutTransition.setDuration(LayoutTransition.APPEARING, durationAppearing);
+        } else {
+            //noinspection ResourceType
+            noticeView.setVisibility(savedState.getVisibility());
         }
     }
 
