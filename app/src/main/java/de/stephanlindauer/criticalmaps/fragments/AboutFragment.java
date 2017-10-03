@@ -28,7 +28,7 @@ public class AboutFragment extends Fragment {
     NestedScrollView scrollView;
 
     @BindView(R.id.about_subcontainer)
-    LinearLayout linearLayout;
+    LinearLayout subContainer;
     private Unbinder unbinder;
 
 
@@ -44,17 +44,18 @@ public class AboutFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        LayoutTransition layoutTransition = linearLayout.getLayoutTransition();
+        LayoutTransition layoutTransition = subContainer.getLayoutTransition();
         // make LicensePanelView animations look nice
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
         // stop settings from bubbling up to ScrollView to prevent scroll animation
         // on state restore and panel close
         layoutTransition.setAnimateParentHierarchy(false);
-        linearLayout.setLayoutTransition(layoutTransition);
+        subContainer.setLayoutTransition(layoutTransition);
 
-        facebookButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
-        twitterButton.setOnClickListener(new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));
-
+        facebookButton.setOnClickListener(
+                new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
+        twitterButton.setOnClickListener(
+                new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));
     }
 
     @Override
