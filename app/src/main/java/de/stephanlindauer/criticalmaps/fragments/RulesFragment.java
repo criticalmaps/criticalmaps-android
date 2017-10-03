@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 import android.animation.LayoutTransition;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,8 @@ public class RulesFragment extends Fragment {
     private View currentlyShownPanel;
 
     @BindView(R.id.rules_subcontainer)
-    LinearLayout linearLayout;
+    LinearLayout rulesSubContainer;
+
     private Unbinder unbinder;
 
 
@@ -49,15 +51,18 @@ public class RulesFragment extends Fragment {
             Integer activePanelId = (Integer) savedInstanceState.get(KEY_ACTIVE_PANEL_ID);
             if (activePanelId != null) {
                 currentlyShownPanel = findViewById(activePanelId);
-                LayoutTransition layoutTransition = linearLayout.getLayoutTransition();
-                long durationAppearing = layoutTransition.getDuration(LayoutTransition.APPEARING);
-                layoutTransition.setDuration(LayoutTransition.APPEARING, 0);
                 currentlyShownPanel.setVisibility(View.VISIBLE);
-                layoutTransition.setDuration(LayoutTransition.APPEARING, durationAppearing);
             }
-
-
         }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        // enable layout transition animations here to prevent animation on recreation
+        LayoutTransition layoutTransition = new LayoutTransition();
+        rulesSubContainer.setLayoutTransition(layoutTransition);
     }
 
     private void prepareButtonToPanel(@IdRes int button, @IdRes int panel) {
@@ -68,7 +73,8 @@ public class RulesFragment extends Fragment {
     }
 
     private View findViewById(@IdRes final int resId) {
-        return getActivity().findViewById(resId);
+        //noinspection ConstantConditions
+        return getView().findViewById(resId);
     }
 
     private class PanelShowingOnClickListener implements View.OnClickListener {
@@ -106,6 +112,5 @@ public class RulesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        currentlyShownPanel = null;
     }
 }
