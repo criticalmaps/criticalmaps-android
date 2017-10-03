@@ -185,13 +185,7 @@ public class MapFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (ownLocationModel.ownLocation != null && !isInitialLocationSet) {
-            handleFirstLocationUpdate();
-        }
-
         eventBus.register(this);
-
-        refreshView();
     }
 
     private void handleFirstLocationUpdate() {
@@ -230,7 +224,7 @@ public class MapFragment extends Fragment {
     @Subscribe
     public void handleNewLocation(NewLocationEvent e) {
         // if this is the first location update handle it accordingly
-        if (!isInitialLocationSet) {
+        if (ownLocationModel.ownLocation != null && !isInitialLocationSet) {
             handleFirstLocationUpdate();
         }
 

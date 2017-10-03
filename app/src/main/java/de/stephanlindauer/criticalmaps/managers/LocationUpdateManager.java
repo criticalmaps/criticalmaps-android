@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
+import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 
@@ -32,6 +33,7 @@ public class LocationUpdateManager {
     //misc
     private LocationManager locationManager;
     private Location lastPublishedLocation;
+
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
@@ -73,6 +75,11 @@ public class LocationUpdateManager {
     @Produce
     public GpsStatusChangedEvent produceStatusEvent() {
         return Events.GPS_STATUS_CHANGED_EVENT;
+    }
+
+    @Produce
+    public NewLocationEvent produceLocationEvent() {
+        return Events.NEW_LOCATION_EVENT;
     }
 
     private void postStatusEvent() {
