@@ -83,6 +83,7 @@ public class MapFragment extends Fragment {
 
     //OnClickListeners for location FAB
     private final View.OnClickListener centerLocationOnClickListener =  new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             if (ownLocationModel.ownLocation != null)
                 animateToLocation(ownLocationModel.ownLocation);
@@ -90,6 +91,7 @@ public class MapFragment extends Fragment {
     };
 
     private final View.OnClickListener noGpsOnClickListener =  new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             AlertBuilder.show(getActivity(),
                     R.string.map_no_gps_title,
@@ -98,6 +100,7 @@ public class MapFragment extends Fragment {
     };
 
     private final View.OnClickListener GpsDisabledOnClickListener =  new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             AlertBuilder.show(getActivity(),
                     R.string.map_gps_disabled_title,
@@ -106,6 +109,7 @@ public class MapFragment extends Fragment {
     };
 
     private final View.OnClickListener searchingForLocationOnClickListener =  new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
         }

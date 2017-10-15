@@ -29,6 +29,7 @@ public class OutgoingChatMessage implements IChatMessage {
         return urlEncodedMessage;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
