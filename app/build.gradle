@@ -4,7 +4,7 @@ apply plugin: 'net.ltgt.errorprone'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
@@ -66,7 +66,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
     testCompile 'junit:junit:4.12'
-    testCompile "com.google.truth:truth:0.27"
+    testCompile "com.google.truth:truth:0.36"
     testCompile "com.android.support:support-annotations:$support_version"
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.mockito:mockito-core:2.11.0'
 }
