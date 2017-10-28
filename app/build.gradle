@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'de.mobilej.unmock'
+apply plugin: 'net.ltgt.errorprone'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 31
         versionName "2.3.2"
@@ -65,7 +66,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
     testCompile 'junit:junit:4.12'
-    testCompile "com.google.truth:truth:0.27"
+    testCompile "com.google.truth:truth:0.36"
     testCompile "com.android.support:support-annotations:$support_version"
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.mockito:mockito-core:2.11.0'
 }

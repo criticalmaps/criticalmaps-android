@@ -18,6 +18,7 @@ public class ReceivedChatMessage implements IChatMessage {
         return timestamp;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

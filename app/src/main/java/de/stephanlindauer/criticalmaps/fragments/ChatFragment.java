@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -111,7 +112,6 @@ public class ChatFragment extends Fragment {
                 R.color.chat_fab_drawable_states);
         DrawableCompat.setTintList(wrappedDrawable, colorStateList);
         sendButton.setImageDrawable(wrappedDrawable);
-        sendButton.setEnabled(false);
 
         chatRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -140,11 +140,18 @@ public class ChatFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        sendButton.setEnabled(editMessageTextField.getText().length() > 0);
 
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                setSendButtonEnabledWithAnimation(s.length() != 0);
+                setSendButtonEnabledWithAnimation(s.length() > 0);
             }
         });
     }

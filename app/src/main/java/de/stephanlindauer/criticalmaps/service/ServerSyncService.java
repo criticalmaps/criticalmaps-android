@@ -3,9 +3,7 @@ package de.stephanlindauer.criticalmaps.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 
 import com.squareup.otto.Subscribe;
 
@@ -67,19 +65,7 @@ public class ServerSyncService extends Service {
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
             public void run() {
-                // Since JELLYBEAN AsyncTask makes sure it's started from
-                // the UI thread. Before that we have do to that ourselves.
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            pullServerHandler.get().execute();
-                        }
-                    });
-                } else {
-                    pullServerHandler.get().execute();
-                }
+                pullServerHandler.get().execute();
             }
         };
         timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
