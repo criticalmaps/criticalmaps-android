@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class TwitterFragment extends Fragment {
 
     //dependencies
-    private TwitterModel twitterModel = App.components().twitterModel();
+    private final TwitterModel twitterModel = App.components().twitterModel();
 
     //view
     @BindView(R.id.twitter_error)

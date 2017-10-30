@@ -31,7 +31,7 @@ public class LocationUpdateManager {
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
 
     //misc
-    private LocationManager locationManager;
+    private final LocationManager locationManager;
     private Location lastPublishedLocation;
 
     private final LocationListener locationListener = new LocationListener() {

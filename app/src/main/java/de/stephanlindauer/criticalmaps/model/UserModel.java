@@ -14,7 +14,7 @@ import static android.provider.Settings.Secure.getString;
 
 public class UserModel {
 
-    private String changingDeviceToken;
+    private final String changingDeviceToken;
 
     public UserModel(App app) {
 

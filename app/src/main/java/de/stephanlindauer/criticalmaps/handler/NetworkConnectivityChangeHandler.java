@@ -21,7 +21,7 @@ public class NetworkConnectivityChangeHandler extends BroadcastReceiver {
     private final App app;
     private final EventBus eventBus;
 
-    private ConnectivityManager connectivityManager;
+    private final ConnectivityManager connectivityManager;
     private boolean isConnected;
 
     @Inject
@@ -63,7 +63,7 @@ public class NetworkConnectivityChangeHandler extends BroadcastReceiver {
         // requires workaround for L (and above?), see:
         // http://stackoverflow.com/questions/29677852/
 
-        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             // only fire event if the state changed
             if (isConnected != isConnectionAvailable()) {
                 isConnected = !isConnected;

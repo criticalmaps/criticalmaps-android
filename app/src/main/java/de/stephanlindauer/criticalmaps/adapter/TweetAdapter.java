@@ -31,7 +31,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     private final List<Tweet> tweets;
     private final Context context;
 
-    final Picasso picasso = App.components().picasso();
+    private final Picasso picasso = App.components().picasso();
 
     public TweetAdapter(Context context, int layoutResourceId, List<Tweet> tweets) {
         super(context, layoutResourceId, tweets);
@@ -112,7 +112,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         @BindView(R.id.tweet_user_image_progress)
         ProgressBar userImageProgress;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

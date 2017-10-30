@@ -77,8 +77,8 @@ public class MapFragment extends Fragment {
     private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
-    Drawable locationIcon;
-    Drawable ownLocationIcon;
+    private Drawable locationIcon;
+    private Drawable ownLocationIcon;
 
     private Unbinder unbinder;
 
