@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -41,6 +42,7 @@ public class PrerequisitesChecker {
         LayoutInflater factory = LayoutInflater.from(activity);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
+        @SuppressLint("InflateParams") // okay for dialog
         final View view = factory.inflate(R.layout.view_introduction, null);
 
         TextView textViewYou = view.findViewById(R.id.introduction_paragraph_you);

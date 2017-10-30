@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -77,6 +78,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
         LayoutInflater factory = LayoutInflater.from(activity);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        @SuppressLint("InflateParams") // okay for dialog
         final View view = factory.inflate(R.layout.view_picture_upload, null);
 
         ImageView image = view.findViewById(R.id.picture_preview);
