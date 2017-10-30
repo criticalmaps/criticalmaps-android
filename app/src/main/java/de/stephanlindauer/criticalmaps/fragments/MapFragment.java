@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -76,8 +77,8 @@ public class MapFragment extends Fragment {
     private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
-    Drawable locationIcon;
-    Drawable ownLocationIcon;
+    private Drawable locationIcon;
+    private Drawable ownLocationIcon;
 
     private Unbinder unbinder;
 
@@ -117,7 +118,7 @@ public class MapFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
@@ -199,7 +200,7 @@ public class MapFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());

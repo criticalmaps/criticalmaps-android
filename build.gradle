@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        support_version = "26.1.0"
+        support_version = "27.0.0"
         dagger_version = "2.12"
         butterknife_version = "8.8.1"
     }

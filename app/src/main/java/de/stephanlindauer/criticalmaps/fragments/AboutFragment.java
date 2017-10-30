@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.animation.LayoutTransition;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class AboutFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_about, container, false);
         unbinder = ButterKnife.bind(this, view);

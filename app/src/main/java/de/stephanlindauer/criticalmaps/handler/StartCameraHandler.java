@@ -18,7 +18,7 @@ import java.io.File;
 
 public class StartCameraHandler extends AsyncTask<Void, Void, ResultType> {
 
-    private Main activity;
+    private final Main activity;
 
     public StartCameraHandler(Main mainActivity) {
         this.activity = mainActivity;

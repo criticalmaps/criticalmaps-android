@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class TwitterFragment extends Fragment {
 
     //dependencies
-    private TwitterModel twitterModel = App.components().twitterModel();
+    private final TwitterModel twitterModel = App.components().twitterModel();
 
     //view
     @BindView(R.id.twitter_error)
@@ -45,7 +46,7 @@ public class TwitterFragment extends Fragment {
     private Unbinder unbinder;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);

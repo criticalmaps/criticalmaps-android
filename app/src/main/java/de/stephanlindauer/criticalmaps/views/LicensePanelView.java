@@ -38,7 +38,7 @@ public class LicensePanelView extends LinearLayout {
 
     @BindView(R.id.about_license_expandcollapse)
     TextView expandCollapseView;
-    private Unbinder unbinder;
+    private final Unbinder unbinder;
 
 
     public LicensePanelView(Context context) {
@@ -147,6 +147,7 @@ public class LicensePanelView extends LinearLayout {
                 return new SavedState[size];
             }
         };
+
         private final int visibility;
 
         private SavedState(Parcel in) {

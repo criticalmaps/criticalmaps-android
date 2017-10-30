@@ -3,7 +3,7 @@ apply plugin: 'de.mobilej.unmock'
 apply plugin: 'net.ltgt.errorprone'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
 
     defaultConfig {
@@ -53,6 +53,7 @@ dependencies {
     api "com.android.support:appcompat-v7:$support_version"
     api "com.android.support:support-annotations:$support_version"
     api "com.android.support:design:$support_version"
+    implementation "com.android.support:exifinterface:$support_version"
 
     api 'com.squareup.okhttp3:okhttp:3.9.0'
     api "com.jakewharton:butterknife:$butterknife_version"

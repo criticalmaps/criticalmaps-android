@@ -13,7 +13,7 @@ import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 
 public class TwitterModel {
 
-    private List<Tweet> tweets = new ArrayList<>();
+    private final List<Tweet> tweets = new ArrayList<>();
 
     public void setTweetsFromJsonString(String tweetsString) throws JSONException, ParseException {
         tweets.clear();
