@@ -2,7 +2,25 @@ apply plugin: 'com.android.application'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'net.ltgt.errorprone'
 
+// Place actual signing configuration in "keystore.properties"
+// "keystore.properties" is in .gitignore and will not be checked into repo
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+if(!keystorePropertiesFile.exists() ) {
+    keystorePropertiesFile = rootProject.file("dummy_keystore.properties")
+}
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        releaseConfig {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     compileSdkVersion 27
     buildToolsVersion '26.0.2'
 
@@ -27,6 +45,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
         }
     }
 
