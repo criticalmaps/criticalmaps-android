@@ -74,18 +74,14 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
         Request request = new Request.Builder().url(Endpoints.IMAGE_POST).post(requestBody).build();
 
-        Response response = null;
         try {
-            response = okHttpClient.newCall(request).execute();
+            Response response = okHttpClient.newCall(request).execute();
 
+            //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
             if (response.isSuccessful() && response.body().string().equals("success")) {
                     return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
-        } finally {
-            if (response != null) {
-                response.body().close();
-            }
         }
 
         return ResultType.FAILED;
