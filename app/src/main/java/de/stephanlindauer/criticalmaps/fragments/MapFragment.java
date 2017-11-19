@@ -124,6 +124,7 @@ public class MapFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        //noinspection ConstantConditions
         locationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker);
         ownLocationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker_own);
 
@@ -289,6 +290,7 @@ public class MapFragment extends Fragment {
 
     private void setGpsStatusCommon(@ColorRes int colorResId, @DrawableRes int iconResId,
                                     View.OnClickListener onClickListener) {
+        //noinspection ConstantConditions
         setCurrentLocationCenter.setBackgroundTintList(
                 ContextCompat.getColorStateList(getActivity(), colorResId));
         setCurrentLocationCenter.setImageResource(iconResId);

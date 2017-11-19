@@ -109,6 +109,7 @@ public class ChatFragment extends Fragment {
 
         Drawable wrappedDrawable = DrawableCompat.wrap(sendButton.getDrawable());
         DrawableCompat.setTintMode(wrappedDrawable, PorterDuff.Mode.SRC_ATOP);
+        @SuppressWarnings("ConstantConditions")
         ColorStateList colorStateList = ContextCompat.getColorStateList(getActivity(),
                 R.color.chat_fab_drawable_states);
         DrawableCompat.setTintList(wrappedDrawable, colorStateList);

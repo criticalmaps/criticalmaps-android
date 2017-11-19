@@ -44,7 +44,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.view_tweet, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
