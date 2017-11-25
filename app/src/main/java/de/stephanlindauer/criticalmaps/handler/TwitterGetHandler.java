@@ -38,8 +38,8 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
             final Response response = httpClient.newCall(request).execute();
 
             if (response.isSuccessful()) {
+                //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
                 responseString = response.body().string();
-                response.body().close();
                 return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
