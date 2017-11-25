@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -22,8 +23,11 @@ public class MapViewUtils {
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID + "/"
                 + BuildConfig.VERSION_NAME + " " + org.osmdroid.library.BuildConfig.APPLICATION_ID
                 + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME);
-        MapView mapView = new MapView(activity);
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
+
+        MapTileProviderBasic mapnikTileProvider =
+                new MapTileProviderBasic(activity, TileSourceFactory.MAPNIK);
+
+        MapView mapView = new MapView(activity, mapnikTileProvider);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1);
