@@ -76,6 +76,7 @@ dependencies {
     implementation "com.android.support:support-annotations:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:exifinterface:$support_version"
+    implementation 'com.jakewharton.timber:timber:4.6.0'
 
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     implementation "com.jakewharton:butterknife:$butterknife_version"

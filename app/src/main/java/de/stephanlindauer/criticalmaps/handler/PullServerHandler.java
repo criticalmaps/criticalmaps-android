@@ -1,7 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
@@ -13,14 +12,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import timber.log.Timber;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
-
-    //const
-    private static final String LOG_TAG = "CM_PullServerHandler";
 
     //dependencies
     private final ChatModel chatModel;
@@ -52,7 +50,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                 return response.body().string();
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
         return "";
     }
@@ -80,7 +78,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                 jsonObject.put("messages", messages);
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
         return jsonObject;
     }
