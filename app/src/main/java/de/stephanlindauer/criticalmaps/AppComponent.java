@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps;
 
+import android.content.SharedPreferences;
+
 import com.squareup.picasso.Picasso;
 import dagger.Component;
 import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
@@ -33,4 +35,6 @@ public interface AppComponent {
     TwitterModel twitterModel();
 
     OkHttpClient okHttpClient();
+
+    SharedPreferences sharedPreferences();
 }
