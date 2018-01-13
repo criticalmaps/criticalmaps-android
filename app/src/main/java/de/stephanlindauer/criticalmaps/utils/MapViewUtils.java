@@ -25,6 +25,7 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.BuildConfig;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
+import de.stephanlindauer.criticalmaps.provider.MapConfigurationProvider;
 import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
 
@@ -32,6 +33,7 @@ public class MapViewUtils {
     private MapViewUtils() {}
 
     public static MapView createMapView(Activity activity) {
+        Configuration.setConfigurationProvider(new MapConfigurationProvider());
         IConfigurationProvider configuration = Configuration.getInstance();
 
         SharedPreferences sharedPrefs = App.components().sharedPreferences();
