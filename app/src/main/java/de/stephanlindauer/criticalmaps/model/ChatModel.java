@@ -16,11 +16,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class ChatModel {
 
     private final List<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
 
     private List<ReceivedChatMessage> chatMessages = new ArrayList<>();
+
+    @Inject
+    public ChatModel() {
+    }
 
     public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
         if (chatMessages == null) {

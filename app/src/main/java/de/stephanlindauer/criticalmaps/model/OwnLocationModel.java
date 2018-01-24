@@ -8,8 +8,12 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
 
+@Singleton
 public class OwnLocationModel {
 
     public static final int MAX_LOCATION_AGE = 30 * 1000; //30 seconds
@@ -18,6 +22,10 @@ public class OwnLocationModel {
     public GeoPoint ownLocation;
     private boolean isLocationPrecise;
     private long timeOfFix;
+
+    @Inject
+    public OwnLocationModel() {
+    }
 
     public void setLocation(@NonNull GeoPoint location, float accuracy, long timestamp) {
         ownLocation = location;

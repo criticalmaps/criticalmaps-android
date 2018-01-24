@@ -7,9 +7,17 @@ import org.osmdroid.util.GeoPoint;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class OtherUsersLocationModel {
 
     private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<>();
+
+    @Inject
+    public OtherUsersLocationModel() {
+    }
 
     public void setNewJSON(JSONObject jsonObject) throws JSONException {
         otherUsersLocations = new ArrayList<>(jsonObject.length());

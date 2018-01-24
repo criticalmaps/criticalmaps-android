@@ -19,9 +19,7 @@ public class App extends Application {
             Timber.plant(new NoOpTree());
         }
 
-        appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build();
+        appComponent = DaggerAppComponent.builder().app(this).build();
     }
 
     public static AppComponent components() {
