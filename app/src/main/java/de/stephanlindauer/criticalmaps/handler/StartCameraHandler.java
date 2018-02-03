@@ -26,7 +26,16 @@ public class StartCameraHandler {
         if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_camera);
             return;
-        } else if (App.components().ownLocationmodel().ownLocation == null) {
+        }
+
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(activity.getPackageManager()) == null) {
+            // TODO: 03.02.2018 more specific msg indicating there's no app to handle this intent
+            AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_camera);
+            return;
+        }
+
+        if (App.components().ownLocationmodel().ownLocation == null) {
             AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_location);
             return;
         }
@@ -40,7 +49,6 @@ public class StartCameraHandler {
 
         Uri imageCaptureUri = Uri.fromFile(outputFile);
 
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageCaptureUri);
         activity.startActivityForResult(cameraIntent, RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
