@@ -82,11 +82,10 @@
     <string name="camera_upload_failed_title">Il caricamento della foto è fallito</string>
     <string name="camera_upload_failed_message">Riprova</string>
     <string name="camera_processing_image">Elaborazione della foto &#8230;</string>
-    <string name="camera_no_location_no_camera">Non puoi caricare immagini senza segnale GPS attivo</string>
+    <string name="camera_no_location">Non puoi caricare immagini senza segnale GPS attivo</string>
     <string name="camera_image_upload_succeeded_title">Immagine caricata con successo!</string>
     <string name="camera_image_upload_succeeded_message">La foto è stata caricata su criticalmaps.net </string>
-    <string name="camera_no_camera">La fotocamera non è disponibile.</string>
-    <string name="camera_no_camera_no_camera">Non puoi fare foto se il tuo telefono non ha fotocamera.</string>
+    <string name="camera_no_camera">Non puoi fare foto se il tuo telefono non ha fotocamera.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Qualcosa non ha funzionato </string>

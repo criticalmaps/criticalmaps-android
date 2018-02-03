@@ -96,11 +96,10 @@
     <string name="camera_upload_failed_title">Hochladen hat nicht funktioniert</string>
     <string name="camera_upload_failed_message">Bitte versuch es später nochmal</string>
     <string name="camera_processing_image">Foto wird verarbeitet</string>
-    <string name="camera_no_location_no_camera">Ohne GPS-Signal kannst du keine Bilder hochladen</string>
+    <string name="camera_no_location">Ohne GPS-Signal kannst du keine Bilder hochladen</string>
     <string name="camera_image_upload_succeeded_title">Bilder-Upload erfolgreich!</string>
     <string name="camera_image_upload_succeeded_message">Das Bild steht jetzt in der Galerie auf criticalmaps.net</string>
-    <string name="camera_no_camera">Keine Kamera vorhanden.</string>
-    <string name="camera_no_camera_no_camera">Du kannst keine Bilder aufnehmen, wenn dein Smartfone keine Kamera hat.</string>
+    <string name="camera_no_camera">Du kannst keine Bilder aufnehmen, wenn dein Smartfone keine Kamera hat.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>

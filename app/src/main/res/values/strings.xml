@@ -102,11 +102,11 @@
     <string name="camera_upload_failed_title">Image upload failed</string>
     <string name="camera_upload_failed_message">Please try again</string>
     <string name="camera_processing_image">Processing image &#8230;</string>
-    <string name="camera_no_location_no_camera">You can\'t upload images without a GPS signal</string>
+    <string name="camera_no_location">You can\'t upload images without a GPS signal</string>
+    <string name="camera_no_outputfile">Can\'t save file on device.</string>
     <string name="camera_image_upload_succeeded_title">Image upload worked!</string>
     <string name="camera_image_upload_succeeded_message">The picture is uploaded to gallery on criticalmaps.net </string>
-    <string name="camera_no_camera">No camera available.</string>
-    <string name="camera_no_camera_no_camera">You can\'t take pictures if your device doesn\'t have a camera.</string>
+    <string name="camera_no_camera">You can\'t take pictures if your device doesn\'t have a camera.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Something went wrong.</string>

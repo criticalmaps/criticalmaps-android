@@ -89,11 +89,10 @@
     <string name="camera_upload_failed_title">La subida de imagen falló</string>
     <string name="camera_upload_failed_message">Por favor inténtalo de nuevo</string>
     <string name="camera_processing_image">Procesando imagen &#8230;</string>
-    <string name="camera_no_location_no_camera">No puedes subir imágenes sin señal GPS</string>
+    <string name="camera_no_location">No puedes subir imágenes sin señal GPS</string>
     <string name="camera_image_upload_succeeded_title">Imagen subida!</string>
     <string name="camera_image_upload_succeeded_message">La imagen se ha subido a la galeria en criticalmaps.net </string>
-    <string name="camera_no_camera">La cámara no está disponible.</string>
-    <string name="camera_no_camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
+    <string name="camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Algo ha fallado</string>

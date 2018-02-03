@@ -89,11 +89,10 @@
     <string name="camera_upload_failed_title">Error en pujar la imatge</string>
     <string name="camera_upload_failed_message">Si us plau, torna-ho a provar</string>
     <string name="camera_processing_image">Processant la imatge &#8230;</string>
-    <string name="camera_no_location_no_camera">No pots pujar imatges sense senyal GPS</string>
+    <string name="camera_no_location">No pots pujar imatges sense senyal GPS</string>
     <string name="camera_image_upload_succeeded_title">Pujada d\'imatges finalitzada correctament</string>
     <string name="camera_image_upload_succeeded_message">Imatge pujada a una galeria de criticalmaps.net </string>
-    <string name="camera_no_camera">Cap càmera disponible.</string>
-    <string name="camera_no_camera_no_camera">No pots fer fotos si el teu dispositiu no disposa d\'una càmera </string>
+    <string name="camera_no_camera">No pots fer fotos si el teu dispositiu no disposa d\'una càmera </string>
 
     <!-- misc -->
     <string name="something_went_wrong">Quelcom ha fallat.</string>
