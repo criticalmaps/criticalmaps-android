@@ -3,7 +3,9 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.os.Environment;
 
 import java.io.File;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ImageUtils {
 
@@ -18,7 +20,9 @@ public class ImageUtils {
             return null;
         }
 
-        final String id = UUID.randomUUID().toString().replace("-", "");
-        return new File(mediaStorageDir.getPath() + File.separator + id + ".jpg");
+        final String timestamp =
+                new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(new Date());
+        final String filename = "CriticalMaps-" + timestamp + ".jpg";
+        return new File(mediaStorageDir.getPath() + File.separator + filename);
     }
 }
