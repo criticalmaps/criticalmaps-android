@@ -1,9 +1,12 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.Main;
@@ -40,16 +43,28 @@ public class StartCameraHandler {
             return;
         }
 
-        final File outputFile = ImageUtils.getNewOutputImageFile();
-        if(outputFile == null) {
+        final File outputFile = ImageUtils.getNewCacheImageFile();
+        if (outputFile == null) {
             AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_outputfile);
             return;
         }
         activity.setNewCameraOutputFile(outputFile); // FIXME: 07.09.2015
 
-        Uri imageCaptureUri = Uri.fromFile(outputFile);
+        Uri imageCaptureUri = FileProvider.getUriForFile(
+                activity,
+                activity.getResources().getString(R.string.fileprovider_authority),
+                outputFile);
+
+        // Workaround for permission issue on older devices, see:
+        // https://medium.com/@quiro91/sharing-files-through-intents-part-2-fixing-the-permissions-before-lollipop-ceb9bb0eec3a
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            cameraIntent.setClipData(ClipData.newRawUri("", imageCaptureUri));
+            cameraIntent.addFlags(
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
 
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageCaptureUri);
-        activity.startActivityForResult(cameraIntent, RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+        activity.startActivityForResult(
+                cameraIntent, RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
 }

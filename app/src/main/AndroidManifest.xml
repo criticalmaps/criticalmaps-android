@@ -34,6 +34,15 @@
         <service
             android:name=".service.ServerSyncService"/>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/fileprovider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider_paths" />
+        </provider>
     </application>
 
 </manifest>

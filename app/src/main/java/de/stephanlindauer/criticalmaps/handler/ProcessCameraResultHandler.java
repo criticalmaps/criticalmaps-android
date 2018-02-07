@@ -59,7 +59,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
                     .centerInside()
                     .get();
 
-            processedImageFile = ImageUtils.getNewOutputImageFile();
+            processedImageFile = ImageUtils.getNewCacheImageFile();
             FileOutputStream fOut = new FileOutputStream(processedImageFile);
             processedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
             fOut.flush();
@@ -108,6 +108,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
                         new ImageUploadHandler(processedImageFile, activity).execute();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
+                        //noinspection ResultOfMethodCallIgnored
                         processedImageFile.delete();
                         break;
                 }

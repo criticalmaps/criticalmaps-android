@@ -101,6 +101,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             progressDialog.dismiss();
             AlertBuilder.show(activity, R.string.camera_upload_failed_title, R.string.camera_upload_failed_message);
         }
+        //noinspection ResultOfMethodCallIgnored
         imageFileToUpload.delete();
     }
 
