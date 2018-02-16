@@ -30,7 +30,9 @@ public class ChatModel {
     public ChatModel() {
     }
 
-    public void setNewJson(JSONObject jsonObject) throws JSONException, UnsupportedEncodingException {
+    public void setFromJson(JSONObject jsonObject) throws JSONException,
+            UnsupportedEncodingException {
+
         if (chatMessages == null) {
             chatMessages = new ArrayList<>(jsonObject.length());
         } else {

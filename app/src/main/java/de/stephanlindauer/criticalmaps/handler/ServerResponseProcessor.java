@@ -9,6 +9,7 @@ import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
+import timber.log.Timber;
 
 @Reusable
 public class ServerResponseProcessor {
@@ -27,10 +28,15 @@ public class ServerResponseProcessor {
     public void process(final String jsonString) {
         try {
             final JSONObject jsonObject = new JSONObject(jsonString);
-            otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
-            chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
+            if (jsonObject.has("locations")) {
+                otherUsersLocationModel.setFromJson(jsonObject.getJSONObject("locations"));
+            }
+            if (jsonObject.has("locations")) {
+                chatModel.setFromJson(jsonObject.getJSONObject("chatMessages"));
+            }
             eventBus.post(Events.NEW_SERVER_RESPONSE_EVENT);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Timber.d(e);
         }
     }
 }
