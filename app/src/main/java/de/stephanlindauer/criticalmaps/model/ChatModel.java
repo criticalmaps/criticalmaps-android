@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import okhttp3.internal.Util;
+import timber.log.Timber;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +24,7 @@ import javax.inject.Singleton;
 @Singleton
 public class ChatModel {
 
-    private final List<OutgoingChatMessage> outgoingMassages = new ArrayList<>();
-
+    private final List<OutgoingChatMessage> outgoingMessages = new ArrayList<>();
     private List<ReceivedChatMessage> chatMessages = new ArrayList<>();
 
     @Inject
@@ -32,25 +33,19 @@ public class ChatModel {
 
     public void setFromJson(JSONObject jsonObject) throws JSONException,
             UnsupportedEncodingException {
+        chatMessages = new ArrayList<>(jsonObject.length());
 
-        if (chatMessages == null) {
-            chatMessages = new ArrayList<>(jsonObject.length());
-        } else {
-            chatMessages.clear();
-        }
-
-        Iterator<String> keys = jsonObject.keys();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            JSONObject value = jsonObject.getJSONObject(key);
+        Iterator<String> identifiers = jsonObject.keys();
+        while (identifiers.hasNext()) {
+            String identifier = identifiers.next();
+            JSONObject value = jsonObject.getJSONObject(identifier);
             String message = URLDecoder.decode(value.getString("message"), Util.UTF_8.name());
             Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
 
-            //for i going backwards to delete without side-effects
-            for (int i = outgoingMassages.size() - 1; i > -1; i--) {
-                OutgoingChatMessage outgoingMessageToMaybeDelete = outgoingMassages.get(i);
-                if (outgoingMessageToMaybeDelete.getIdentifier().equals(key)) {
-                    outgoingMassages.remove(i);
+            Iterator<OutgoingChatMessage> outgoingChatMessageIterator = outgoingMessages.iterator();
+            while (outgoingChatMessageIterator.hasNext()) {
+                if (outgoingChatMessageIterator.next().getIdentifier().equals(identifier)) {
+                    outgoingChatMessageIterator.remove();
                 }
             }
 
@@ -59,42 +54,43 @@ public class ChatModel {
 
         Collections.sort(chatMessages, new Comparator<ReceivedChatMessage>() {
             @Override
-            public int compare(ReceivedChatMessage oneChatMessages, ReceivedChatMessage otherChatMessage) {
+            public int compare(ReceivedChatMessage oneChatMessages,
+                               ReceivedChatMessage otherChatMessage) {
                 return oneChatMessages.getTimestamp().compareTo(otherChatMessage.getTimestamp());
             }
         });
     }
 
     public void setNewOutgoingMessage(OutgoingChatMessage newOutgoingMessage) {
-        outgoingMassages.add(newOutgoingMessage);
+        outgoingMessages.add(newOutgoingMessage);
     }
 
     public JSONArray getOutgoingMessagesAsJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (int i = 0, size = outgoingMassages.size(); i < size; i++) {
-            OutgoingChatMessage outgoingChatMessage = outgoingMassages.get(i);
+        for (OutgoingChatMessage outgoingChatMessage : outgoingMessages) {
             try {
                 JSONObject messageObject = new JSONObject();
                 messageObject.put("text", outgoingChatMessage.getUrlEncodedMessage());
                 messageObject.put("timestamp", outgoingChatMessage.getTimestamp().getTime());
                 messageObject.put("identifier", outgoingChatMessage.getIdentifier());
                 jsonArray.put(messageObject);
-            } catch (JSONException ignored) {
+            } catch (JSONException e) {
+                Timber.d(e);
             }
         }
         return jsonArray;
     }
 
     public ArrayList<IChatMessage> getSavedAndOutgoingMessages() {
-        int mergedListsSize = chatMessages.size() + outgoingMassages.size();
+        int mergedListsSize = chatMessages.size() + outgoingMessages.size();
         ArrayList<IChatMessage> mergeArrayList = new ArrayList<>(mergedListsSize);
         mergeArrayList.addAll(chatMessages);
-        mergeArrayList.addAll(outgoingMassages);
+        mergeArrayList.addAll(outgoingMessages);
         return mergeArrayList;
     }
 
     public boolean hasOutgoingMessages() {
-        return !outgoingMassages.isEmpty();
+        return !outgoingMessages.isEmpty();
     }
 }
