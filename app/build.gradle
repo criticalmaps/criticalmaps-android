@@ -22,7 +22,7 @@ android {
     }
 
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
@@ -42,6 +42,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -64,29 +67,30 @@ android {
 }
 
 dependencies {
-    api 'com.squareup:otto:1.3.8'
-    api 'org.osmdroid:osmdroid-android:5.6.5'
-    api 'com.squareup.picasso:picasso:2.5.2'
-    api 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
-    api "com.android.support:support-v4:$support_version"
-    api "com.android.support:appcompat-v7:$support_version"
-    api "com.android.support:support-annotations:$support_version"
-    api "com.android.support:design:$support_version"
+    implementation 'com.squareup:otto:1.3.8'
+    implementation 'org.osmdroid:osmdroid-android:5.6.5'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    implementation "com.android.support:support-v4:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:support-annotations:$support_version"
+    implementation "com.android.support:design:$support_version"
     implementation "com.android.support:exifinterface:$support_version"
+    implementation 'com.jakewharton.timber:timber:4.6.0'
 
-    api 'com.squareup.okhttp3:okhttp:3.9.0'
-    api "com.jakewharton:butterknife:$butterknife_version"
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation "com.jakewharton:butterknife:$butterknife_version"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 
-    api 'org.ligi:AXT:0.37'
-    api 'info.metadude.android:typed-preferences:2.1.0'
-    api "com.google.dagger:dagger:$dagger_version"
+    implementation 'org.ligi:AXT:0.37'
+    implementation 'info.metadude.android:typed-preferences:2.1.0'
+    implementation "com.google.dagger:dagger:$dagger_version"
 
     compileOnly 'javax.annotation:jsr250-api:1.0'
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
-    testApi 'junit:junit:4.12'
-    testApi "com.google.truth:truth:0.36"
-    testApi "com.android.support:support-annotations:$support_version"
-    testApi 'org.mockito:mockito-core:2.11.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation "com.google.truth:truth:0.36"
+    testImplementation "com.android.support:support-annotations:$support_version"
+    testImplementation 'org.mockito:mockito-core:2.11.0'
 }

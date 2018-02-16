@@ -82,11 +82,10 @@ Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps
     <string name="camera_upload_failed_title">Téléchargement de l\'image échoué</string>
     <string name="camera_upload_failed_message">Réessayer</string>
     <string name="camera_processing_image">Traitement d\'image…</string>
-    <string name="camera_no_location_no_camera">Tu ne peux pas télécharger des images sans signal GPS.</string>
+    <string name="camera_no_location">Tu ne peux pas télécharger des images sans signal GPS.</string>
     <string name="camera_image_upload_succeeded_title">Image téléchargé</string>
     <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>
-    <string name="camera_no_camera">Appareil photo non disponible</string>
-    <string name="camera_no_camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
+    <string name="camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Il y a eu un problème</string>

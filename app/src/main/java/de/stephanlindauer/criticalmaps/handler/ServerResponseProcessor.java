@@ -4,11 +4,13 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import dagger.Reusable;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 
+@Reusable
 public class ServerResponseProcessor {
 
     private final OtherUsersLocationModel otherUsersLocationModel;

@@ -10,12 +10,14 @@ import android.net.NetworkInfo;
 import com.squareup.otto.Produce;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 
+@Singleton
 public class NetworkConnectivityChangeHandler extends BroadcastReceiver {
 
     private final App app;

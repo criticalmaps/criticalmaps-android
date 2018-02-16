@@ -13,6 +13,7 @@ import org.osmdroid.util.GeoPoint;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.Events;
@@ -21,6 +22,7 @@ import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 
+@Singleton
 public class LocationUpdateManager {
 
     private final OwnLocationModel ownLocationModel;
