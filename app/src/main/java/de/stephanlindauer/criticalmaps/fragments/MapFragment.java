@@ -2,14 +2,18 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -30,12 +34,14 @@ import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
+
 import javax.inject.Inject;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -57,6 +63,9 @@ public class MapFragment extends Fragment {
     @Inject
     EventBus eventBus;
 
+    @Inject
+    LocationUpdateManager locationUpdateManager;
+
     //view
     private MapView mapView;
 
@@ -74,6 +83,7 @@ public class MapFragment extends Fragment {
 
     //misc
     private boolean isInitialLocationSet = false;
+    private boolean mightComeBackWithLocationPermission = false;
     private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
@@ -100,12 +110,37 @@ public class MapFragment extends Fragment {
         }
     };
 
+
     private final View.OnClickListener GpsDisabledOnClickListener =  new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             AlertBuilder.show(getActivity(),
                     R.string.map_gps_disabled_title,
                     R.string.map_gps_disabled_text);
+        }
+    };
+
+    private final View.OnClickListener GpsNoPermissionsOnClickListener =  new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            locationUpdateManager.requestPermission();
+        }
+    };
+
+    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener =  new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
+                    .setTitle(R.string.map_gps_permissions_permanently_denied_title)
+                    .setMessage(R.string.map_gps_permissions_permanently_denied_text)
+                    .setNegativeButton(R.string.no, null)
+                    .setPositiveButton(R.string.permissions_open_settings, (dialog, which) -> {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.fromParts("package", getActivity().getPackageName(), null));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);})
+                    .create()
+                    .show();
         }
     };
 
@@ -190,8 +225,17 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         eventBus.register(this);
+
+        // Workaround to handle case when location permission was granted via app ops while the
+        // app is running.
+        if (mightComeBackWithLocationPermission) {
+            // additional check needed because requesting permission will always trigger onResume()
+            // even if no dialog is shown. This would send us into an infinite loop
+            if (locationUpdateManager.checkPermission()) {
+                locationUpdateManager.requestPermission();
+            }
+        }
     }
 
     private void handleFirstLocationUpdate() {
@@ -244,10 +288,17 @@ public class MapFragment extends Fragment {
 
     @Subscribe
     public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
+        mightComeBackWithLocationPermission = false;
         if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
             setGpsStatusNonexistent();
-        } else if (e.status == GpsStatusChangedEvent.Status.OFF) {
+        } else if (e.status == GpsStatusChangedEvent.Status.DISABLED) {
             setGpsStatusDisabled();
+        } else if (e.status == GpsStatusChangedEvent.Status.PERMISSION_PERMANENTLY_DENIED) {
+            mightComeBackWithLocationPermission = true;
+            setGpsStatusPermissionsPermanentlyDenied();
+        } else if (e.status == GpsStatusChangedEvent.Status.NO_PERMISSIONS) {
+            mightComeBackWithLocationPermission = true;
+            setGpsStatusNoPermissions();
         } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||
                 e.status == GpsStatusChangedEvent.Status.HIGH_ACCURACY) {
             if (ownLocationModel.ownLocation != null) {
@@ -268,6 +319,18 @@ public class MapFragment extends Fragment {
         cancelGpsSearchingAnimationIfRunning();
         setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
                 GpsDisabledOnClickListener);
+    }
+
+    private void setGpsStatusNoPermissions() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                GpsNoPermissionsOnClickListener); // TODO Text/listener, Permission Icon?
+    }
+
+    private void setGpsStatusPermissionsPermanentlyDenied() {
+        cancelGpsSearchingAnimationIfRunning();
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+                GpsPermissionsPermanentlyDeniedOnClickListener); // TODO Text/listener, Permission Icon?
     }
 
     private void setGpsStatusFixed() {

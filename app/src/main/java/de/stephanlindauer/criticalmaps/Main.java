@@ -21,8 +21,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import java.io.File;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
+import de.stephanlindauer.criticalmaps.handler.PermissionCheckHandler;
 import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
@@ -34,6 +37,7 @@ import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
+import timber.log.Timber;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,6 +47,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private File newCameraOutputFile;
     private int currentNavId;
     private SparseArray<Fragment.SavedState> savedFragmentStates = new SparseArray<>();
+
+    @Inject
+    public PermissionCheckHandler permissionCheckHandler;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -96,6 +103,18 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        permissionCheckHandler.attachActivity(this);
+    }
+
+    @Override
+    protected void onStop() {
+        permissionCheckHandler.detachActivity();
+        super.onStop();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_buttons, menu);
         return true;
@@ -108,7 +127,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 handleCloseRequested();
                 break;
             case R.id.take_picture:
-                new StartCameraHandler(this).execute();
+                new StartCameraHandler(this, permissionCheckHandler).execute();
                 break;
             case R.id.settings_feedback:
                 startFeedbackIntent();
@@ -151,6 +170,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != Activity.RESULT_OK) {
+            Timber.d("requestCode: %d, resultCode: %d", requestCode, resultCode);
             Toast.makeText(this, R.string.something_went_wrong, Toast.LENGTH_LONG).show();
             return;
         }
@@ -169,10 +189,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         if (intent.hasExtra("shouldClose") && intent.getBooleanExtra("shouldClose", false)) {
             new ApplicationCloseHandler(this).execute();
         }
-        super.onNewIntent(intent);
     }
 
     @Override
@@ -214,5 +234,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         nextFragment.setInitialSavedState(savedFragmentStates.get(navId));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (!permissionCheckHandler.handlePermissionRequestCallback(requestCode, grantResults)) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
