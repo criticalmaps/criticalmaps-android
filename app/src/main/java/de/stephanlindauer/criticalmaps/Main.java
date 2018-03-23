@@ -31,6 +31,7 @@ import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
+import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
@@ -155,10 +156,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         }
 
         if (requestCode == RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            new ProcessCameraResultHandler(this, newCameraOutputFile).execute();
+            File movedFile = ImageUtils.movePhotoToPublicDir(newCameraOutputFile);
+            newCameraOutputFile = null;
+            new ProcessCameraResultHandler(this, movedFile).execute();
         }
     }
 
+    // TODO use URI instead of File and save it with state, otherwise rotation while loose the reference
     public void setNewCameraOutputFile(File newCameraOutputFile) {
         this.newCameraOutputFile = newCameraOutputFile;
     }

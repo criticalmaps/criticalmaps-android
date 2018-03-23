@@ -19,15 +19,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import com.squareup.otto.Subscribe;
 
@@ -79,7 +77,6 @@ public class ChatFragment extends Fragment {
     FloatingActionButton sendButton;
 
     //misc
-    private boolean isScrolling = false;
     private boolean isTextInputEnabled = true;
     private boolean isDataConnectionAvailable = true;
     private Unbinder unbinder;
@@ -114,34 +111,6 @@ public class ChatFragment extends Fragment {
                 R.color.chat_fab_drawable_states);
         DrawableCompat.setTintList(wrappedDrawable, colorStateList);
         sendButton.setImageDrawable(wrappedDrawable);
-
-        chatRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        isScrolling = true;
-                        return false;
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        isScrolling = false;
-                        return false;
-                }
-                return false;
-            }
-        });
-
-        editMessageTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    handleSendClicked();
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -179,6 +148,15 @@ public class ChatFragment extends Fragment {
         animatorSet.start();
     }
 
+    @OnEditorAction(R.id.chat_edit_message)
+    boolean handleEditorAction(int actionId) {
+        if (actionId == EditorInfo.IME_ACTION_SEND) {
+            handleSendClicked();
+            return true;
+        }
+        return false;
+    }
+
     @OnClick(R.id.chat_send_btn)
     void handleSendClicked() {
         String message = editMessageTextField.getText().toString();
@@ -197,7 +175,10 @@ public class ChatFragment extends Fragment {
         final ArrayList<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
         chatRecyclerView.setAdapter(new ChatMessageAdapter(savedAndOutgoingMessages));
 
-        if (!isScrolling) {
+        //TODO Rework scroll behaviour:
+        // Jumping to the bottom if not scrolling is okay, but while scrolling and on new server
+        // event list jumps to the top (maybe because we completely reset the backing list?)
+        if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
             chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
         }
     }

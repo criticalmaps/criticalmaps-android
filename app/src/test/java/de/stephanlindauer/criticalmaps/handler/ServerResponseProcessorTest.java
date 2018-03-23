@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.ligi.axt.AXT;
 
@@ -11,47 +13,35 @@ import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
-import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class ServerResponseProcessorTest {
-
     @Test
-    public void testThatBasicChatMessagesAreParsed() throws IOException, URISyntaxException {
-        final String json = AXT.at(new File(getClass().getClassLoader().getResource("simple_server_response.json").toURI())).readToString();
-        final ChatModel chatModel = new ChatModel();
-        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
+    public void process_chatmessagesAreSetOnModel() throws IOException, URISyntaxException,
+            JSONException {
+        final String json = AXT.at(new File(getClass().getClassLoader()
+                .getResource("simple_server_response.json").toURI())).readToString();
+        final ChatModel chatModel = mock(ChatModel.class);
+        final ServerResponseProcessor tested =new ServerResponseProcessor(
+                mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
 
         tested.process(json);
 
-        assertThat(chatModel.getSavedAndOutgoingMessages().size()).isEqualTo(2);
+        verify(chatModel).setFromJson(any(JSONObject.class));
     }
 
     @Test
-    public void testThatBasicChatMessagesAreSorted() throws IOException, URISyntaxException {
-        final String json = AXT.at(new File(getClass().getClassLoader().getResource("simple_server_response.json").toURI())).readToString();
-        final ChatModel chatModel = new ChatModel();
-        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
-
-        tested.process(json);
-
-        final ReceivedChatMessage message0 = (ReceivedChatMessage) chatModel.getSavedAndOutgoingMessages().get(0);
-        final ReceivedChatMessage message1 = (ReceivedChatMessage) chatModel.getSavedAndOutgoingMessages().get(1);
-
-        assertThat(message0.getTimestamp()).isLessThan(message1.getTimestamp());
-    }
-
-
-    @Test
-    public void testThatEventIsFiredForValidJSON() throws IOException, URISyntaxException {
-        final String json = AXT.at(new File(getClass().getClassLoader().getResource("simple_server_response.json").toURI())).readToString();
+    public void process_eventIsFiredForValidJSON() throws IOException, URISyntaxException {
+        final String json = AXT.at(new File(getClass().getClassLoader()
+                .getResource("simple_server_response.json").toURI())).readToString();
         final EventBus eventMock = mock(EventBus.class);
-        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
+        final ServerResponseProcessor tested = new ServerResponseProcessor(
+                mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
 
         tested.process(json);
 
@@ -59,9 +49,10 @@ public class ServerResponseProcessorTest {
     }
 
     @Test
-    public void testThatNoEventIsFiredForInvalidJSON() throws IOException, URISyntaxException {
+    public void process_noEventIsFiredForInvalidJSON() throws IOException, URISyntaxException {
         final EventBus eventMock = mock(EventBus.class);
-        final ServerResponseProcessor tested = new ServerResponseProcessor(mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
+        final ServerResponseProcessor tested = new ServerResponseProcessor(
+                mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
 
         tested.process("borken");
 

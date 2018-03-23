@@ -15,7 +15,7 @@ import dagger.Reusable;
 import okhttp3.OkHttpClient;
 
 @Module
-class AppModule {
+abstract class AppModule {
     @Provides
     @Singleton
     static OkHttpClient provideOKHttpClient() {

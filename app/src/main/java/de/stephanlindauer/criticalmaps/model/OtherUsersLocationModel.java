@@ -19,7 +19,7 @@ public class OtherUsersLocationModel {
     public OtherUsersLocationModel() {
     }
 
-    public void setNewJSON(JSONObject jsonObject) throws JSONException {
+    public void setFromJson(JSONObject jsonObject) throws JSONException {
         otherUsersLocations = new ArrayList<>(jsonObject.length());
 
         Iterator<String> keys = jsonObject.keys();
@@ -29,7 +29,8 @@ public class OtherUsersLocationModel {
             int latitudeE6 = Integer.parseInt(value.getString("latitude"));
             int longitudeE6 = Integer.parseInt(value.getString("longitude"));
 
-            otherUsersLocations.add(new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
+            otherUsersLocations.add(
+                    new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
         }
     }
 
