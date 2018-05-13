@@ -10,7 +10,7 @@
     <string name="close_drawer">Fermer le menu</string>
 
     <!-- close -->
-    <string name="close">Êtes-vous certain de vouloir fermer l\'application?</string>
+    <string name="close">Fermer l\'application?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
@@ -18,50 +18,53 @@
     <string name="close_button">Fermer</string>
     <string name="feedback">Commentaires</string>
     <string name="datenschutz">Confidentialité</string>
-    <string name="take_picture">Prenez une photo</string>
+    <string name="take_picture">Prends une photo</string>
     <string name="rate_the_app">Évaluer l\'application</string>
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attente d\'un signal GPS valide</string>
-
     <!-- notification -->
-    <string name="notification_tracking_title">Repérage Critical Maps</string>
-    <string name="notification_tracking_text">L\'application est encore active et enregistre votre données de localisation. Veuillez fermer l\'application si vous voulez arrêter le repérage.</string>
+    <string name="notification_tracking_title">Traçage GPS Critical Maps</string>
+    <string name="notification_tracking_text">L\'application est encore active et enregistre vos données de localisation. Veuillez fermer l\'application si vous voulez arrêter le traçage GPS en arrière-plan.</string>
     <string name="notification_tracking_close">Fermer</string>
     <string name="notification_tracking_open">Ouvrir</string>
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corking!?</string>
-    <string name="rules_corken_explain">Protéger les automobilistes en corking!</string>
-    <string name="rules_oncoming_traffic">Traffic venant en sens inverse</string>
+    <string name="rules_corken_explain">Protège les automobilistes d\'eux-mêmes en utilisant le corking!</string>
+    <string name="rules_oncoming_traffic">Circulation en sens inverse</string>
     <string name="rules_oncoming_traffic_explain">Ne pas utiliser la voie en sens inverse</string>
     <string name="rules_steady">Tranquille!</string>
-    <string name="rules_steady_explain">Si vous êtes parmi les premiers: n\'allez pas trop vite! Si vous êtes en arrière: fermer les écarts.</string>
+    <string name="rules_steady_explain">Si t\'es parmi les premiers: ne vas pas trop vite! Si t\'es en arrière: ferme les écarts.</string>
     <string name="rules_brake">Pas de freinage intensif!</string>
-    <string name="rules_brake_explain">Si vraiment nécessaire de freiner intensivement, essayer de prévenir ceux en derrière.</string>
-    <string name="rules_green">Si vous êtes en premier: arrêtez aux feux rouges!</string>
-    <string name="rules_green_explain">Si vous arrivez à un feu de circulation et vous êtes parmi les premiers de la groupe, assurez vous de vous arrêtez si le feu est rouge.</string>
-    <string name="rules_friendly">Détendez-vous</string>
+    <string name="rules_brake_explain">Si vraiment nécessaire de freiner intensivement, essaye de prévenir ceux qui roulent derrière toi.</string>
+    <string name="rules_green">Si t\'es en premier: arrête aux feux rouges!</string>
+    <string name="rules_green_explain">Si t\'arrives à un feu de circulation et t\'es parmi les premiers de la groupe, assurez vous de vous arrêtez si le feu est rouge.</string>
+    <string name="rules_friendly">Détends-toi</string>
     <string name="rules_friendly_explain">Ne vous laissez pas provoquer. Soyez gentil avec la police, les automobilistes et tout les autres, même si eux, ils ne le sont pas.</string>
-    <string name="rules_fun">Amusez-vous!</string>
-    <string name="rules_fun_explain">Profiter des rues reclamés. Explorez les Sound Bikes. Parlez aux automobilistes, piétons et expliquer à eux ce qui se passe. Le plus important: Amusez-vous!</string>
+    <string name="rules_fun">Amuse-toi!</string>
+    <string name="rules_fun_explain">Profites des rues reconquis. Explore les Sound Bikes. Parle aux automobilistes et piétons afin de leur expliquer ce qui se passe. Le plus important: Amuse-toi!</string>
     <string name="rules_image_source">Images de criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">Tout les tweets contenant \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Réessayez!</string>
+    <string name="twitter_try_again">Essaye de nouveau!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Les messages seront supprimer après 30 minutes</string>
     <string name="chat_send">Envoyer</string>
-    <string name="chat_text">Votre message…</string>
+    <string name="chat_text">Ton message…</string>
     <string name="chat_sending">Envoi en cours…</string>
-
     <!-- fragment_about -->
     <string name="about_heading_social">médias sociaux</string>
-    <string name="about_heading_website">Site internet</string>
+    <string name="about_heading_website">site web</string>
     <string name="about_heading_contributions">Contributions</string>
     <string name="about_heading_code">code</string>
+    <string name="about_heading_opensource">Licence Open Source</string>
+    <string name="about_text_opensource">Nous utilisons les librairies open source suivantes. Un grand merci à tous ceux impliqués dans ces projets. </string>
+    <string name="about_license_website">site web</string>
+    <string name="about_license_more">plus</string>
+    <string name="about_license_less">moins</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">il y a peu de temps</string>
@@ -74,16 +77,18 @@
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
-Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps.net"&gt;criticalmaps.net&lt;/a&gt; ? Nous y publierons les photos sur la carte et sous licence &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;CC BY-SA 4.0&lt;/a&gt;.
-</string>
+        <![CDATA[
+        Est-ce que tu veux télécharger la photo sur <a href=\"http://criticalmaps.net\">criticalmaps.net</a>? \nNous y publierons les photos sur la carte et sous licence <a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.
+        ]]>
+    </string>
     <string name="camera_upload">Ajoute une photo!</string>
     <string name="camera_discard">Non :-(</string>
     <string name="camera_uploading_progress">Téléchargement…</string>
-    <string name="camera_upload_failed_title">Téléchargement de l\'image échoué</string>
-    <string name="camera_upload_failed_message">Réessayer</string>
+    <string name="camera_upload_failed_title">Le téléchargement de l\'image a échoué</string>
+    <string name="camera_upload_failed_message">Réessaye stp.</string>
     <string name="camera_processing_image">Traitement d\'image…</string>
     <string name="camera_no_location">Tu ne peux pas télécharger des images sans signal GPS.</string>
-    <string name="camera_image_upload_succeeded_title">Image téléchargé</string>
+    <string name="camera_image_upload_succeeded_title">L\'image a été téléchargé.</string>
     <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>
     <string name="camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
 
@@ -92,11 +97,11 @@ Est-ce que vous voulez télécharger la photo sur &lt;ahref="http://criticalmaps
     <string name="ok">D\'accord</string>
 
     <!-- introduction -->
-    <string name="introduction_heading">Prends le temps de lire cette petite introduction s\'il te plaît.</string>
-    <string name="introduction_own_icon">C\'est comme cela que vous apparaissez:\u0020</string>
+    <string name="introduction_heading">Prends le temps de lire cette petite introduction stp.</string>
+    <string name="introduction_own_icon">Tu apparait comme ca:\\u0020</string>
     <string name="introduction_other_icon">Et cela, c\'est les autres utilisateurs:\u0020</string>
-    <string name="introduction_close_app">Veuillez fermer l\'application si vous voulez arrêter le repérage.</string>
-    <string name="introduction_careful">Soyez vigilant à la circulation au lieu de regarder l\'application</string>
-    <string name="introduction_bugs">Si vous trouver des bugs dans l\'application, contactez-nous en cliquant sur feedback dans les paramètres.</string>
-    <string name="introduction_requisites">Afin de permettre un bon fonctionnement de l\'application, vous devez avoir accès au résau mobile et activer votre GPS.</string>
+    <string name="introduction_close_app">Ferme l\'application si tu veux arrêter le traçage GPS.</string>
+    <string name="introduction_careful">Sois vigilant à la circulation au lieu de regarder l\'application</string>
+    <string name="introduction_bugs">Si tu trouves un bug dans l\'application, signale-le à nous en cliquant sur feedback dans les paramètres.</string>
+    <string name="introduction_requisites">Afin de permettre un bon fonctionnement de l\'application, tu devra avoir accès à une connexion de données mobiles et ton GPS doit être activé.</string>
 </resources>
