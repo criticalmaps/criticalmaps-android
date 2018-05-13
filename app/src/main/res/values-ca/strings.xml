@@ -23,7 +23,6 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Esperant el senyal GPS</string>
-
     <!-- notification -->
     <string name="notification_tracking_title">seguiment de Critical Maps</string>
     <string name="notification_tracking_text">L\'aplicació s\'executa en segon pla i registra les teves dades de localització. Si us plau, tanca l\'app quan ja no vulguis ser rastrejat</string>
@@ -56,7 +55,6 @@
     <string name="chat_send">Enviar</string>
     <string name="chat_text">Tens 255 caràcters &#8230;</string>
     <string name="chat_sending">Enviant &#8230;</string>
-
     <!-- fragment_about -->
     <string name="about_heading_social">xarxes socials</string>
     <string name="about_heading_website">lloc web</string>
@@ -79,10 +77,9 @@
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
-        <![CDATA[
-        Vols pujar la foto a <a href="http://criticalmaps.net">criticalmaps.net</a>? \n;Publicarem les fotos sota llicència Creative Commons <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
-        ]]>
-    </string>
+ <![CDATA[
+ Vols pujar la foto a <a href=\"http://criticalmaps.net\">criticalmaps.net</a>? \n;Publicarem les fotos sota llicència Creative Commons <a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>
+ ]]></string>
     <string name="camera_upload">Puja la foto!</string>
     <string name="camera_discard">No :-(</string>
     <string name="camera_uploading_progress">Pujant &#8230;</string>
