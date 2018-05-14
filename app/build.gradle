@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 31
         versionName "2.3.2"
         vectorDrawables.useSupportLibrary = true
