@@ -1,5 +1,5 @@
 package de.stephanlindauer.criticalmaps.events;
 
-public class NetworkConnectivityChangedEvent {
+public final class NetworkConnectivityChangedEvent {
     public boolean isConnected;
 }
