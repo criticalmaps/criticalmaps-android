@@ -116,9 +116,7 @@ public class MapFragment extends Fragment {
             mapView.setMapOrientation(0.0f);
             ViewCompat.animate(setRotationNorth)
                     .rotation(0.0f)
-                    .withLayer()
                     .setDuration(300L)
-                    .setInterpolator(new OvershootInterpolator(10.0F))
                     .start();
         }
     };
@@ -227,9 +225,7 @@ public class MapFragment extends Fragment {
             public boolean onTouchEvent(MotionEvent event, MapView mapView) {
                 ViewCompat.animate(setRotationNorth)
                         .rotation(mapView.getMapOrientation())
-                        .withLayer()
-                        .setDuration(300L)
-                        .setInterpolator(new OvershootInterpolator(10.0F))
+                        .setDuration(100L)
                         .start();
 
                 return super.onTouchEvent(event, mapView);
