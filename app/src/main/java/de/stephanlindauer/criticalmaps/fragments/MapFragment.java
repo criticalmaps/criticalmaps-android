@@ -14,6 +14,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
+import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
@@ -113,10 +115,15 @@ public class MapFragment extends Fragment {
     //OnClickListeners for rotate north FAB
     private final View.OnClickListener rotationNorthOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            mapView.setMapOrientation(0.0f);
             ViewCompat.animate(setRotationNorth)
                     .rotation(0.0f)
                     .setDuration(300L)
+                    .setUpdateListener(new ViewPropertyAnimatorUpdateListener(){
+                        @Override
+                        public  void onAnimationUpdate(View view){
+                            mapView.setMapOrientation(view.getRotation());
+                        }
+                    })
                     .start();
         }
     };
@@ -223,11 +230,7 @@ public class MapFragment extends Fragment {
         RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(mapView) {
             @Override
             public boolean onTouchEvent(MotionEvent event, MapView mapView) {
-                ViewCompat.animate(setRotationNorth)
-                        .rotation(mapView.getMapOrientation())
-                        .setDuration(100L)
-                        .start();
-
+                setRotationNorth.setRotation(mapView.getMapOrientation());
                 return super.onTouchEvent(event, mapView);
             }
         };
