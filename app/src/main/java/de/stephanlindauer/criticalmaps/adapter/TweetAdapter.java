@@ -24,14 +24,14 @@ import java.util.Locale;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 
     private final List<Tweet> tweets;
     private final Context context;
 
-    final Picasso picasso = App.components().picasso();
+    private final Picasso picasso = App.components().picasso();
 
     public TweetAdapter(Context context, int layoutResourceId, List<Tweet> tweets) {
         super(context, layoutResourceId, tweets);
@@ -44,7 +44,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.view_tweet, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
@@ -61,7 +61,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         picasso.load(tweet.getProfileImageUrl())
                 .fit()
                 .centerInside()
-                .error(R.drawable.chat_avatar)
+                .error(R.drawable.chat_avatar_40dp)
                 .into(viewHolder.userImageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -112,7 +112,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         @BindView(R.id.tweet_user_image_progress)
         ProgressBar userImageProgress;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

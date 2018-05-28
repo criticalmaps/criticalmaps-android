@@ -22,7 +22,6 @@ public class DeviceInformation {
         } else {
             returnString += "SUPPORTED_ABIS= " + TextUtils.join(", ", Build.SUPPORTED_ABIS) + "\n";
         }
-        returnString += "UNKNOWN= " + Build.UNKNOWN + "\n";
         returnString += "HARDWARE= " + Build.HARDWARE + "\n";
         returnString += "ID= " + Build.ID + "\n";
         returnString += "MANUFACTURER= " + Build.MANUFACTURER + "\n";

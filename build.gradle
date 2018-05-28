@@ -1,25 +1,28 @@
 buildscript {
     ext {
-        support_version = "26.0.1"
-        dagger_version = "2.11"
+        support_version = "27.0.2"
+        dagger_version = "2.14.1"
         butterknife_version = "8.8.1"
     }
 
     repositories {
         jcenter()
+        google()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'de.mobilej.unmock:UnMockPlugin:0.5.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'de.mobilej.unmock:UnMockPlugin:0.6.4'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.13'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
+        google()
     }
 }

@@ -2,9 +2,17 @@ package de.stephanlindauer.criticalmaps.provider;
 
 import com.squareup.otto.Bus;
 
-public class EventBusProvider {
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+public class EventBus {
 
     private final Bus bus = new Bus();
+
+    @Inject
+    public EventBus() {
+    }
 
     public void post(Object event) {
         bus.post(event);

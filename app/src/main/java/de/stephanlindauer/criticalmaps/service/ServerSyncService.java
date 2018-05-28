@@ -3,9 +3,7 @@ package de.stephanlindauer.criticalmaps.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 
 import com.squareup.otto.Subscribe;
 
@@ -20,7 +18,7 @@ import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
 import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 
 public class ServerSyncService extends Service {
@@ -40,7 +38,7 @@ public class ServerSyncService extends Service {
     Provider<PullServerHandler> pullServerHandler;
 
     @Inject
-    EventBusProvider eventBusProvider;
+    EventBus eventBus;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -58,7 +56,7 @@ public class ServerSyncService extends Service {
 
         networkConnectivityChangeHandler.start();
 
-        eventBusProvider.register(this);
+        eventBus.register(this);
     }
 
     private void startPullServerTimer() {
@@ -67,19 +65,7 @@ public class ServerSyncService extends Service {
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
             public void run() {
-                // Since JELLYBEAN AsyncTask makes sure it's started from
-                // the UI thread. Before that we have do to that ourselves.
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            pullServerHandler.get().execute();
-                        }
-                    });
-                } else {
-                    pullServerHandler.get().execute();
-                }
+                pullServerHandler.get().execute();
             }
         };
         timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
@@ -94,7 +80,7 @@ public class ServerSyncService extends Service {
 
     @Override
     public void onDestroy() {
-        eventBusProvider.unregister(this);
+        eventBus.unregister(this);
         locationUpdateManager.handleShutdown();
         networkConnectivityChangeHandler.stop();
         stopPullServerTimer();
@@ -118,7 +104,11 @@ public class ServerSyncService extends Service {
     public static void startService() {
         App app = App.components().app();
         Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
-        app.startService(syncServiceIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            app.startForegroundService(syncServiceIntent);
+        } else {
+            app.startService(syncServiceIntent);
+        }
     }
 
     public static void stopService() {

@@ -2,23 +2,27 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <item
         android:id="@+id/take_picture"
         android:icon="@drawable/ic_image_camera_alt"
         app:showAsAction="always"
-        android:title="@string/take_picture" />
+        android:title="@string/take_picture"
+        tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/action_close"
         android:icon="@drawable/ic_content_clear"
         app:showAsAction="always"
-        android:title="@string/close_button" />
+        android:title="@string/close_button"
+        tools:ignore="AlwaysShowAction" />
     <item
         android:icon="@drawable/ic_more_vert_white_24dp"
         android:orderInCategory="11111"
         app:showAsAction="always"
-        android:title="">
+        android:title=""
+        tools:ignore="AlwaysShowAction">
         <menu>
             <!--<item-->
                 <!--android:id="@+id/settings_tracking_toggle"-->

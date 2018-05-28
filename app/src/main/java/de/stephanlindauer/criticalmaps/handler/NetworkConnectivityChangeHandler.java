@@ -10,22 +10,24 @@ import android.net.NetworkInfo;
 import com.squareup.otto.Produce;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.Events;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 
+@Singleton
 public class NetworkConnectivityChangeHandler extends BroadcastReceiver {
 
     private final App app;
-    private final EventBusProvider eventBus;
+    private final EventBus eventBus;
 
-    private ConnectivityManager connectivityManager;
+    private final ConnectivityManager connectivityManager;
     private boolean isConnected;
 
     @Inject
-    public NetworkConnectivityChangeHandler(App app, EventBusProvider eventBus) {
+    public NetworkConnectivityChangeHandler(App app, EventBus eventBus) {
         this.app = app;
         this.eventBus = eventBus;
         connectivityManager = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -63,7 +65,7 @@ public class NetworkConnectivityChangeHandler extends BroadcastReceiver {
         // requires workaround for L (and above?), see:
         // http://stackoverflow.com/questions/29677852/
 
-        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             // only fire event if the state changed
             if (isConnected != isConnectionAvailable()) {
                 isConnected = !isConnected;

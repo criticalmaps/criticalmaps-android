@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.utils.ApplicationCloser;
+import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 
 public class ApplicationCloseHandler {
 
@@ -20,7 +20,8 @@ public class ApplicationCloseHandler {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        ApplicationCloser.close(activity);
+                        ServerSyncService.stopService();
+                        activity.finish();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
                         dialog.cancel();

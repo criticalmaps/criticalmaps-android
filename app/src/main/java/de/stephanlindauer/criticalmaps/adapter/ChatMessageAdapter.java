@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
-import de.stephanlindauer.criticalmaps.vo.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 

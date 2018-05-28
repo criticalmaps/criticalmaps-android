@@ -1,12 +1,11 @@
-package de.stephanlindauer.criticalmaps.unittest;
+package de.stephanlindauer.criticalmaps.utils;
 
-import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.assertThat;
 
 public class AeSimpleSHA1Test {
     @Test

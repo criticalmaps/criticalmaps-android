@@ -1,15 +1,15 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.animation.LayoutTransition;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,18 +18,18 @@ import de.stephanlindauer.criticalmaps.R;
 
 public class RulesFragment extends Fragment {
 
-    private static final String KEY_SCROLLVIEW_POSITION = "scrollview_position";
     private static final String KEY_ACTIVE_PANEL_ID = "active_panel_id";
 
     private View currentlyShownPanel;
 
     @BindView(R.id.rules_subcontainer)
-    LinearLayout linearLayout;
+    LinearLayout rulesSubContainer;
+
     private Unbinder unbinder;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_rules, container, false);
         unbinder = ButterKnife.bind(this, view);
@@ -52,27 +52,18 @@ public class RulesFragment extends Fragment {
             Integer activePanelId = (Integer) savedInstanceState.get(KEY_ACTIVE_PANEL_ID);
             if (activePanelId != null) {
                 currentlyShownPanel = findViewById(activePanelId);
-                LayoutTransition layoutTransition = linearLayout.getLayoutTransition();
-                long durationAppearing = layoutTransition.getDuration(LayoutTransition.APPEARING);
-                layoutTransition.setDuration(LayoutTransition.APPEARING, 0);
                 currentlyShownPanel.setVisibility(View.VISIBLE);
-                layoutTransition.setDuration(LayoutTransition.APPEARING, durationAppearing);
-            }
-
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                final int scrollviewPosition = savedInstanceState.getInt(KEY_SCROLLVIEW_POSITION, 0);
-
-                if (scrollviewPosition != 0) {
-                    final ScrollView scrollView = (ScrollView) findViewById(R.id.rules_scrollview);
-
-                    scrollView.post(new Runnable() {
-                        public void run() {
-                            scrollView.scrollTo(0, scrollviewPosition);
-                        }
-                    });
-                }
             }
         }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        // enable layout transition animations here to prevent animation on recreation
+        LayoutTransition layoutTransition = new LayoutTransition();
+        rulesSubContainer.setLayoutTransition(layoutTransition);
     }
 
     private void prepareButtonToPanel(@IdRes int button, @IdRes int panel) {
@@ -83,7 +74,8 @@ public class RulesFragment extends Fragment {
     }
 
     private View findViewById(@IdRes final int resId) {
-        return getActivity().findViewById(resId);
+        //noinspection ConstantConditions
+        return getView().findViewById(resId);
     }
 
     private class PanelShowingOnClickListener implements View.OnClickListener {
@@ -109,14 +101,11 @@ public class RulesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         if (currentlyShownPanel != null) {
             outState.putInt(KEY_ACTIVE_PANEL_ID, currentlyShownPanel.getId());
-        }
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            outState.putInt(KEY_SCROLLVIEW_POSITION, findViewById(R.id.rules_scrollview).getScrollY());
         }
     }
 
@@ -124,6 +113,5 @@ public class RulesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        currentlyShownPanel = null;
     }
 }
