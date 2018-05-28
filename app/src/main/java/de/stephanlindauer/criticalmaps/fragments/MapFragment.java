@@ -115,8 +115,9 @@ public class MapFragment extends Fragment {
     //OnClickListeners for rotate north FAB
     private final View.OnClickListener rotationNorthOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
+            float destinationRotation = mapView.getMapOrientation() > 180.0f ? 360.0f : 0.0f;
             ViewCompat.animate(setRotationNorth)
-                    .rotation(0.0f)
+                    .rotation(destinationRotation)
                     .setDuration(300L)
                     .setUpdateListener(new ViewPropertyAnimatorUpdateListener(){
                         @Override
