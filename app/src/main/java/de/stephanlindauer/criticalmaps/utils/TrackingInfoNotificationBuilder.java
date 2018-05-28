@@ -20,13 +20,13 @@ public class TrackingInfoNotificationBuilder {
 
     public static Notification getNotification(Application application) {
         Intent openIntent = new Intent(application, Main.class);
-        openIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         openIntent.putExtra("shouldClose", false);
         PendingIntent openPendingIntent = PendingIntent.getActivity(application, INTENT_OPEN_ID,
                 openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent closeIntent = new Intent(application, Main.class);
-        closeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        closeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         closeIntent.putExtra("shouldClose", true);
         PendingIntent closePendingIntent = PendingIntent.getActivity(application, INTENT_CLOSE_ID,
                 closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
