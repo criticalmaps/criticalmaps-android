@@ -115,6 +115,13 @@ public class MapFragment extends Fragment {
         @Override
         public void onClick(View v) {
             float currentRotation = mapView.getMapOrientation() % 360;
+
+            if (currentRotation == 0.0f) {
+                // no animation required; also works around bug where map does a full rotation
+                // because of mapView wrapping 360° to 0° while View allows 360°
+                return;
+            }
+
             if (currentRotation < 0.0f) {
                 currentRotation = 360.0f + currentRotation;
                 setRotationNorth.setRotation(currentRotation);
@@ -125,12 +132,7 @@ public class MapFragment extends Fragment {
             ViewCompat.animate(setRotationNorth)
                     .rotation(destinationRotation)
                     .setDuration(300L)
-                    .setUpdateListener(new ViewPropertyAnimatorUpdateListener(){
-                        @Override
-                        public  void onAnimationUpdate(View view){
-                            mapView.setMapOrientation(view.getRotation());
-                        }
-                    })
+                    .setUpdateListener(view -> mapView.setMapOrientation(view.getRotation()))
                     .start();
         }
     };
