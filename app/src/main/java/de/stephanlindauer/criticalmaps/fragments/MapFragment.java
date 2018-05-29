@@ -13,12 +13,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
+import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +51,8 @@ import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import javax.inject.Inject;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 
 public class MapFragment extends Fragment {
 
@@ -71,6 +79,9 @@ public class MapFragment extends Fragment {
 
     @BindView(R.id.set_current_location_center)
     FloatingActionButton setCurrentLocationCenter;
+
+    @BindView(R.id.set_rotation_north)
+    FloatingActionButton setRotationNorth;
 
     @BindView(R.id.map_container)
     RelativeLayout mapContainer;
@@ -101,6 +112,30 @@ public class MapFragment extends Fragment {
         }
     };
 
+    //OnClickListeners for rotate north FAB
+    private final View.OnClickListener rotationNorthOnClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            float currentRotation = mapView.getMapOrientation() % 360;
+            if (currentRotation < 0.0f) {
+                currentRotation = 360.0f + currentRotation;
+                setRotationNorth.setRotation(currentRotation);
+                mapView.setMapOrientation(currentRotation);
+            }
+
+            float  destinationRotation = currentRotation > 180.0f ? 360.0f : 0.0f;
+            ViewCompat.animate(setRotationNorth)
+                    .rotation(destinationRotation)
+                    .setDuration(300L)
+                    .setUpdateListener(new ViewPropertyAnimatorUpdateListener(){
+                        @Override
+                        public  void onAnimationUpdate(View view){
+                            mapView.setMapOrientation(view.getRotation());
+                        }
+                    })
+                    .start();
+        }
+    };
+
     private final View.OnClickListener noGpsOnClickListener =  new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -110,8 +145,7 @@ public class MapFragment extends Fragment {
         }
     };
 
-
-    private final View.OnClickListener GpsDisabledOnClickListener =  new View.OnClickListener() {
+    private final View.OnClickListener GpsDisabledOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             AlertBuilder.show(getActivity(),
@@ -178,6 +212,7 @@ public class MapFragment extends Fragment {
         mapContainer.addView(mapView);
 
         setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
+        setRotationNorth.setOnClickListener(rotationNorthOnClickListener);
 
         noDataConnectivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,10 +234,25 @@ public class MapFragment extends Fragment {
 
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
         }
+
+        RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(mapView) {
+            @Override
+            public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+                setRotationNorth.setRotation(mapView.getMapOrientation());
+                return super.onTouchEvent(event, mapView);
+            }
+        };
+        mRotationGestureOverlay.setEnabled(true);
+        mapView.setMultiTouchControls(true);
+        mapView.getOverlays().add(mRotationGestureOverlay);
     }
 
     private void refreshView() {
-        mapView.getOverlays().clear();
+        for (Overlay overlay : mapView.getOverlays()) {
+            if (overlay instanceof LocationMarker) {
+                mapView.getOverlays().remove(overlay);
+            }
+        }
 
         for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
             LocationMarker otherPeoplesMarker = new LocationMarker(mapView);
