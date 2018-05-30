@@ -14,17 +14,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +56,7 @@ public class MapFragment extends Fragment {
     // constants
     private final static String KEY_MAP_ZOOMLEVEL = "map_zoomlevel";
     private final static String KEY_MAP_POSITION = "map_position";
+    private final static String KEY_MAP_ORIENTATION = "map_orientation";
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
 
     //dependencies
@@ -114,24 +112,27 @@ public class MapFragment extends Fragment {
 
     //OnClickListeners for rotate north FAB
     private final View.OnClickListener rotationNorthOnClickListener = new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             float currentRotation = mapView.getMapOrientation() % 360;
+
+            if (currentRotation == 0.0f) {
+                // no animation required; also works around bug where map does a full rotation
+                // because of mapView wrapping 360° to 0° while View allows 360°
+                return;
+            }
+
             if (currentRotation < 0.0f) {
                 currentRotation = 360.0f + currentRotation;
                 setRotationNorth.setRotation(currentRotation);
                 mapView.setMapOrientation(currentRotation);
             }
 
-            float  destinationRotation = currentRotation > 180.0f ? 360.0f : 0.0f;
+            float destinationRotation = currentRotation > 180.0f ? 360.0f : 0.0f;
             ViewCompat.animate(setRotationNorth)
                     .rotation(destinationRotation)
                     .setDuration(300L)
-                    .setUpdateListener(new ViewPropertyAnimatorUpdateListener(){
-                        @Override
-                        public  void onAnimationUpdate(View view){
-                            mapView.setMapOrientation(view.getRotation());
-                        }
-                    })
+                    .setUpdateListener(view -> mapView.setMapOrientation(view.getRotation()))
                     .start();
         }
     };
@@ -223,18 +224,6 @@ public class MapFragment extends Fragment {
             }
         });
 
-        if (savedState != null) {
-            Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
-            GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
-
-            if (zoomLevel != null && position != null) {
-                mapView.getController().setZoom(zoomLevel);
-                setToLocation(position);
-            }
-
-            isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
-        }
-
         RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(mapView) {
             @Override
             public boolean onTouchEvent(MotionEvent event, MapView mapView) {
@@ -245,6 +234,21 @@ public class MapFragment extends Fragment {
         mRotationGestureOverlay.setEnabled(true);
         mapView.setMultiTouchControls(true);
         mapView.getOverlays().add(mRotationGestureOverlay);
+
+        if (savedState != null) {
+            Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
+            GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
+            Float orientation = (Float) savedState.get(KEY_MAP_ORIENTATION);
+
+            if (zoomLevel != null && position != null && orientation != null) {
+                mapView.getController().setZoom(zoomLevel);
+                mapView.setMapOrientation(orientation);
+                setToLocation(position);
+            }
+
+            isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
+        }
+        setRotationNorth.setRotation(mapView.getMapOrientation());
     }
 
     private void refreshView() {
@@ -300,6 +304,7 @@ public class MapFragment extends Fragment {
 
         outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());
         outState.putParcelable(KEY_MAP_POSITION, (GeoPoint) mapView.getMapCenter());
+        outState.putFloat(KEY_MAP_ORIENTATION, mapView.getMapOrientation());
         outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
     }
 
