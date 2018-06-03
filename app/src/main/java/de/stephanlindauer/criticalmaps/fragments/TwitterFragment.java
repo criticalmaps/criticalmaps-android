@@ -20,7 +20,6 @@ import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
 import de.stephanlindauer.criticalmaps.handler.PostTweetHandler;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
-import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 import java.util.ArrayList;
 
 public class TwitterFragment extends Fragment {
@@ -58,7 +57,7 @@ public class TwitterFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        tweetAdapter = new TweetAdapter(getActivity(), R.layout.view_tweet, new ArrayList<Tweet>());
+        tweetAdapter = new TweetAdapter(getActivity(), R.layout.view_tweet, new ArrayList<>());
         tweetListView.setAdapter(tweetAdapter);
 
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -42,6 +42,8 @@
     <!-- notification -->
     <string name="notification_tracking_title">Critical Maps Tracking</string>
     <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don\'t want to be tracked anymore.</string>
+    <string name="notification_channel_name">Tracking notification</string>
+    <string name="notification_channel_description_max300chars">We do not recommend disabling the notification since you might inadvertently keep tracking turned on.</string>
     <string name="notification_tracking_close">Close</string>
     <string name="notification_tracking_open">Open</string>
 

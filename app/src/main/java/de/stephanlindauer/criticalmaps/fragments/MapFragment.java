@@ -102,7 +102,7 @@ public class MapFragment extends Fragment {
     private Unbinder unbinder;
 
     //OnClickListeners for location FAB
-    private final View.OnClickListener centerLocationOnClickListener =  new View.OnClickListener() {
+    private final View.OnClickListener centerLocationOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (ownLocationModel.ownLocation != null)
@@ -137,7 +137,7 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener noGpsOnClickListener =  new View.OnClickListener() {
+    private final View.OnClickListener noGpsOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             AlertBuilder.show(getActivity(),
@@ -155,14 +155,14 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener GpsNoPermissionsOnClickListener =  new View.OnClickListener() {
+    private final View.OnClickListener GpsNoPermissionsOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             locationUpdateManager.requestPermission();
         }
     };
 
-    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener =  new View.OnClickListener() {
+    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
@@ -179,7 +179,7 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener searchingForLocationOnClickListener =  new View.OnClickListener() {
+    private final View.OnClickListener searchingForLocationOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
@@ -379,13 +379,13 @@ public class MapFragment extends Fragment {
     private void setGpsStatusNoPermissions() {
         cancelGpsSearchingAnimationIfRunning();
         setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
-                GpsNoPermissionsOnClickListener); // TODO Text/listener, Permission Icon?
+                GpsNoPermissionsOnClickListener);
     }
 
     private void setGpsStatusPermissionsPermanentlyDenied() {
         cancelGpsSearchingAnimationIfRunning();
         setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
-                GpsPermissionsPermanentlyDeniedOnClickListener); // TODO Text/listener, Permission Icon?
+                GpsPermissionsPermanentlyDeniedOnClickListener);
     }
 
     private void setGpsStatusFixed() {

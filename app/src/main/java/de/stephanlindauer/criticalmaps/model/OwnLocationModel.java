@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import de.stephanlindauer.criticalmaps.utils.DateUtils;
+import timber.log.Timber;
 
 @Singleton
 public class OwnLocationModel {
@@ -48,7 +49,7 @@ public class OwnLocationModel {
             locationObject.put("longitude", Integer.toString((int)(ownLocation.getLongitude() * 1000000.0D)));
             locationObject.put("latitude", Integer.toString((int)(ownLocation.getLatitude() * 1000000.0D)));
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return locationObject;
     }

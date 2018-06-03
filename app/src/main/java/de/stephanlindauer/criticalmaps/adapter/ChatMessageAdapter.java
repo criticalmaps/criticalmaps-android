@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +56,9 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         }
     }
 
+    @NonNull
     @Override
-    public ChatMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChatMessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View res;
         if (viewType == 0) {
@@ -68,7 +70,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ChatMessageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatMessageViewHolder holder, int position) {
         holder.bind(chatMessages.get(position));
     }
 
