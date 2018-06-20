@@ -13,7 +13,9 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
@@ -60,8 +62,17 @@ public class MapViewUtils {
                 + BuildConfig.VERSION_NAME + " " + org.osmdroid.library.BuildConfig.APPLICATION_ID
                 + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME);
 
+        // remove this and use the default TileSourceFactory version again when
+        // https://github.com/osmdroid/osmdroid/issues/1050 has been resolved
+        final OnlineTileSourceBase MAPNIK = new XYTileSource("Mapnik",
+                0, 19, 256, ".png",
+                new String[] {
+                "http://a.tile.openstreetmap.org/",
+                "http://b.tile.openstreetmap.org/",
+                "http://c.tile.openstreetmap.org/" },"© OpenStreetMap contributors");
+
         MapTileProviderBasic mapnikTileProvider =
-                new MapTileProviderBasic(activity, TileSourceFactory.MAPNIK);
+                new MapTileProviderBasic(activity, MAPNIK);
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
         mapView.setBuiltInZoomControls(true);
