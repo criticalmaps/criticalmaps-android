@@ -1,86 +1,57 @@
 package de.stephanlindauer.criticalmaps.utils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
+import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import de.stephanlindauer.criticalmaps.App;
+import timber.log.Timber;
 
 public class ImageUtils {
 
     private ImageUtils() {}
 
-    public static Bitmap rotateBitmap(File photoFile) {
-        Bitmap sourceBitmap = BitmapFactory.decodeFile(photoFile.getPath());
-
-        String orientString = null;
-        try {
-            ExifInterface exif = new ExifInterface(photoFile.getPath());
-            orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int orientation = Integer.parseInt(orientString);
-        int rotationAngle = 0;
-
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            rotationAngle = 90;
-        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            rotationAngle = 180;
-        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            rotationAngle = 270;
-        }
-
-        if (rotationAngle == 0) {
-            return sourceBitmap;
-        }
-
-        Matrix matrix = new Matrix();
-        matrix.setRotate(rotationAngle);
-
-        Bitmap rotatedBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(),
-                sourceBitmap.getHeight(), matrix, true);
-        sourceBitmap.recycle();
-
-        return rotatedBitmap;
+    @Nullable
+    public static File getNewCacheImageFile() {
+        App app = App.components().app();
+        File cacheDir = new File(app.getCacheDir(), "Pictures");
+        return prepareImageFileFromBaseDir(cacheDir);
     }
 
-    public static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-        if (maxHeight > 0 && maxWidth > 0) {
-            int width = image.getWidth();
-            int height = image.getHeight();
-            float ratioBitmap = (float) width / (float) height;
-            float ratioMax = (float) maxWidth / (float) maxHeight;
-
-            int finalWidth = maxWidth;
-            int finalHeight = maxHeight;
-            if (ratioMax > 1) {
-                finalWidth = (int) ((float) maxHeight * ratioBitmap);
-            } else {
-                finalHeight = (int) ((float) maxWidth / ratioBitmap);
-            }
-            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-        }
-
-        return image;
-    }
-
-
-    public static File getNewOutputImageFile() {
-        File mediaStorageDir = new File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "CriticalMaps");
-
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+    private static File prepareImageFileFromBaseDir(File baseDir) {
+        if (!baseDir.exists() && !baseDir.mkdirs()) {
             return null;
         }
 
-        final String id = UUID.randomUUID().toString().replace("-", "");
-        return new File(mediaStorageDir.getPath() + File.separator + id + ".jpg");
+        final String timestamp =
+                new SimpleDateFormat("yyyyMMdd-HHmmssSSS", Locale.US).format(new Date());
+        final String filename = "CriticalMaps-" + timestamp + ".jpg";
+        return new File(baseDir, filename);
+    }
+
+    public static File movePhotoToPublicDir(File source) {
+        File basePath = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CriticalMaps");
+
+        File destination = prepareImageFileFromBaseDir(basePath);
+
+        try (FileChannel sourceChannel = new FileInputStream(source).getChannel();
+             FileChannel destChannel = new FileOutputStream(destination).getChannel()) {
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+        } catch (IOException e) {
+            Timber.e(e, "Exception moving photo to public dir. Deleting temp file anyway.");
+        } finally {
+            //noinspection ResultOfMethodCallIgnored
+            source.delete();
+        }
+        return destination;
     }
 }

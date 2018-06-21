@@ -23,7 +23,6 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Esperando señal GPS</string>
-
     <!-- notification -->
     <string name="notification_tracking_title">Seguimiento de Critical Maps</string>
     <string name="notification_tracking_text">Esta App corre en segundo plano y captura tu localización. Cierra la aplicación cuando no quieras ser localizado.</string>
@@ -56,7 +55,6 @@
     <string name="chat_send">Enviar</string>
     <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Enviando &#8230;</string>
-
     <!-- fragment_about -->
     <string name="about_heading_social">redes sociales</string>
     <string name="about_heading_website">sitio web</string>
@@ -79,21 +77,19 @@
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
-        <![CDATA[
-        ¿Quieres subir la foto a <a href="http://criticalmaps.net">criticalmaps.net</a>? Allí se pueden ver bajo la licencia creative commons <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> .
-        ]]>
-    </string>
+ <![CDATA[
+ ¿Quieres subir la foto a <a href=\"http://criticalmaps.net\">criticalmaps.net</a>? Allí se pueden ver bajo la licencia creative commons <a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a> .
+ ]]></string>
     <string name="camera_upload">Subir imagen!</string>
     <string name="camera_discard">No :-(</string>
     <string name="camera_uploading_progress">Subiendo &#8230;</string>
     <string name="camera_upload_failed_title">La subida de imagen falló</string>
     <string name="camera_upload_failed_message">Por favor inténtalo de nuevo</string>
     <string name="camera_processing_image">Procesando imagen &#8230;</string>
-    <string name="camera_no_location_no_camera">No puedes subir imágenes sin señal GPS</string>
+    <string name="camera_no_location">No puedes subir imágenes sin señal GPS</string>
     <string name="camera_image_upload_succeeded_title">Imagen subida!</string>
     <string name="camera_image_upload_succeeded_message">La imagen se ha subido a la galeria en criticalmaps.net </string>
-    <string name="camera_no_camera">La cámara no está disponible.</string>
-    <string name="camera_no_camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
+    <string name="camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Algo ha fallado</string>

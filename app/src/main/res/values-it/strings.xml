@@ -6,7 +6,6 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
-
     <!-- close -->
     <string name="close">Desideri chiudere l\'applicazione?</string>
     <string name="yes">Sì­</string>
@@ -21,7 +20,6 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attesa segnale GPS</string>
-
     <!-- notification -->
     <string name="notification_tracking_title">Tracciatura della Critical Mass</string>
     <string name="notification_tracking_text">L\'applicazione lavora in background e registra i tuoi spostamenti. Chiudi l\'applicazione se non vuoi essere tracciato.</string>
@@ -54,13 +52,12 @@
     <string name="chat_send">Invia</string>
     <string name="chat_text">Your message &#8230;</string>
     <string name="chat_sending">Invio in corso &#8230;</string>
-
     <!-- fragment_about -->
     <string name="about_heading_social">Social network</string>
     <string name="about_heading_website">Pagina web</string>
     <string name="about_heading_contributions">Contributi</string>
     <string name="about_heading_code">cÃ³digo</string>
-
+    <string name="about_license_website">Pagina web</string>
     <!-- time to word -->
     <string name="timetoword_justnow">adesso</string>
     <string name="timetoword_aminuteago">un minuto fa</string>
@@ -72,21 +69,19 @@
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
-        <![CDATA[
-        Vuoi caricare la foto<a href="http://criticalmaps.net">criticalmaps.net</a>? Di seguito è possibile visionare la licenza Creative Commons<a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> .
-        ]]>
-    </string>
+<![CDATA[
+ Vuoi caricare la foto<a href=\"http://criticalmaps.net\">criticalmaps.net</a>?\nDi seguito è possibile visionare la licenza Creative Commons<a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a> .
+ ]]></string>
     <string name="camera_upload">Caricare foto!</string>
     <string name="camera_discard">No :-(</string>
     <string name="camera_uploading_progress">caricando &#8230;</string>
     <string name="camera_upload_failed_title">Il caricamento della foto è fallito</string>
     <string name="camera_upload_failed_message">Riprova</string>
     <string name="camera_processing_image">Elaborazione della foto &#8230;</string>
-    <string name="camera_no_location_no_camera">Non puoi caricare immagini senza segnale GPS attivo</string>
+    <string name="camera_no_location">Non puoi caricare immagini senza segnale GPS attivo</string>
     <string name="camera_image_upload_succeeded_title">Immagine caricata con successo!</string>
     <string name="camera_image_upload_succeeded_message">La foto è stata caricata su criticalmaps.net </string>
-    <string name="camera_no_camera">La fotocamera non è disponibile.</string>
-    <string name="camera_no_camera_no_camera">Non puoi fare foto se il tuo telefono non ha fotocamera.</string>
+    <string name="camera_no_camera">Non puoi fare foto se il tuo telefono non ha fotocamera.</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Qualcosa non ha funzionato </string>

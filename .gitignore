@@ -3,8 +3,10 @@
 /.idea
 /build
 /app/build
+/app/release
 /.idea
 *.iml
 *.apk
 /captures
 /projectFilesBackup*
+/keystore.properties

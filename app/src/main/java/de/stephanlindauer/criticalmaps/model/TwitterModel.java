@@ -8,12 +8,20 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
-import de.stephanlindauer.criticalmaps.vo.twitter.Tweet;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
+import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
+import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
+
+@Singleton
 public class TwitterModel {
 
-    private List<Tweet> tweets = new ArrayList<>();
+    private final List<Tweet> tweets = new ArrayList<>();
+
+    @Inject
+    public TwitterModel() {
+    }
 
     public void setTweetsFromJsonString(String tweetsString) throws JSONException, ParseException {
         tweets.clear();

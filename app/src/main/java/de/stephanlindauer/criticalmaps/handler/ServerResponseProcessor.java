@@ -4,31 +4,39 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import dagger.Reusable;
 import de.stephanlindauer.criticalmaps.events.Events;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
+import timber.log.Timber;
 
+@Reusable
 public class ServerResponseProcessor {
 
     private final OtherUsersLocationModel otherUsersLocationModel;
-    private final EventBusProvider eventService;
+    private final EventBus eventBus;
     private final ChatModel chatModel;
 
     @Inject
-    public ServerResponseProcessor(OtherUsersLocationModel otherUsersLocationModel, EventBusProvider eventService, ChatModel chatModel) {
+    public ServerResponseProcessor(OtherUsersLocationModel otherUsersLocationModel, EventBus eventBus, ChatModel chatModel) {
         this.otherUsersLocationModel = otherUsersLocationModel;
-        this.eventService = eventService;
+        this.eventBus = eventBus;
         this.chatModel = chatModel;
     }
 
     public void process(final String jsonString) {
         try {
             final JSONObject jsonObject = new JSONObject(jsonString);
-            otherUsersLocationModel.setNewJSON(jsonObject.getJSONObject("locations"));
-            chatModel.setNewJson(jsonObject.getJSONObject("chatMessages"));
-            eventService.post(Events.NEW_SERVER_RESPONSE_EVENT);
-        } catch (Exception ignored) {
+            if (jsonObject.has("locations")) {
+                otherUsersLocationModel.setFromJson(jsonObject.getJSONObject("locations"));
+            }
+            if (jsonObject.has("locations")) {
+                chatModel.setFromJson(jsonObject.getJSONObject("chatMessages"));
+            }
+            eventBus.post(Events.NEW_SERVER_RESPONSE_EVENT);
+        } catch (Exception e) {
+            Timber.d(e);
         }
     }
 }

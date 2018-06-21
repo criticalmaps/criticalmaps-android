@@ -3,6 +3,8 @@ package de.stephanlindauer.criticalmaps.handler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -72,18 +74,14 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
         Request request = new Request.Builder().url(Endpoints.IMAGE_POST).post(requestBody).build();
 
-        Response response = null;
         try {
-            response = okHttpClient.newCall(request).execute();
+            Response response = okHttpClient.newCall(request).execute();
 
+            //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
             if (response.isSuccessful() && response.body().string().equals("success")) {
                     return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
-        } finally {
-            if (response != null) {
-                response.body().close();
-            }
         }
 
         return ResultType.FAILED;
@@ -103,6 +101,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
             progressDialog.dismiss();
             AlertBuilder.show(activity, R.string.camera_upload_failed_title, R.string.camera_upload_failed_message);
         }
+        //noinspection ResultOfMethodCallIgnored
         imageFileToUpload.delete();
     }
 
@@ -126,13 +125,13 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         }
 
         @Override
-        public void writeTo(BufferedSink sink) throws IOException {
+        public void writeTo(@NonNull BufferedSink sink) throws IOException {
             final long totalBytes = contentLength();
             BufferedSink progressSink = Okio.buffer(new ForwardingSink(sink) {
                 private long bytesWritten = 0L;
 
                 @Override
-                public void write(Buffer source, long byteCount) throws IOException {
+                public void write(@NonNull Buffer source, long byteCount) throws IOException {
                     bytesWritten += byteCount;
                     progressListener.update(bytesWritten, totalBytes);
                     super.write(source, byteCount);

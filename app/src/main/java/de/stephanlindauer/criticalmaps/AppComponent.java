@@ -1,6 +1,10 @@
 package de.stephanlindauer.criticalmaps;
 
+import android.content.SharedPreferences;
+
 import com.squareup.picasso.Picasso;
+
+import dagger.BindsInstance;
 import dagger.Component;
 import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
 import de.stephanlindauer.criticalmaps.fragments.MapFragment;
@@ -15,22 +19,23 @@ import okhttp3.OkHttpClient;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
     void inject(Main main);
-
     void inject(ServerSyncService serverSyncService);
-
     void inject(MapFragment serverSyncService);
-
     void inject(ChatFragment chatFragment);
-
     void inject(PrerequisitesChecker prerequisitesChecker);
 
     App app();
-
     Picasso picasso();
-
     OwnLocationModel ownLocationmodel();
-
     TwitterModel twitterModel();
-
     OkHttpClient okHttpClient();
+    SharedPreferences sharedPreferences();
+
+    @Component.Builder
+    interface Builder {
+        AppComponent build();
+
+        @BindsInstance
+        Builder app(App app);
+    }
 }

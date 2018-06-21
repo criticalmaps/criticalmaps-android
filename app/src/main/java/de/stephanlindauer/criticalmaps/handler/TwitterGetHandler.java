@@ -10,6 +10,8 @@ import java.text.ParseException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import timber.log.Timber;
+
 import org.json.JSONException;
 
 public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
@@ -38,8 +40,8 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
             final Response response = httpClient.newCall(request).execute();
 
             if (response.isSuccessful()) {
+                //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
                 responseString = response.body().string();
-                response.body().close();
                 return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
@@ -63,7 +65,7 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
                 twitterModel.setTweetsFromJsonString(responseString);
                 twitterFragment.displayNewData();
             } catch (JSONException | ParseException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
     }

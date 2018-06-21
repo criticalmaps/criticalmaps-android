@@ -1,26 +1,31 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
+import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
+import timber.log.Timber;
 
 public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType> {
 
@@ -28,10 +33,12 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
     private final File newCameraOutputFile;
     private File processedImageFile;
     private ProgressDialog progressDialog;
+    private final Picasso picasso;
 
     public ProcessCameraResultHandler(Activity activity, File newCameraOutputFile) {
         this.activity = activity;
         this.newCameraOutputFile = newCameraOutputFile;
+        this.picasso = App.components().picasso();
     }
 
     @Override
@@ -47,19 +54,19 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
     @Override
     protected ResultType doInBackground(Void... params) {
         try {
-            Bitmap rotatedBitmap = ImageUtils.rotateBitmap(newCameraOutputFile);
-            Bitmap scaledBitmap = ImageUtils.resize(rotatedBitmap, 1024, 1024);
-            if (scaledBitmap != rotatedBitmap) {
-                rotatedBitmap.recycle();
-            }
+            Bitmap processedBitmap = picasso.load(newCameraOutputFile)
+                    .resize(1024, 1024)
+                    .centerInside()
+                    .get();
 
-            processedImageFile = ImageUtils.getNewOutputImageFile();
+            processedImageFile = ImageUtils.getNewCacheImageFile();
             FileOutputStream fOut = new FileOutputStream(processedImageFile);
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
+            processedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
             fOut.flush();
             fOut.close();
-            scaledBitmap.recycle();
+            processedBitmap.recycle();
         } catch (Exception e) {
+            Timber.d(e);
             return ResultType.FAILED;
         }
 
@@ -77,11 +84,15 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
         LayoutInflater factory = LayoutInflater.from(activity);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        @SuppressLint("InflateParams") // okay for dialog
         final View view = factory.inflate(R.layout.view_picture_upload, null);
 
         ImageView image = view.findViewById(R.id.picture_preview);
-
-        image.setImageBitmap(BitmapFactory.decodeFile(processedImageFile.getPath(), new BitmapFactory.Options()));
+        ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
+        picasso.load(processedImageFile)
+                .resize(layoutParams.width, layoutParams.height)
+                .centerInside()
+                .into(image);
 
         TextView text = view.findViewById(R.id.picture_confirm_text);
         text.setMovementMethod(LinkMovementMethod.getInstance());
@@ -97,6 +108,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
                         new ImageUploadHandler(processedImageFile, activity).execute();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
+                        //noinspection ResultOfMethodCallIgnored
                         processedImageFile.delete();
                         break;
                 }

@@ -7,15 +7,20 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 
 import static android.provider.Settings.Secure.getString;
 
+@Singleton
 public class UserModel {
 
-    private String changingDeviceToken;
+    private final String changingDeviceToken;
 
+    @Inject
     public UserModel(App app) {
 
         final String androidId = getString(app.getContentResolver(), Settings.Secure.ANDROID_ID);

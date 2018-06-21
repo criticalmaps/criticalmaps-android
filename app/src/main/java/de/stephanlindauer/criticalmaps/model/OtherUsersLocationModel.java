@@ -7,11 +7,19 @@ import org.osmdroid.util.GeoPoint;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class OtherUsersLocationModel {
 
     private ArrayList<GeoPoint> otherUsersLocations = new ArrayList<>();
 
-    public void setNewJSON(JSONObject jsonObject) throws JSONException {
+    @Inject
+    public OtherUsersLocationModel() {
+    }
+
+    public void setFromJson(JSONObject jsonObject) throws JSONException {
         otherUsersLocations = new ArrayList<>(jsonObject.length());
 
         Iterator<String> keys = jsonObject.keys();
@@ -21,7 +29,8 @@ public class OtherUsersLocationModel {
             int latitudeE6 = Integer.parseInt(value.getString("latitude"));
             int longitudeE6 = Integer.parseInt(value.getString("longitude"));
 
-            otherUsersLocations.add(new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
+            otherUsersLocations.add(
+                    new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
         }
     }
 

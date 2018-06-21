@@ -8,6 +8,8 @@ import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -17,15 +19,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import com.squareup.otto.Subscribe;
 
@@ -48,8 +48,8 @@ import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.provider.EventBusProvider;
-import de.stephanlindauer.criticalmaps.vo.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
+import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 
 public class ChatFragment extends Fragment {
 
@@ -58,7 +58,7 @@ public class ChatFragment extends Fragment {
     ChatModel chatModel;
 
     @Inject
-    EventBusProvider eventService;
+    EventBus eventBus;
 
     @Inject
     OwnLocationModel ownLocationModel;
@@ -77,14 +77,13 @@ public class ChatFragment extends Fragment {
     FloatingActionButton sendButton;
 
     //misc
-    private boolean isScrolling = false;
     private boolean isTextInputEnabled = true;
     private boolean isDataConnectionAvailable = true;
     private Unbinder unbinder;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
@@ -107,44 +106,23 @@ public class ChatFragment extends Fragment {
 
         Drawable wrappedDrawable = DrawableCompat.wrap(sendButton.getDrawable());
         DrawableCompat.setTintMode(wrappedDrawable, PorterDuff.Mode.SRC_ATOP);
+        @SuppressWarnings("ConstantConditions")
         ColorStateList colorStateList = ContextCompat.getColorStateList(getActivity(),
                 R.color.chat_fab_drawable_states);
         DrawableCompat.setTintList(wrappedDrawable, colorStateList);
         sendButton.setImageDrawable(wrappedDrawable);
-        sendButton.setEnabled(false);
+    }
 
-        chatRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        isScrolling = true;
-                        return false;
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        isScrolling = false;
-                        return false;
-                }
-                return false;
-            }
-        });
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
-        editMessageTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    handleSendClicked();
-                    return true;
-                }
-                return false;
-            }
-        });
+        sendButton.setEnabled(editMessageTextField.getText().length() > 0);
 
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                setSendButtonEnabledWithAnimation(s.length() != 0);
+                setSendButtonEnabledWithAnimation(s.length() > 0);
             }
         });
     }
@@ -170,6 +148,15 @@ public class ChatFragment extends Fragment {
         animatorSet.start();
     }
 
+    @OnEditorAction(R.id.chat_edit_message)
+    boolean handleEditorAction(int actionId) {
+        if (actionId == EditorInfo.IME_ACTION_SEND) {
+            handleSendClicked();
+            return true;
+        }
+        return false;
+    }
+
     @OnClick(R.id.chat_send_btn)
     void handleSendClicked() {
         String message = editMessageTextField.getText().toString();
@@ -188,7 +175,10 @@ public class ChatFragment extends Fragment {
         final ArrayList<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
         chatRecyclerView.setAdapter(new ChatMessageAdapter(savedAndOutgoingMessages));
 
-        if (!isScrolling) {
+        //TODO Rework scroll behaviour:
+        // Jumping to the bottom if not scrolling is okay, but while scrolling and on new server
+        // event list jumps to the top (maybe because we completely reset the backing list?)
+        if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
             chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
         }
     }
@@ -197,13 +187,13 @@ public class ChatFragment extends Fragment {
     public void onResume() {
         super.onResume();
         chatModelToAdapter();
-        eventService.register(this);
+        eventBus.register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        eventService.unregister(this);
+        eventBus.unregister(this);
         AXT.at(editMessageTextField).hideKeyBoard();
     }
 
