@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.support.v4.content.ContextCompat;
 
 import com.squareup.otto.Subscribe;
 
@@ -104,11 +105,7 @@ public class ServerSyncService extends Service {
     public static void startService() {
         App app = App.components().app();
         Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            app.startForegroundService(syncServiceIntent);
-        } else {
-            app.startService(syncServiceIntent);
-        }
+        ContextCompat.startForegroundService(app, syncServiceIntent);
     }
 
     public static void stopService() {

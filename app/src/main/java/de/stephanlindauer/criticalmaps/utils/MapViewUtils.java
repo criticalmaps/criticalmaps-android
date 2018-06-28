@@ -117,13 +117,19 @@ public class MapViewUtils {
     }
 
     private static File getBestStorageLocation(Context context) {
-        Timber.d("Finding best storage Location.");
+        Timber.d("Finding best storage location.");
 
         ArrayList<File> storageDirs = new ArrayList<>(3);
         storageDirs.add(context.getFilesDir());
 
         File[] externalDirs = ContextCompat.getExternalFilesDirs(context, null);
         for (File externalDir : externalDirs) {
+            // "Returned paths may be null if a storage device is unavailable."
+            if (externalDir == null) {
+                Timber.d("Storage location is null (=unavailable), skipping.");
+                continue;
+            }
+
             String state = EnvironmentCompat.getStorageState(externalDir);
             if (Environment.MEDIA_MOUNTED.equals(state)) {
                 storageDirs.add(externalDir);
