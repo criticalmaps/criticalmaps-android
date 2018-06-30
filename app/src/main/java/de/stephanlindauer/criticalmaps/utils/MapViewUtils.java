@@ -143,6 +143,7 @@ public class MapViewUtils {
                     + ", free space: " + storageDir.getFreeSpace());
             if (storageDir.getFreeSpace() > freeSpace) {
                 bestLocation = storageDir;
+                freeSpace = storageDir.getFreeSpace();
             }
         }
 
