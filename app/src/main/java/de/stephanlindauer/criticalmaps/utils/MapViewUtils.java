@@ -3,7 +3,9 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.os.EnvironmentCompat;
@@ -14,7 +16,6 @@ import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -137,13 +138,20 @@ public class MapViewUtils {
         }
 
         File bestLocation = null;
-        long freeSpace = 0;
+        long bestFreeSpace = 0;
         for (File storageDir : storageDirs) {
-            Timber.d("Found available storage: " + storageDir.getAbsolutePath()
-                    + ", free space: " + storageDir.getFreeSpace());
-            if (storageDir.getFreeSpace() > freeSpace) {
-                bestLocation = storageDir;
+            long freeSpace;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                // gives more accurate information
+                freeSpace = new StatFs(storageDir.getAbsolutePath()).getAvailableBytes();
+            } else {
                 freeSpace = storageDir.getFreeSpace();
+            }
+            Timber.d("Found available storage: " + storageDir.getAbsolutePath()
+                    + ", free space: " + freeSpace);
+            if (freeSpace > bestFreeSpace) {
+                bestLocation = storageDir;
+                bestFreeSpace = freeSpace;
             }
         }
 
