@@ -79,7 +79,6 @@ public class MapViewUtils {
         mapView.getController().setZoom(1);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
         mapView.setClickable(true);
-        mapView.setBuiltInZoomControls(true);
         mapView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         mapView.setTilesScaledToDpi(true);
