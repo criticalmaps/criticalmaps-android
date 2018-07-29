@@ -46,6 +46,8 @@ import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 
 import javax.inject.Inject;
+
+import org.osmdroid.tileprovider.modules.SqlTileWriter;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Overlay;
@@ -317,6 +319,8 @@ public class MapFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        // properly closes the cache db since it's stored in a static field in osmdroid...
+        ((SqlTileWriter) mapView.getTileProvider().getTileWriter()).refreshDb();
         mapView = null;
         unbinder.unbind();
     }
