@@ -46,13 +46,8 @@ public class MapViewUtils {
 
         osmdroidBasePathPref.set(osmdroidBasePath.getAbsolutePath());
 
-        File osmdroidTileCache = new File(osmdroidBasePath, "tiles");
-        //noinspection ResultOfMethodCallIgnored
-        osmdroidTileCache.mkdirs();
         Timber.d("Setting osmdroidBasePath to: %s", osmdroidBasePath.getAbsolutePath());
         configuration.setOsmdroidBasePath(osmdroidBasePath);
-        Timber.d("Setting osmdroidTileCache to: %s", osmdroidTileCache.getAbsolutePath());
-        configuration.setOsmdroidTileCache(osmdroidTileCache);
 
         setMaxCacheSize(configuration);
 
