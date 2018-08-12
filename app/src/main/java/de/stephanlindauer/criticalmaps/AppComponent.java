@@ -12,6 +12,7 @@ import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
+import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
@@ -32,6 +33,7 @@ public interface AppComponent {
     TwitterModel twitterModel();
     OkHttpClient okHttpClient();
     SharedPreferences sharedPreferences();
+    StorageLocationProvider storageProvider();
 
     @Component.Builder
     interface Builder {

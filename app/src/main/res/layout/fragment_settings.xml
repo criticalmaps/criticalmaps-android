@@ -1,13 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:theme="@style/AppTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/colorAccent"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:text="@string/settings_storage_header"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:paddingRight="?android:attr/scrollbarSize">
+
+            <ImageView
+                android:id="@+id/settings_clear_cache_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/settings_clear_cache_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/settings_cache_subheading"/>
+
+                <TextView
+                    android:id="@+id/settings_clear_cache_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/settings_clear_cache_title"
+                    android:layout_below="@id/settings_clear_cache_title"
+                    android:maxLines="4"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_alignLeft="@id/settings_clear_cache_title"
+                    tools:text="Currently using 125.78 MB"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/widget_frame2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+                <Button
+                    android:id="@+id/settings_clear_cache_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_cache_clear"/>
+            </LinearLayout>
+        </LinearLayout>
+        <de.stephanlindauer.criticalmaps.views.StorageSpaceGraph
+            android:id="@+id/settings_storagegraph"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:paddingRight="?android:attr/scrollbarSize"
+            android:layout_marginLeft="16dp"
+            app:usedSpaceColor="@color/settings_used_space"
+            app:tilecacheColor="@color/settings_cache_space"
+            app:freeSpaceColor="@color/settings_free_space"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="?android:attr/scrollbarSize"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/settings_used_space"/>
+
+            <TextView
+                android:id="@+id/settings_cache_used_mb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp"
+                tools:text="Used: 16050 MB" />
+
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/settings_cache_space"/>
+
+            <TextView
+                android:id="@+id/settings_cache_cache_mb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp"
+                tools:text="Cache: 48 MB" />
+
+            <ImageView
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/settings_free_space"/>
+
+            <TextView
+                android:id="@+id/settings_cache_free_mb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Free: 1060 MB" />
+
+        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

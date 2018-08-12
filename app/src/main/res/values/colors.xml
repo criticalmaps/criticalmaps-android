@@ -52,6 +52,11 @@
     <!-- Rules -->
     <color name="rules_background">@android:color/white</color>
 
+    <!-- Settings -->
+    <color name="settings_used_space">@color/logo_foreground</color>
+    <color name="settings_cache_space">@color/colorAccent</color>
+    <color name="settings_free_space">@color/colorPrimary</color>
+
     <!-- Twitter -->
     <color name="twitter_background">@color/colorPrimaryDark</color>
     <color name="twitter_error_message_text">@color/material_red_900</color>

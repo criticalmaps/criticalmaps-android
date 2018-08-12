@@ -87,6 +87,15 @@
     <string name="about_license_more">more</string>
     <string name="about_license_less">less</string>
 
+    <!-- fragment_settings -->
+    <string name="settings_storage_header">Storage settings</string>
+    <string name="settings_cache_subheading">Map cache</string>
+    <string name="settings_cache_clear">Clear</string>
+    <string name="settings_cache_used_mb">Used: %.0f MB</string>
+    <string name="settings_cache_cache_mb">Cache: %.0f MB</string>
+    <string name="settings_cache_free_mb">Free: %.0f MB</string>
+    <string name="settings_cache_currently_used">Currently using %.2f MB</string>
+
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>
     <string name="timetoword_aminuteago">a minute ago</string>
@@ -122,6 +131,9 @@
     <string name="ok">OK</string>
     <string name="permissions_rationale_title">Grant required permission?</string>
     <string name="permissions_open_settings">Open Settings</string>
+    <string name="storage_name_internal">Internal Storage</string>
+    <string name="storage_name_external">External SD card</string>
+    <string name="storage_name_emulated">Emulated SD card</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Please take some time to read this quick introduction.</string>
