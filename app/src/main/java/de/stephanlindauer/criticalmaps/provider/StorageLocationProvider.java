@@ -28,9 +28,8 @@ import timber.log.Timber;
 @Singleton
 public class StorageLocationProvider {
 
-    private App app;
-
-    private StringPreference osmdroidBasePathPref;
+    private final App app;
+    private final StringPreference osmdroidBasePathPref;
 
     @SuppressWarnings("WeakerAccess")
     @Inject
@@ -72,7 +71,7 @@ public class StorageLocationProvider {
     }
 
     @Nullable
-    public StorageLocation getSavedStorageLocation() {
+    public StorageLocation getActiveStorageLocation() {
         String savedOsmdroidBasePath = osmdroidBasePathPref.get();
         Timber.d("Saved path is: %s", savedOsmdroidBasePath);
 
@@ -105,15 +104,24 @@ public class StorageLocationProvider {
         Timber.d("Determined best storage location: %s",
                 bestLocation != null ? bestLocation.storagePath : "null");
 
-        @SuppressWarnings("ConstantConditions")
-        File savedBasePathFile = new File(bestLocation.storagePath, "osmdroid");
-        //noinspection ResultOfMethodCallIgnored
-        savedBasePathFile.mkdirs();
-
-        bestLocation.osmdroidBasePath = savedBasePathFile;
-        osmdroidBasePathPref.set(bestLocation.osmdroidBasePath.getAbsolutePath());
+        setActiveStorageLocation(bestLocation);
 
         return bestLocation;
+    }
+
+    public void setActiveStorageLocation(StorageLocation storageLocation) {
+        @SuppressWarnings("ConstantConditions")
+        File osmdroidBasePath = new File(storageLocation.storagePath, "osmdroid");
+        //noinspection ResultOfMethodCallIgnored
+        osmdroidBasePath.mkdirs();
+        File osmdroidTilePath = new File(osmdroidBasePath, "tiles");
+        //noinspection ResultOfMethodCallIgnored
+        osmdroidTilePath.mkdirs();
+
+        storageLocation.osmdroidBasePath = osmdroidBasePath;
+        storageLocation.osmdroidTilePath = osmdroidTilePath;
+        osmdroidBasePathPref.set(storageLocation.osmdroidBasePath.getAbsolutePath());
+        Timber.d("Saved location: %s", osmdroidBasePath.getAbsolutePath());
     }
 
     private static long getFreeSpaceBytes(File storageDir) {
@@ -178,9 +186,12 @@ public class StorageLocationProvider {
         public String displayName;
         public File storagePath;
         public File osmdroidBasePath;
+        public File osmdroidTilePath;
         public long totalSize;
         public long freeSpace;
         public long usedSpace;
+
+        private File dbFile;
 
         public StorageLocation(Context context, File path) {
             if (!path.exists() || !isPathAvailableForWrite(context, path)) {
@@ -189,6 +200,7 @@ public class StorageLocationProvider {
 
             this.storagePath = path;
             this.osmdroidBasePath = new File(storagePath, "osmdroid");
+            this.osmdroidTilePath = new File(osmdroidBasePath, "tiles");
 
             if (isPathInInternalFilesDir(context, storagePath)) {
                 displayName = context.getString(R.string.storage_name_internal);
@@ -201,12 +213,13 @@ public class StorageLocationProvider {
             totalSize = getTotalSizeBytes(storagePath);
             freeSpace = getFreeSpaceBytes(storagePath);
             usedSpace = totalSize - freeSpace;
+
+            dbFile = new File(osmdroidTilePath.getAbsolutePath() + File.separator
+                    + SqlTileWriter.DATABASE_FILENAME);
         }
 
         public long getCacheSize() {
             long cacheSize = 0;
-            File dbFile = new File(osmdroidBasePath.getAbsolutePath() + File.separator
-                    + "tiles" + File.separator + SqlTileWriter.DATABASE_FILENAME);
             if (dbFile.exists()) {
                 cacheSize = dbFile.length();
             }
@@ -215,8 +228,6 @@ public class StorageLocationProvider {
         }
 
         public boolean clearCache() {
-            File dbFile = new File(osmdroidBasePath.getAbsolutePath() + File.separator
-                    + "tiles" + File.separator + SqlTileWriter.DATABASE_FILENAME);
             return dbFile.delete();
         }
     }

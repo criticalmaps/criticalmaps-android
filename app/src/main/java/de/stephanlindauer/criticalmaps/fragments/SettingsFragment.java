@@ -1,13 +1,17 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -40,6 +44,9 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.settings_cache_free_mb)
     TextView freeSpace;
 
+    @BindView(R.id.settings_choose_storage_summary)
+    TextView chooseStorageSummary;
+
     @Inject
     StorageLocationProvider storageLocationProvider;
 
@@ -68,11 +75,12 @@ public class SettingsFragment extends Fragment {
 
         updateClearCachePref();
         updateStorageGraph();
+        updateChooseStoragePref();
     }
 
     private void updateStorageGraph() {
         StorageLocationProvider.StorageLocation currentStorageLocation =
-                storageLocationProvider.getSavedStorageLocation();
+                storageLocationProvider.getActiveStorageLocation();
 
         float usedPercentage =
                 (float) currentStorageLocation.usedSpace / currentStorageLocation.totalSize;
@@ -93,17 +101,79 @@ public class SettingsFragment extends Fragment {
 
     private void updateClearCachePref() {
         float currentSize =
-                storageLocationProvider.getSavedStorageLocation().getCacheSize() / (1000f*1000f);
+                storageLocationProvider.getActiveStorageLocation().getCacheSize() / (1000f*1000f);
         Timber.d("Current cache size: %.2f", currentSize);
         clearCacheSummary.setText(
                 String.format(getString(R.string.settings_cache_currently_used), currentSize));
     }
 
+    private void updateChooseStoragePref() {
+        chooseStorageSummary.setText(storageLocationProvider.getActiveStorageLocation().displayName);
+    }
+
     @OnClick(R.id.settings_clear_cache_button)
     void handleClearCacheClicked() {
-        storageLocationProvider.getSavedStorageLocation().clearCache();
+        storageLocationProvider.getActiveStorageLocation().clearCache();
         updateClearCachePref();
         updateStorageGraph();
+    }
+
+    @OnClick(R.id.settings_choose_storage_container)
+    void handleChooseStorageClicked() {
+        ArrayList<StorageLocationProvider.StorageLocation> storageLocations =
+                storageLocationProvider.getAllWritableStorageLocations();
+
+        StorageLocationProvider.StorageLocation activeStorageLocation =
+                storageLocationProvider.getActiveStorageLocation();
+
+        int currentlyActive = 0;
+        ArrayList<String> storageLocationNames = new ArrayList<>(4);
+
+        for (int i = 0; i < storageLocations.size(); i++) {
+            StorageLocationProvider.StorageLocation sL = storageLocations.get(i);
+            storageLocationNames.add(sL.displayName + " " + String.format(
+                    getString(R.string.settings_choose_storage_mb_free),
+                    sL.freeSpace / (1000f*1000f)));
+
+            if (storageLocations.get(i).storagePath.equals(activeStorageLocation.storagePath)) {
+                currentlyActive = i;
+            }
+        }
+
+        Activity activity = getActivity();
+        int finalCurrentlyActive = currentlyActive;
+        //noinspection ConstantConditions
+        new AlertDialog.Builder(activity, R.style.AlertDialogTheme)
+                .setTitle(R.string.settings_choose_storage_choose_title)
+                .setSingleChoiceItems(
+                        storageLocationNames.toArray(new String[0]), currentlyActive, null)
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                    int selectedStorage =
+                            ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                    if (selectedStorage == finalCurrentlyActive) {
+                        return;
+                    }
+
+                    new AlertDialog.Builder(activity, R.style.AlertDialogTheme)
+                            .setTitle(R.string.settings_choose_storage_confirm_title)
+                            .setMessage(R.string.settings_choose_storage_confirm_message)
+                            .setPositiveButton(R.string.settings_cache_clear, (dialog1, which) -> {
+                                // clear old cache
+                                activeStorageLocation.clearCache();
+                                // set new storage
+                                storageLocationProvider.setActiveStorageLocation(
+                                        storageLocations.get(selectedStorage));
+                                updateClearCachePref();
+                                updateStorageGraph();
+                                updateChooseStoragePref();
+                            })
+                            .setNegativeButton(R.string.cancel, null)
+                            .create()
+                            .show();
+
+                })
+                .create()
+                .show();
     }
 
     @Override

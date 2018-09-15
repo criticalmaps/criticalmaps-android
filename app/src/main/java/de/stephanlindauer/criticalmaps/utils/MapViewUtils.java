@@ -28,14 +28,17 @@ public class MapViewUtils {
         IConfigurationProvider configuration = Configuration.getInstance();
 
         StorageLocationProvider.StorageLocation storageLocation =
-                App.components().storageProvider().getSavedStorageLocation();
+                App.components().storageProvider().getActiveStorageLocation();
         if (storageLocation == null) {
             storageLocation = App.components().storageProvider().getAndSaveBestStorageLocation();
         }
         File osmdroidBasePath = storageLocation.osmdroidBasePath;
+        File osmdroidTileCache = storageLocation.osmdroidTilePath;
 
         Timber.d("Setting osmdroidBasePath to: %s", osmdroidBasePath.getAbsolutePath());
         configuration.setOsmdroidBasePath(osmdroidBasePath);
+        Timber.d("Setting osmdroidTileCache to: %s", osmdroidTileCache.getAbsolutePath());
+        configuration.setOsmdroidTileCache(osmdroidTileCache);
 
         setMaxCacheSize(configuration);
 

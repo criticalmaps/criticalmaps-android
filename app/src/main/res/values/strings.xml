@@ -95,6 +95,11 @@
     <string name="settings_cache_cache_mb">Cache: %.0f MB</string>
     <string name="settings_cache_free_mb">Free: %.0f MB</string>
     <string name="settings_cache_currently_used">Currently using %.2f MB</string>
+    <string name="settings_choose_storage_subheading">Choose storage location</string>
+    <string name="settings_choose_storage_mb_free"> (%.2f MB free)</string>
+    <string name="settings_choose_storage_choose_title">Storage location</string>
+    <string name="settings_choose_storage_confirm_title">Current cache will be cleared</string>
+    <string name="settings_choose_storage_confirm_message">Changing the storage location will clear the current cache. Map tiles will have to be downloaded again when viewed.</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>
@@ -129,6 +134,7 @@
     <!-- misc -->
     <string name="something_went_wrong">Something went wrong.</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="permissions_rationale_title">Grant required permission?</string>
     <string name="permissions_open_settings">Open Settings</string>
     <string name="storage_name_internal">Internal Storage</string>
