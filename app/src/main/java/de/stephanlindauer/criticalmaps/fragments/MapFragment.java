@@ -138,23 +138,14 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener noGpsOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AlertBuilder.show(getActivity(),
-                    R.string.map_no_gps_title,
-                    R.string.map_no_gps_text);
-        }
-    };
+    private final View.OnClickListener noGpsOnClickListener = v -> AlertBuilder.show(getActivity(),
+            R.string.map_no_gps_title,
+            R.string.map_no_gps_text);
 
-    private final View.OnClickListener GpsDisabledOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AlertBuilder.show(getActivity(),
+    private final View.OnClickListener GpsDisabledOnClickListener =
+            v -> AlertBuilder.show(getActivity(),
                     R.string.map_gps_disabled_title,
                     R.string.map_gps_disabled_text);
-        }
-    };
 
     private final View.OnClickListener GpsNoPermissionsOnClickListener = new View.OnClickListener() {
         @Override
@@ -163,9 +154,7 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener = v ->
             new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
                     .setTitle(R.string.map_gps_permissions_permanently_denied_title)
                     .setMessage(R.string.map_gps_permissions_permanently_denied_text)
@@ -177,15 +166,10 @@ public class MapFragment extends Fragment {
                                 startActivity(intent);})
                     .create()
                     .show();
-        }
-    };
 
-    private final View.OnClickListener searchingForLocationOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
-        }
-    };
+    private final View.OnClickListener searchingForLocationOnClickListener = v ->
+            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT)
+                    .show();
 
 
     @Override
@@ -216,14 +200,9 @@ public class MapFragment extends Fragment {
         setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
         setRotationNorth.setOnClickListener(rotationNorthOnClickListener);
 
-        noDataConnectivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertBuilder.show(getActivity(),
-                        R.string.map_no_internet_connection_title,
-                        R.string.map_no_internet_connection_text);
-            }
-        });
+        noDataConnectivityButton.setOnClickListener(v -> AlertBuilder.show(getActivity(),
+                R.string.map_no_internet_connection_title,
+                R.string.map_no_internet_connection_text));
 
         RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(mapView) {
             @Override
