@@ -237,7 +237,7 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().add(mRotationGestureOverlay);
 
         if (savedState != null) {
-            Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
+            Double zoomLevel = (Double) savedState.get(KEY_MAP_ZOOMLEVEL);
             GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
             Float orientation = (Float) savedState.get(KEY_MAP_ORIENTATION);
 
@@ -295,7 +295,7 @@ public class MapFragment extends Fragment {
 
     private void handleFirstLocationUpdate() {
         setGpsStatusFixed();
-        zoomToLocation(ownLocationModel.ownLocation, 12);
+        zoomToLocation(ownLocationModel.ownLocation, 12.0d);
         isInitialLocationSet = true;
     }
 
@@ -303,7 +303,7 @@ public class MapFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());
+        outState.putDouble(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevelDouble());
         outState.putParcelable(KEY_MAP_POSITION, (GeoPoint) mapView.getMapCenter());
         outState.putFloat(KEY_MAP_ORIENTATION, mapView.getMapOrientation());
         outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
@@ -425,7 +425,7 @@ public class MapFragment extends Fragment {
         }
     }
 
-    private void zoomToLocation(final GeoPoint location, final int zoomLevel) {
+    private void zoomToLocation(final GeoPoint location, final double zoomLevel) {
         // TODO use setCenter() + zoomTo() here; currently broken and ends up in a wrong location
         mapView.getController().setZoom(zoomLevel);
         animateToLocation(location);
