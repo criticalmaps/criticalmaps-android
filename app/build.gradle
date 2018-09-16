@@ -28,8 +28,8 @@ android {
         applicationId "de.stephanlindauer.criticalmaps"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 33
-        versionName "2.4.1"
+        versionCode 34
+        versionName "2.4.2"
         vectorDrawables.useSupportLibrary = true
 
         javaCompileOptions {
