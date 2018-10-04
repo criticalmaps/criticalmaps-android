@@ -21,8 +21,8 @@ android {
         }
     }
 
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
@@ -93,6 +93,8 @@ dependencies {
 
     compileOnly 'javax.annotation:jsr250-api:1.0'
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+    errorprone("com.google.errorprone:error_prone_core:2.3.1")
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.google.truth:truth:0.41'
