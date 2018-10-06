@@ -320,7 +320,11 @@ public class MapFragment extends Fragment {
 
     @Subscribe
     public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
-        noDataConnectivityButton.setVisibility(e.isConnected ? View.GONE : View.VISIBLE);
+        if (e.isConnected) {
+            noDataConnectivityButton.hide();
+        } else {
+            noDataConnectivityButton.show();
+        }
     }
 
     @Subscribe
