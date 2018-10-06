@@ -53,7 +53,7 @@
         app:backgroundTint="@color/map_fab_warning"
         app:srcCompat="@drawable/ic_sync_problem_white_24dp"
         app:fabSize="mini"
-        android:visibility="gone"
+        android:visibility="invisible"
         tools:visibility="visible"
         tools:ignore="RelativeOverlap,RtlHardcoded" />
     <TextView
