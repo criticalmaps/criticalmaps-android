@@ -55,6 +55,7 @@ android {
     lintOptions {
         warning 'MissingTranslation'
         warning 'StringFormatInvalid'
+        warning 'ExpiringTargetSdkVersion'
 
         // https://github.com/square/okio/issues/58
         // http://jakewharton.github.io/butterknife/
