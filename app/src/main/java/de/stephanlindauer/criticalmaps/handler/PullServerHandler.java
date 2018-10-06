@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.os.AsyncTask;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
@@ -26,14 +27,21 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     private final UserModel userModel;
     private final ServerResponseProcessor serverResponseProcessor;
     private final OkHttpClient okHttpClient;
+    private final LocationUpdateManager locationUpdateManager;
 
     @Inject
-    public PullServerHandler(ChatModel chatModel, OwnLocationModel ownLocationModel, UserModel userModel, ServerResponseProcessor serverResponseProcessor, OkHttpClient okHttpClient) {
+    public PullServerHandler(ChatModel chatModel,
+                             OwnLocationModel ownLocationModel,
+                             UserModel userModel,
+                             ServerResponseProcessor serverResponseProcessor,
+                             OkHttpClient okHttpClient,
+                             LocationUpdateManager locationUpdateManager) {
         this.chatModel = chatModel;
         this.ownLocationModel = ownLocationModel;
         this.userModel = userModel;
         this.serverResponseProcessor = serverResponseProcessor;
         this.okHttpClient = okHttpClient;
+        this.locationUpdateManager = locationUpdateManager;
     }
 
     @Override
@@ -69,7 +77,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
             jsonObject.put("device", userModel.getChangingDeviceToken());
 
             if (ownLocationModel.ownLocation != null && ownLocationModel.hasPreciseLocation()
-                    && ownLocationModel.isLocationFresh()) {
+                    && locationUpdateManager.isUpdating()) {
                 jsonObject.put("location", ownLocationModel.getLocationJson());
             }
 
