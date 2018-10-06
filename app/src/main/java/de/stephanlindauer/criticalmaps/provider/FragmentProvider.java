@@ -21,10 +21,12 @@ public class FragmentProvider {
             case R.id.navigation_chat:
                 return new ChatFragment();
 
+            case R.id.navigation_settings:
+                return new SettingsFragment();
+
             default:
             case R.id.navigation_about:
                 return new AboutFragment();
-
         }
     }
 }

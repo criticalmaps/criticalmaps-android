@@ -6,6 +6,7 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
+    <string name="section_settings">Einstellungen</string>
     <string name="open_drawer">Menü öffnen</string>
     <string name="close_drawer">Menü schließen</string>
 
