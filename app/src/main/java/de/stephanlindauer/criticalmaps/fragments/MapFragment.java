@@ -14,7 +14,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
@@ -139,23 +138,14 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener noGpsOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AlertBuilder.show(getActivity(),
-                    R.string.map_no_gps_title,
-                    R.string.map_no_gps_text);
-        }
-    };
+    private final View.OnClickListener noGpsOnClickListener = v -> AlertBuilder.show(getActivity(),
+            R.string.map_no_gps_title,
+            R.string.map_no_gps_text);
 
-    private final View.OnClickListener GpsDisabledOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AlertBuilder.show(getActivity(),
+    private final View.OnClickListener GpsDisabledOnClickListener =
+            v -> AlertBuilder.show(getActivity(),
                     R.string.map_gps_disabled_title,
                     R.string.map_gps_disabled_text);
-        }
-    };
 
     private final View.OnClickListener GpsNoPermissionsOnClickListener = new View.OnClickListener() {
         @Override
@@ -164,9 +154,7 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    private final View.OnClickListener GpsPermissionsPermanentlyDeniedOnClickListener = v ->
             new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
                     .setTitle(R.string.map_gps_permissions_permanently_denied_title)
                     .setMessage(R.string.map_gps_permissions_permanently_denied_text)
@@ -178,15 +166,10 @@ public class MapFragment extends Fragment {
                                 startActivity(intent);})
                     .create()
                     .show();
-        }
-    };
 
-    private final View.OnClickListener searchingForLocationOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT).show();
-        }
-    };
+    private final View.OnClickListener searchingForLocationOnClickListener = v ->
+            Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT)
+                    .show();
 
 
     @Override
@@ -217,14 +200,9 @@ public class MapFragment extends Fragment {
         setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
         setRotationNorth.setOnClickListener(rotationNorthOnClickListener);
 
-        noDataConnectivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertBuilder.show(getActivity(),
-                        R.string.map_no_internet_connection_title,
-                        R.string.map_no_internet_connection_text);
-            }
-        });
+        noDataConnectivityButton.setOnClickListener(v -> AlertBuilder.show(getActivity(),
+                R.string.map_no_internet_connection_title,
+                R.string.map_no_internet_connection_text));
 
         RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(mapView) {
             @Override
@@ -238,7 +216,7 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().add(mRotationGestureOverlay);
 
         if (savedState != null) {
-            Integer zoomLevel = (Integer) savedState.get(KEY_MAP_ZOOMLEVEL);
+            Double zoomLevel = (Double) savedState.get(KEY_MAP_ZOOMLEVEL);
             GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
             Float orientation = (Float) savedState.get(KEY_MAP_ORIENTATION);
 
@@ -296,7 +274,7 @@ public class MapFragment extends Fragment {
 
     private void handleFirstLocationUpdate() {
         setGpsStatusFixed();
-        zoomToLocation(ownLocationModel.ownLocation, 12);
+        zoomToLocation(ownLocationModel.ownLocation, 12.0d);
         isInitialLocationSet = true;
     }
 
@@ -304,7 +282,7 @@ public class MapFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevel());
+        outState.putDouble(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevelDouble());
         outState.putParcelable(KEY_MAP_POSITION, (GeoPoint) mapView.getMapCenter());
         outState.putFloat(KEY_MAP_ORIENTATION, mapView.getMapOrientation());
         outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
@@ -342,7 +320,11 @@ public class MapFragment extends Fragment {
 
     @Subscribe
     public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
-        noDataConnectivityButton.setVisibility(e.isConnected ? View.GONE : View.VISIBLE);
+        if (e.isConnected) {
+            noDataConnectivityButton.hide();
+        } else {
+            noDataConnectivityButton.show();
+        }
     }
 
     @Subscribe
@@ -426,7 +408,7 @@ public class MapFragment extends Fragment {
         }
     }
 
-    private void zoomToLocation(final GeoPoint location, final int zoomLevel) {
+    private void zoomToLocation(final GeoPoint location, final double zoomLevel) {
         // TODO use setCenter() + zoomTo() here; currently broken and ends up in a wrong location
         mapView.getController().setZoom(zoomLevel);
         animateToLocation(location);

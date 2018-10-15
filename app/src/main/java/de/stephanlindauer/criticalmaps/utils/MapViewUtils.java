@@ -65,7 +65,7 @@ public class MapViewUtils {
         MapView mapView = new MapView(activity, mapnikTileProvider);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
-        mapView.getController().setZoom(1);
+        mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
         mapView.setClickable(true);
         mapView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
