@@ -93,10 +93,16 @@ public class MapViewUtils {
         }
 
         long freeSpace = configuration.getOsmdroidTileCache().getFreeSpace();
+        Timber.d("cacheSize: %d", cacheSize);
+        Timber.d("freeSpace: %d", freeSpace);
+        Timber.d("getTileFileSystemCacheMaxBytes(): %d", configuration.getTileFileSystemCacheMaxBytes());
 
         if (configuration.getTileFileSystemCacheMaxBytes() > (freeSpace + cacheSize)) {
             configuration.setTileFileSystemCacheMaxBytes((long)((freeSpace + cacheSize) * 0.95));
             configuration.setTileFileSystemCacheTrimBytes((long)((freeSpace + cacheSize) * 0.90));
         }
+
+        Timber.d("getTileFileSystemCacheMaxBytes(): %d", configuration.getTileFileSystemCacheMaxBytes());
+        Timber.d("getTileFileSystemCacheTrimBytes(): %d", configuration.getTileFileSystemCacheTrimBytes());
     }
 }
