@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps.provider;
 
-import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
+import androidx.annotation.IdRes;
+import androidx.fragment.app.Fragment;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.fragments.*;
 

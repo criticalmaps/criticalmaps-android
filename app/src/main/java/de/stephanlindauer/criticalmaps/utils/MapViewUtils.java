@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;

@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps.utils;
 
-import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.View;
 
 import org.ligi.axt.AXT;
