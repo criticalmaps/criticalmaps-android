@@ -8,10 +8,9 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
-import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 
 import java.io.File;
@@ -55,7 +54,8 @@ public class MapViewUtils {
                 new MapTileProviderBasic(activity.getApplicationContext(), TileSourceFactory.MAPNIK);
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
-        mapView.setBuiltInZoomControls(true);
+        mapView.getZoomController().setVisibility(
+                CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
