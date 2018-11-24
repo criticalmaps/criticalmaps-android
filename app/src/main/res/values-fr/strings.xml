@@ -91,11 +91,10 @@
     <string name="camera_image_upload_succeeded_title">L\'image a été téléchargé.</string>
     <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>
     <string name="camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
-
     <!-- misc -->
     <string name="something_went_wrong">Il y a eu un problème</string>
     <string name="ok">D\'accord</string>
-
+    <string name="cancel">Annuler</string>
     <!-- introduction -->
     <string name="introduction_heading">Prends le temps de lire cette petite introduction stp.</string>
     <string name="introduction_own_icon">Tu apparait comme ca:\\u0020</string>
