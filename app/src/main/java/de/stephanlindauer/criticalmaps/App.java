@@ -1,7 +1,8 @@
 package de.stephanlindauer.criticalmaps;
 
 import android.app.Application;
-import androidx.annotation.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import timber.log.Timber;
 
@@ -28,7 +29,7 @@ public class App extends Application {
 
     private static class NoOpTree extends Timber.Tree {
         @Override
-        protected void log(int priority, String tag, @NonNull String message, Throwable t) {
+        protected void log(int priority, String tag, @NotNull String message, Throwable t) {
         }
     }
 }

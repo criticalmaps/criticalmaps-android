@@ -3,7 +3,8 @@ package de.stephanlindauer.criticalmaps.handler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
@@ -125,13 +126,13 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         }
 
         @Override
-        public void writeTo(@NonNull BufferedSink sink) throws IOException {
+        public void writeTo(@NotNull BufferedSink sink) throws IOException {
             final long totalBytes = contentLength();
             BufferedSink progressSink = Okio.buffer(new ForwardingSink(sink) {
                 private long bytesWritten = 0L;
 
                 @Override
-                public void write(@NonNull Buffer source, long byteCount) throws IOException {
+                public void write(@NotNull Buffer source, long byteCount) throws IOException {
                     bytesWritten += byteCount;
                     progressListener.update(bytesWritten, totalBytes);
                     super.write(source, byteCount);

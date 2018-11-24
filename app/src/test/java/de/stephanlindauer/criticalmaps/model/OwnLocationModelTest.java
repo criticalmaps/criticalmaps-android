@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.junit.Test;
 import org.osmdroid.util.GeoPoint;
 
-import java.util.Date;
-
 import static com.google.common.truth.Truth.assertThat;
 
 public class OwnLocationModelTest {
