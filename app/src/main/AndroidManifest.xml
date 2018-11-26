@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature android:name="android.hardware.location.network" android:required="false"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
@@ -37,7 +38,7 @@
             android:name=".service.ServerSyncService"/>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="@string/fileprovider_authority"
             android:exported="false"
             android:grantUriPermissions="true">

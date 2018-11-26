@@ -2,8 +2,8 @@ package de.stephanlindauer.criticalmaps.utils;
 
 import android.app.Activity;
 
-import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import de.stephanlindauer.criticalmaps.R;
 
 public class AlertBuilder {

@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.EnvironmentCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.EnvironmentCompat;
 
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
 

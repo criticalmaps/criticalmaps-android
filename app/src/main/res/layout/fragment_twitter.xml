@@ -17,7 +17,7 @@
         android:padding="10dp"
         android:text="@string/twitter_heading" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,9 +29,9 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/view_tweet" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/twitter_new_tweet_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

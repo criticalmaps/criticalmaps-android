@@ -1,16 +1,16 @@
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
-import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
-import org.osmdroid.tileprovider.tilesource.XYTileSource;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 
 import java.io.File;
@@ -50,20 +50,12 @@ public class MapViewUtils {
                 + BuildConfig.VERSION_NAME + " " + org.osmdroid.library.BuildConfig.APPLICATION_ID
                 + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME);
 
-        // remove this and use the default TileSourceFactory version again when
-        // https://github.com/osmdroid/osmdroid/issues/1050 has been resolved
-        final OnlineTileSourceBase MAPNIK = new XYTileSource("Mapnik",
-                0, 19, 256, ".png",
-                new String[] {
-                "http://a.tile.openstreetmap.org/",
-                "http://b.tile.openstreetmap.org/",
-                "http://c.tile.openstreetmap.org/" },"© OpenStreetMap contributors");
-
         MapTileProviderBasic mapnikTileProvider =
-                new MapTileProviderBasic(activity.getApplicationContext(), MAPNIK);
+                new MapTileProviderBasic(activity.getApplicationContext(), TileSourceFactory.MAPNIK);
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
-        mapView.setBuiltInZoomControls(true);
+        mapView.getZoomController().setVisibility(
+                CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
@@ -93,10 +85,19 @@ public class MapViewUtils {
         }
 
         long freeSpace = configuration.getOsmdroidTileCache().getFreeSpace();
+        Timber.d("cacheSize: %d", cacheSize);
+        Timber.d("freeSpace: %d", freeSpace);
+        Timber.d("getTileFileSystemCacheMaxBytes(): %d",
+                configuration.getTileFileSystemCacheMaxBytes());
 
         if (configuration.getTileFileSystemCacheMaxBytes() > (freeSpace + cacheSize)) {
             configuration.setTileFileSystemCacheMaxBytes((long)((freeSpace + cacheSize) * 0.95));
             configuration.setTileFileSystemCacheTrimBytes((long)((freeSpace + cacheSize) * 0.90));
         }
+
+        Timber.d("getTileFileSystemCacheMaxBytes(): %d",
+                configuration.getTileFileSystemCacheMaxBytes());
+        Timber.d("getTileFileSystemCacheTrimBytes(): %d",
+                configuration.getTileFileSystemCacheTrimBytes());
     }
 }
