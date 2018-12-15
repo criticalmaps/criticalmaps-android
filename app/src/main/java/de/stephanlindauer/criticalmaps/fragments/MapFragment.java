@@ -88,7 +88,7 @@ public class MapFragment extends Fragment {
     @BindView(R.id.map_osm_notice)
     TextView osmNoticeOverlay;
 
-    @BindView((R.id.map_no_data_connectivity))
+    @BindView(R.id.map_no_data_connectivity)
     FloatingActionButton noDataConnectivityButton;
 
     //misc
