@@ -83,7 +83,7 @@
     <string name="about_license_less">weniger</string>
 
     <string name="settings_choose_storage_subheading">Speicherort wählen</string>
-    <string name="settings_choose_storage_mb_free"> (%.2f MB frei)</string>
+    <string name="settings_choose_storage_mb_free"> (%s frei)</string>
     <string name="settings_choose_storage_choose_title">Speicherort</string>
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
