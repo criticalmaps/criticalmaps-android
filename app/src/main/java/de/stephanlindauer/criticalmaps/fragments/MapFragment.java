@@ -204,16 +204,16 @@ public class MapFragment extends Fragment {
                 R.string.map_no_internet_connection_title,
                 R.string.map_no_internet_connection_text));
 
-        RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(mapView) {
+        RotationGestureOverlay rotationGestureOverlay = new RotationGestureOverlay(mapView) {
             @Override
-            public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+            public void onRotate(float deltaAngle) {
+                super.onRotate(deltaAngle);
                 setRotationNorth.setRotation(mapView.getMapOrientation());
-                return super.onTouchEvent(event, mapView);
             }
         };
-        mRotationGestureOverlay.setEnabled(true);
+        rotationGestureOverlay.setEnabled(true);
         mapView.setMultiTouchControls(true);
-        mapView.getOverlays().add(mRotationGestureOverlay);
+        mapView.getOverlays().add(rotationGestureOverlay);
 
         if (savedState != null) {
             Double zoomLevel = (Double) savedState.get(KEY_MAP_ZOOMLEVEL);
