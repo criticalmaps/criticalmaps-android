@@ -117,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="12dp"
+                android:layout_gravity="center"
                 tools:text="Used: 16050 MB" />
 
             <ImageView
@@ -133,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="12dp"
+                android:layout_gravity="center"
                 tools:text="Cache: 48 MB" />
 
             <ImageView
@@ -147,6 +149,7 @@
                 android:id="@+id/settings_cache_free_mb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 tools:text="Free: 1060 MB" />
 
         </LinearLayout>

@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
+
+import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,21 +92,23 @@ public class SettingsFragment extends Fragment {
         float tilePercentage = (float) tileSize / currentStorageLocation.totalSize;
 
         usedSpace.setText(String.format(getString(R.string.settings_cache_used_mb),
-                currentStorageLocation.usedSpace / (1000f*1000f)));
+                Formatter.formatShortFileSize(getActivity(), currentStorageLocation.usedSpace)));
         cacheSpace.setText(String.format(getString(R.string.settings_cache_cache_mb),
-                tileSize / (1000f*1000f)));
+                Formatter.formatShortFileSize(getActivity(), tileSize)));
         freeSpace.setText(String.format(getString(R.string.settings_cache_free_mb),
-                currentStorageLocation.freeSpace / (1000f*1000f)));
+                Formatter.formatShortFileSize(getActivity(), currentStorageLocation.freeSpace)));
 
         storageSpaceGraph.setBarPercentagesAnimated(usedPercentage, tilePercentage);
     }
 
     private void updateClearCachePref() {
-        float currentSize =
-                storageLocationProvider.getActiveStorageLocation().getCacheSize() / (1000f*1000f);
-        Timber.d("Current cache size: %.2f", currentSize);
+        long currentSize =
+                storageLocationProvider.getActiveStorageLocation().getCacheSize();
+        Timber.d("Current cache size: %s",
+                Formatter.formatShortFileSize(getActivity(), currentSize));
         clearCacheSummary.setText(
-                String.format(getString(R.string.settings_cache_currently_used), currentSize));
+                String.format(getString(R.string.settings_cache_currently_used),
+                        Formatter.formatShortFileSize(getActivity(), currentSize)));
     }
 
     private void updateChooseStoragePref() {
@@ -133,7 +137,7 @@ public class SettingsFragment extends Fragment {
             StorageLocationProvider.StorageLocation sL = storageLocations.get(i);
             storageLocationNames.add(sL.displayName + " " + String.format(
                     getString(R.string.settings_choose_storage_mb_free),
-                    sL.freeSpace / (1000f*1000f)));
+                    Formatter.formatShortFileSize(getActivity(), sL.freeSpace)));
 
             if (storageLocations.get(i).storagePath.equals(activeStorageLocation.storagePath)) {
                 currentlyActive = i;

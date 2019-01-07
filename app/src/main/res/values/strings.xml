@@ -91,12 +91,12 @@
     <string name="settings_storage_header">Storage settings</string>
     <string name="settings_cache_subheading">Map cache</string>
     <string name="settings_cache_clear">Clear</string>
-    <string name="settings_cache_used_mb">Used: %.0f MB</string>
-    <string name="settings_cache_cache_mb">Cache: %.0f MB</string>
-    <string name="settings_cache_free_mb">Free: %.0f MB</string>
-    <string name="settings_cache_currently_used">Currently using %.2f MB</string>
+    <string name="settings_cache_used_mb">Used: %s</string>
+    <string name="settings_cache_cache_mb">Cache: %s</string>
+    <string name="settings_cache_free_mb">Free: %s</string>
+    <string name="settings_cache_currently_used">Currently using %s</string>
     <string name="settings_choose_storage_subheading">Choose storage location</string>
-    <string name="settings_choose_storage_mb_free"> (%.2f MB free)</string>
+    <string name="settings_choose_storage_mb_free"> (%s free)</string>
     <string name="settings_choose_storage_choose_title">Storage location</string>
     <string name="settings_choose_storage_confirm_title">Current cache will be cleared</string>
     <string name="settings_choose_storage_confirm_message">Changing the storage location will clear the current cache. Map tiles will have to be downloaded again when viewed.</string>
