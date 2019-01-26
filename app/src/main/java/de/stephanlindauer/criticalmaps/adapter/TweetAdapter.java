@@ -61,7 +61,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         picasso.load(tweet.getProfileImageUrl())
                 .fit()
                 .centerInside()
-                .error(R.drawable.chat_avatar_40dp)
+                .error(R.drawable.ic_chat_bubble_24dp)
                 .into(viewHolder.userImageView, new Callback() {
                     @Override
                     public void onSuccess() {
