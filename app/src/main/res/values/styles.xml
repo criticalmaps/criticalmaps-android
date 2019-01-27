@@ -25,14 +25,16 @@
         <item name="android:layout_margin">10dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">left|top</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_gravity">start|top</item>
     </style>
 
     <style name="rules_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Button</item>
-        <item name="android:gravity">center|left</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">center|start</item>
     </style>
 
     <style name="rules_panel_wrapper">
@@ -53,6 +55,8 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:autoLink">web</item>
         <item name="android:padding">10dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
     </style>
@@ -63,6 +67,8 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
         <item name="android:background">@color/about_heading_background</item>
     </style>
 
@@ -75,6 +81,8 @@
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <style name="about_button">
@@ -82,6 +90,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:background">@null</item>
     </style>
@@ -93,6 +102,8 @@
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:animateLayoutChanges">true</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <style name="introduction_paragraph">
@@ -100,6 +111,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <style name="map_osm_notice">
@@ -118,6 +131,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
 </resources>

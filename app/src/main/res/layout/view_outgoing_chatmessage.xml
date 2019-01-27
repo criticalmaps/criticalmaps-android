@@ -19,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
+        android:textAlignment="viewStart"
+        android:gravity="start"
         tools:text="@string/chat_sending"
         android:textSize="11sp" />
 
@@ -29,6 +31,8 @@
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
+        android:textAlignment="viewStart"
+        android:gravity="start"
         tools:text="@string/lorem_ipsum"
         android:textSize="14sp" />
 </RelativeLayout>

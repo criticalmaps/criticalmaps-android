@@ -74,6 +74,8 @@
         android:padding="4dp"
         android:visibility="gone"
         tools:visibility="visible"
+        android:textAlignment="viewStart"
+        android:gravity="start"
         tools:ignore="PrivateResource,SmallSp"
         />
 
