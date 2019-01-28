@@ -22,6 +22,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_bottom"
                 android:padding="10dp"
+                android:textAlignment="viewStart"
+                android:gravity="start"
                 android:text="@string/chat_heading"/>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -61,7 +61,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         picasso.load(tweet.getProfileImageUrl())
                 .fit()
                 .centerInside()
-                .error(R.drawable.chat_avatar_40dp)
+                .error(R.drawable.ic_chat_bubble_24dp)
                 .into(viewHolder.userImageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -83,8 +83,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
         viewHolder.nameTextView.setText(tweet.getUserName());
         viewHolder.textTextView.setText(Html.fromHtml(tweet.getText()).toString());
-        viewHolder.dateTextView.setText(new SimpleDateFormat("HH:mm", Locale.US).format(tweet.getTimestamp()));
-        viewHolder.timeTextView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(tweet.getTimestamp()));
+        viewHolder.timeTextView.setText(new SimpleDateFormat("HH:mm", Locale.US).format(tweet.getTimestamp()));
+        viewHolder.dateTextView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(tweet.getTimestamp()));
         viewHolder.handleTextView.setText("@" + tweet.getUserScreenName());
 
         rowView.setOnClickListener(new View.OnClickListener() {
