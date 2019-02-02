@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -31,12 +33,14 @@ import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
+import info.metadude.android.typedpreferences.BooleanPreference;
 import timber.log.Timber;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +55,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @Inject
     public PermissionCheckHandler permissionCheckHandler;
 
+    @Inject
+    SharedPreferences sharedPreferences;
+
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
@@ -59,6 +66,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    SwitchCompat observerModeSwitch;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -72,6 +81,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
+
+        observerModeSwitch = drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
+                .getActionView().findViewById(R.id.navigation_observer_mode_switch);
+        observerModeSwitch.setChecked(new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get());
+        observerModeSwitch.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleObserverModeSwitchCheckedChanged(isChecked));
 
         if (savedInstanceState != null) {
             SparseArray<Fragment.SavedState> restoredStates = savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
@@ -209,10 +225,14 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        item.setChecked(true);
-        drawerLayout.closeDrawer(GravityCompat.START);
-        navigateTo(item.getItemId());
-        return true;
+        if(item.getGroupId() == R.id.navigation_group) {
+            item.setChecked(true);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            navigateTo(item.getItemId());
+            return true;
+        }
+        //TODO set checked when item selected?
+        return false;
     }
 
     private void navigateTo(@IdRes int navId) {
@@ -242,5 +262,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         if (!permissionCheckHandler.handlePermissionRequestCallback(requestCode, grantResults)) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    private void handleObserverModeSwitchCheckedChanged(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).set(isChecked);
     }
 }
