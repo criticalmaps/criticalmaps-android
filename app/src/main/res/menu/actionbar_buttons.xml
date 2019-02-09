@@ -24,12 +24,6 @@
         android:title=""
         tools:ignore="AlwaysShowAction">
         <menu>
-            <!--<item-->
-                <!--android:id="@+id/settings_tracking_toggle"-->
-                <!--android:checkable="true"-->
-                <!--android:checked="true"-->
-                <!--android:showAsAction="collapseActionView"-->
-                <!--android:title="@string/tracking" />-->
             <item
                 android:id="@+id/settings_feedback"
                 app:showAsAction="never"

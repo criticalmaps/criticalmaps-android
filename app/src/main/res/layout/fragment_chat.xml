@@ -4,7 +4,6 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/chat_background"
              android:orientation="vertical"
              android:focusable="true"
              android:focusableInTouchMode="true"
@@ -21,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_bottom"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:textAlignment="viewStart"
                 android:gravity="start"
                 android:text="@string/chat_heading"/>
@@ -40,22 +39,26 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_top"
                 android:animateLayoutChanges="true"
+                android:padding="8dp"
                 android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    app:counterEnabled="true"
-                    android:layout_height="wrap_content">
+                android:id="@+id/text_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/chat_text"
+                app:boxStrokeColor="@color/chat_textinputlayout_box_stroke_color"
+                app:hintTextColor="@color/colorSecondary"
+                app:counterEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/chat_edit_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/chat_text"
-                        android:imeOptions="actionSend"
-                        android:maxLines="1"/>
+                    android:id="@+id/chat_edit_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionSend"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,13 +66,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_content_send"
-                    app:elevation="4dp"
+                    app:useCompatPadding="true"
                     app:fabSize="mini"
                     app:backgroundTint="@color/chat_fab_background_states"
+                    app:tint="@color/chat_fab_drawable_states"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:contentDescription="@string/chat_send"
-                    />
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:contentDescription="@string/chat_send"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

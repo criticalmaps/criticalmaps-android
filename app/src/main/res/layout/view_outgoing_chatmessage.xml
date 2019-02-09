@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="6dp">
+    android:padding="8dp">
 
     <ProgressBar
         android:id="@+id/icon"
@@ -10,6 +10,8 @@
         android:layout_height="40dp"
         android:layout_marginRight="6dp"
         android:layout_marginEnd="6dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:indeterminate="true"
         tools:background="@android:color/holo_green_dark" />
 
@@ -17,8 +19,8 @@
         android:id="@+id/firstLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
         android:textAlignment="viewStart"
         android:gravity="start"
         tools:text="@string/chat_sending"

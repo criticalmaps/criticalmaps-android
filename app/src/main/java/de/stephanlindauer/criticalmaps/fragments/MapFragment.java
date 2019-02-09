@@ -404,7 +404,7 @@ public class MapFragment extends Fragment {
 
     private void setGpsStatusFixed() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.colorAccent, R.drawable.ic_gps_fixed_white_24dp,
+        setGpsStatusCommon(R.color.colorSecondary, R.drawable.ic_gps_fixed_white_24dp,
                 centerLocationOnClickListener);
     }
 

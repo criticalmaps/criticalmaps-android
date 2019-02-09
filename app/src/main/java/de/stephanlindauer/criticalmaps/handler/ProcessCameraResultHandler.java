@@ -83,7 +83,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
         }
 
         LayoutInflater factory = LayoutInflater.from(activity);
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.AlertDialogTheme);
         @SuppressLint("InflateParams") // okay for dialog
         final View view = factory.inflate(R.layout.view_picture_upload, null);
 

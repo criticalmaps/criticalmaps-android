@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="6dp">
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/icon"
@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/firstLine"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/icon"
         android:layout_toRightOf="@id/icon"

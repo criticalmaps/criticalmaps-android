@@ -6,143 +6,205 @@
         android:id="@+id/rules_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rules_background"
         tools:menu="actionbar_buttons">
 
     <LinearLayout
             android:id="@+id/rules_subcontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
-        <Button
-                android:id="@+id/btnCorken"
-                style="@style/rules_button"
-                android:text="@string/rules_corken"/>
+        <!-- "Note that the margins around the card (its “gutters”) need to be listed in the layout
+        of the card and cannot be included in a style tag." -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <LinearLayout
-                android:id="@+id/panelCorken"
-                style="@style/rules_panel_wrapper">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_corken"/>
+
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_corken"/>
+
+                <TextView
+                    android:id="@+id/rules_corken_text"
                     style="@style/rules_explainer"
                     android:text="@string/rules_corken_explain"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_corken"/>
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <Button
-                android:id="@+id/btnOncomingTraffic"
-                style="@style/rules_button"
-                android:text="@string/rules_oncoming_traffic"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-                android:id="@+id/panelOncomingTraffic"
-                style="@style/rules_panel_wrapper">
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_oncoming_traffic"/>
 
-            <TextView
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_oncoming"/>
+
+                <TextView
                     style="@style/rules_explainer"
                     android:text="@string/rules_oncoming_traffic_explain"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_wronglane"/>
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <Button
-                android:id="@+id/btnSlow"
-                style="@style/rules_button"
-                android:text="@string/rules_steady"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-                android:id="@+id/panelSlow"
-                style="@style/rules_panel_wrapper">
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_steady"/>
 
-            <TextView
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_steady"/>
+
+                <TextView
                     style="@style/rules_explainer"
                     android:text="@string/rules_steady_explain"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_slowly"/>
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <Button
-                android:id="@+id/btnBrake"
-                style="@style/rules_button"
-                android:text="@string/rules_brake"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-                android:id="@+id/panelBrake"
-                style="@style/rules_panel_wrapper">
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_brake"/>
 
-            <TextView
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_brake"/>
+
+                <TextView
                     style="@style/rules_explainer"
                     android:text="@string/rules_brake_explain"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_brake"/>
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <Button
-                android:id="@+id/btnGreen"
-                style="@style/rules_button"
-                android:text="@string/rules_green"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-                android:id="@+id/panelGreen"
-                style="@style/rules_panel_wrapper">
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_green"/>
 
-            <TextView
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_green"/>
+
+                <TextView
                     style="@style/rules_explainer"
                     android:text="@string/rules_green_explain"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_green"/>
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <Button
-                android:id="@+id/btnFriendly"
-                style="@style/rules_button"
-                android:text="@string/rules_friendly"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-                android:id="@+id/panelFriendly"
-                style="@style/rules_panel_wrapper">
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_friendly"/>
 
-            <TextView
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_friendly"/>
+
+                <TextView
                     style="@style/rules_explainer"
                     android:text="@string/rules_friendly_explain"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_friendly"/>
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/colorOnSurface">
 
-        <Button
-                android:id="@+id/btnFun"
-                style="@style/rules_button"
-                android:text="@string/rules_fun"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-                android:id="@+id/panelFun"
-                style="@style/rules_panel_wrapper">
+                <TextView
+                    style="@style/rules_heading"
+                    android:text="@string/rules_fun"/>
 
-            <TextView
+                <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/rules_fun"/>
+
+                <TextView
                     style="@style/rules_explainer"
                     android:text="@string/rules_fun_explain"/>
-
-            <ImageView
-                    style="@style/rules_image"
-                    app:srcCompat="@drawable/rules_fun"/>
-        </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
-                style="@style/rules_image_source_text"
-                android:text="@string/rules_image_source"/>
+            style="@style/rules_image_source_text"
+            android:text="@string/rules_image_source"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
