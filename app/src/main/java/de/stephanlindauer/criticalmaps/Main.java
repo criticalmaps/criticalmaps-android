@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import java.io.File;
 
@@ -76,7 +78,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         drawerNavigation.setNavigationItemSelectedListener(this);
 
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
@@ -90,7 +93,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 (buttonView, isChecked) -> handleObserverModeSwitchCheckedChanged(isChecked));
 
         if (savedInstanceState != null) {
-            SparseArray<Fragment.SavedState> restoredStates = savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
+            SparseArray<Fragment.SavedState> restoredStates =
+                    savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
             if (restoredStates != null) {
                 savedFragmentStates = restoredStates;
             }
@@ -174,11 +178,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void startDatenschutzIntent() {
-        IntentUtil.startFromURL(this, "http://criticalmaps.net/info#Datenschutzerklärung");
+        IntentUtil.startFromURL(this,
+                "http://criticalmaps.net/info#Datenschutzerklärung");
     }
 
     private void startRateTheApp() {
-        IntentUtil.startFromURL(this, "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps");
+        IntentUtil.startFromURL(this,
+                "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps");
     }
 
     @Override
@@ -217,7 +223,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_NAVID, currentNavId);
         outState.putSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES, savedFragmentStates);
@@ -228,6 +234,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         if(item.getGroupId() == R.id.navigation_group) {
             item.setChecked(true);
             drawerLayout.closeDrawer(GravityCompat.START);
+            //noinspection ConstantConditions
+            getSupportActionBar().setTitle(item.getTitle());
             navigateTo(item.getItemId());
             return true;
         }
@@ -243,7 +251,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         // save state of current fragment
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (currentFragment != null) {
-            Fragment.SavedState state = getSupportFragmentManager().saveFragmentInstanceState(currentFragment);
+            Fragment.SavedState state =
+                    getSupportFragmentManager().saveFragmentInstanceState(currentFragment);
             savedFragmentStates.put(currentNavId, state);
         }
 
@@ -253,7 +262,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         // restore saved state of new fragment if it was shown before; otherwise passing null is ok
         nextFragment.setInitialSavedState(savedFragmentStates.get(navId));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, nextFragment).commit();
     }
 
     @Override

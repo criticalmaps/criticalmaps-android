@@ -15,9 +15,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize" />
+            app:title="@string/section_map"/>
 
         <FrameLayout
             android:id="@+id/content_frame"
