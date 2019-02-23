@@ -198,7 +198,7 @@ public class MapFragment extends Fragment {
         ownLocationIcon = AppCompatResources.getDrawable(
                 getActivity(), R.drawable.ic_map_marker_own);
         ownLocationIconObserver = AppCompatResources.getDrawable(
-                getActivity(), R.drawable.ic_visibility_24dp);
+                getActivity(), R.drawable.ic_ghost);
 
         return view;
     }

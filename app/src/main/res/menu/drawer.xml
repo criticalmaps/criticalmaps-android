@@ -37,7 +37,7 @@
     <group>
         <item
             android:id="@+id/navigation_observer_mode"
-            android:icon="@drawable/ic_visibility_24dp"
+            android:icon="@drawable/ic_ghost"
             android:title="@string/observer_mode"
             android:checkable="false"
             app:actionLayout="@layout/navigation_observer_mode_switch" />
