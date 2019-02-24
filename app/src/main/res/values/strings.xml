@@ -10,6 +10,7 @@
     <string name="observer_mode">Observer mode</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
+    <string name="nav_observer_mode_text">Enable this if you don\'t take part yourself, but still want to follow the mass.</string>
 
     <!-- close -->
     <string name="close">Really close the app?</string>

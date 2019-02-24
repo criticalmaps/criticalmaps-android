@@ -14,6 +14,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import java.io.File;
 
@@ -69,7 +71,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    SwitchCompat observerModeSwitch;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -85,7 +86,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         mDrawerToggle.syncState();
         drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
 
-        observerModeSwitch = drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
+        SwitchCompat observerModeSwitch =
+                drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
                 .getActionView().findViewById(R.id.navigation_observer_mode_switch);
         observerModeSwitch.setChecked(new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get());
@@ -108,14 +110,15 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public void onCreate(Bundle bundle) {
         setTheme(R.style.AppTheme); // has to be before super!
-
         super.onCreate(bundle);
 
         App.components().inject(this);
-
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+
+        // This is a little hacky and might break with a materialcomponents lib update
+        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
+        navigationMenuView.setNestedScrollingEnabled(false);
 
         new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
 
@@ -239,7 +242,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             navigateTo(item.getItemId());
             return true;
         }
-        //TODO set checked when item selected?
+        //TODO set switch checked when observer switch item selected?
         return false;
     }
 
