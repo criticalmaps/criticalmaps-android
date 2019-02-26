@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single" android:id="@+id/navigation_group">
         <item
             android:id="@+id/navigation_map"
             android:checked="true"
@@ -31,5 +32,14 @@
             android:id="@+id/navigation_about"
             android:icon="@drawable/ic_info_24dp"
             android:title="@string/section_about" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/navigation_observer_mode"
+            android:icon="@drawable/ic_ghost"
+            android:title="@string/observer_mode"
+            android:checkable="false"
+            app:actionLayout="@layout/navigation_observer_mode_switch" />
     </group>
 </menu>

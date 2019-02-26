@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps.fragments;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,9 +40,12 @@ import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
+import info.metadude.android.typedpreferences.BooleanPreference;
+import timber.log.Timber;
 
 import javax.inject.Inject;
 
@@ -72,6 +76,9 @@ public class MapFragment extends Fragment {
     @Inject
     LocationUpdateManager locationUpdateManager;
 
+    @Inject
+    SharedPreferences sharedPreferences;
+
     //view
     private MapView mapView;
 
@@ -98,6 +105,7 @@ public class MapFragment extends Fragment {
     //cache drawables
     private Drawable locationIcon;
     private Drawable ownLocationIcon;
+    private Drawable ownLocationIconObserver;
 
     private Unbinder unbinder;
 
@@ -170,6 +178,13 @@ public class MapFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.map_searching_for_location, Toast.LENGTH_SHORT)
                     .show();
 
+    private final SharedPreferences.OnSharedPreferenceChangeListener observerModeOnSharedPreferenceChangeListener =
+            (sharedPreferences, key) -> {
+                Timber.d("refresh from listener");
+                if (SharedPrefsKeys.OBSERVER_MODE_ACTIVE.equals(key)) {
+                    refreshView();
+                }
+            };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -180,7 +195,10 @@ public class MapFragment extends Fragment {
 
         //noinspection ConstantConditions
         locationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker);
-        ownLocationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker_own);
+        ownLocationIcon = AppCompatResources.getDrawable(
+                getActivity(), R.drawable.ic_map_marker_own);
+        ownLocationIconObserver = AppCompatResources.getDrawable(
+                getActivity(), R.drawable.ic_map_marker_ghost);
 
         return view;
     }
@@ -248,7 +266,12 @@ public class MapFragment extends Fragment {
             GeoPoint currentUserLocation = ownLocationModel.ownLocation;
             LocationMarker ownMarker = new LocationMarker(mapView);
             ownMarker.setPosition(currentUserLocation);
-            ownMarker.setIcon(ownLocationIcon);
+            if (new BooleanPreference(
+                    sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get()) {
+                ownMarker.setIcon(ownLocationIconObserver);
+            } else {
+                ownMarker.setIcon(ownLocationIcon);
+            }
             mapView.getOverlays().add(ownMarker);
         }
 
@@ -269,6 +292,9 @@ public class MapFragment extends Fragment {
                 locationUpdateManager.requestPermission();
             }
         }
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(
+                observerModeOnSharedPreferenceChangeListener);
     }
 
     private void handleFirstLocationUpdate() {
@@ -291,6 +317,9 @@ public class MapFragment extends Fragment {
     public void onPause() {
         super.onPause();
         eventBus.unregister(this);
+
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(
+                observerModeOnSharedPreferenceChangeListener);
     }
 
     @Override
@@ -375,7 +404,7 @@ public class MapFragment extends Fragment {
 
     private void setGpsStatusFixed() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.colorAccent, R.drawable.ic_gps_fixed_white_24dp,
+        setGpsStatusCommon(R.color.colorSecondary, R.drawable.ic_gps_fixed_white_24dp,
                 centerLocationOnClickListener);
     }
 

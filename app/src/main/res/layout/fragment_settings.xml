@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/colorAccent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/colorSecondary"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
             android:paddingEnd="16dp"
@@ -60,7 +60,7 @@
                     android:ellipsize="marquee"
                     android:fadingEdge="horizontal"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:text="@string/settings_cache_subheading"/>
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:layout_alignStart="@id/settings_clear_cache_title"
                     android:layout_below="@id/settings_clear_cache_title"
                     android:maxLines="4"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="?android:attr/textColorSecondary"
                     android:layout_alignLeft="@id/settings_clear_cache_title"
                     tools:text="Currently using 125.78 MB"/>
@@ -200,7 +200,7 @@
                     android:ellipsize="marquee"
                     android:fadingEdge="horizontal"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:text="@string/settings_choose_storage_subheading"/>
 
                 <TextView
@@ -210,7 +210,7 @@
                     android:layout_alignStart="@id/title3"
                     android:layout_below="@id/title3"
                     android:maxLines="4"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="?android:attr/textColorSecondary"
                     android:layout_alignLeft="@id/title3"
                     tools:text="@string/storage_name_internal"/>

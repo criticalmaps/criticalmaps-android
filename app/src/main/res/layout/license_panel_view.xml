@@ -14,7 +14,7 @@
             android:id="@+id/about_license_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/about_content_text"
             />
 
@@ -22,7 +22,7 @@
             android:id="@+id/about_license_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="?android:textColorLink"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
@@ -43,8 +43,8 @@
             android:id="@+id/about_license_copyright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@color/about_content_text"
             />
 
         <TextView
@@ -68,8 +68,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:background="@color/material_grey_300"
-        android:textColor="@android:color/primary_text_light"
+        android:background="@color/colorPrimaryLight"
+        android:textColor="@color/colorOnPrimary"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         android:textSize="9sp"
         android:padding="4dp"
         android:visibility="gone"

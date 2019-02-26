@@ -1,13 +1,17 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import java.io.IOException;
 import javax.inject.Inject;
+
+import info.metadude.android.typedpreferences.BooleanPreference;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,6 +31,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     private final UserModel userModel;
     private final ServerResponseProcessor serverResponseProcessor;
     private final OkHttpClient okHttpClient;
+    private final SharedPreferences sharedPreferences;
     private final LocationUpdateManager locationUpdateManager;
 
     @Inject
@@ -35,12 +40,14 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
                              UserModel userModel,
                              ServerResponseProcessor serverResponseProcessor,
                              OkHttpClient okHttpClient,
+                             SharedPreferences sharedPreferences,
                              LocationUpdateManager locationUpdateManager) {
         this.chatModel = chatModel;
         this.ownLocationModel = ownLocationModel;
         this.userModel = userModel;
         this.serverResponseProcessor = serverResponseProcessor;
         this.okHttpClient = okHttpClient;
+        this.sharedPreferences = sharedPreferences;
         this.locationUpdateManager = locationUpdateManager;
     }
 
@@ -75,6 +82,14 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
 
         try {
             jsonObject.put("device", userModel.getChangingDeviceToken());
+
+            final boolean isObserverModeActive = new BooleanPreference(
+                    sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get();
+
+            Timber.d("observer mode: %s", isObserverModeActive);
+            if (isObserverModeActive) {
+                jsonObject.put("observerMode", "true");
+            }
 
             if (ownLocationModel.ownLocation != null && ownLocationModel.hasPreciseLocation()
                     && locationUpdateManager.isUpdating()) {

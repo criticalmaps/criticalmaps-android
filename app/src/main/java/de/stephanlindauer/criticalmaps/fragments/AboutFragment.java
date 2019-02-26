@@ -25,6 +25,9 @@ public class AboutFragment extends Fragment {
     @BindView(R.id.about_twitter)
     ImageButton twitterButton;
 
+    @BindView(R.id.about_github)
+    ImageButton githubButton;
+
     @BindView(R.id.about_scrollview)
     NestedScrollView scrollView;
 
@@ -57,6 +60,8 @@ public class AboutFragment extends Fragment {
                 new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
         twitterButton.setOnClickListener(
                 new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));
+        githubButton.setOnClickListener(
+                new URLOpenOnActivityOnClickListener("https://github.com/criticalmaps/criticalmaps-android"));
     }
 
     @Override

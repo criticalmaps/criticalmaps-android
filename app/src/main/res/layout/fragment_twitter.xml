@@ -6,7 +6,6 @@
     android:id="@+id/twitter_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/twitter_background"
     tools:menu="actionbar_buttons">
 
     <TextView
@@ -14,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border_bottom"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textAlignment="viewStart"
         android:gravity="start"
         android:text="@string/twitter_heading" />
@@ -40,9 +39,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginEnd="6dp"
+        app:useCompatPadding="true"
         app:srcCompat="@drawable/ic_content_add" />
 
     <LinearLayout
@@ -58,10 +57,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/something_went_wrong"
             android:textColor="@color/twitter_error_message_text"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <Button
             android:id="@+id/twitter_error_button"

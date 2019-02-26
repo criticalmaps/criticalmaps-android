@@ -2,6 +2,7 @@ package de.stephanlindauer.criticalmaps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -11,13 +12,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
+
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import java.io.File;
 
@@ -31,12 +37,14 @@ import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import de.stephanlindauer.criticalmaps.utils.DrawerClosingDrawerLayoutListener;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
+import info.metadude.android.typedpreferences.BooleanPreference;
 import timber.log.Timber;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +59,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @Inject
     public PermissionCheckHandler permissionCheckHandler;
 
+    @Inject
+    SharedPreferences sharedPreferences;
+
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
@@ -60,6 +71,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -67,14 +79,24 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         drawerNavigation.setNavigationItemSelectedListener(this);
 
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
 
+        SwitchCompat observerModeSwitch =
+                drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
+                .getActionView().findViewById(R.id.navigation_observer_mode_switch);
+        observerModeSwitch.setChecked(new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get());
+        observerModeSwitch.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleObserverModeSwitchCheckedChanged(isChecked));
+
         if (savedInstanceState != null) {
-            SparseArray<Fragment.SavedState> restoredStates = savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
+            SparseArray<Fragment.SavedState> restoredStates =
+                    savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
             if (restoredStates != null) {
                 savedFragmentStates = restoredStates;
             }
@@ -88,14 +110,15 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public void onCreate(Bundle bundle) {
         setTheme(R.style.AppTheme); // has to be before super!
-
         super.onCreate(bundle);
 
         App.components().inject(this);
-
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+
+        // This is a little hacky and might break with a materialcomponents lib update
+        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
+        navigationMenuView.setNestedScrollingEnabled(false);
 
         new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
 
@@ -158,11 +181,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void startDatenschutzIntent() {
-        IntentUtil.startFromURL(this, "http://criticalmaps.net/info#Datenschutzerklärung");
+        IntentUtil.startFromURL(this,
+                "http://criticalmaps.net/info#Datenschutzerklärung");
     }
 
     private void startRateTheApp() {
-        IntentUtil.startFromURL(this, "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps");
+        IntentUtil.startFromURL(this,
+                "https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps");
     }
 
     @Override
@@ -201,7 +226,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_NAVID, currentNavId);
         outState.putSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES, savedFragmentStates);
@@ -209,10 +234,16 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        item.setChecked(true);
-        drawerLayout.closeDrawer(GravityCompat.START);
-        navigateTo(item.getItemId());
-        return true;
+        if(item.getGroupId() == R.id.navigation_group) {
+            item.setChecked(true);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            //noinspection ConstantConditions
+            getSupportActionBar().setTitle(item.getTitle());
+            navigateTo(item.getItemId());
+            return true;
+        }
+        //TODO set switch checked when observer switch item selected?
+        return false;
     }
 
     private void navigateTo(@IdRes int navId) {
@@ -223,7 +254,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         // save state of current fragment
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (currentFragment != null) {
-            Fragment.SavedState state = getSupportFragmentManager().saveFragmentInstanceState(currentFragment);
+            Fragment.SavedState state =
+                    getSupportFragmentManager().saveFragmentInstanceState(currentFragment);
             savedFragmentStates.put(currentNavId, state);
         }
 
@@ -233,7 +265,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         // restore saved state of new fragment if it was shown before; otherwise passing null is ok
         nextFragment.setInitialSavedState(savedFragmentStates.get(navId));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, nextFragment).commit();
     }
 
     @Override
@@ -242,5 +275,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         if (!permissionCheckHandler.handlePermissionRequestCallback(requestCode, grantResults)) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    private void handleObserverModeSwitchCheckedChanged(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).set(isChecked);
     }
 }

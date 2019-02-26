@@ -6,7 +6,6 @@
     android:id="@+id/about_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/about_background"
     tools:menu="actionbar_buttons">
 
     <LinearLayout
@@ -23,8 +22,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginStart="0dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -60,10 +57,10 @@
             style="@style/about_heading"
             android:text="@string/about_heading_code" />
 
-        <TextView
-            style="@style/about_content"
-            android:autoLink="web"
-            android:text="@string/about_text_github_url" />
+        <ImageButton
+            android:id="@+id/about_github"
+            style="@style/about_button"
+            app:srcCompat="@drawable/ic_github_mark" />
 
         <TextView
             style="@style/about_heading"
