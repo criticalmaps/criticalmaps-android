@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Launch screen theme -->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen_logo</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
     </style>
 
     <!-- Base application theme -->
@@ -20,9 +22,10 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/main_statusbarcolor_map</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/main_navbarcolor</item>
         <!-- needed for background on api 16 below: -->
         <item name="android:windowBackground">@color/colorBackground</item>
-
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">

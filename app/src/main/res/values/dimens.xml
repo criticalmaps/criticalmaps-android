@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="map_toolbar_margins">8dp</dimen>
+    <dimen name="map_toolbar_corner_radius">8dp</dimen>
+</resources>

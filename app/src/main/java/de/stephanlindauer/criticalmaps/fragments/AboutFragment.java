@@ -4,7 +4,6 @@ import android.animation.LayoutTransition;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.core.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +27,10 @@ public class AboutFragment extends Fragment {
     @BindView(R.id.about_github)
     ImageButton githubButton;
 
-    @BindView(R.id.about_scrollview)
-    NestedScrollView scrollView;
-
     @BindView(R.id.about_subcontainer)
     LinearLayout subContainer;
-    private Unbinder unbinder;
 
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -2,10 +2,12 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import androidx.annotation.ColorRes;
@@ -21,6 +23,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,13 +92,16 @@ public class MapFragment extends Fragment {
     FloatingActionButton setRotationNorth;
 
     @BindView(R.id.map_container)
-    RelativeLayout mapContainer;
+    FrameLayout mapContainer;
 
     @BindView(R.id.map_osm_notice)
     TextView osmNoticeOverlay;
 
     @BindView(R.id.map_no_data_connectivity)
     FloatingActionButton noDataConnectivityButton;
+
+    @BindView(R.id.map_overlay_container)
+    RelativeLayout mapOverlayContainer;
 
     //misc
     private boolean isInitialLocationSet = false;
@@ -207,6 +213,10 @@ public class MapFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            adjustToWindowsInsets();
+        }
+
         App.components().inject(this);
 
         osmNoticeOverlay.setMovementMethod(LinkMovementMethod.getInstance());
@@ -246,6 +256,24 @@ public class MapFragment extends Fragment {
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
         }
         setRotationNorth.setRotation(mapView.getMapOrientation());
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void adjustToWindowsInsets() {
+        // No-op on < API21
+        ViewCompat.setOnApplyWindowInsetsListener(mapOverlayContainer, (v, insets) -> {
+            // inset the map overlays for the status bar
+            v.setPaddingRelative(
+                    v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
+                    v.getPaddingEnd(), v.getPaddingBottom());
+
+            // clear this listener so insets aren't re-applied
+            ViewCompat.setOnApplyWindowInsetsListener(mapOverlayContainer, null);
+            return insets;
+        });
+
+        // without this insets aren't reapplied on fragment changes
+        ViewCompat.requestApplyInsets(mapOverlayContainer);
     }
 
     private void refreshView() {
