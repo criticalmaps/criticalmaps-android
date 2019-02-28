@@ -1,154 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/about_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/toolbar_height"
     tools:menu="actionbar_buttons">
 
-    <LinearLayout
-        android:id="@+id/about_subcontainer"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/about_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:animateLayoutChanges="true">
-
-        <TextView
-            style="@style/about_heading"
-            android:text="@string/about_heading_social" />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/about_subcontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
+
+            <TextView
+                style="@style/about_heading"
+                android:text="@string/about_heading_social" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/about_facebook"
+                    app:srcCompat="@drawable/ic_facebook_logo"
+                    style="@style/about_button" />
+
+                <ImageButton
+                    android:id="@+id/about_twitter"
+                    app:srcCompat="@drawable/ic_twitter_social_icon_rounded_square_color"
+                    style="@style/about_button" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/about_heading"
+                android:text="@string/about_heading_website" />
+
+            <TextView
+                style="@style/about_content"
+                android:autoLink="web"
+                android:text="@string/about_text_map_url" />
+
+            <TextView
+                style="@style/about_heading"
+                android:text="@string/about_heading_contributions" />
+
+            <TextView
+                style="@style/about_content"
+                android:text="@string/about_text_contributors" />
+
+            <TextView
+                style="@style/about_heading"
+                android:text="@string/about_heading_code" />
 
             <ImageButton
-                android:id="@+id/about_facebook"
-                app:srcCompat="@drawable/ic_facebook_logo"
-                style="@style/about_button" />
+                android:id="@+id/about_github"
+                style="@style/about_button"
+                app:srcCompat="@drawable/ic_github_mark" />
 
-            <ImageButton
-                android:id="@+id/about_twitter"
-                app:srcCompat="@drawable/ic_twitter_social_icon_rounded_square_color"
-                style="@style/about_button" />
+            <TextView
+                style="@style/about_heading"
+                android:text="@string/about_heading_opensource" />
+
+            <TextView
+                style="@style/about_content"
+                android:text="@string/about_text_opensource"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_aospsupport"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_aospsupport"
+                app:link="@string/licenses_link_aospsupport"
+                app:copyright="@string/licenses_copyright_aospsupport"
+                app:notice="@string/licenses_notice_aospsupport"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_axt"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_axt"
+                app:link="@string/licenses_link_axt"
+                app:copyright="@string/licenses_copyright_axt"
+                app:notice="@string/licenses_notice_axt"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_butterknife"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_butterknife"
+                app:link="@string/licenses_link_butterknife"
+                app:copyright="@string/licenses_copyright_butterknife"
+                app:notice="@string/licenses_notice_butterknife"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_dagger2"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_dagger2"
+                app:link="@string/licenses_link_dagger2"
+                app:copyright="@string/licenses_copyright_dagger2"
+                app:notice="@string/licenses_notice_dagger2"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_otto"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_otto"
+                app:link="@string/licenses_link_otto"
+                app:copyright="@string/licenses_copyright_otto"
+                app:notice="@string/licenses_notice_otto"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_okhttp"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_okhttp"
+                app:link="@string/licenses_link_okhttp"
+                app:copyright="@string/licenses_copyright_okhttp"
+                app:notice="@string/licenses_notice_okhttp"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_osmdroid"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_osmdroid"
+                app:link="@string/licenses_link_osmdroid"
+                app:copyright="@string/licenses_copyright_osmdroid"
+                app:notice="@string/licenses_notice_osmdroid"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_osmbonuspack"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_osmbonuspack"
+                app:link="@string/licenses_link_osmbonuspack"
+                app:copyright="@string/licenses_copyright_osmbonuspack"
+                app:notice="@string/licenses_notice_osmbonuspack"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_picasso"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_picasso"
+                app:link="@string/licenses_link_picasso"
+                app:copyright="@string/licenses_copyright_picasso"
+                app:notice="@string/licenses_notice_picasso"/>
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_typed_preferences"
+                style="@style/about_license_panel"
+                app:name="@string/licenses_name_typed_preferences"
+                app:link="@string/licenses_link_typed_preferences"
+                app:copyright="@string/licenses_copyright_typed_preferences"
+                app:notice="@string/licenses_notice_typed_preferences"/>
 
         </LinearLayout>
-
-        <TextView
-            style="@style/about_heading"
-            android:text="@string/about_heading_website" />
-
-        <TextView
-            style="@style/about_content"
-            android:autoLink="web"
-            android:text="@string/about_text_map_url" />
-
-        <TextView
-            style="@style/about_heading"
-            android:text="@string/about_heading_contributions" />
-
-        <TextView
-            style="@style/about_content"
-            android:text="@string/about_text_contributors" />
-
-        <TextView
-            style="@style/about_heading"
-            android:text="@string/about_heading_code" />
-
-        <ImageButton
-            android:id="@+id/about_github"
-            style="@style/about_button"
-            app:srcCompat="@drawable/ic_github_mark" />
-
-        <TextView
-            style="@style/about_heading"
-            android:text="@string/about_heading_opensource" />
-
-        <TextView
-            style="@style/about_content"
-            android:text="@string/about_text_opensource"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_aospsupport"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_aospsupport"
-            app:link="@string/licenses_link_aospsupport"
-            app:copyright="@string/licenses_copyright_aospsupport"
-            app:notice="@string/licenses_notice_aospsupport"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_axt"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_axt"
-            app:link="@string/licenses_link_axt"
-            app:copyright="@string/licenses_copyright_axt"
-            app:notice="@string/licenses_notice_axt"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_butterknife"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_butterknife"
-            app:link="@string/licenses_link_butterknife"
-            app:copyright="@string/licenses_copyright_butterknife"
-            app:notice="@string/licenses_notice_butterknife"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_dagger2"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_dagger2"
-            app:link="@string/licenses_link_dagger2"
-            app:copyright="@string/licenses_copyright_dagger2"
-            app:notice="@string/licenses_notice_dagger2"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_otto"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_otto"
-            app:link="@string/licenses_link_otto"
-            app:copyright="@string/licenses_copyright_otto"
-            app:notice="@string/licenses_notice_otto"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_okhttp"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_okhttp"
-            app:link="@string/licenses_link_okhttp"
-            app:copyright="@string/licenses_copyright_okhttp"
-            app:notice="@string/licenses_notice_okhttp"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_osmdroid"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_osmdroid"
-            app:link="@string/licenses_link_osmdroid"
-            app:copyright="@string/licenses_copyright_osmdroid"
-            app:notice="@string/licenses_notice_osmdroid"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_osmbonuspack"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_osmbonuspack"
-            app:link="@string/licenses_link_osmbonuspack"
-            app:copyright="@string/licenses_copyright_osmbonuspack"
-            app:notice="@string/licenses_notice_osmbonuspack"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_picasso"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_picasso"
-            app:link="@string/licenses_link_picasso"
-            app:copyright="@string/licenses_copyright_picasso"
-            app:notice="@string/licenses_notice_picasso"/>
-
-        <de.stephanlindauer.criticalmaps.views.LicensePanelView
-            android:id="@+id/about_license_typed_preferences"
-            style="@style/about_license_panel"
-            app:name="@string/licenses_name_typed_preferences"
-            app:link="@string/licenses_link_typed_preferences"
-            app:copyright="@string/licenses_copyright_typed_preferences"
-            app:notice="@string/licenses_notice_typed_preferences"/>
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

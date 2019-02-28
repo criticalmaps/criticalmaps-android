@@ -6,25 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="@string/section_map"/>
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/map_toolbar_margins"
+            android:layout_marginRight="@dimen/map_toolbar_margins"
+            android:layout_marginTop="@dimen/map_toolbar_margins"
+            android:background="@drawable/toolbar_background"
+            android:elevation="4dp"
+            app:title="@string/section_map"/>
+    </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/drawer_scrollview"

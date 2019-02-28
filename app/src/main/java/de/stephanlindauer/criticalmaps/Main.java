@@ -1,12 +1,20 @@
 package de.stephanlindauer.criticalmaps;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,7 +26,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
@@ -71,6 +83,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.content_frame)
+    FrameLayout contentFrame;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -102,6 +116,32 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             }
 
             currentNavId = savedInstanceState.getInt(KEY_NAVID);
+
+            if (currentNavId != R.id.navigation_map) {
+                // set toolbar title
+                //noinspection ConstantConditions
+                getSupportActionBar().setTitle(drawerNavigation.getCheckedItem().getTitle());
+
+                // set toolbar margins
+                ViewGroup.MarginLayoutParams toolbarParams =
+                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                int marginPixels =
+                        getResources().getDimensionPixelSize(R.dimen.map_toolbar_margins);
+
+                toolbarParams.topMargin -= marginPixels;
+                toolbarParams.rightMargin -= marginPixels;
+                toolbarParams.leftMargin -= marginPixels;
+                toolbar.setLayoutParams(toolbarParams);
+
+                // set toolbar background
+                ((GradientDrawable) toolbar.getBackground()).setCornerRadius(0F);
+
+                // set statusbar color
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getWindow().setStatusBarColor(
+                            ContextCompat.getColor(this, R.color.main_statusbarcolor_others));
+                }
+            }
         } else {
             navigateTo(R.id.navigation_map);
         }
@@ -115,6 +155,36 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         App.components().inject(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+            // inset the toolbar down by the status bar height
+            ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+                ViewGroup.MarginLayoutParams lpToolbar =
+                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                lpToolbar.topMargin += insets.getSystemWindowInsetTop();
+
+                toolbar.setLayoutParams(lpToolbar);
+
+                // clear this listener so insets aren't re-applied
+                ViewCompat.setOnApplyWindowInsetsListener(toolbar, null);
+                return insets;
+            });
+
+            // inset header in nav drawer down by the status bar height
+            View navHeader = drawerNavigation.getHeaderView(0);
+            ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
+                v.setPaddingRelative(
+                        v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
+                        v.getPaddingEnd(), v.getPaddingBottom());
+
+                // clear this listener so insets aren't re-applied
+                ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
+                return insets;
+            });
+        }
 
         // This is a little hacky and might break with a materialcomponents lib update
         RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
@@ -259,7 +329,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             savedFragmentStates.put(currentNavId, state);
         }
 
-        currentNavId = navId;
         final Fragment nextFragment = FragmentProvider.getFragmentForNavId(navId);
 
         // restore saved state of new fragment if it was shown before; otherwise passing null is ok
@@ -267,6 +336,82 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, nextFragment).commit();
+
+        // animate toolbar and statusbar color
+        if (currentNavId == R.id.navigation_map) {
+            // from map to other fragment
+            animateToolbar(200, false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                fadeInStatusBarColor(200, false);
+            }
+        } else if (navId == R.id.navigation_map && currentNavId != 0) {
+            // from other fragment to map AND not app start
+            animateToolbar(500, true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                fadeInStatusBarColor(500, true);
+            }
+        }
+
+        currentNavId = navId;
+    }
+
+    private void animateToolbar(int durationMillis, boolean toMap) {
+        ViewGroup.MarginLayoutParams toolbarParamsChanging =
+                (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+
+        ViewGroup.MarginLayoutParams toolbarParamsStart =
+                new ViewGroup.MarginLayoutParams(toolbarParamsChanging);
+
+        int marginPixels = getResources().getDimensionPixelSize(R.dimen.map_toolbar_margins);
+
+        if (toMap) {
+            marginPixels *= -1;
+        }
+
+        ValueAnimator marginAnimator = ValueAnimator.ofInt(0, marginPixels);
+        marginAnimator.setDuration(durationMillis);
+        marginAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        marginAnimator.addUpdateListener(animation -> {
+            int animatedValue = (int) animation.getAnimatedValue();
+            toolbarParamsChanging.topMargin = toolbarParamsStart.topMargin - animatedValue;
+            toolbarParamsChanging.rightMargin = toolbarParamsStart.rightMargin - animatedValue;
+            toolbarParamsChanging.leftMargin = toolbarParamsStart.leftMargin - animatedValue;
+            toolbar.setLayoutParams(toolbarParamsChanging);
+        });
+
+        GradientDrawable toolbarBackground = (GradientDrawable) toolbar.getBackground();
+        float radiusMap = getResources().getDimension(R.dimen.map_toolbar_corner_radius);
+        float radiusFrom = toMap ? 0 : radiusMap;
+        float radiusTo = toMap ? radiusMap : 0;
+
+        ValueAnimator radiusAnimator = ValueAnimator.ofFloat(radiusFrom, radiusTo);
+        radiusAnimator.setDuration(durationMillis);
+        marginAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        radiusAnimator.addUpdateListener(animation -> {
+                    float value = (float) animation.getAnimatedValue();
+                    toolbarBackground.setCornerRadius(value);
+                });
+
+        marginAnimator.start();
+        radiusAnimator.start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void fadeInStatusBarColor(int duration, boolean toMap) {
+        int colorMap = ContextCompat.getColor(this, R.color.main_statusbarcolor_map);
+        int colorOthers = ContextCompat.getColor(this, R.color.main_statusbarcolor_others);
+        int colorFrom = toMap ? colorOthers : colorMap;
+        int colorTo = toMap ? colorMap : colorOthers;
+
+        ValueAnimator valueAnimator =
+                ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        valueAnimator.setDuration(duration);
+        valueAnimator.addUpdateListener(animation -> {
+            int color = (int) animation.getAnimatedValue();
+            getWindow().setStatusBarColor(color);
+        });
+
+        valueAnimator.start();
     }
 
     @Override
