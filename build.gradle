@@ -1,31 +1,28 @@
 buildscript {
     ext {
-        support_version = "27.1.1"
-        dagger_version = "2.16"
-        butterknife_version = "8.8.1"
+        dagger_version = "2.19"
+        butterknife_version = "10.1.0"
     }
 
     repositories {
-        jcenter()
         google()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        // gradle-errorprone-plugin:
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.1'
-        classpath 'de.mobilej.unmock:UnMockPlugin:0.6.4'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.14'
+        classpath 'de.mobilej.unmock:UnMockPlugin:0.6.5'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.16'
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
         google()
-        maven{
-            url "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+        mavenCentral()
+        maven { url  "https://jetbrains.bintray.com/trove4j" }
+        maven { url  "https://dl.bintray.com/ligi/maven" }
+        maven { url  "https://dl.bintray.com/bjoernq/maven" }
     }
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.util.SparseArray;

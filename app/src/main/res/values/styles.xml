@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Launch screen theme -->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen_logo</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
     </style>
 
     <!-- Base application theme -->
-    <style name="AppTheme" parent="@style/Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="@style/Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/window_background</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryLight</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/main_statusbarcolor_map</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/main_navbarcolor</item>
+        <!-- needed for background on api 16 below: -->
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/colorPrimary</item>
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/colorSecondary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="android:background">@color/colorBackground</item>
+    </style>
+
+    <style name="rules_heading" parent="Widget.MaterialComponents.CardView">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_gravity">start|top</item>
     </style>
 
     <style name="rules_explainer">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">16dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">left|top</item>
-    </style>
-
-    <style name="rules_button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Button</item>
-        <item name="android:gravity">center|left</item>
-    </style>
-
-    <style name="rules_panel_wrapper">
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="rules_image">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_gravity">start|top</item>
     </style>
 
     <style name="rules_image_source_text">
@@ -51,29 +59,33 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:autoLink">web</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textColor">?android:textColorPrimaryInverse</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
     </style>
 
     <style name="about_heading">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
         <item name="android:background">@color/about_heading_background</item>
     </style>
 
     <style name="about_content">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
-        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <style name="about_button">
@@ -81,6 +93,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:background">@null</item>
     </style>
@@ -92,6 +105,8 @@
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:animateLayoutChanges">true</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <style name="introduction_paragraph">
@@ -99,6 +114,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <style name="map_osm_notice">
@@ -107,16 +124,18 @@
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>
         <item name="android:background">@color/map_osm_notice</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textColor">?android:textColorSecondaryInverse</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
         <item name="android:textSize">11sp</item>
     </style>
 
     <style name="picture_upload_confirmation_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:gravity">start</item>
     </style>
 
 </resources>

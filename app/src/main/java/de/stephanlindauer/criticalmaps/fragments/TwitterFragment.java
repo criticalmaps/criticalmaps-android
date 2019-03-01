@@ -1,9 +1,9 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,23 +60,18 @@ public class TwitterFragment extends Fragment {
         tweetAdapter = new TweetAdapter(getActivity(), R.layout.view_tweet, new ArrayList<>());
         tweetListView.setAdapter(tweetAdapter);
 
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new TwitterGetHandler(TwitterFragment.this).execute();
-            }
-        });
+        swipeLayout.setOnRefreshListener(() ->
+                new TwitterGetHandler(TwitterFragment.this).execute());
 
         swipeLayout.setColorSchemeResources(
                 R.color.twitter_indicator_color_first,
                 R.color.twitter_indicator_color_second);
 
-        errorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TwitterGetHandler(TwitterFragment.this).execute();
-                errorMessage.setVisibility(View.GONE);
-            }
+        swipeLayout.setProgressBackgroundColorSchemeResource(R.color.tweet_progress_bar_background);
+
+        errorButton.setOnClickListener(v -> {
+            new TwitterGetHandler(TwitterFragment.this).execute();
+            errorMessage.setVisibility(View.GONE);
         });
 
         new TwitterGetHandler(this).execute();

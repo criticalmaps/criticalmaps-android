@@ -82,11 +82,10 @@
     <string name="camera_image_upload_succeeded_title">Immagine caricata con successo!</string>
     <string name="camera_image_upload_succeeded_message">La foto è stata caricata su criticalmaps.net </string>
     <string name="camera_no_camera">Non puoi fare foto se il tuo telefono non ha fotocamera.</string>
-
     <!-- misc -->
     <string name="something_went_wrong">Qualcosa non ha funzionato </string>
     <string name="ok">OK</string>
-
+    <string name="cancel">Cancella</string>
     <!-- introduction -->
     <string name="introduction_heading">Per piacere leggi l\'introduzione rapida </string>
     <string name="introduction_own_icon">Tu appari così:\u0020</string>

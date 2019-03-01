@@ -1,67 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:menu="actionbar_buttons">
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/map_container"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/map_overlay_container"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:paddingTop="?attr/actionBarSize">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/map_no_data_connectivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="12dp"
-        android:gravity="center_vertical|center_horizontal"
-        app:backgroundTint="@color/map_fab_warning"
-        app:srcCompat="@drawable/ic_sync_problem_white_24dp"
-        app:fabSize="mini"
-        android:visibility="gone"
-        tools:visibility="visible"
-        tools:ignore="RelativeOverlap,RtlHardcoded" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/set_current_location_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6dp"
+            android:gravity="center_vertical|center_horizontal"
+            app:useCompatPadding="true"
+            app:srcCompat="@drawable/ic_maps_my_location"
+            app:fabSize="mini"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/set_current_location_center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="12dp"
-        android:gravity="center_vertical|center_horizontal"
-        app:srcCompat="@drawable/ic_maps_my_location"
-        app:fabSize="mini"
-        tools:ignore="RelativeOverlap,RtlHardcoded" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/set_rotation_north"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="6dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:rotation="12"
+            app:useCompatPadding="true"
+            app:srcCompat="@drawable/ic_maps_orientation"
+            app:fabSize="mini"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/set_rotation_north"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="12dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:rotation="12"
-        app:srcCompat="@drawable/ic_maps_orientation"
-        app:fabSize="mini"
-        tools:ignore="RelativeOverlap,RtlHardcoded" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/map_no_data_connectivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/set_rotation_north"
+            android:gravity="center_vertical|center_horizontal"
+            app:useCompatPadding="true"
+            app:backgroundTint="@color/map_fab_warning"
+            app:srcCompat="@drawable/ic_sync_problem_white_24dp"
+            app:fabSize="mini"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
-    <TextView
-        android:id="@+id/map_osm_notice"
-        android:text="@string/osm_credits"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        style="@style/map_osm_notice"/>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/map_osm_notice"
+            android:text="@string/osm_credits"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            style="@style/map_osm_notice"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

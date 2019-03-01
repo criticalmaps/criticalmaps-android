@@ -6,7 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -83,7 +83,7 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
         }
 
         LayoutInflater factory = LayoutInflater.from(activity);
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.AlertDialogTheme);
         @SuppressLint("InflateParams") // okay for dialog
         final View view = factory.inflate(R.layout.view_picture_upload, null);
 

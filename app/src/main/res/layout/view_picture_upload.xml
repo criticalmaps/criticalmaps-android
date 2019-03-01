@@ -5,23 +5,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    tools:background="@android:color/holo_red_light">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/picture_preview"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
-        tools:src="@android:drawable/sym_def_app_icon"
-        tools:background="@android:color/holo_purple"/>
+        android:layout_margin="16dp"
+        tools:src="@android:drawable/sym_def_app_icon"/>
 
     <TextView
         android:id="@+id/picture_confirm_text"
         style="@style/picture_upload_confirmation_text"
         android:layout_gravity="center"
-        tools:text="@string/camera_confirm_image_upload"
-        tools:background="@android:color/holo_orange_light"/>
+        tools:text="@string/camera_confirm_image_upload"/>
 
 </LinearLayout>

@@ -4,19 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -103,14 +98,6 @@ public class ChatFragment extends Fragment {
 
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
         editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
-
-        Drawable wrappedDrawable = DrawableCompat.wrap(sendButton.getDrawable());
-        DrawableCompat.setTintMode(wrappedDrawable, PorterDuff.Mode.SRC_ATOP);
-        @SuppressWarnings("ConstantConditions")
-        ColorStateList colorStateList = ContextCompat.getColorStateList(getActivity(),
-                R.color.chat_fab_drawable_states);
-        DrawableCompat.setTintList(wrappedDrawable, colorStateList);
-        sendButton.setImageDrawable(wrappedDrawable);
     }
 
     @Override

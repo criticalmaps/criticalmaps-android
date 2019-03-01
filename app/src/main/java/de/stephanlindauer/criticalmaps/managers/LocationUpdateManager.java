@@ -34,10 +34,12 @@ public class LocationUpdateManager {
     private final EventBus eventBus;
     private final PermissionCheckHandler permissionCheckHandler;
     private final App app;
+    private boolean isUpdating = false;
 
     //const
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
+    private static final int LOCATION_NEW_THRESHOLD = 30 * 1000; //30 seconds
     private static final String[] USED_PROVIDERS = new String[]{
             LocationManager.GPS_PROVIDER,
             LocationManager.NETWORK_PROVIDER};
@@ -112,9 +114,12 @@ public class LocationUpdateManager {
         // isProviderEnabled() doesn't throw when permission is not granted, so we can use it safely
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.HIGH_ACCURACY;
+            isUpdating = true;
         } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.LOW_ACCURACY;
+            isUpdating = true;
         } else {
+            isUpdating = false;
             Events.GPS_STATUS_CHANGED_EVENT.status = GpsStatusChangedEvent.Status.DISABLED;
         }
     }
@@ -128,6 +133,13 @@ public class LocationUpdateManager {
             }
         }
         return atLeastOneProviderExists;
+    }
+
+    // Usage of this method should rather be handled by listening to the GpsStatusChangedEvent,
+    // unfortunately this is not possible in PullServerHandler because we can't register on non
+    // main thread
+    public boolean isUpdating() {
+        return isUpdating;
     }
 
     public void initializeAndStartListening() {
@@ -216,7 +228,7 @@ public class LocationUpdateManager {
 
     private void publishNewLocation(Location location) {
         GeoPoint newLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        ownLocationModel.setLocation(newLocation, location.getAccuracy(), location.getTime());
+        ownLocationModel.setLocation(newLocation, location.getAccuracy());
         eventBus.post(Events.NEW_LOCATION_EVENT);
     }
 
@@ -229,8 +241,8 @@ public class LocationUpdateManager {
         // Average speed of the CM is ~4 m/s so anything over 30 seconds old, may already
         // be well over 120m off. So a newer fix is assumed to be always better.
         long timeDelta = location.getTime() - lastPublishedLocation.getTime();
-        boolean isSignificantlyNewer = timeDelta > OwnLocationModel.MAX_LOCATION_AGE;
-        boolean isSignificantlyOlder = timeDelta < -OwnLocationModel.MAX_LOCATION_AGE;
+        boolean isSignificantlyNewer = timeDelta > LOCATION_NEW_THRESHOLD;
+        boolean isSignificantlyOlder = timeDelta < -LOCATION_NEW_THRESHOLD;
         boolean isNewer = timeDelta > 0;
 
         if (isSignificantlyNewer) {

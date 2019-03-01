@@ -84,11 +84,10 @@
     <string name="camera_image_upload_succeeded_title">Fotoğraf yüklendi!</string>
     <string name="camera_image_upload_succeeded_message">Fotoğraf, criticalmaps.net galerisine eklendi </string>
     <string name="camera_no_camera">Eğer cihazınızda kamera yoksa, fotoğraf çekemezsiniz.</string>
-
     <!-- misc -->
     <string name="something_went_wrong">Bir terslik oluştu</string>
     <string name="ok">Tamam</string>
-
+    <string name="cancel">İptal</string>
     <!-- introduction -->
     <string name="introduction_heading">Lütfen hızlı tanıtıma biraz zaman ayırın.</string>
     <string name="introduction_own_icon">Böyle gözüküyorsun:\u0020</string>

@@ -1,70 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/twitter_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/twitter_background"
+    android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/toolbar_height"
     tools:menu="actionbar_buttons">
 
-    <TextView
-        android:id="@+id/twitter_heading"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_bottom"
-        android:padding="10dp"
-        android:text="@string/twitter_heading" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/twitter_heading">
-
-        <ListView
-            android:id="@+id/tweet_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/view_tweet" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/twitter_new_tweet_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="12dp"
-        android:layout_marginRight="12dp"
-        app:srcCompat="@drawable/ic_content_add"
-        tools:ignore="RtlHardcoded" />
-
-    <LinearLayout
-        android:id="@+id/twitter_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/twitter_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom"
+            android:padding="8dp"
+            android:textAlignment="viewStart"
+            android:gravity="start"
+            android:text="@string/twitter_heading" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/twitter_heading">
+
+            <ListView
+                android:id="@+id/tweet_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/view_tweet" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/twitter_new_tweet_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/something_went_wrong"
-            android:textColor="@color/twitter_error_message_text"
-            android:textStyle="bold" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
+            app:useCompatPadding="true"
+            app:srcCompat="@drawable/ic_content_add" />
 
-        <Button
-            android:id="@+id/twitter_error_button"
+        <LinearLayout
+            android:id="@+id/twitter_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/twitter_try_again" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/something_went_wrong"
+                android:textColor="@color/twitter_error_message_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+            <Button
+                android:id="@+id/twitter_error_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/twitter_try_again" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

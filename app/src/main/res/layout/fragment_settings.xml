@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/toolbar_height"
+    tools:theme="@style/AppTheme">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/settings_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/colorSecondary"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
+                android:paddingEnd="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:textAlignment="viewStart"
+                android:gravity="start"
+                android:text="@string/settings_storage_header" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:paddingRight="?android:attr/scrollbarSize">
+
+                <ImageView
+                    android:id="@+id/settings_clear_cache_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/settings_clear_cache_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="@string/settings_cache_subheading"/>
+
+                    <TextView
+                        android:id="@+id/settings_clear_cache_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/settings_clear_cache_title"
+                        android:layout_below="@id/settings_clear_cache_title"
+                        android:maxLines="4"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:layout_alignLeft="@id/settings_clear_cache_title"
+                        tools:text="Currently using 125.78 MB"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/widget_frame2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+                    <Button
+                        android:id="@+id/settings_clear_cache_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_cache_clear"/>
+                </LinearLayout>
+            </LinearLayout>
+            <de.stephanlindauer.criticalmaps.views.StorageSpaceGraph
+                android:id="@+id/settings_storagegraph"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:paddingRight="?android:attr/scrollbarSize"
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                app:usedSpaceColor="@color/settings_used_space"
+                app:tilecacheColor="@color/settings_cache_space"
+                app:freeSpaceColor="@color/settings_free_space"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="?android:attr/scrollbarSize"
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@color/settings_used_space"/>
+
+                <TextView
+                    android:id="@+id/settings_cache_used_mb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_gravity="center"
+                    tools:text="Used: 16050 MB" />
+
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@color/settings_cache_space"/>
+
+                <TextView
+                    android:id="@+id/settings_cache_cache_mb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_gravity="center"
+                    tools:text="Cache: 48 MB" />
+
+                <ImageView
+                    android:layout_height="10dp"
+                    android:layout_width="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@color/settings_free_space"/>
+
+                <TextView
+                    android:id="@+id/settings_cache_free_mb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    tools:text="Free: 1060 MB" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:id="@+id/settings_choose_storage_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:paddingRight="?android:attr/scrollbarSize"
+                android:paddingEnd="?android:attr/scrollbarSize">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/title3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="@string/settings_choose_storage_subheading"/>
+
+                    <TextView
+                        android:id="@+id/settings_choose_storage_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/title3"
+                        android:layout_below="@id/title3"
+                        android:maxLines="4"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:layout_alignLeft="@id/title3"
+                        tools:text="@string/storage_name_internal"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/widget_frame3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

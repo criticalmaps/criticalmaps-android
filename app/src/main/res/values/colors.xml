@@ -5,67 +5,76 @@
     <color name="material_red_900">#FFB71C1C</color>
     <color name="material_orange_600">#FFFB8C00</color>
 
-    <!-- From website color theme -->
-    <color name="color_green">#3DCC85</color>
-
     <!-- Logo colors -->
     <color name="logo_foreground">#FFE6E6E6</color>
 
     <!-- Theme Colors -->
-    <color name="colorPrimary">@color/material_grey_800</color>
-    <color name="colorPrimaryDark">@color/material_grey_900</color>
-    <color name="colorAccent">@color/color_green</color>
-    <color name="window_background">@color/material_grey_850</color> <!-- appcompat default: material_grey_850  -->
+    <color name="colorPrimary">#262626</color>
+    <color name="colorPrimaryLight">#4e4e4e</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorSecondary">#ffd733</color>
+    <color name="colorSecondaryLight">#ffff6a</color>
+    <color name="colorSecondaryDark">#c8a600</color>
+    <color name="colorOnPrimary">#ffffff</color>
+    <color name="colorOnSecondary">#262626</color>
+    <color name="colorBackground">#1a1a1a</color>
+    <color name="colorOnBackground">#ffffff</color>
+    <color name="colorSurface">#1a1a1a</color>
+    <color name="colorOnSurface">#ffffff</color>
+    <color name="colorError">@color/material_red_900</color>
+    <color name="colorOnError">#262626</color>
 
     <color name="icon_color">@android:color/white</color>
 
     <!-- Transparent colors -->
-    <color name="white_60pct">#99FFFFFF</color>
-    <color name="background_80pct">#CC424242</color>
+    <color name="primary_60pct">#99262626</color>
+    <color name="primaryDark_20pct">#33000000</color>
 
     <!-- Launch Screen -->
-    <color name="launch_screen_background">@color/colorPrimaryDark</color>
+    <color name="launch_screen_background">@color/colorBackground</color>
+
+    <!-- Main activity -->
+    <color name="main_statusbarcolor_map">@color/primaryDark_20pct</color>
+    <color name="main_statusbarcolor_others">@color/colorPrimaryDark</color>
+    <color name="main_navbarcolor">@color/colorPrimaryDark</color>
 
     <!-- Navigation Drawer -->
-    <color name="nav_item_icon_tint">@android:color/white</color>
-    <color name="nav_item_text">@android:color/white</color>
+    <color name="nav_item_icon_tint">@color/colorOnBackground</color>
+    <color name="nav_item_text">@color/colorOnBackground</color>
 
     <!-- Map -->
-    <color name="map_osm_notice">@color/white_60pct</color>
-    <color name="map_loading_tile_color">@color/colorPrimary</color>
-    <color name="map_loading_line_color">@color/colorPrimary</color>
+    <color name="map_osm_notice">@color/primary_60pct</color>
+    <color name="map_loading_tile_color">@color/colorBackground</color>
+    <color name="map_loading_line_color">@color/colorBackground</color>
     <color name="map_fab_warning">@color/material_red_900</color>
     <color name="map_fab_searching">@color/material_orange_600</color>
-    <color name="map_marker_foreground">@android:color/white</color>
+    <color name="map_marker_foreground">@color/colorOnPrimary</color>
     <color name="map_marker_background">@color/colorPrimary</color>
-    <color name="map_marker_own_foreground">@android:color/white</color>
+    <color name="map_marker_own_foreground">@color/colorOnPrimary</color>
     <color name="map_marker_own_background">#FF1E8CBF</color>
 
     <!-- About -->
-    <color name="about_background">@android:color/white</color>
     <color name="about_heading_background">@color/colorPrimary</color>
-    <color name="about_content_text">@android:color/black</color>
+    <color name="about_content_text">@color/colorOnPrimary</color>
 
-    <!-- Chat -->
-    <color name="chat_background">@color/colorPrimaryDark</color>
-
-    <!-- Rules -->
-    <color name="rules_background">@android:color/white</color>
+    <!-- Settings -->
+    <color name="settings_used_space">@color/logo_foreground</color>
+    <color name="settings_cache_space">@color/colorSecondary</color>
+    <color name="settings_free_space">@color/colorPrimary</color>
 
     <!-- Twitter -->
-    <color name="twitter_background">@color/colorPrimaryDark</color>
-    <color name="twitter_error_message_text">@color/material_red_900</color>
-    <color name="twitter_indicator_color_first">@color/colorAccent</color>
-    <color name="twitter_indicator_color_second">@color/colorPrimary</color>
+    <color name="twitter_error_message_text">@color/colorError</color>
+    <color name="twitter_indicator_color_first">@color/colorSecondary</color>
+    <color name="twitter_indicator_color_second">@color/colorPrimaryLight</color>
 
     <!-- Tweet -->
     <color name="tweet_progress_bar_background">@color/colorPrimary</color>
 
     <!-- Header/Footer used in chat and twitter fragment -->
-    <color name="border_bottom_background">@color/colorPrimaryDark</color>
-    <color name="border_bottom_divider">@color/colorAccent</color>
+    <color name="border_bottom_background">@color/colorBackground</color>
+    <color name="border_bottom_divider">@color/colorSecondary</color>
 
-    <color name="border_top_background">@color/colorPrimaryDark</color>
+    <color name="border_top_background">@color/colorBackground</color>
     <color name="border_top_divider">@color/colorPrimary</color>
 
 </resources>
