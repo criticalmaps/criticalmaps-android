@@ -28,7 +28,7 @@
 
     <!-- fragment_rules -->
     <string name="rules_corken">Ingorgo!?</string>
-    <string name="rules_corken_explain">Proteggi i motociclisti da se stessi, creando un ingorgo!</string>
+    <string name="rules_corken_explain">Proteggi i automobilista da se stessi, creando un ingorgo!</string>
     <string name="rules_oncoming_traffic">Traffico davanti</string>
     <string name="rules_oncoming_traffic_explain">Non procedere contromano.</string>
     <string name="rules_steady">Vai piano!</string>
@@ -38,9 +38,9 @@
     <string name="rules_green">Se sei in testa, fermati al semaforo rosso!</string>
     <string name="rules_green_explain">Quando arrivi ad un semaforo rosso e sei in testa alla massa, stai attento a fermarti quando il semaforo è rosso.</string>
     <string name="rules_friendly">Stai tranquillo</string>
-    <string name="rules_friendly_explain">Non ti far provocare. Sii educato con la polizia, con i motociclisti e il resto delle persone, anche se loro non lo sono.</string>
+    <string name="rules_friendly_explain">Non ti far provocare. Sii educato con la polizia, con i automobilista e il resto delle persone, anche se loro non lo sono.</string>
     <string name="rules_fun">Divertiti!</string>
-    <string name="rules_fun_explain">Goditi la strada riconquistata. Balla con le Sound Bike. Parla con i motociclisti, i pedoni e spiega cosa sta succedendo. La cosa più importante: divertiti!</string>
+    <string name="rules_fun_explain">Goditi la strada riconquistata. Balla con le Sound Bike. Parla con i automobilista, i pedoni e spiega cosa sta succedendo. La cosa più importante: divertiti!</string>
     <string name="rules_image_source">Immagini di criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
