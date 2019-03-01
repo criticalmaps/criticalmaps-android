@@ -54,7 +54,7 @@ public class TrackingInfoNotificationBuilder {
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(application, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_logo_notification)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(application.getString(R.string.notification_tracking_title))
                 .setContentText(application.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle()
