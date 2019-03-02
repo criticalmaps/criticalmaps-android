@@ -8,14 +8,13 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,77 +25,12 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 
-public class TweetAdapter extends ArrayAdapter<Tweet> {
+public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHolder> {
 
-    private final List<Tweet> tweets;
     private final Context context;
+    private List<Tweet> tweets;
 
-    private final Picasso picasso = App.components().picasso();
-
-    public TweetAdapter(Context context, int layoutResourceId, List<Tweet> tweets) {
-        super(context, layoutResourceId, tweets);
-        this.tweets = tweets;
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            convertView = inflater.inflate(R.layout.view_tweet, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        Tweet currentTweet = tweets.get(position);
-        return buildTweetView(currentTweet, convertView, viewHolder);
-    }
-
-    private View buildTweetView(final Tweet tweet, View rowView, final ViewHolder viewHolder) {
-        viewHolder.userImageProgress.setVisibility(View.VISIBLE);
-        picasso.load(tweet.getProfileImageUrl())
-                .fit()
-                .centerInside()
-                .error(R.drawable.ic_chat_bubble_24dp)
-                .into(viewHolder.userImageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        hideProgressBar();
-                    }
-
-                    @Override
-                    public void onError() {
-                        hideProgressBar();
-                    }
-
-                    private void hideProgressBar() {
-                        final ProgressBar progressBar = viewHolder.userImageProgress;
-                        if (progressBar != null) {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-
-        viewHolder.nameTextView.setText(tweet.getUserName());
-        viewHolder.textTextView.setText(Html.fromHtml(tweet.getText()).toString());
-        viewHolder.timeTextView.setText(new SimpleDateFormat("HH:mm", Locale.US).format(tweet.getTimestamp()));
-        viewHolder.dateTextView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(tweet.getTimestamp()));
-        viewHolder.handleTextView.setText("@" + tweet.getUserScreenName());
-
-        rowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/aasif/status/" + tweet.getTweetId())));
-            }
-        });
-        return rowView;
-    }
-
-    static class ViewHolder {
+    public static class TweetViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tweet_user_name)
         TextView nameTextView;
         @BindView(R.id.tweet_text)
@@ -112,9 +46,80 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         @BindView(R.id.tweet_user_image_progress)
         ProgressBar userImageProgress;
 
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
+        private final Context context;
+
+        public TweetViewHolder(Context context, @NonNull View itemView) {
+            super(itemView);
+            this.context = context;
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(Tweet tweet) {
+            userImageProgress.setVisibility(View.VISIBLE);
+            App.components().picasso().load(tweet.getProfileImageUrl())
+                    .fit()
+                    .centerInside()
+                    //TODO replace with generic avatar
+                    .error(R.drawable.ic_chat_bubble_24dp)
+                    .into(userImageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            hideProgressBar();
+                        }
+
+                        @Override
+                        public void onError() {
+                            hideProgressBar();
+                        }
+
+                        private void hideProgressBar() {
+                            final ProgressBar progressBar = userImageProgress;
+                            if (progressBar != null) {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+
+            nameTextView.setText(tweet.getUserName());
+            textTextView.setText(Html.fromHtml(tweet.getText()).toString());
+            timeTextView.setText(
+                    new SimpleDateFormat("HH:mm", Locale.US).format(tweet.getTimestamp()));
+            dateTextView.setText(
+                    new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(tweet.getTimestamp()));
+            handleTextView.setText(String.format(
+                    context.getString(R.string.twitter_handle),tweet.getUserScreenName()));
+
+            itemView.setOnClickListener(v ->
+                    context.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://twitter.com/aasif/status/" + tweet.getTweetId()))));
         }
     }
 
+    public TweetAdapter(Context context, List<Tweet> tweets) {
+        this.context = context;
+        this.tweets = tweets;
+    }
+
+    @NonNull
+    @Override
+    public TweetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        final View view = inflater.inflate(R.layout.view_tweet, parent, false);
+        return new TweetViewHolder(context, view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull TweetViewHolder holder, int position) {
+        holder.bind(tweets.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return tweets.size();
+    }
+
+    public void updateData(List<Tweet> tweets) {
+        this.tweets = tweets;
+        notifyDataSetChanged();
+    }
 }
