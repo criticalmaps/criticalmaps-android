@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <cache-path name="photo_dir" path="Pictures"/>
-</paths>
+<full-backup-content>
+    <!-- only backup our sharedprefs-->
+    <include
+        domain="sharedpref"
+        path="Main.xml" />
+</full-backup-content>
