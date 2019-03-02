@@ -28,6 +28,7 @@ import org.ligi.axt.AXT;
 import org.ligi.axt.simplifications.SimpleTextWatcher;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -74,6 +75,7 @@ public class ChatFragment extends Fragment {
     //misc
     private boolean isTextInputEnabled = true;
     private boolean isDataConnectionAvailable = true;
+    private ChatMessageAdapter chatMessageAdapter;
     private Unbinder unbinder;
 
 
@@ -94,7 +96,9 @@ public class ChatFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        chatModelToAdapter();
+        chatMessageAdapter = new ChatMessageAdapter(new ArrayList<>());
+        chatRecyclerView.setAdapter(chatMessageAdapter);
+        displayNewData();
 
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
         editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
@@ -155,16 +159,13 @@ public class ChatFragment extends Fragment {
         chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
 
         editMessageTextField.setText("");
-        chatModelToAdapter();
+        displayNewData();
     }
 
-    private void chatModelToAdapter() {
-        final ArrayList<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
-        chatRecyclerView.setAdapter(new ChatMessageAdapter(savedAndOutgoingMessages));
+    private void displayNewData() {
+        List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
+        chatMessageAdapter.updateData(savedAndOutgoingMessages);
 
-        //TODO Rework scroll behaviour:
-        // Jumping to the bottom if not scrolling is okay, but while scrolling and on new server
-        // event list jumps to the top (maybe because we completely reset the backing list?)
         if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
             chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
         }
@@ -173,7 +174,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        chatModelToAdapter();
+        displayNewData();
         eventBus.register(this);
     }
 
@@ -192,7 +193,7 @@ public class ChatFragment extends Fragment {
 
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
-        chatModelToAdapter();
+        displayNewData();
     }
 
     @Subscribe
