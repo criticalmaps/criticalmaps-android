@@ -31,7 +31,7 @@
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="colorPrimary">@color/colorSecondary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="android:background">@color/colorBackground</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 
     <style name="rules_heading" parent="Widget.MaterialComponents.CardView">
