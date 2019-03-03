@@ -6,7 +6,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/launch_screen_logo_170dp" />
+            android:src="@drawable/launch_screen" />
     </item>
 
 </layer-list>
