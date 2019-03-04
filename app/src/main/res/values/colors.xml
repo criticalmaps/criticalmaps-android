@@ -2,11 +2,8 @@
 <resources>
 
     <!-- Material colors used but not present in appcompat -->
-    <color name="material_red_900">#FFB71C1C</color>
-    <color name="material_orange_600">#FFFB8C00</color>
-
-    <!-- Logo colors -->
-    <color name="logo_foreground">#FFE6E6E6</color>
+    <color name="material_red_900">#b71c1c</color>
+    <color name="material_orange_600">#fb8c00</color>
 
     <!-- Theme Colors -->
     <color name="colorPrimary">#262626</color>
@@ -24,11 +21,14 @@
     <color name="colorError">@color/material_red_900</color>
     <color name="colorOnError">#262626</color>
 
-    <color name="icon_color">@android:color/white</color>
+    <color name="icon_color">#ffffff</color>
 
     <!-- Transparent colors -->
     <color name="primary_60pct">#99262626</color>
     <color name="primaryDark_20pct">#33000000</color>
+
+    <!-- Adaptive icon -->
+    <color name="ic_launcher_background">#ffffff</color>
 
     <!-- Launch Screen -->
     <color name="launch_screen_background">@color/colorBackground</color>
@@ -58,7 +58,7 @@
     <color name="about_content_text">@color/colorOnPrimary</color>
 
     <!-- Settings -->
-    <color name="settings_used_space">@color/logo_foreground</color>
+    <color name="settings_used_space">@color/colorPrimaryLight</color>
     <color name="settings_cache_space">@color/colorSecondary</color>
     <color name="settings_free_space">@color/colorPrimary</color>
 
