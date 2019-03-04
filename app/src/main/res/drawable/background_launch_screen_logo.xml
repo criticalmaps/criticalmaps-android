@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
     <item android:drawable="@color/launch_screen_background" />
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/launch_screen" />
+            android:src="@drawable/logo_launch_screen" />
     </item>
-
 </layer-list>

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Launch screen theme -->
     <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/launch_screen_logo</item>
+        <item name="android:windowBackground">@drawable/background_launch_screen_logo</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
     </style>
@@ -31,7 +31,7 @@
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="colorPrimary">@color/colorSecondary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowBackground">@drawable/background_dialogs</item>
     </style>
 
     <style name="rules_heading" parent="Widget.MaterialComponents.CardView">

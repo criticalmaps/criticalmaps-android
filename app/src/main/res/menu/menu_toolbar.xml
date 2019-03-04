@@ -7,18 +7,18 @@
     android:layout_height="match_parent">
     <item
         android:id="@+id/take_picture"
-        android:icon="@drawable/ic_image_camera_alt"
+        android:icon="@drawable/ic_toolbar_take_image"
         app:showAsAction="always"
         android:title="@string/take_picture"
         tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/action_close"
-        android:icon="@drawable/ic_content_clear"
+        android:icon="@drawable/ic_toolbar_close"
         app:showAsAction="always"
         android:title="@string/close_button"
         tools:ignore="AlwaysShowAction" />
     <item
-        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:icon="@drawable/ic_toolbar_overflow"
         android:orderInCategory="11111"
         app:showAsAction="always"
         android:title=""

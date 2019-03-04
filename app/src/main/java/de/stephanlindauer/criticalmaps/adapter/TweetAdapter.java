@@ -60,7 +60,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
                     .fit()
                     .centerInside()
                     //TODO replace with generic avatar
-                    .error(R.drawable.ic_chat_bubble_24dp)
+                    .error(R.drawable.ic_chat_bubble)
                     .into(userImageView, new Callback() {
                         @Override
                         public void onSuccess() {

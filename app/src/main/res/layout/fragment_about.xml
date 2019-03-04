@@ -33,12 +33,12 @@
 
                 <ImageButton
                     android:id="@+id/about_facebook"
-                    app:srcCompat="@drawable/ic_facebook_logo"
+                    app:srcCompat="@drawable/ic_about_facebook"
                     style="@style/about_button" />
 
                 <ImageButton
                     android:id="@+id/about_twitter"
-                    app:srcCompat="@drawable/ic_twitter_social_icon_rounded_square_color"
+                    app:srcCompat="@drawable/ic_about_twitter"
                     style="@style/about_button" />
 
             </LinearLayout>
@@ -67,7 +67,7 @@
             <ImageButton
                 android:id="@+id/about_github"
                 style="@style/about_button"
-                app:srcCompat="@drawable/ic_github_mark" />
+                app:srcCompat="@drawable/ic_about_github" />
 
             <TextView
                 style="@style/about_heading"

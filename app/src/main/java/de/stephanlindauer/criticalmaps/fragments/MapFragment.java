@@ -204,7 +204,7 @@ public class MapFragment extends Fragment {
         ownLocationIcon = AppCompatResources.getDrawable(
                 getActivity(), R.drawable.ic_map_marker_own);
         ownLocationIconObserver = AppCompatResources.getDrawable(
-                getActivity(), R.drawable.ic_map_marker_ghost);
+                getActivity(), R.drawable.ic_map_marker_observer);
 
         return view;
     }
@@ -408,37 +408,37 @@ public class MapFragment extends Fragment {
 
     private void setGpsStatusNonexistent() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_map_no_gps,
                 noGpsOnClickListener);
     }
 
     private void setGpsStatusDisabled() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_map_no_gps,
                 GpsDisabledOnClickListener);
     }
 
     private void setGpsStatusNoPermissions() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_map_no_gps,
                 GpsNoPermissionsOnClickListener);
     }
 
     private void setGpsStatusPermissionsPermanentlyDenied() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_gps_off_white_24dp,
+        setGpsStatusCommon(R.color.map_fab_warning, R.drawable.ic_map_no_gps,
                 GpsPermissionsPermanentlyDeniedOnClickListener);
     }
 
     private void setGpsStatusFixed() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.colorSecondary, R.drawable.ic_gps_fixed_white_24dp,
+        setGpsStatusCommon(R.color.colorSecondary, R.drawable.ic_map_center_location,
                 centerLocationOnClickListener);
     }
 
     private void setGpsStatusSearching() {
         cancelGpsSearchingAnimationIfRunning();
-        setGpsStatusCommon(R.color.map_fab_searching, R.drawable.ic_gps_not_fixed_white_24dp,
+        setGpsStatusCommon(R.color.map_fab_searching, R.drawable.ic_map_gps_not_fixed,
                 searchingForLocationOnClickListener);
 
         gpsSearchingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
