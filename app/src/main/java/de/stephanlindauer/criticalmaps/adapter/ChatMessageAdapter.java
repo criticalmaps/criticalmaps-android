@@ -22,13 +22,9 @@ import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 
-    private final List<IChatMessage> chatMessages;
+    private List<IChatMessage> chatMessages;
 
-    public ChatMessageAdapter(List<IChatMessage> chatMessages) {
-        this.chatMessages = chatMessages;
-    }
-
-    public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
+    public static class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.firstLine)
         TextView labelView;
@@ -36,7 +32,8 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         @BindView(R.id.secondLine)
         TextView valueView;
 
-        private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
+        private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(
+                DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
         private final Context context;
 
         public ChatMessageViewHolder(View itemView) {
@@ -49,11 +46,16 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             valueView.setText(message.getMessage());
             if (message instanceof ReceivedChatMessage) {
                 dateFormatter.setTimeZone(TimeZone.getDefault());
-                labelView.setText(TimeToWordStringConverter.getTimeAgo(((ReceivedChatMessage) message).getTimestamp(), context));
+                labelView.setText(TimeToWordStringConverter.getTimeAgo(
+                        ((ReceivedChatMessage) message).getTimestamp(), context));
             } else {
                 labelView.setText(R.string.chat_sending);
             }
         }
+    }
+
+    public ChatMessageAdapter(List<IChatMessage> chatMessages) {
+        this.chatMessages = chatMessages;
     }
 
     @NonNull
@@ -86,5 +88,10 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public int getItemCount() {
         return chatMessages.size();
+    }
+
+    public void updateData(List<IChatMessage> savedAndOutgoingMessages) {
+        this.chatMessages = savedAndOutgoingMessages;
+        notifyDataSetChanged();
     }
 }

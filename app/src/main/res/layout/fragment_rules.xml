@@ -72,7 +72,7 @@
                     <ImageView
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_oncoming"/>
+                        app:srcCompat="@drawable/rules_oncoming_traffic"/>
 
                     <TextView
                         style="@style/rules_explainer"

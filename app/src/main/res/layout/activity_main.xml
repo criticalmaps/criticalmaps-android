@@ -23,7 +23,7 @@
             android:layout_marginLeft="@dimen/map_toolbar_margins"
             android:layout_marginRight="@dimen/map_toolbar_margins"
             android:layout_marginTop="@dimen/map_toolbar_margins"
-            android:background="@drawable/toolbar_background"
+            android:background="@drawable/background_toolbar"
             android:elevation="4dp"
             app:title="@string/section_map"/>
     </FrameLayout>
@@ -46,8 +46,8 @@
                 android:layout_height="match_parent"
                 app:itemIconTint="@color/nav_item_icon_tint"
                 app:itemTextColor="@color/nav_item_text"
-                app:headerLayout="@layout/drawer_header"
-                app:menu="@menu/drawer"/>
+                app:headerLayout="@layout/navdrawer_header"
+                app:menu="@menu/menu_navdrawer"/>
 
             <TextView
                 android:id="@+id/navigation_observer_mode_text"

@@ -5,41 +5,41 @@
         <item
             android:id="@+id/navigation_map"
             android:checked="true"
-            android:icon="@drawable/ic_maps_map"
+            android:icon="@drawable/ic_nav_map"
             android:title="@string/section_map" />
 
         <item
             android:id="@+id/navigation_chat"
-            android:icon="@drawable/ic_chat"
+            android:icon="@drawable/ic_nav_chat"
             android:title="@string/section_chat" />
 
         <item
             android:id="@+id/navigation_twitter"
-            android:icon="@drawable/ic_twitter"
+            android:icon="@drawable/ic_nav_twitter"
             android:title="@string/section_twitter" />
 
         <item
             android:id="@+id/navigation_rules"
-            android:icon="@drawable/ic_maps_traffic"
+            android:icon="@drawable/ic_nav_rules"
             android:title="@string/section_rules" />
 
         <item
             android:id="@+id/navigation_settings"
-            android:icon="@drawable/ic_settings"
+            android:icon="@drawable/ic_nav_settings"
             android:title="@string/section_settings" />
 
         <item
             android:id="@+id/navigation_about"
-            android:icon="@drawable/ic_info_24dp"
+            android:icon="@drawable/ic_nav_about"
             android:title="@string/section_about" />
     </group>
 
     <group>
         <item
             android:id="@+id/navigation_observer_mode"
-            android:icon="@drawable/ic_ghost"
+            android:icon="@drawable/ic_nav_observer"
             android:title="@string/observer_mode"
             android:checkable="false"
-            app:actionLayout="@layout/navigation_observer_mode_switch" />
+            app:actionLayout="@layout/navdrawer_observer_mode_switch" />
     </group>
 </menu>

@@ -27,7 +27,7 @@
             android:layout_marginRight="6dp"
             android:gravity="center_vertical|center_horizontal"
             app:useCompatPadding="true"
-            app:srcCompat="@drawable/ic_maps_my_location"
+            app:srcCompat="@drawable/ic_map_center_location"
             app:fabSize="mini"
             tools:ignore="RelativeOverlap,RtlHardcoded" />
 
@@ -41,7 +41,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:rotation="12"
             app:useCompatPadding="true"
-            app:srcCompat="@drawable/ic_maps_orientation"
+            app:srcCompat="@drawable/ic_map_orientation"
             app:fabSize="mini"
             tools:ignore="RelativeOverlap,RtlHardcoded" />
 
@@ -54,7 +54,7 @@
             android:gravity="center_vertical|center_horizontal"
             app:useCompatPadding="true"
             app:backgroundTint="@color/map_fab_warning"
-            app:srcCompat="@drawable/ic_sync_problem_white_24dp"
+            app:srcCompat="@drawable/ic_map_no_data_connectivity"
             app:fabSize="mini"
             android:visibility="invisible"
             tools:visibility="visible"
