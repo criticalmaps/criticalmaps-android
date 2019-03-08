@@ -2,10 +2,11 @@
 <resources>
     <!-- app -->
     <string name="app_name" translatable="false">Critical Maps</string>
-    <string name="osm_credits" translatable="false">\u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
+    <string name="osm_credits" translatable="false"><a href="https://foundation.wikimedia.org/wiki/Maps_Terms_of_Use">Wikimedia maps</a> | Map data \u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
     <string name="about_text_map_url" translatable="false">criticalmaps.net</string>
     <string name="about_text_contributors" translatable="false">Gitti la Mar (Logo) \nJan Rabe (Code) \nChristian Balster (Code) \nLigi (Code) \nCaner Başaran (Translations) \nTobias Preuss (Code) \nLuca Gemini (Translations) \nLena Osswald (Translations) \nRodrigo Aguilera (Translations) \nHelen Sawyer (Translations)\nPeter Amende (Design)</string>
     <string name="twitter_handle" translatable="false">\@%s</string>
+    <string name="contact_email" translatable="false">stephanlindauer@posteo.de</string>
 
     <!-- non-UI -->
     <string name="fileprovider_authority" translatable="false">de.stephanlindauer.criticalmaps.fileprovider</string>

@@ -244,7 +244,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private void startFeedbackIntent() {
         Intent Email = new Intent(Intent.ACTION_SEND);
         Email.setType("text/email");
-        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"stephanlindauer@posteo.de"});
+        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email)});
         Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps");
         Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString());
         startActivity(Intent.createChooser(Email, "Send Feedback:"));

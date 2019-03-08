@@ -8,7 +8,9 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
@@ -22,6 +24,12 @@ import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import timber.log.Timber;
 
 public class MapViewUtils {
+    
+    final static OnlineTileSourceBase WIKIMEDIA = new XYTileSource("Wikimedia",
+            1, 19, 256, ".png",
+            new String[] {"https://maps.wikimedia.org/osm-intl/"},
+            "Wikimedia maps | Map data © OpenStreetMap contributors");
+
     private MapViewUtils() {}
 
     public static MapView createMapView(Activity activity) {
@@ -48,10 +56,11 @@ public class MapViewUtils {
         configuration.setMapViewHardwareAccelerated(true);
         configuration.setUserAgentValue(BuildConfig.APPLICATION_ID + "/"
                 + BuildConfig.VERSION_NAME + " " + org.osmdroid.library.BuildConfig.APPLICATION_ID
-                + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME);
+                + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME
+                + " (" + activity.getString(R.string.contact_email) + ")");
 
         MapTileProviderBasic mapnikTileProvider =
-                new MapTileProviderBasic(activity.getApplicationContext(), TileSourceFactory.MAPNIK);
+                new MapTileProviderBasic(activity.getApplicationContext(), WIKIMEDIA);
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
         mapView.getZoomController().setVisibility(
