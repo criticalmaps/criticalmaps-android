@@ -59,8 +59,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
             App.components().picasso().load(tweet.getProfileImageUrl())
                     .fit()
                     .centerInside()
-                    //TODO replace with generic avatar
-                    .error(R.drawable.ic_chat_bubble)
+                    .error(R.drawable.ic_about_twitter)
                     .into(userImageView, new Callback() {
                         @Override
                         public void onSuccess() {
