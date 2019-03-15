@@ -64,7 +64,7 @@ public class StartCameraHandler {
             AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_outputfile);
             return;
         }
-        activity.setNewCameraOutputFile(outputFile); // FIXME: 07.09.2015
+        activity.setNewCameraOutputFile(Uri.fromFile(outputFile));
 
         Uri imageCaptureUri = FileProvider.getUriForFile(
                 activity,

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
@@ -63,8 +64,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     private final static String KEY_NAVID = "main_navid";
     private final static String KEY_SAVEDFRAGMENTSTATES = "main_savedfragmentstate";
+    private final static String KEY_NEWCAMERAOUTPUTFILE = "main_newcameraoutputfile";
 
-    private File newCameraOutputFile;
+    private Uri newCameraOutputFile;
     private int currentNavId;
     private SparseArray<Fragment.SavedState> savedFragmentStates = new SparseArray<>();
 
@@ -115,8 +117,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 savedFragmentStates = restoredStates;
             }
 
-            currentNavId = savedInstanceState.getInt(KEY_NAVID);
+            newCameraOutputFile = savedInstanceState.getParcelable(KEY_NEWCAMERAOUTPUTFILE);
 
+            currentNavId = savedInstanceState.getInt(KEY_NAVID);
             if (currentNavId != R.id.navigation_map) {
                 // set toolbar title
                 //noinspection ConstantConditions
@@ -271,14 +274,14 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         }
 
         if (requestCode == RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            File movedFile = ImageUtils.movePhotoToPublicDir(newCameraOutputFile);
+            File movedFile =
+                    ImageUtils.movePhotoToPublicDir(new File(newCameraOutputFile.getPath()));
             newCameraOutputFile = null;
             new ProcessCameraResultHandler(this, movedFile).execute();
         }
     }
 
-    // TODO use URI instead of File and save it with state, otherwise rotation while loose the reference
-    public void setNewCameraOutputFile(File newCameraOutputFile) {
+    public void setNewCameraOutputFile(Uri newCameraOutputFile) {
         this.newCameraOutputFile = newCameraOutputFile;
     }
 
@@ -300,6 +303,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_NAVID, currentNavId);
         outState.putSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES, savedFragmentStates);
+        if (newCameraOutputFile != null) {
+            outState.putParcelable(KEY_NEWCAMERAOUTPUTFILE, newCameraOutputFile);
+        }
     }
 
     @Override
