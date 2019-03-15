@@ -6,6 +6,9 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
+    <string name="section_settings">Impostazioni</string>
+    <string name="nav_observer_mode_text">Attiva questo se non partecipi direttamente ma vuoi lo stesso seguire la massa.</string>
+
     <!-- close -->
     <string name="close">Desideri chiudere l\'applicazione?</string>
     <string name="yes">Sì­</string>
@@ -20,6 +23,11 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attesa segnale GPS</string>
+    <string name="map_no_internet_connection_title">Nessuna connessione Internet</string>
+    <string name="map_no_gps_title">Segnale GPS non disponibile</string>
+    <string name="map_gps_disabled_title">GPS disattivato</string>
+    <string name="map_gps_permissions_permanently_denied_title">Accesso alla posizione disattivato</string>
+    <string name="map_gps_permissions_permanently_denied_text">Non hai consentito l\'accesso alla tua posizione. Senza accesso alla tua posizione nè tu nè altri utenti potranno vedere la tua posizione sulla mappa. Puoi in ogni caso vedere la Massa, ma ricorda che il funzionamento della mappa dipende da quante più persone condividono la loro posizione. Vuoi consentire adesso l\'accesso nelle impostazioni della app?</string>
     <!-- notification -->
     <string name="notification_tracking_title">Tracciatura della Critical Mass</string>
     <string name="notification_tracking_text">L\'applicazione lavora in background e registra i tuoi spostamenti. Chiudi l\'applicazione se non vuoi essere tracciato.</string>
