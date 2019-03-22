@@ -89,6 +89,60 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     FrameLayout contentFrame;
 
     @Override
+    public void onCreate(Bundle bundle) {
+        setTheme(R.style.AppTheme); // has to be before super!
+        super.onCreate(bundle);
+
+        App.components().inject(this);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+            // inset the toolbar down by the status bar height
+            ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+                ViewGroup.MarginLayoutParams lpToolbar =
+                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                lpToolbar.topMargin += insets.getSystemWindowInsetTop();
+
+                toolbar.setLayoutParams(lpToolbar);
+
+                // clear this listener so insets aren't re-applied
+                ViewCompat.setOnApplyWindowInsetsListener(toolbar, null);
+                return insets;
+            });
+
+            // inset header in nav drawer down by the status bar height
+            View navHeader = drawerNavigation.getHeaderView(0);
+            ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
+                v.setPaddingRelative(
+                        v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
+                        v.getPaddingEnd(), v.getPaddingBottom());
+
+                // clear this listener so insets aren't re-applied
+                ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
+                return insets;
+            });
+        }
+
+        // This is a little hacky and might break with a materialcomponents lib update
+        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
+        navigationMenuView.setNestedScrollingEnabled(false);
+
+        new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
+
+        ServerSyncService.startService();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        permissionCheckHandler.attachActivity(this);
+    }
+
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
@@ -148,60 +202,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         } else {
             navigateTo(R.id.navigation_map);
         }
-    }
-
-    @Override
-    public void onCreate(Bundle bundle) {
-        setTheme(R.style.AppTheme); // has to be before super!
-        super.onCreate(bundle);
-
-        App.components().inject(this);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
-            // inset the toolbar down by the status bar height
-            ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
-                ViewGroup.MarginLayoutParams lpToolbar =
-                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-                lpToolbar.topMargin += insets.getSystemWindowInsetTop();
-
-                toolbar.setLayoutParams(lpToolbar);
-
-                // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(toolbar, null);
-                return insets;
-            });
-
-            // inset header in nav drawer down by the status bar height
-            View navHeader = drawerNavigation.getHeaderView(0);
-            ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
-                v.setPaddingRelative(
-                        v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
-                        v.getPaddingEnd(), v.getPaddingBottom());
-
-                // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
-                return insets;
-            });
-        }
-
-        // This is a little hacky and might break with a materialcomponents lib update
-        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
-        navigationMenuView.setNestedScrollingEnabled(false);
-
-        new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
-
-        ServerSyncService.startService();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        permissionCheckHandler.attachActivity(this);
     }
 
     @Override
