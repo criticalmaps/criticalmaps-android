@@ -8,7 +8,6 @@
     <string name="section_chat">Chat</string>
     <string name="open_drawer">Abrir cajón</string>
     <string name="close_drawer">Cerrar cajón</string>
-
     <!-- close -->
     <string name="close">Quieres cerrar la app?</string>
     <string name="yes">Sí</string>
