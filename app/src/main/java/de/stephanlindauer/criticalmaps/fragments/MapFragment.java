@@ -48,7 +48,6 @@ import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import info.metadude.android.typedpreferences.BooleanPreference;
-import timber.log.Timber;
 
 import javax.inject.Inject;
 
@@ -186,7 +185,6 @@ public class MapFragment extends Fragment {
 
     private final SharedPreferences.OnSharedPreferenceChangeListener observerModeOnSharedPreferenceChangeListener =
             (sharedPreferences, key) -> {
-                Timber.d("refresh from listener");
                 if (SharedPrefsKeys.OBSERVER_MODE_ACTIVE.equals(key)) {
                     refreshView();
                 }

@@ -88,6 +88,74 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
 
+    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
+            (sharedPreferences, key) -> {
+                if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
+                    setShowOnLockscreen();
+                } else if(SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
+                    setKeepScreenOn();
+                }
+            };
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        setTheme(R.style.AppTheme); // has to be before super!
+        super.onCreate(bundle);
+
+        App.components().inject(this);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+            // inset the toolbar down by the status bar height
+            ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+                ViewGroup.MarginLayoutParams lpToolbar =
+                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                lpToolbar.topMargin += insets.getSystemWindowInsetTop();
+
+                toolbar.setLayoutParams(lpToolbar);
+
+                // clear this listener so insets aren't re-applied
+                ViewCompat.setOnApplyWindowInsetsListener(toolbar, null);
+                return insets;
+            });
+
+            // inset header in nav drawer down by the status bar height
+            View navHeader = drawerNavigation.getHeaderView(0);
+            ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
+                v.setPaddingRelative(
+                        v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
+                        v.getPaddingEnd(), v.getPaddingBottom());
+
+                // clear this listener so insets aren't re-applied
+                ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
+                return insets;
+            });
+        }
+
+        // This is a little hacky and might break with a materialcomponents lib update
+        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
+        navigationMenuView.setNestedScrollingEnabled(false);
+
+        new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
+
+        setShowOnLockscreen();
+        setKeepScreenOn();
+
+        ServerSyncService.startService();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        permissionCheckHandler.attachActivity(this);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(
+                sharedPreferenceChangeListener);
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -151,62 +219,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    public void onCreate(Bundle bundle) {
-        setTheme(R.style.AppTheme); // has to be before super!
-        super.onCreate(bundle);
-
-        App.components().inject(this);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
-            // inset the toolbar down by the status bar height
-            ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
-                ViewGroup.MarginLayoutParams lpToolbar =
-                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-                lpToolbar.topMargin += insets.getSystemWindowInsetTop();
-
-                toolbar.setLayoutParams(lpToolbar);
-
-                // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(toolbar, null);
-                return insets;
-            });
-
-            // inset header in nav drawer down by the status bar height
-            View navHeader = drawerNavigation.getHeaderView(0);
-            ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
-                v.setPaddingRelative(
-                        v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
-                        v.getPaddingEnd(), v.getPaddingBottom());
-
-                // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
-                return insets;
-            });
-        }
-
-        // This is a little hacky and might break with a materialcomponents lib update
-        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
-        navigationMenuView.setNestedScrollingEnabled(false);
-
-        new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
-
-        ServerSyncService.startService();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        permissionCheckHandler.attachActivity(this);
-    }
-
-    @Override
     protected void onStop() {
         permissionCheckHandler.detachActivity();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(
+                sharedPreferenceChangeListener);
         super.onStop();
     }
 
@@ -293,9 +309,20 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         }
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    private void setShowOnLockscreen() {
+        if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
+    }
+
+    private void setKeepScreenOn() {
+        if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).get()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     @Override
