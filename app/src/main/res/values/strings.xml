@@ -102,6 +102,9 @@
     <string name="settings_choose_storage_choose_title">Storage location</string>
     <string name="settings_choose_storage_confirm_title">Current cache will be cleared</string>
     <string name="settings_choose_storage_confirm_message">Changing the storage location will clear the current cache. Map tiles will have to be downloaded again when viewed.</string>
+    <string name="settings_screen_header">Screen settings</string>
+    <string name="settings_show_on_lockscreen_subheading">Show on Lockscreen</string>
+    <string name="settings_show_on_lockscreen_summary">Keep the app in the foreground even when locking the phone</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>

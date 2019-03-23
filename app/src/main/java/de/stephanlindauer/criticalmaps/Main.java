@@ -88,6 +88,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
 
+    private final SharedPreferences.OnSharedPreferenceChangeListener showOnLockscreenOnSharedPreferenceChangeListener =
+            (sharedPreferences, key) -> {
+                if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
+                    setShowOnLockscreen();
+                }
+            };
+
     @Override
     public void onCreate(Bundle bundle) {
         setTheme(R.style.AppTheme); // has to be before super!
@@ -133,6 +140,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
 
+        setShowOnLockscreen();
+
         ServerSyncService.startService();
     }
 
@@ -140,6 +149,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     protected void onStart() {
         super.onStart();
         permissionCheckHandler.attachActivity(this);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(
+                showOnLockscreenOnSharedPreferenceChangeListener);
     }
 
     @Override
@@ -207,6 +218,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     protected void onStop() {
         permissionCheckHandler.detachActivity();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(
+                showOnLockscreenOnSharedPreferenceChangeListener);
         super.onStop();
     }
 
@@ -293,9 +306,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         }
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    private void setShowOnLockscreen() {
+        if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
     }
 
     @Override

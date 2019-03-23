@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,18 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import de.stephanlindauer.criticalmaps.views.StorageSpaceGraph;
+import info.metadude.android.typedpreferences.BooleanPreference;
 import timber.log.Timber;
 
 public class SettingsFragment extends Fragment {
@@ -49,8 +55,14 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.settings_choose_storage_summary)
     TextView chooseStorageSummary;
 
+    @BindView(R.id.settings_show_on_lockscreen_checkbox)
+    MaterialCheckBox showOnLockScreenCheckbox;
+
     @Inject
     StorageLocationProvider storageLocationProvider;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -78,6 +90,9 @@ public class SettingsFragment extends Fragment {
         updateClearCachePref();
         updateStorageGraph();
         updateChooseStoragePref();
+
+        showOnLockScreenCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
     }
 
     private void updateStorageGraph() {
@@ -178,6 +193,12 @@ public class SettingsFragment extends Fragment {
                 })
                 .create()
                 .show();
+    }
+
+    @OnCheckedChanged(R.id.settings_show_on_lockscreen_checkbox)
+    void handleShowOnLockscreenChecked(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).set(isChecked);
     }
 
     @Override
