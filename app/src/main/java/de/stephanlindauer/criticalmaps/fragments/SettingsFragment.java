@@ -58,6 +58,9 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.settings_show_on_lockscreen_checkbox)
     MaterialCheckBox showOnLockScreenCheckbox;
 
+    @BindView(R.id.settings_keep_screen_on_checkbox)
+    MaterialCheckBox keepScreenOnCheckbox;
+
     @Inject
     StorageLocationProvider storageLocationProvider;
 
@@ -93,6 +96,9 @@ public class SettingsFragment extends Fragment {
 
         showOnLockScreenCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
+
+        keepScreenOnCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).get());
     }
 
     private void updateStorageGraph() {
@@ -199,6 +205,12 @@ public class SettingsFragment extends Fragment {
     void handleShowOnLockscreenChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).set(isChecked);
+    }
+
+    @OnCheckedChanged(R.id.settings_keep_screen_on_checkbox)
+    void handleKeepScreenOnChecked(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).set(isChecked);
     }
 
     @Override

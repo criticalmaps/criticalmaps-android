@@ -105,6 +105,8 @@
     <string name="settings_screen_header">Screen settings</string>
     <string name="settings_show_on_lockscreen_subheading">Show on Lockscreen</string>
     <string name="settings_show_on_lockscreen_summary">Keep the app in the foreground even when locking the phone</string>
+    <string name="settings_keep_screen_on_subheading">Keep screen on</string>
+    <string name="settings_keep_screen_on_summary">Prevent the display from turning off automatically while the app is open</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>

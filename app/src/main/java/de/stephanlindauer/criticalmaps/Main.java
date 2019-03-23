@@ -88,10 +88,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener showOnLockscreenOnSharedPreferenceChangeListener =
+    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
             (sharedPreferences, key) -> {
                 if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
                     setShowOnLockscreen();
+                } else if(SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
+                    setKeepScreenOn();
                 }
             };
 
@@ -141,6 +143,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
 
         setShowOnLockscreen();
+        setKeepScreenOn();
 
         ServerSyncService.startService();
     }
@@ -150,7 +153,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         super.onStart();
         permissionCheckHandler.attachActivity(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(
-                showOnLockscreenOnSharedPreferenceChangeListener);
+                sharedPreferenceChangeListener);
     }
 
     @Override
@@ -219,7 +222,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     protected void onStop() {
         permissionCheckHandler.detachActivity();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(
-                showOnLockscreenOnSharedPreferenceChangeListener);
+                sharedPreferenceChangeListener);
         super.onStop();
     }
 
@@ -311,6 +314,14 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
+    }
+
+    private void setKeepScreenOn() {
+        if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).get()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 
