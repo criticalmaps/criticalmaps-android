@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- nav -->
+    <string name="section_map">Mapa</string>
+    <string name="section_rules">Pravidlá</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">info</string>
+    <string name="section_chat">čet</string>
+    <string name="section_settings">Nastavenia</string>
+    <string name="observer_mode">Pozorovací mód</string>
+    <string name="open_drawer">Otvorte priečinok </string>
+    <string name="close_drawer">Zatvorte priečinok </string>
+    <string name="nav_observer_mode_text">Povoľ toto pokiaľ sa nepripojíš k mase, ale stále ju chceš sledovať.</string>
+
+    <!-- close -->
+    <string name="close">Skutočne zatvoriť aplikáciu?</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+
+    <!-- activity bar -->
+    <string name="close_button">Zatvor</string>
+    <string name="feedback">Odozva</string>
+    <string name="datenschutz">Politika súkromia</string>
+    <string name="take_picture">Odfotiť</string>
+    <string name="rate_the_app">Ohodnoť aplikáciu</string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">Čakanie na GPS signál</string>
+    <string name="map_no_internet_connection_title">Žiadne internetové pripojenie </string>
+    <string name="map_no_internet_connection_text">Bez pripojenia na internet nebudete môcť 
+vidieť ostatných používateľov, zdieľať svoju polohu alebo písať alebo čítať správy v rozhovore. V podstate je aplikácia 
+do značnej miery k ničomu, : (\nSkontrolujte nastavenia a aktivujte mobilné dáta.</string>
+    <string name="map_no_gps_title">Žiadny GPS signál</string>
+    <string name="map_no_gps_text">Toto zariadenie nemá schopnosť GPS, ani sieťového lokalizácie. 
+Ostatní používatelia nebudú môcť vidieť vašu polohu, ale stále môžte nasledovať skupinu.</string>
+    <string name="map_gps_disabled_title">GPS je vypnutý</string>
+    <string name="map_gps_disabled_text">Momentálne je vo vašom zariadení GPS a sieťová lokalizácia
+ vypnutá. To znamená, že ostatní používatelia nebudú môcť vidieť vašu polohu. Stále môžete nasledovať
+ skupinu, ale pamätajte, že aplikácia závisí od toho, koľko ľudí je umožní zdieľať 
+svoju polohu. Prosím, zvážte aktiváciu lokalizačných služieb v nastaveniach vášho zariadenia.</string>
+    <string name="map_gps_permissions_permanently_denied_title">Prístup polohy zakázaný.</string>
+    <string name="map_gps_permissions_permanently_denied_text">V minulosti ste odmietli povolenie prístupu k vašej polohe. Bez prístupu k polohe nebudete môcť vy a ostatní používatelia vidieť vašu polohu na mape. Stále môžete postupovať podľa skupiny, ale pamätajte, že aplikácia závisí od toho, koľko ľudí je umožnuje zdieľať ich polohu.\nChcete udeliť povolenie teraz v nastaveniach aplikácie?</string>
+    <string name="map_location_permissions_rationale_text">Prístup k polohe je pre aplikáciu nevyhnutný. Vyžaduje si to zobrazenie vašej polohy na mape, zdieľanie polohy s inými používateľmi, písanie správy z chatu a odovzdávanie obrázkov. Bez neho môžete stále sledovať skupinu, ale pamätajte, že aplikácia závisí na tom, koľko ľudí umožňuje zdieľať ich polohu.\n Chcete udeliť povolenie teraz?</string>
+
+    <!-- notification -->
+    <string name="notification_tracking_title">Sledovanie kritickej mapy</string>
+    <string name="notification_tracking_text">Aplikácia beží na pozadí a zaznamenáva údaje o vašej polohe. Zatvorte aplikáciu, keď už nechcete byť sledovaní.</string>
+    <string name="notification_channel_name">Sledovací oznam </string>
+    <string name="notification_channel_description_max300chars">Neodporúčame vypnúť upozornenie, pretože môžete neúmyselne zapnúť sledovanie.</string>
+    <string name="notification_tracking_close">Zatvor</string>
+    <string name="notification_tracking_open">Otvor</string>
+
+    <!-- fragment_rules -->
+    <string name="rules_corken">Korkovanie!?</string>
+    <string name="rules_corken_explain">Ochráň cyklistov od vodičov cez korkovanie!</string>
+    <string name="rules_oncoming_traffic">Približujúca sa doprava</string>
+    <string name="rules_oncoming_traffic_explain">Nejazdi v protismere.</string>
+    <string name="rules_steady">Drž kone pod kapotou!</string>
+    <string name="rules_steady_explain">Keď jazdíš vpredu: nezrýchľuj! Keď jazdíš vzadu: Uzatváraj medzery!</string>
+    <string name="rules_brake">Žiadne prudké brzdenie!</string>
+    <string name="rules_brake_explain">Ak naozaj na to musíš, skús varovať ľudí za tebou. </string>
+    <string name="rules_green">Keď pedáluješ na čele: Stoj na červených semaforoch!</string>
+    <string name="rules_green_explain">Keď prídeš na červené svetlá počas jazdenia vpredu v skupine, buď si istý, že zastaneš, keď semafor ukazuje červenú.</string>
+    <string name="rules_friendly">Zachovaj kľud</string>
+    <string name="rules_friendly_explain">Nenechaj sa vyprovokovať. Buď priateľský na políciu, vodičov a každého ďalšieho, aj keď oni nie sú. Ďakujeme.</string>
+    <string name="rules_fun">Zabav sa!</string>
+    <string name="rules_fun_explain">Užívaj si voľné ulice, choď pozrieť hurá sound systém. Rozprávaj sa s vodičmi, chodcami a daj im vedieť čo sa deje. Najdôležitejšie: Užívaj si to!</string>
+    <string name="rules_image_source">Obrázky od criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">Všetky tweety obsahujú \"CriticalMaps\"</string>
+    <string name="twitter_try_again">Skús opäť!</string>
+
+    <!-- fragment_chat -->
+    <string name="chat_heading">Správy budú zmazané po 30 minútach. </string>
+    <string name="chat_send">Poslať</string>
+    <string name="chat_text">Tvoja správa &#8230;</string>
+    <string name="chat_sending">Odosielanie &#8230;</string>
+    <string name="chat_no_data_connection_hint">Žiadne internetové pripojenie &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">sociálne veci</string>
+    <string name="about_heading_website">webstránka</string>
+    <string name="about_heading_contributions">príspevky</string>
+    <string name="about_heading_code">kód</string>
+    <string name="about_heading_opensource">licencie s otvoreným zdrojovým kódom</string>
+    <string name="about_text_opensource">Používame nasledujúce knižnice s otvorením zdrojovým kódom. Veľká vďaka všetkým zúčastneným na týchto projektoch!</string>
+    <string name="about_license_website">webstránka</string>
+    <string name="about_license_more">viacej</string>
+    <string name="about_license_less">menej</string>
+
+    <!-- fragment_settings -->
+    <string name="settings_storage_header">Pamäťové nastavenia</string>
+    <string name="settings_cache_subheading">Vyrovnávacia pamäť mapy</string>
+    <string name="settings_cache_clear">Vyčisti</string>
+    <string name="settings_cache_used_mb">Použité: %s</string>
+    <string name="settings_cache_cache_mb">Cache: %s</string>
+    <string name="settings_cache_free_mb">Voľné: %s</string>
+    <string name="settings_cache_currently_used">Práve použitých %s</string>
+    <string name="settings_choose_storage_subheading">Výber miesto pamäti</string>
+    <string name="settings_choose_storage_mb_free"> (%s voľných)</string>
+    <string name="settings_choose_storage_choose_title">Adresa pamäte </string>
+    <string name="settings_choose_storage_confirm_title">Aktuálna cache bude vymazaná</string>
+    <string name="settings_choose_storage_confirm_message">Zmena umiestnenia úložného priestoru vymaže aktuálnu vyrovnávaciu pamäť. Mapové dlaždice sa budú musieť pri prezeraní znova stiahnuť.</string>
+    <string name="settings_screen_header">Nastavenia displeja</string>
+    <string name="settings_show_on_lockscreen_subheading">Zobraz na uzamknutej obrazovke</string>
+    <string name="settings_show_on_lockscreen_summary">Aplikácia zostane bežať v pozadí aj keď bude zablokovaný telefón</string>
+    <string name="settings_keep_screen_on_subheading">Nechaj zapnutú obrazovku</string>
+    <string name="settings_keep_screen_on_summary">Zabránenie automatickému vypnutiu zobrazenia, keď je aplikácia otvorená</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">práve teraz</string>
+    <string name="timetoword_aminuteago">pred minútou </string>
+    <string name="timetoword_minutesago">pred %d minútami</string>
+    <string name="timetoword_anhourago">pred hodinou</string>
+    <string name="timetoword_hoursago">pred %d hodinami</string>
+    <string name="timetoword_yesterday">včera</string>
+    <string name="timetoword_daysago">pred %ddňami</string>
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
+                 <![CDATA[
+                Chcete nahrať obrázok do <a href=\"http://criticalmaps.net\">súboru criticalmaps.net</a>? Uverejní sa na základe licencie <a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0.
+]]>
+</string>
+    <string name="camera_upload">Nahraj obrázok!</string>
+    <string name="camera_discard">žiadne také :-(</string>
+    <string name="camera_uploading_progress">Nahrávanie &#8230;</string>
+    <string name="camera_upload_failed_title">Chyba nahrávania obrázku </string>
+    <string name="camera_upload_failed_message">Prosím skús znova</string>
+    <string name="camera_processing_image">Spracovanie obrázka &#8230;</string>
+    <string name="camera_no_location">Nemôžeš nahrať obrázok bez GPS signálu</string>
+    <string name="camera_no_outputfile">Súbor nie je možné uložiť do zariadenia.</string>
+    <string name="camera_image_upload_succeeded_title">Nahrávanie obrázku prebehlo!</string>
+    <string name="camera_image_upload_succeeded_message">Obrázok je nahraný do galérie na adrese criticalmaps.net</string>
+    <string name="camera_no_camera">Ak zariadenie nemá fotoaparát, nemôžete fotografovať.</string>
+    <string name="camera_permissions_permanently_denied_title">Prístup SD karty bol zakázaný</string>
+    <string name="camera_permissions_permanently_denied_text">V minulosti ste odmietli povolenie prístupu ku karte SD. To znamená, že obrázky nie je možné uložiť do zariadenia.\nChcete teraz udeliť povolenie v nastaveniach aplikácie?</string>
+    <string name="camera_external_storage_permission_rationale_text">Ak chcete odovzdať obrázky, musíte ich najprv uložiť do zariadenia. Vyžaduje sa preto prístup k vašej SD karte.\nChcete udeliť toto povolenie teraz?</string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">Niečo sa pokazilo.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zruš</string>
+    <string name="permissions_rationale_title">Udeliť požadované oprávnenia?</string>
+    <string name="permissions_open_settings">Otvor nastavenia</string>
+    <string name="storage_name_internal">Interné úložisko</string>
+    <string name="storage_name_external">Externá SD karta </string>
+    <string name="storage_name_emulated">Emulovana SD karta</string>
+
+    <!-- introduction -->
+    <string name="introduction_heading">Prosím výhrad si čas na prečítanie rýchleho úvodu. </string>
+    <string name="introduction_own_icon">Takto vyzeráte :\u0020</string>
+    <string name="introduction_other_icon">Takto vyzerajú všetci ostatní používatelia:\u0020</string>
+    <string name="introduction_close_app">Zatvorte aplikáciu, ak nechcete byť sledovaní ďalej.</string>
+    <string name="introduction_careful">Radšej dávajte pozor na dopravu namiesto aplikácie.</string>
+    <string name="introduction_bugs">Ak nájdete chyby v aplikácii, dajte nám prosím vedieť kliknutím na tlačidlo spätnej väzby v ponuke nastavení.</string>
+    <string name="introduction_requisites">Aby táto aplikácia fungovala správne, musíte mať k dispozícii funkčné mobilné dátové pripojenie a GPS.</string>
+</resources>

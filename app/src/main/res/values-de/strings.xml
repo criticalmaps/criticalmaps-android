@@ -103,7 +103,6 @@
     <string name="settings_choose_storage_choose_title">Speicherort</string>
     <string name="settings_choose_storage_confirm_title">Cache wird gelöscht</string>
     <string name="settings_choose_storage_confirm_message">Wenn du den Speicherort änderst wird der aktuelle Cache gelöscht. Die Kartendaten werden beim Betrachten neu heruntergeladen.</string>
-
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
     <string name="timetoword_aminuteago">vor einer Minute</string>
