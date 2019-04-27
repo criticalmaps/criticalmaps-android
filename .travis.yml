@@ -35,6 +35,3 @@ before_install:
  - chmod +x gradlew
 
 script: 'travis_retry ./gradlew clean build test'
-
-notifications:
-  slack: criticalmaps:mCh5Cy9Fl2bVMdnQ9ymeYv3H
