@@ -40,6 +40,7 @@
             android:icon="@drawable/ic_nav_observer"
             android:title="@string/observer_mode"
             android:checkable="false"
-            app:actionLayout="@layout/navdrawer_observer_mode_switch" />
+            app:actionLayout="@layout/navdrawer_observer_mode_switch"
+            android:visible="false" />
     </group>
 </menu>
