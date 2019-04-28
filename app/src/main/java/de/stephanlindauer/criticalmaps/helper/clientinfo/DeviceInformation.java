@@ -15,9 +15,7 @@ public class DeviceInformation {
         returnString += "BRAND= " + Build.BRAND + "\n";
         returnString += "DISPLAY= " + Build.DISPLAY + "\n";
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            //noinspection deprecation
             returnString += "CPU_ABI= " + Build.CPU_ABI + "\n";
-            //noinspection deprecation
             returnString += "CPU_ABI2= " + Build.CPU_ABI2 + "\n";
         } else {
             returnString += "SUPPORTED_ABIS= " + TextUtils.join(", ", Build.SUPPORTED_ABIS) + "\n";

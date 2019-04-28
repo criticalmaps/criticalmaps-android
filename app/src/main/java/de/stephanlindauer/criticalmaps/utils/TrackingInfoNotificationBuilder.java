@@ -48,7 +48,6 @@ public class TrackingInfoNotificationBuilder {
             notificationChannel.enableVibration(false);
             notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-            //noinspection ConstantConditions
             mNotificationManager.createNotificationChannel(notificationChannel);
         }
 
