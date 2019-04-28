@@ -9,7 +9,6 @@ import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
@@ -25,7 +24,7 @@ import timber.log.Timber;
 
 public class MapViewUtils {
     
-    final static OnlineTileSourceBase WIKIMEDIA = new XYTileSource("Wikimedia",
+    private final static OnlineTileSourceBase WIKIMEDIA = new XYTileSource("Wikimedia",
             1, 19, 256, ".png",
             new String[] {"https://maps.wikimedia.org/osm-intl/"},
             "Wikimedia maps | Map data © OpenStreetMap contributors");

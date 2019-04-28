@@ -110,7 +110,6 @@ public class StorageLocationProvider {
     }
 
     public void setActiveStorageLocation(StorageLocation storageLocation) {
-        @SuppressWarnings("ConstantConditions")
         File osmdroidBasePath = new File(storageLocation.storagePath, "osmdroid");
         //noinspection ResultOfMethodCallIgnored
         osmdroidBasePath.mkdirs();

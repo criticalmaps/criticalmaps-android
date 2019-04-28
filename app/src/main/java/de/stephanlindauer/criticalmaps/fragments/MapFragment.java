@@ -229,16 +229,20 @@ public class MapFragment extends Fragment {
                 R.string.map_no_internet_connection_title,
                 R.string.map_no_internet_connection_text));
 
-        RotationGestureOverlay rotationGestureOverlay = new RotationGestureOverlay(mapView) {
-            @Override
-            public void onRotate(float deltaAngle) {
-                super.onRotate(deltaAngle);
-                setRotationNorth.setRotation(mapView.getMapOrientation());
-            }
-        };
-        rotationGestureOverlay.setEnabled(true);
-        mapView.setMultiTouchControls(true);
-        mapView.getOverlays().add(rotationGestureOverlay);
+        if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).get()) {
+            setRotationNorth.setVisibility(View.GONE);
+        } else {
+            RotationGestureOverlay rotationGestureOverlay = new RotationGestureOverlay(mapView) {
+                @Override
+                public void onRotate(float deltaAngle) {
+                    super.onRotate(deltaAngle);
+                    setRotationNorth.setRotation(mapView.getMapOrientation());
+                }
+            };
+            rotationGestureOverlay.setEnabled(true);
+            mapView.setMultiTouchControls(true);
+            mapView.getOverlays().add(rotationGestureOverlay);
+        }
 
         if (savedState != null) {
             Double zoomLevel = (Double) savedState.get(KEY_MAP_ZOOMLEVEL);
@@ -247,7 +251,10 @@ public class MapFragment extends Fragment {
 
             if (zoomLevel != null && position != null && orientation != null) {
                 mapView.getController().setZoom(zoomLevel);
-                mapView.setMapOrientation(orientation);
+                if (!new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION)
+                        .get()) {
+                    mapView.setMapOrientation(orientation);
+                }
                 setToLocation(position);
             }
 
