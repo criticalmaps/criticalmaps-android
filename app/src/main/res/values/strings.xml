@@ -107,6 +107,9 @@
     <string name="settings_show_on_lockscreen_summary">Keep the app in the foreground even when locking the phone</string>
     <string name="settings_keep_screen_on_subheading">Keep screen on</string>
     <string name="settings_keep_screen_on_summary">Prevent the display from turning off automatically while the app is open</string>
+    <string name="settings_map_header">Map settings</string>
+    <string name="settings_map_rotation_subheading">Rotation</string>
+    <string name="settings_map_rotation_summary">Allow the map to be rotated</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>

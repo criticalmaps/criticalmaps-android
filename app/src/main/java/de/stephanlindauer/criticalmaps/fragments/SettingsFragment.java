@@ -61,6 +61,9 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.settings_keep_screen_on_checkbox)
     MaterialCheckBox keepScreenOnCheckbox;
 
+    @BindView(R.id.settings_map_rotation_checkbox)
+    MaterialCheckBox mapRotationCheckbox;
+
     @Inject
     StorageLocationProvider storageLocationProvider;
 
@@ -99,6 +102,9 @@ public class SettingsFragment extends Fragment {
 
         keepScreenOnCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).get());
+
+        mapRotationCheckbox.setChecked(
+                !new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).get());
     }
 
     private void updateStorageGraph() {
@@ -211,6 +217,12 @@ public class SettingsFragment extends Fragment {
     void handleKeepScreenOnChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).set(isChecked);
+    }
+
+    @OnCheckedChanged(R.id.settings_map_rotation_checkbox)
+    void handleDisableMapRotationChecked(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).set(!isChecked);
     }
 
     @Override
