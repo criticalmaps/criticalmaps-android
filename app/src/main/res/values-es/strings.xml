@@ -8,7 +8,6 @@
     <string name="section_chat">Chat</string>
     <string name="open_drawer">Abrir cajón</string>
     <string name="close_drawer">Cerrar cajón</string>
-
     <!-- close -->
     <string name="close">Quieres cerrar la app?</string>
     <string name="yes">Sí</string>
@@ -90,11 +89,10 @@
     <string name="camera_image_upload_succeeded_title">Imagen subida!</string>
     <string name="camera_image_upload_succeeded_message">La imagen se ha subido a la galeria en criticalmaps.net </string>
     <string name="camera_no_camera">No puedes hacer fotos si tu dispositivo no tiene cámara.</string>
-
     <!-- misc -->
     <string name="something_went_wrong">Algo ha fallado</string>
     <string name="ok">OK</string>
-
+    <string name="cancel">Cancelar</string>
     <!-- introduction -->
     <string name="introduction_heading">Por favor,lee esta introducción rápida</string>
     <string name="introduction_own_icon">Asi apareces tu:\u0020</string>

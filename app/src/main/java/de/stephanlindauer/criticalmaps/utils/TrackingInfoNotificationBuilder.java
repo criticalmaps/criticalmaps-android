@@ -6,7 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
 import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
@@ -48,23 +48,22 @@ public class TrackingInfoNotificationBuilder {
             notificationChannel.enableVibration(false);
             notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-            //noinspection ConstantConditions
             mNotificationManager.createNotificationChannel(notificationChannel);
         }
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(application, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_logo_notification)
+                .setSmallIcon(R.drawable.ic_stat_logo)
                 .setContentTitle(application.getString(R.string.notification_tracking_title))
                 .setContentText(application.getString(R.string.notification_tracking_text))
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(application.getString(R.string.notification_tracking_text)))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(openPendingIntent)
-                .addAction(R.drawable.ic_gps_fixed_white_24dp_notification,
+                .addAction(R.drawable.ic_notification_open,
                         application.getString(R.string.notification_tracking_open),
                         openPendingIntent)
-                .addAction(R.drawable.ic_clear_white_24dp_notification,
+                .addAction(R.drawable.ic_notification_close,
                         application.getString(R.string.notification_tracking_close),
                         closePendingIntent);
 

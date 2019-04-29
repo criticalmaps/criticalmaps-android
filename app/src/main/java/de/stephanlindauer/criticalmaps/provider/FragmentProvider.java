@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps.provider;
 
-import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
+import androidx.annotation.IdRes;
+import androidx.fragment.app.Fragment;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.fragments.*;
 
@@ -21,10 +21,12 @@ public class FragmentProvider {
             case R.id.navigation_chat:
                 return new ChatFragment();
 
+            case R.id.navigation_settings:
+                return new SettingsFragment();
+
             default:
             case R.id.navigation_about:
                 return new AboutFragment();
-
         }
     }
 }

@@ -6,9 +6,9 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">À propos</string>
     <string name="section_chat">Discussion instantanée</string>
+    <string name="section_settings">Paramètres</string>
     <string name="open_drawer">Ouvrir le menu</string>
     <string name="close_drawer">Fermer le menu</string>
-
     <!-- close -->
     <string name="close">Fermer l\'application?</string>
     <string name="yes">Oui</string>
@@ -58,9 +58,9 @@
     <!-- fragment_about -->
     <string name="about_heading_social">médias sociaux</string>
     <string name="about_heading_website">site web</string>
-    <string name="about_heading_contributions">Contributions</string>
+    <string name="about_heading_contributions">contributions</string>
     <string name="about_heading_code">code</string>
-    <string name="about_heading_opensource">Licence Open Source</string>
+    <string name="about_heading_opensource">licence open source</string>
     <string name="about_text_opensource">Nous utilisons les librairies open source suivantes. Un grand merci à tous ceux impliqués dans ces projets. </string>
     <string name="about_license_website">site web</string>
     <string name="about_license_more">plus</string>
@@ -91,14 +91,13 @@
     <string name="camera_image_upload_succeeded_title">L\'image a été téléchargé.</string>
     <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>
     <string name="camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
-
     <!-- misc -->
     <string name="something_went_wrong">Il y a eu un problème</string>
     <string name="ok">D\'accord</string>
-
+    <string name="cancel">Annuler</string>
     <!-- introduction -->
     <string name="introduction_heading">Prends le temps de lire cette petite introduction stp.</string>
-    <string name="introduction_own_icon">Tu apparait comme ca:\\u0020</string>
+    <string name="introduction_own_icon">Tu apparait comme ca:\u0020</string>
     <string name="introduction_other_icon">Et cela, c\'est les autres utilisateurs:\u0020</string>
     <string name="introduction_close_app">Ferme l\'application si tu veux arrêter le traçage GPS.</string>
     <string name="introduction_careful">Sois vigilant à la circulation au lieu de regarder l\'application</string>

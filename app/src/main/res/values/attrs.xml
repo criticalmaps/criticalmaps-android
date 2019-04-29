@@ -6,4 +6,10 @@
         <attr name="copyright" format="reference" />
         <attr name="notice" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="StorageSpaceGraph">
+        <attr name="usedSpaceColor" format="color"/>
+        <attr name="tilecacheColor" format="color"/>
+        <attr name="freeSpaceColor" format="color"/>
+    </declare-styleable>
 </resources>

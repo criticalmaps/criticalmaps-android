@@ -1,15 +1,17 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,7 @@ import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
 import de.stephanlindauer.criticalmaps.handler.PostTweetHandler;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
+
 import java.util.ArrayList;
 
 public class TwitterFragment extends Fragment {
@@ -35,7 +38,7 @@ public class TwitterFragment extends Fragment {
     Button errorButton;
 
     @BindView(R.id.tweet_list)
-    ListView tweetListView;
+    RecyclerView tweetsRecyclerView;
 
     @BindView(R.id.swipe_container)
     public SwipeRefreshLayout swipeLayout;
@@ -50,6 +53,8 @@ public class TwitterFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        tweetsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
 
@@ -57,26 +62,21 @@ public class TwitterFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        tweetAdapter = new TweetAdapter(getActivity(), R.layout.view_tweet, new ArrayList<>());
-        tweetListView.setAdapter(tweetAdapter);
+        tweetAdapter = new TweetAdapter(getActivity(), new ArrayList<>());
+        tweetsRecyclerView.setAdapter(tweetAdapter);
 
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new TwitterGetHandler(TwitterFragment.this).execute();
-            }
-        });
+        swipeLayout.setOnRefreshListener(() ->
+                new TwitterGetHandler(TwitterFragment.this).execute());
 
         swipeLayout.setColorSchemeResources(
                 R.color.twitter_indicator_color_first,
                 R.color.twitter_indicator_color_second);
 
-        errorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TwitterGetHandler(TwitterFragment.this).execute();
-                errorMessage.setVisibility(View.GONE);
-            }
+        swipeLayout.setProgressBackgroundColorSchemeResource(R.color.tweet_progress_bar_background);
+
+        errorButton.setOnClickListener(v -> {
+            new TwitterGetHandler(TwitterFragment.this).execute();
+            errorMessage.setVisibility(View.GONE);
         });
 
         new TwitterGetHandler(this).execute();
@@ -93,9 +93,7 @@ public class TwitterFragment extends Fragment {
         errorMessage.setVisibility(View.GONE);
 
         swipeLayout.setVisibility(View.VISIBLE);
-        tweetAdapter.clear();
-        tweetAdapter.addAll(twitterModel.getTweets());
-        tweetAdapter.notifyDataSetChanged();
+        tweetAdapter.updateData(twitterModel.getTweets());
     }
 
     public void showErrorMessage() {

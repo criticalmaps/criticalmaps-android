@@ -2,9 +2,8 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.animation.LayoutTransition;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +24,13 @@ public class AboutFragment extends Fragment {
     @BindView(R.id.about_twitter)
     ImageButton twitterButton;
 
-    @BindView(R.id.about_scrollview)
-    NestedScrollView scrollView;
+    @BindView(R.id.about_github)
+    ImageButton githubButton;
 
     @BindView(R.id.about_subcontainer)
     LinearLayout subContainer;
-    private Unbinder unbinder;
 
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +56,8 @@ public class AboutFragment extends Fragment {
                 new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
         twitterButton.setOnClickListener(
                 new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));
+        githubButton.setOnClickListener(
+                new URLOpenOnActivityOnClickListener("https://github.com/criticalmaps/criticalmaps-android"));
     }
 
     @Override

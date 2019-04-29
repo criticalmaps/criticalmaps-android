@@ -6,6 +6,9 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
+    <string name="section_settings">Impostazioni</string>
+    <string name="nav_observer_mode_text">Attiva questo se non partecipi direttamente ma vuoi lo stesso seguire la massa.</string>
+
     <!-- close -->
     <string name="close">Desideri chiudere l\'applicazione?</string>
     <string name="yes">Sì­</string>
@@ -20,6 +23,11 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attesa segnale GPS</string>
+    <string name="map_no_internet_connection_title">Nessuna connessione Internet</string>
+    <string name="map_no_gps_title">Segnale GPS non disponibile</string>
+    <string name="map_gps_disabled_title">GPS disattivato</string>
+    <string name="map_gps_permissions_permanently_denied_title">Accesso alla posizione disattivato</string>
+    <string name="map_gps_permissions_permanently_denied_text">Non hai consentito l\'accesso alla tua posizione. Senza accesso alla tua posizione nè tu nè altri utenti potranno vedere la tua posizione sulla mappa. Puoi in ogni caso vedere la Massa, ma ricorda che il funzionamento della mappa dipende da quante più persone condividono la loro posizione. Vuoi consentire adesso l\'accesso nelle impostazioni della app?</string>
     <!-- notification -->
     <string name="notification_tracking_title">Tracciatura della Critical Mass</string>
     <string name="notification_tracking_text">L\'applicazione lavora in background e registra i tuoi spostamenti. Chiudi l\'applicazione se non vuoi essere tracciato.</string>
@@ -28,7 +36,7 @@
 
     <!-- fragment_rules -->
     <string name="rules_corken">Ingorgo!?</string>
-    <string name="rules_corken_explain">Proteggi i motociclisti da se stessi, creando un ingorgo!</string>
+    <string name="rules_corken_explain">Proteggi i automobilista da se stessi, creando un ingorgo!</string>
     <string name="rules_oncoming_traffic">Traffico davanti</string>
     <string name="rules_oncoming_traffic_explain">Non procedere contromano.</string>
     <string name="rules_steady">Vai piano!</string>
@@ -38,9 +46,9 @@
     <string name="rules_green">Se sei in testa, fermati al semaforo rosso!</string>
     <string name="rules_green_explain">Quando arrivi ad un semaforo rosso e sei in testa alla massa, stai attento a fermarti quando il semaforo è rosso.</string>
     <string name="rules_friendly">Stai tranquillo</string>
-    <string name="rules_friendly_explain">Non ti far provocare. Sii educato con la polizia, con i motociclisti e il resto delle persone, anche se loro non lo sono.</string>
+    <string name="rules_friendly_explain">Non ti far provocare. Sii educato con la polizia, con i automobilista e il resto delle persone, anche se loro non lo sono.</string>
     <string name="rules_fun">Divertiti!</string>
-    <string name="rules_fun_explain">Goditi la strada riconquistata. Balla con le Sound Bike. Parla con i motociclisti, i pedoni e spiega cosa sta succedendo. La cosa più importante: divertiti!</string>
+    <string name="rules_fun_explain">Goditi la strada riconquistata. Balla con le Sound Bike. Parla con i automobilista, i pedoni e spiega cosa sta succedendo. La cosa più importante: divertiti!</string>
     <string name="rules_image_source">Immagini di criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
@@ -82,11 +90,10 @@
     <string name="camera_image_upload_succeeded_title">Immagine caricata con successo!</string>
     <string name="camera_image_upload_succeeded_message">La foto è stata caricata su criticalmaps.net </string>
     <string name="camera_no_camera">Non puoi fare foto se il tuo telefono non ha fotocamera.</string>
-
     <!-- misc -->
     <string name="something_went_wrong">Qualcosa non ha funzionato </string>
     <string name="ok">OK</string>
-
+    <string name="cancel">Cancella</string>
     <!-- introduction -->
     <string name="introduction_heading">Per piacere leggi l\'introduzione rapida </string>
     <string name="introduction_own_icon">Tu appari così:\u0020</string>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item
+        android:id="@+id/take_picture"
+        android:icon="@drawable/ic_toolbar_take_image"
+        app:showAsAction="always"
+        android:title="@string/take_picture"
+        tools:ignore="AlwaysShowAction" />
+    <item
+        android:id="@+id/action_close"
+        android:icon="@drawable/ic_toolbar_close"
+        app:showAsAction="always"
+        android:title="@string/close_button"
+        tools:ignore="AlwaysShowAction" />
+    <item
+        android:icon="@drawable/ic_toolbar_overflow"
+        android:orderInCategory="11111"
+        app:showAsAction="always"
+        android:title=""
+        tools:ignore="AlwaysShowAction">
+        <menu>
+            <item
+                android:id="@+id/settings_feedback"
+                app:showAsAction="never"
+                android:title="@string/feedback" />
+            <item
+                android:id="@+id/settings_datenschutz"
+                app:showAsAction="never"
+                android:title="@string/datenschutz" />
+            <item
+            android:id="@+id/rate_the_app"
+            app:showAsAction="never"
+            android:title="@string/rate_the_app" />
+        </menu>
+    </item>
+</menu>

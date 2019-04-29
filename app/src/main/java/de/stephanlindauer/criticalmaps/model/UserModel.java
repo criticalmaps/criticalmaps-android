@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.model;
 
+import android.annotation.SuppressLint;
 import android.provider.Settings;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class UserModel {
     @Inject
     public UserModel(App app) {
 
+        @SuppressLint("HardwareIds")
         final String androidId = getString(app.getContentResolver(), Settings.Secure.ANDROID_ID);
 
         final GregorianCalendar gregorianCalendar = new GregorianCalendar();

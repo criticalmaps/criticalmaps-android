@@ -4,19 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -33,6 +28,7 @@ import org.ligi.axt.AXT;
 import org.ligi.axt.simplifications.SimpleTextWatcher;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -79,6 +75,7 @@ public class ChatFragment extends Fragment {
     //misc
     private boolean isTextInputEnabled = true;
     private boolean isDataConnectionAvailable = true;
+    private ChatMessageAdapter chatMessageAdapter;
     private Unbinder unbinder;
 
 
@@ -99,18 +96,12 @@ public class ChatFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        chatModelToAdapter();
+        chatMessageAdapter = new ChatMessageAdapter(new ArrayList<>());
+        chatRecyclerView.setAdapter(chatMessageAdapter);
+        displayNewData();
 
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
         editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
-
-        Drawable wrappedDrawable = DrawableCompat.wrap(sendButton.getDrawable());
-        DrawableCompat.setTintMode(wrappedDrawable, PorterDuff.Mode.SRC_ATOP);
-        @SuppressWarnings("ConstantConditions")
-        ColorStateList colorStateList = ContextCompat.getColorStateList(getActivity(),
-                R.color.chat_fab_drawable_states);
-        DrawableCompat.setTintList(wrappedDrawable, colorStateList);
-        sendButton.setImageDrawable(wrappedDrawable);
     }
 
     @Override
@@ -168,16 +159,13 @@ public class ChatFragment extends Fragment {
         chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
 
         editMessageTextField.setText("");
-        chatModelToAdapter();
+        displayNewData();
     }
 
-    private void chatModelToAdapter() {
-        final ArrayList<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
-        chatRecyclerView.setAdapter(new ChatMessageAdapter(savedAndOutgoingMessages));
+    private void displayNewData() {
+        List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
+        chatMessageAdapter.updateData(savedAndOutgoingMessages);
 
-        //TODO Rework scroll behaviour:
-        // Jumping to the bottom if not scrolling is okay, but while scrolling and on new server
-        // event list jumps to the top (maybe because we completely reset the backing list?)
         if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
             chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
         }
@@ -186,7 +174,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        chatModelToAdapter();
+        displayNewData();
         eventBus.register(this);
     }
 
@@ -205,7 +193,7 @@ public class ChatFragment extends Fragment {
 
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
-        chatModelToAdapter();
+        displayNewData();
     }
 
     @Subscribe

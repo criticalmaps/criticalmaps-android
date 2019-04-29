@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.content.res.AppCompatResources;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -40,7 +40,7 @@ public class PrerequisitesChecker {
         }
 
         LayoutInflater factory = LayoutInflater.from(activity);
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.AlertDialogTheme);
 
         @SuppressLint("InflateParams") // okay for dialog
         final View view = factory.inflate(R.layout.view_introduction, null);
@@ -55,14 +55,11 @@ public class PrerequisitesChecker {
 
         builder.setView(view);
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        introductionAlreadyShownPreference.set(true);
-                        break;
-                }
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    introductionAlreadyShownPreference.set(true);
+                    break;
             }
         };
 
