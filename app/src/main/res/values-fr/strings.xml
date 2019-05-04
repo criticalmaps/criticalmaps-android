@@ -7,8 +7,11 @@
     <string name="section_about">À propos</string>
     <string name="section_chat">Discussion instantanée</string>
     <string name="section_settings">Paramètres</string>
+    <string name="observer_mode">Mode observateur</string>
     <string name="open_drawer">Ouvrir le menu</string>
     <string name="close_drawer">Fermer le menu</string>
+    <string name="nav_observer_mode_text">Active si tu ne participes pas mais que tu veux quand même suivre la critical mass.</string>
+
     <!-- close -->
     <string name="close">Fermer l\'application?</string>
     <string name="yes">Oui</string>
@@ -23,9 +26,21 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attente d\'un signal GPS valide</string>
+    <string name="map_no_internet_connection_title">Pas de connexion internet</string>
+    <string name="map_no_internet_connection_text">Sans connexion internet tu ne vas pas être capable
+de voir les autres, partager ta position ou lire et écrire les messages instantanés.
+L\'application n\'est pas très utile comme ça :(
+Merci de vérifier tes paramètres et activer les données mobiles.</string>
+    <string name="map_no_gps_title">Pas de signal GPS</string>
+    <string name="map_no_gps_text">Ce téléphone n\'a ni GPS ni accès au réseau.
+Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la Critical mass</string>
+    <string name="map_gps_disabled_title">GPS désactivé</string>
+    <string name="map_gps_permissions_permanently_denied_title">Accès à la position GPS refusé</string>
     <!-- notification -->
     <string name="notification_tracking_title">Traçage GPS Critical Maps</string>
     <string name="notification_tracking_text">L\'application est encore active et enregistre vos données de localisation. Veuillez fermer l\'application si vous voulez arrêter le traçage GPS en arrière-plan.</string>
+    <string name="notification_channel_name">Notification de suivi GPS</string>
+    <string name="notification_channel_description_max300chars">Nous ne recommandons pas de désactiver ces notifications car tu pourrais accidentellement garder le suivi de position activé.</string>
     <string name="notification_tracking_close">Fermer</string>
     <string name="notification_tracking_open">Ouvrir</string>
 
@@ -36,27 +51,29 @@
     <string name="rules_oncoming_traffic_explain">Ne pas utiliser la voie en sens inverse</string>
     <string name="rules_steady">Tranquille!</string>
     <string name="rules_steady_explain">Si t\'es parmi les premiers: ne vas pas trop vite! Si t\'es en arrière: ferme les écarts.</string>
-    <string name="rules_brake">Pas de freinage intensif!</string>
-    <string name="rules_brake_explain">Si vraiment nécessaire de freiner intensivement, essaye de prévenir ceux qui roulent derrière toi.</string>
-    <string name="rules_green">Si t\'es en premier: arrête aux feux rouges!</string>
-    <string name="rules_green_explain">Si t\'arrives à un feu de circulation et t\'es parmi les premiers de la groupe, assurez vous de vous arrêtez si le feu est rouge.</string>
+    <string name="rules_brake">Pas de freinage brutal !</string>
+    <string name="rules_brake_explain">Si tu dois vraiment t\'arrêter, essaye de prévenir ceux qui roulent derrière toi.</string>
+    <string name="rules_green">Si t\'es en premier: arrête-toi aux feux rouges !</string>
+    <string name="rules_green_explain">Si t\'arrives à un feu de circulation et t\'es parmi les premiers du groupe, assure toi de t\'arrêter si le feu est rouge.</string>
     <string name="rules_friendly">Détends-toi</string>
     <string name="rules_friendly_explain">Ne vous laissez pas provoquer. Soyez gentil avec la police, les automobilistes et tout les autres, même si eux, ils ne le sont pas.</string>
-    <string name="rules_fun">Amuse-toi!</string>
+    <string name="rules_fun">Amuse-toi !</string>
     <string name="rules_fun_explain">Profites des rues reconquis. Explore les Sound Bikes. Parle aux automobilistes et piétons afin de leur expliquer ce qui se passe. Le plus important: Amuse-toi!</string>
     <string name="rules_image_source">Images de criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
     <string name="twitter_heading">Tout les tweets contenant \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Essaye de nouveau!</string>
+    <string name="twitter_try_again">Essaye de nouveau !</string>
 
     <!-- fragment_chat -->
-    <string name="chat_heading">Les messages seront supprimer après 30 minutes</string>
+    <string name="chat_heading">Les messages seront supprimés après 30 minutes.</string>
     <string name="chat_send">Envoyer</string>
     <string name="chat_text">Ton message…</string>
     <string name="chat_sending">Envoi en cours…</string>
+    <string name="chat_no_data_connection_hint">Pas de connexion internet...</string>
+
     <!-- fragment_about -->
-    <string name="about_heading_social">médias sociaux</string>
+    <string name="about_heading_social">réseaux sociaux</string>
     <string name="about_heading_website">site web</string>
     <string name="about_heading_contributions">contributions</string>
     <string name="about_heading_code">code</string>
@@ -66,8 +83,30 @@
     <string name="about_license_more">plus</string>
     <string name="about_license_less">moins</string>
 
+    <!-- fragment_settings -->
+    <string name="settings_storage_header">Paramètres de stockage</string>
+    <string name="settings_cache_subheading">Cache de la carte</string>
+    <string name="settings_cache_clear">Vider</string>
+    <string name="settings_cache_used_mb">Utilisé : %s</string>
+    <string name="settings_cache_cache_mb">Cache : %s</string>
+    <string name="settings_cache_free_mb">Libre : %s</string>
+    <string name="settings_cache_currently_used">Utilisation en cours %s</string>
+    <string name="settings_choose_storage_subheading">Choisir l\'emplacement de stockage</string>
+    <string name="settings_choose_storage_mb_free">(%s libre)</string>
+    <string name="settings_choose_storage_choose_title">Emplacement de stockage</string>
+    <string name="settings_choose_storage_confirm_title">Le cache va être vidé</string>
+    <string name="settings_choose_storage_confirm_message">Changer l\'emplacement de stockage va vider le cache. Les cartes devront être téléchargées à nouveau.</string>
+    <string name="settings_screen_header">Paramètres d\'affichage</string>
+    <string name="settings_show_on_lockscreen_subheading">Afficher sur l\'écran de verrouillage</string>
+    <string name="settings_show_on_lockscreen_summary">Garder l\'app au premier plan même quand le téléphone est verrouillé</string>
+    <string name="settings_keep_screen_on_subheading">Garder l\'écran allumé</string>
+    <string name="settings_keep_screen_on_summary">Empêcher l\'écran de s\'éteindre quand l\'app est ouverte</string>
+    <string name="settings_map_header">Paramètres de la carte</string>
+    <string name="settings_map_rotation_subheading">Rotation</string>
+    <string name="settings_map_rotation_summary">Permettre la rotation de la carte</string>
+
     <!-- time to word -->
-    <string name="timetoword_justnow">il y a peu de temps</string>
+    <string name="timetoword_justnow">il y a un instant</string>
     <string name="timetoword_aminuteago">il y a une minute</string>
     <string name="timetoword_minutesago">il y a %d minutes</string>
     <string name="timetoword_anhourago">il y a une heure</string>
@@ -88,13 +127,20 @@
     <string name="camera_upload_failed_message">Réessaye stp.</string>
     <string name="camera_processing_image">Traitement d\'image…</string>
     <string name="camera_no_location">Tu ne peux pas télécharger des images sans signal GPS.</string>
-    <string name="camera_image_upload_succeeded_title">L\'image a été téléchargé.</string>
-    <string name="camera_image_upload_succeeded_message">L\'image a bien été ajouté aux photos sur criticalmaps.net</string>
+    <string name="camera_no_outputfile">Impossible de sauvegarder le fichier sur ce périphérique</string>
+    <string name="camera_image_upload_succeeded_title">L\'image a été téléchargée.</string>
+    <string name="camera_image_upload_succeeded_message">L\'image a bien été ajoutée aux photos sur criticalmaps.net</string>
     <string name="camera_no_camera">Il n\'est pas possible de prendre des photos avec un périphérique n\'ayant pas de caméra</string>
+    <string name="camera_permissions_permanently_denied_title">Accès à la carte SD refusé</string>
     <!-- misc -->
     <string name="something_went_wrong">Il y a eu un problème</string>
     <string name="ok">D\'accord</string>
     <string name="cancel">Annuler</string>
+    <string name="permissions_open_settings">Ouvrir les Paramètres</string>
+    <string name="storage_name_internal">Stockage interne</string>
+    <string name="storage_name_external">Carte SD externe</string>
+    <string name="storage_name_emulated">Carte SD émulée</string>
+
     <!-- introduction -->
     <string name="introduction_heading">Prends le temps de lire cette petite introduction stp.</string>
     <string name="introduction_own_icon">Tu apparait comme ca:\u0020</string>
