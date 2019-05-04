@@ -75,6 +75,6 @@
     <color name="border_bottom_divider">@color/colorSecondary</color>
 
     <color name="border_top_background">@color/colorBackground</color>
-    <color name="border_top_divider">@color/colorPrimary</color>
+    <color name="border_top_divider">@color/colorPrimaryLight</color>
 
 </resources>
