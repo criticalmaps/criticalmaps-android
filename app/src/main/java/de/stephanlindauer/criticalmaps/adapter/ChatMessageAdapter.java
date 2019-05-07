@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.adapter;
 
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,8 +50,15 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
                 dateFormatter.setTimeZone(TimeZone.getDefault());
                 labelView.setText(TimeToWordStringConverter.getTimeAgo(
                         ((ReceivedChatMessage) message).getTimestamp(), context));
+                labelView.clearAnimation();
             } else {
                 labelView.setText(R.string.chat_sending);
+
+                ObjectAnimator sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                        itemView.getContext(),
+                        R.animator.map_gps_fab_searching_animation);
+                sendingAnimator.setTarget(labelView);
+                sendingAnimator.start();
             }
         }
     }
@@ -62,27 +71,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public ChatMessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View res;
-        if (viewType == 0) {
-            res = inflater.inflate(R.layout.view_chatmessage, parent, false);
-        } else {
-            res = inflater.inflate(R.layout.view_outgoing_chatmessage, parent, false);
-        }
+        final View res = inflater.inflate(R.layout.view_chatmessage, parent, false);
         return new ChatMessageViewHolder(res);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChatMessageViewHolder holder, int position) {
         holder.bind(chatMessages.get(position));
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (chatMessages.get(position) instanceof ReceivedChatMessage) {
-            return 0;
-        } else {
-            return 1;
-        }
     }
 
     @Override
