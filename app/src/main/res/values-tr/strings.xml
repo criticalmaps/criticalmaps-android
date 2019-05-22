@@ -6,6 +6,7 @@
     <string name="section_twitter">Twitter</string>
     <string name="section_about">Hakkında</string>
     <string name="section_chat">Sohbet</string>
+    <string name="section_settings">Ayarlar</string>
     <!-- close -->
     <string name="close">Gerçekten uygulama kapatılsın mı?</string>
     <string name="yes">Evet</string>
@@ -20,6 +21,9 @@
 
     <!-- fragment_map -->
     <string name="map_searching_for_location">GPS sinyali bekleniyor</string>
+    <string name="map_no_internet_connection_title">İnternet bağlantısı yok</string>
+    <string name="map_no_gps_title">GPS mevcut değil</string>
+    <string name="map_gps_disabled_title">GPS devre dışı</string>
     <!-- notification -->
     <string name="notification_tracking_title">Konum İzlenmekte</string>
     <string name="notification_tracking_text">Devredışı bırakmak için, ayarlar - izleme kapalı
@@ -60,6 +64,9 @@
     <string name="about_heading_contributions">katkıcılar</string>
     <string name="about_heading_code">kod</string>
     <string name="about_license_website">website</string>
+    <string name="settings_screen_header">Ekran ayarları</string>
+    <string name="settings_keep_screen_on_subheading">Ekranı açık tut</string>
+    <string name="settings_map_header">Harita ayarları</string>
     <!-- time to word -->
     <string name="timetoword_justnow">şimdi</string>
     <string name="timetoword_aminuteago">bir dakika önce</string>
@@ -88,6 +95,7 @@
     <string name="something_went_wrong">Bir terslik oluştu</string>
     <string name="ok">Tamam</string>
     <string name="cancel">İptal</string>
+    <string name="storage_name_internal">Dahili Hafıza</string>
     <!-- introduction -->
     <string name="introduction_heading">Lütfen hızlı tanıtıma biraz zaman ayırın.</string>
     <string name="introduction_own_icon">Böyle gözüküyorsun:\u0020</string>
