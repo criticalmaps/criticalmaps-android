@@ -63,7 +63,7 @@ public class MapViewUtils {
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
         mapView.getZoomController().setVisibility(
-                CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
+                CustomZoomButtonsController.Visibility.NEVER);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
