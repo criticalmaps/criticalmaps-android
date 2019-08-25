@@ -99,7 +99,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
 
     errorprone("com.google.errorprone:error_prone_core:2.3.3")
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
