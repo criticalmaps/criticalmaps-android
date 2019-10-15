@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- nav -->
+    <string name="section_map">地図</string>
+    <string name="section_rules">ルール</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">アプリ情報</string>
+    <string name="section_chat">チャット</string>
+    <string name="section_settings">設定</string>
+    <string name="observer_mode">観測モード</string>
+    <string name="open_drawer">メニューを開ける</string>
+    <string name="close_drawer">メニューを閉じる</string>
+    <string name="nav_observer_mode_text">参加したくないのに、クリティカル・マスを見たいならこれをつける。</string>
+
+    <!-- close -->
+    <string name="close">アプリを閉じる</string>
+    <string name="yes">はい</string>
+    <string name="no">ダメ</string>
+
+    <!-- activity bar -->
+    <string name="close_button">閉じる</string>
+    <string name="feedback">フィードバック</string>
+    <string name="datenschutz">プライバシーポリシー</string>
+    <string name="take_picture">写真を撮る</string>
+    <string name="rate_the_app">アプリを評価する</string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">GPS探索中</string>
+    <string name="map_no_internet_connection_title">インターネットない</string>
+    <string name="map_no_internet_connection_text">インターネットがないなら他のユーザーの位置が見えないし、位置をシェアできないし、チャットを使わない。つまりこの状態でアプリは役に立たない :(
+設定でモバイルインターネットをつけて。</string>
+    <string name="map_no_gps_title">GPSない</string>
+    <string name="map_no_gps_text">この携帯はGPSや他の位置を見つける機能がない。
+マスを追いつけられるけど、他人は君の位置を見えない。</string>
+    <string name="map_gps_disabled_title">GPSつかない</string>
+    <string name="map_gps_disabled_text">この携帯にはGPSと他の位置を見つける機能がつかない。だから他のユーザーにあは君が見えない。マスが見えるけど、アプリの使い方によってたくさんの人が位置をシェアするほど便利になる。つまり携帯の設定でGPSなどをつけてください。</string>
+    <string name="map_gps_permissions_permanently_denied_title">GPSなどをアクセスする許可ない</string>
+    <string name="map_gps_permissions_permanently_denied_text">この前GPSなどをアクセスする許可を与えなかった。そうしたら誰もに君が地図で見えない。マスが見えるけど、アプリの使い方によってたくさんの人が位置をシェアするほど便利になる。今アプリの設定でGPSなどの許可を与えたい？</string>
+    <string name="map_location_permissions_rationale_text">GPSなどをアクセスする許可がアプリを使うために必要だ。自分の位置を見るし、位置をシェアするし、チャットを使うし、写真をアップするために必要だ。許可はなくてもマスが見えるが、アプリの使い方によってたくさんの人が位置をシェアするほど便利になる。今GPSなどの許可を与えたい？</string>
+
+    <!-- notification -->
+    <string name="notification_tracking_title">CriticalMaps探索</string>
+    <string name="notification_tracking_text">アプリはバックグラウンドで動作していて、君の位置データを記録している。記録を止めたいならアプリを閉じてください。</string>
+    <string name="notification_channel_name">探索お知らせ</string>
+    <string name="notification_channel_description_max300chars">探索を忘れないようにお知らせをつけてください。</string>
+    <string name="notification_tracking_close">閉じる</string>
+    <string name="notification_tracking_open">開ける</string>
+
+    <!-- fragment_rules -->
+    <string name="rules_corken">コーキング（Corking）！？</string>
+    <string name="rules_corken_explain">モータリストをコーキングで守って！</string>
+    <string name="rules_oncoming_traffic">対向車</string>
+    <string name="rules_oncoming_traffic_explain">対向車線で運転しないで。</string>
+    <string name="rules_steady">ゆっくりして！</string>
+    <string name="rules_steady_explain">前にいたら：ゆっくりね！後ろにいたら：切れ目を閉じて！</string>
+    <string name="rules_brake">急に止めないで!</string>
+    <string name="rules_brake_explain">しないとだめなら、他の人に知らせてね。</string>
+    <string name="rules_green">一番前にいたら：赤信号で止めて！</string>
+    <string name="rules_green_explain">前にいて赤信号に着いたら、止めて！</string>
+    <string name="rules_friendly">リラックスしてね</string>
+    <string name="rules_friendly_explain">怒ってはいけない。警察や運転手や他の皆に親切にして。誰も親切じゃなくても。</string>
+    <string name="rules_fun">楽しみにしてね！</string>
+    <string name="rules_fun_explain">救出した道路を楽しんで。サウンドバイクをチェックして。モータリストや歩行者と話して、クリティカルマスを説明して。何よりもまず：楽しんでね!</string>
+    <string name="rules_image_source">イメージは criticalmass-hh.de (CC BY-NC-ND 3.0 DE) から</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">すべての「CriticalMaps」を含むツイート</string>
+    <string name="twitter_try_again">もう一度やってみて！</string>
+
+    <!-- fragment_chat -->
+    <string name="chat_heading">メッセージは30分後消される</string>
+    <string name="chat_send">送る</string>
+    <string name="chat_text">君のメッセージ &#8230;</string>
+    <string name="chat_sending">送り中 &#8230;</string>
+    <string name="chat_no_data_connection_hint">インターネットない &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">SNS</string>
+    <string name="about_heading_website">ウェブサイト</string>
+    <string name="about_heading_contributions">投稿</string>
+    <string name="about_heading_code">コード</string>
+    <string name="about_heading_opensource">オープンソースライセンス</string>
+    <string name="about_text_opensource">このアプリで下記のオープンソースライブラリを使っている。あのプロジェクトに従事していた皆さんにめっちゃありがたい！</string>
+    <string name="about_license_website">ウェブサイト</string>
+    <string name="about_license_more">もっと</string>
+    <string name="about_license_less">レス</string>
+
+    <!-- fragment_settings -->
+    <string name="settings_storage_header">記憶装置設定</string>
+    <string name="settings_cache_subheading">地図キャッシュ</string>
+    <string name="settings_cache_clear">消す</string>
+    <string name="settings_cache_used_mb">使ってる：%s</string>
+    <string name="settings_cache_cache_mb">キャッシュ：%s</string>
+    <string name="settings_cache_free_mb">空いてる：%s</string>
+    <string name="settings_cache_currently_used">現用：%s</string>
+    <string name="settings_choose_storage_subheading">記憶番地選択</string>
+    <string name="settings_choose_storage_mb_free">(%s 空いてる)</string>
+    <string name="settings_choose_storage_choose_title">記憶番地</string>
+    <string name="settings_choose_storage_confirm_title">キャッシュを消す</string>
+    <string name="settings_choose_storage_confirm_message">記憶番地を変えるならキャッシュが消される。その後地図を見たら再ロードが必要。</string>
+    <string name="settings_screen_header">スクリーン設定</string>
+    <string name="settings_show_on_lockscreen_subheading">ロックスクリーンで見せる</string>
+    <string name="settings_show_on_lockscreen_summary">携帯をロックしても、アプリを使える</string>
+    <string name="settings_keep_screen_on_subheading">スクリーンが消さない</string>
+    <string name="settings_keep_screen_on_summary">スクリーンがアプリを使い中いつでも自動的に消されない</string>
+    <string name="settings_map_header">地図設定</string>
+    <string name="settings_map_rotation_subheading">回転</string>
+    <string name="settings_map_rotation_summary">地図を指で回転できる</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">たった今</string>
+    <string name="timetoword_aminuteago">1分前</string>
+    <string name="timetoword_minutesago">%d分前</string>
+    <string name="timetoword_anhourago">1時間前</string>
+    <string name="timetoword_hoursago">%d時間前</string>
+    <string name="timetoword_yesterday">昨日</string>
+    <string name="timetoword_daysago">%d日前</string>
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
+<![CDATA[
+写真を <a href=\"http://criticalmaps.net\">criticalmaps.net</a> にアップしたい？ \n<a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a> のライセンスで出される。
+]]></string>
+    <string name="camera_upload">写真をアップ！</string>
+    <string name="camera_discard">ダメだ :-(</string>
+    <string name="camera_uploading_progress">アップしてる &#8230;</string>
+    <string name="camera_upload_failed_title">写真アップできなかった</string>
+    <string name="camera_upload_failed_message">もう一度やってみてください</string>
+    <string name="camera_processing_image">写真をプロセス中 &#8230;</string>
+    <string name="camera_no_location">GPSがないなら写真をアップできない</string>
+    <string name="camera_no_outputfile">携帯にセーブできない</string>
+    <string name="camera_image_upload_succeeded_title">写真アップ成功！</string>
+    <string name="camera_image_upload_succeeded_message">この写真はcriticalmaps.netのギャラリーにアップされる</string>
+    <string name="camera_no_camera">カメラがないなら写真を取れない。</string>
+    <string name="camera_permissions_permanently_denied_title">SDメモリーカードをアクセスする許可ない</string>
+    <string name="camera_permissions_permanently_denied_text">この前SDメモリーカードをアクセスする許可を与えなかった。だから写真を携帯にセーブできない。\n今アプリの設定で許可を与えたい？</string>
+    <string name="camera_external_storage_permission_rationale_text">写真をアップできる前に携帯にセーブしなきゃ。だからSDメモリーカードのアクセスが必要。\n今許可を与えたい？</string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">エラー</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="permissions_rationale_title">必要な許可を与える？</string>
+    <string name="permissions_open_settings">設定を開ける</string>
+    <string name="storage_name_internal">内部収納</string>
+    <string name="storage_name_external">外部SDメモリーカード</string>
+    <string name="storage_name_emulated">エミュレートのSDメモリーカード</string>
+
+    <!-- introduction -->
+    <string name="introduction_heading">このクイックスタートを読んでください</string>
+    <string name="introduction_own_icon">これって君だ： </string>
+    <string name="introduction_other_icon">これって他のユーザー： </string>
+    <string name="introduction_close_app">探索されたくないならアプリを閉じてください。</string>
+    <string name="introduction_careful">アプリより交通にご注意ください。</string>
+    <string name="introduction_bugs">アプリにバッグや変な翻訳があれば、設定でフィードバックボタンで知らせてください。</string>
+    <string name="introduction_requisites">このアプリを使いたいならGPSとインターネットが必要。</string>
+</resources>

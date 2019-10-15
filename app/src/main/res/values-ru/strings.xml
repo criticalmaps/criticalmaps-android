@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- nav -->
+    <string name="section_map">Карта</string>
+    <string name="section_rules">Правила</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">О программе</string>
+    <string name="section_chat">Чат</string>
+    <string name="section_settings">Настройки</string>
+    <string name="observer_mode">Режим наблюдателя</string>
+    <string name="open_drawer">Открыть боковое меню</string>
+    <string name="close_drawer">Закрыть боковое меню</string>
+    <string name="nav_observer_mode_text">Включите, если вы не участвуете сами, но все еще хотите следить за другими.</string>
+
+    <!-- close -->
+    <string name="close">Вы действительно хотите выйти из приложения?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <!-- activity bar -->
+    <string name="close_button">Закрыть</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="datenschutz">Политика конфиденциальности</string>
+    <string name="take_picture">Сделать фото</string>
+    <string name="rate_the_app">Оценить приложение</string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">Ожидание GPS сигнала</string>
+    <string name="map_no_internet_connection_title">Нет интернет соединения</string>
+    <string name="map_no_internet_connection_text">Без интернет соединения вы не сможете
+видеть других пользователей, делиться своим местоположением, а также писать и читать сообщения в чате. По сути, приложение будет бесполезно без интернета :(\nПожалуйста, проверьте настройки и включить мобильный интернет.</string>
+    <string name="map_no_gps_title">GPS недоступен</string>
+    <string name="map_no_gps_text">Это устройство не имеет ни GPS, ни возможностей определения местоположения в сети. Другие пользователи не смогут увидеть ваше местоположение, но вы все равно можете следить за Mass.</string>
+    <string name="map_gps_disabled_title">GPS отключен</string>
+    <string name="map_gps_disabled_text">GPS и сетевое местоположение на вашем устройстве
+отключены. Это означает, что другие юзеры не смогут видеть ваше местоположение. Вы все еще может следовать
+ за толпой, но имейте в виду, что приложению необходимо как можно больше пользователей, делящихся своим 
+местоположением.\nПоэтому, пожалуйста,  включите сервисы местоположения на вашем устройстве.</string>
+    <string name="map_gps_permissions_permanently_denied_title">Доступ к местоположению закрыт</string>
+    <string name="map_gps_permissions_permanently_denied_text">Ранее вы запретили доступ к своем местоположению. Без него вы и другие пользователи не смогут видеть ваше местоположение. Вы все еще сможете видеть других пользователей, но имейте в виду, что приложению необходимо как можно больше пользователей, делящихся своим местоположением.\nХотите ли вы дать разрешение в настройках приложения сейчас?</string>
+    <string name="map_location_permissions_rationale_text">Доступ к местоположению имеет решающее значение для работы приложения. Это нужно для просмотра вашего местоположения на карте, чтобы делиться своим местоположением с другими пользователями, писать сообщения и загружать изображения. Без этого вы все равно сможете следить за другими, но помните, что приложение зависит от того, как много людей делятся своим местоположением.\nВы хотите дать разрешение сейчас?</string>
+
+    <!-- notification -->
+    <string name="notification_tracking_title">Отслеживание Critical Maps</string>
+    <string name="notification_tracking_text">Приложение запускается в фоновом режиме и записывает ваше местоположение. Пожалуйста, закройте приложение, если вы хотите остановить отслеживание.</string>
+    <string name="notification_channel_name">Уведомление об отслеживании</string>
+    <string name="notification_channel_description_max300chars">Мы не рекомендуем отключать уведомление, так как вы можете случайно включить отслеживание.</string>
+    <string name="notification_tracking_close">Закрыть</string>
+    <string name="notification_tracking_open">Открыть</string>
+
+    <!-- fragment_rules -->
+    <string name="rules_corken">Затор?!</string>
+    <string name="rules_corken_explain">Защитите автомобилистов от самих себя, закупорив их!</string>
+    <string name="rules_oncoming_traffic">Встречное движение</string>
+    <string name="rules_oncoming_traffic_explain">Не двигайтесь по противоположной полосе.</string>
+    <string name="rules_steady">Придержи лошадей!</string>
+    <string name="rules_steady_explain">При движении впереди: нет ускоряйтесь! При движении сзади: закройте пробелы!</string>
+    <string name="rules_brake">Не останавливайтесь резко!</string>
+    <string name="rules_brake_explain">Если вам действительно нужно, постарайтесь предупредить людей позади вас.</string>
+    <string name="rules_green">При движении первым: остановитесь на красный свет!</string>
+    <string name="rules_green_explain">Когда вы приедете на красный свет во время езды во главе толпы, обязательно остановитесь, когда светофор загорится красным.</string>
+    <string name="rules_friendly">Расслабьтесь</string>
+    <string name="rules_friendly_explain">Не позволяйте спровоцировать себя. Будьте дружелюбны с полицией, автомобилистами и всеми остальными.</string>
+    <string name="rules_fun">Веселитесь!</string>
+    <string name="rules_fun_explain">Наслаждайтесь исправленными улицами. Проверьте Sound Bikes. Общайтесь с автомобилистами, пешеходами и дайте им знать, что происходит. И самое главное: веселитесь!</string>
+    <string name="rules_image_source">Изображения criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">Все твиты содержащие \"CriticalMaps\"</string>
+    <string name="twitter_try_again">Попробовать еще раз!</string>
+
+    <!-- fragment_chat -->
+    <string name="chat_heading">Сообщения будут удалены после 30 минут.</string>
+    <string name="chat_send">Отправить</string>
+    <string name="chat_text">Ваше сообщение &#8230;</string>
+    <string name="chat_sending">Отправка &#8230;</string>
+    <string name="chat_no_data_connection_hint">Нет интернет соединения &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">социальные сети</string>
+    <string name="about_heading_website">вебсайт</string>
+    <string name="about_heading_contributions">Контрибьюторы</string>
+    <string name="about_heading_code">код</string>
+    <string name="about_heading_opensource">Open source лицензии</string>
+    <string name="about_text_opensource">Мы используем следующие библиотеки с исходным кодом. Огромное спасибо всем, кто участвует в этих проектах!</string>
+    <string name="about_license_website">вебсайт</string>
+    <string name="about_license_more">больше</string>
+    <string name="about_license_less">меньше</string>
+
+    <!-- fragment_settings -->
+    <string name="settings_storage_header">Настройки хранилища</string>
+    <string name="settings_cache_subheading">Кэш карты</string>
+    <string name="settings_cache_clear">Очистить</string>
+    <string name="settings_cache_used_mb">Использовано %s</string>
+    <string name="settings_cache_cache_mb">Кэш %s</string>
+    <string name="settings_cache_free_mb">Свободно %s</string>
+    <string name="settings_cache_currently_used">Использовано %s</string>
+    <string name="settings_choose_storage_subheading">Выберите место хранения</string>
+    <string name="settings_choose_storage_mb_free">(%s свободно)</string>
+    <string name="settings_choose_storage_choose_title">Место хранения</string>
+    <string name="settings_choose_storage_confirm_title">Кэш будет очищен</string>
+    <string name="settings_choose_storage_confirm_message">Изменение места хранения очистит текущий кэш. Карта будет загружена снова при просмотре.</string>
+    <string name="settings_screen_header">Настройки экрана</string>
+    <string name="settings_show_on_lockscreen_subheading">Показывать на экране блокировки</string>
+    <string name="settings_show_on_lockscreen_summary">Держать приложение на переднем плане даже при блокировке телефона</string>
+    <string name="settings_keep_screen_on_subheading">Держать экран включенным</string>
+    <string name="settings_keep_screen_on_summary">Предотвратить автоматическое отключение экрана во время использования приложения</string>
+    <string name="settings_map_header">Настройки карты</string>
+    <string name="settings_map_rotation_subheading">Поворот</string>
+    <string name="settings_map_rotation_summary">Разрешить поворот карты</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">только что</string>
+    <string name="timetoword_aminuteago">минуту назад</string>
+    <string name="timetoword_minutesago">%dминут назад</string>
+    <string name="timetoword_anhourago">час назад</string>
+    <string name="timetoword_hoursago">%dчасов назад</string>
+    <string name="timetoword_yesterday">вчера</string>
+    <string name="timetoword_daysago">%dдней назад</string>
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
+<![CDATA[
+Вы хотите загрузить свою фотографию на <a href=\"http://criticalmaps.net\">criticalmaps.net</a>?  \nОна будет опубликована под лицензией <a href=\"http://creativecommons.org/licenses/by-sa/4.0/\">2CC BY-SA 4.0</a>.
+]]></string>
+    <string name="camera_upload">Загрузить изображение!</string>
+    <string name="camera_discard">Нет :-(</string>
+    <string name="camera_uploading_progress">Загрузка &#8230;</string>
+    <string name="camera_upload_failed_title">Не удалось загрузить изображение</string>
+    <string name="camera_upload_failed_message">Пожалуйста, попробуйте снова</string>
+    <string name="camera_processing_image">Обработка изображения &#8230;</string>
+    <string name="camera_no_location">Вы не можете загружать изображения без GPS сигнала</string>
+    <string name="camera_no_outputfile">Не удалось сохранить файл на устройстве.</string>
+    <string name="camera_image_upload_succeeded_title">Изображение загружено!</string>
+    <string name="camera_image_upload_succeeded_message">Изображение загружено в галерею criticalmaps.net</string>
+    <string name="camera_no_camera">Вы не можете снимать фото, если на вашем устройстве нет камеры.</string>
+    <string name="camera_permissions_permanently_denied_title">Нет доступа к SD карте</string>
+    <string name="camera_permissions_permanently_denied_text">Ранее вы запретили доступ к SD карте. Это значит, что изображения не могут быть сохранены на устройстве.\nХотите ли вы дать разрешение в настройках приложения сейчас?</string>
+    <string name="camera_external_storage_permission_rationale_text">Для загрузки изображений сначала необходимо сохранить их на вашем устройстве. Поэтому требуется доступ к вашей SD-карте.\nВы хотите дать это разрешение сейчас?</string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">Что-то пошло не так.</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="permissions_rationale_title">Предоставить необходимое разрешение?</string>
+    <string name="permissions_open_settings">Открыть настройки</string>
+    <string name="storage_name_internal">Внутреннее хранилище</string>
+    <string name="storage_name_external">Внешнее хранилище</string>
+    <string name="storage_name_emulated">Эмулированная SD-карта</string>
+
+    <!-- introduction -->
+    <string name="introduction_heading">Пожалуйста, найдите время, чтобы прочитать это краткое введение.</string>
+    <string name="introduction_own_icon">Вот так вы выглядите:\u0020</string>
+    <string name="introduction_other_icon">Так выглядят все остальные пользователи:\u0020</string>
+    <string name="introduction_close_app">Пожалуйста, закройте приложение, если вы хотите прекратить отслеживание</string>
+    <string name="introduction_careful">Пожалуйста, обратите внимание на движение, а не на приложение.</string>
+    <string name="introduction_bugs">Если вы нашли ошибки в приложении, пожалуйста, сообщите нам нажав на кнопку \"Обратная связь\" в меню \"Настройки\".</string>
+    <string name="introduction_requisites">Для того, чтобы приложение работало правильно, вам нужно иметь работающее мобильное соединение и GPS.</string>
+</resources>
