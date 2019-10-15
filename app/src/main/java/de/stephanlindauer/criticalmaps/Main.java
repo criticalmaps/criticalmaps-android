@@ -10,20 +10,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,14 +20,27 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import org.jetbrains.annotations.NotNull;
 
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 import java.io.File;
 
 import javax.inject.Inject;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PermissionCheckHandler;
@@ -92,7 +91,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             (sharedPreferences, key) -> {
                 if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
                     setShowOnLockscreen();
-                } else if(SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
+                } else if (SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
                     setKeepScreenOn();
                 }
             };
@@ -256,6 +255,15 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void handleCloseRequested() {
         new ApplicationCloseHandler(this).execute();
     }
@@ -337,7 +345,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.getGroupId() == R.id.navigation_group) {
+        if (item.getGroupId() == R.id.navigation_group) {
             item.setChecked(true);
             drawerLayout.closeDrawer(GravityCompat.START);
             //noinspection ConstantConditions
