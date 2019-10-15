@@ -87,6 +87,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
 
+    private SwitchCompat observerModeSwitch;
+
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
             (sharedPreferences, key) -> {
                 if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
@@ -167,10 +169,15 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener());
+        drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener() {
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                super.onDrawerClosed(drawerView);
+                navigateTo(drawerNavigation.getCheckedItem().getItemId());
+            }
+        });
 
-        SwitchCompat observerModeSwitch =
-                drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
+        observerModeSwitch = drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
                 .getActionView().findViewById(R.id.navigation_observer_mode_switch);
         observerModeSwitch.setChecked(new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get());
@@ -350,10 +357,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             drawerLayout.closeDrawer(GravityCompat.START);
             //noinspection ConstantConditions
             getSupportActionBar().setTitle(item.getTitle());
-            navigateTo(item.getItemId());
             return true;
         }
-        //TODO set switch checked when observer switch item selected?
+        if (item.getItemId() == R.id.navigation_observer_mode) {
+            observerModeSwitch.setChecked(!observerModeSwitch.isChecked());
+            return true;
+        }
         return false;
     }
 
