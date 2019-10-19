@@ -39,11 +39,9 @@ import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
-import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
-import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 
@@ -55,9 +53,6 @@ public class ChatFragment extends Fragment {
 
     @Inject
     EventBus eventBus;
-
-    @Inject
-    OwnLocationModel ownLocationModel;
 
     //view
     @BindView(R.id.chat_recycler)
@@ -101,7 +96,8 @@ public class ChatFragment extends Fragment {
         displayNewData();
 
         textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
-        editMessageTextField.setFilters(new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
+        editMessageTextField.setFilters(
+                new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
     }
 
     @Override
@@ -191,32 +187,24 @@ public class ChatFragment extends Fragment {
         unbinder.unbind();
     }
 
+    @SuppressWarnings("unused")
     @Subscribe
     public void handleNewServerData(NewServerResponseEvent e) {
         displayNewData();
     }
 
-    @Subscribe
-    public void handleNewLocation(NewLocationEvent e) {
-        setTextInputState(ownLocationModel.ownLocation != null, isDataConnectionAvailable);
-    }
-
+    @SuppressWarnings("unused")
     @Subscribe
     public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
         isDataConnectionAvailable = e.isConnected;
-        setTextInputState(ownLocationModel.ownLocation != null, isDataConnectionAvailable);
+        setTextInputState(isDataConnectionAvailable);
     }
 
-    private void setTextInputState(final boolean locationKnown, final boolean dataEnabled) {
-        if (!locationKnown || !dataEnabled) {
-            // FIXME fix this hacky mess of state handling
+    private void setTextInputState(final boolean dataEnabled) {
+        if (!dataEnabled) {
             setSendButtonEnabledWithAnimation(false);
             editMessageTextField.setEnabled(false);
-            if (dataEnabled) {
-                textInputLayout.setHint(getString(R.string.map_searching_for_location));
-            } else {
-                textInputLayout.setHint(getString(R.string.chat_no_data_connection_hint));
-            }
+            textInputLayout.setHint(getString(R.string.chat_no_data_connection_hint));
             isTextInputEnabled = false;
         } else if (!isTextInputEnabled) {
             if (editMessageTextField.getText().length() > 0) {
