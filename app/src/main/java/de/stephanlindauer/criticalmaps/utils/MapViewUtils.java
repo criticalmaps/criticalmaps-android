@@ -2,6 +2,8 @@ package de.stephanlindauer.criticalmaps.utils;
 
 import android.app.Activity;
 import androidx.core.content.ContextCompat;
+
+import android.view.View;
 import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;
@@ -13,6 +15,7 @@ import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 import java.io.File;
 
@@ -83,6 +86,20 @@ public class MapViewUtils {
                         ContextCompat.getColor(activity, R.color.map_loading_line_color));
 
         return mapView;
+    }
+
+    public static InfoWindow createObserverInfoWindow(MapView mapView) {
+        return new InfoWindow(R.layout.view_observer_infowindow, mapView) {
+            @Override
+            public void onOpen(Object item) {
+                mView.setOnClickListener(v -> close());
+            }
+
+            @Override
+            public void onClose() {
+
+            }
+        };
     }
 
     private static void setMaxCacheSize(IConfigurationProvider configuration) {

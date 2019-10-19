@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:theme="@style/AppTheme"
+    android:background="@drawable/background_dialogs">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/map_observer_mode_info_heading"
+        android:text="@string/map_oberserver_mode_info_heading"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/map_observer_mode_info_text"
+        android:text="@string/map_observer_mode_info_text"
+        />
+
+</LinearLayout>
