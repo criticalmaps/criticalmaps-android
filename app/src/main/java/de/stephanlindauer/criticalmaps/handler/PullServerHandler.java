@@ -86,13 +86,10 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
             final boolean isObserverModeActive = new BooleanPreference(
                     sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get();
 
-            Timber.d("observer mode: %s", isObserverModeActive);
-            if (isObserverModeActive) {
-                jsonObject.put("observerMode", "true");
-            }
+            Timber.d("observer mode enabled: %s", isObserverModeActive);
 
             if (ownLocationModel.ownLocation != null && ownLocationModel.hasPreciseLocation()
-                    && locationUpdateManager.isUpdating()) {
+                    && locationUpdateManager.isUpdating() && !isObserverModeActive) {
                 jsonObject.put("location", ownLocationModel.getLocationJson());
             }
 
