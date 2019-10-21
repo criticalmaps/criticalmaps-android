@@ -54,8 +54,10 @@ import javax.inject.Inject;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 public class MapFragment extends Fragment {
 
@@ -83,6 +85,7 @@ public class MapFragment extends Fragment {
 
     //view
     private MapView mapView;
+    private InfoWindow oberserverInfowWindow;
 
     @BindView(R.id.set_current_location_center)
     FloatingActionButton setCurrentLocationCenter;
@@ -222,6 +225,8 @@ public class MapFragment extends Fragment {
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
 
+        oberserverInfowWindow = MapViewUtils.createObserverInfoWindow(mapView);
+
         setCurrentLocationCenter.setOnClickListener(centerLocationOnClickListener);
         setRotationNorth.setOnClickListener(rotationNorthOnClickListener);
 
@@ -302,7 +307,14 @@ public class MapFragment extends Fragment {
             if (new BooleanPreference(
                     sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get()) {
                 ownMarker.setIcon(ownLocationIconObserver);
+                ownMarker.setInfoWindow(oberserverInfowWindow);
+                // since we're currently creating new markers on every refresh, this workaround
+                // is needed to update the info window's position if it's open
+                if (oberserverInfowWindow.isOpen()) {
+                    ownMarker.showInfoWindow();
+                }
             } else {
+                oberserverInfowWindow.close();
                 ownMarker.setIcon(ownLocationIcon);
             }
             mapView.getOverlays().add(ownMarker);

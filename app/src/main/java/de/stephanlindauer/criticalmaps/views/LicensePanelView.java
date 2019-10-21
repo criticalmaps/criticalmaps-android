@@ -56,7 +56,8 @@ public class LicensePanelView extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.license_panel_view, this, true);
         unbinder = ButterKnife.bind(this);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LicensePanelView, defStyleAttr, 0);
+        TypedArray a = context.obtainStyledAttributes(
+                attrs, R.styleable.LicensePanelView, defStyleAttr, 0);
         int nameRes = a.getResourceId(R.styleable.LicensePanelView_name, 0);
         String linkString = a.getString(R.styleable.LicensePanelView_link);
         int copyrightRes = a.getResourceId(R.styleable.LicensePanelView_copyright, 0);
@@ -68,7 +69,8 @@ public class LicensePanelView extends LinearLayout {
         setViewTextFromResId(noticeView, noticeRes);
 
         if (linkString != null) {
-            linkView.setOnClickListener(new IntentUtil.URLOpenOnActivityOnClickListener(linkString));
+            linkView.setOnClickListener(
+                    new IntentUtil.URLOpenOnActivityOnClickListener(linkString));
         }
 
         // make html links in notice text clickable
@@ -115,23 +117,21 @@ public class LicensePanelView extends LinearLayout {
         if (layoutTransition != null) {
             long durationAppearing = layoutTransition.getDuration(LayoutTransition.APPEARING);
             layoutTransition.setDuration(LayoutTransition.APPEARING, 0);
-            //noinspection ResourceType
             noticeView.setVisibility(savedState.getVisibility());
             layoutTransition.setDuration(LayoutTransition.APPEARING, durationAppearing);
         } else {
-            //noinspection ResourceType
             noticeView.setVisibility(savedState.getVisibility());
         }
     }
 
     // we handle child states ourselves
     @Override
-    protected void dispatchSaveInstanceState(SparseArray container) {
+    protected void dispatchSaveInstanceState(SparseArray<android.os.Parcelable> container) {
         super.dispatchFreezeSelfOnly(container);
     }
 
     @Override
-    protected void dispatchRestoreInstanceState(SparseArray container) {
+    protected void dispatchRestoreInstanceState(SparseArray<android.os.Parcelable> container) {
         super.dispatchThawSelfOnly(container);
     }
 
@@ -160,7 +160,7 @@ public class LicensePanelView extends LinearLayout {
             this.visibility = visibility;
         }
 
-        public int getVisibility() {
+        int getVisibility() {
             return visibility;
         }
 
