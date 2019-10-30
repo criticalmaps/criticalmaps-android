@@ -103,7 +103,8 @@ public class ChatFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        updateSendButtonEnabledState();
+        final String message = editMessageTextField.getText().toString();
+        sendButton.setEnabled(!message.trim().isEmpty());
 
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
@@ -145,7 +146,7 @@ public class ChatFragment extends Fragment {
 
     @OnClick(R.id.chat_send_btn)
     void handleSendClicked() {
-        String message = editMessageTextField.getText().toString().trim();
+        final String message = editMessageTextField.getText().toString().trim();
 
         if (message.isEmpty()) {
             return;
@@ -158,7 +159,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void displayNewData() {
-        List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
+        final List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
         chatMessageAdapter.updateData(savedAndOutgoingMessages);
 
         if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
@@ -213,7 +214,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void updateSendButtonEnabledState() {
-        String message = editMessageTextField.getText().toString();
+        final String message = editMessageTextField.getText().toString();
         setSendButtonEnabledWithAnimation(!message.trim().isEmpty());
     }
 }
