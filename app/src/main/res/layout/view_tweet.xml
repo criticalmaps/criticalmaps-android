@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ProgressBar
-        android:id="@+id/tweet_user_image_progress"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/tweet_progress_bar_background"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/tweet_user_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,60 +21,51 @@
 
     <TextView
         android:id="@+id/tweet_user_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textStyle="bold"
-        android:textAlignment="viewStart"
-        android:gravity="start"
-        app:layout_constraintEnd_toStartOf="@+id/tweet_creation_date"
-        app:layout_constraintLeft_toRightOf="@id/tweet_user_image"
-        app:layout_constraintStart_toEndOf="@id/tweet_user_image"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Critical Maps" />
-
-    <TextView
-        android:id="@+id/tweet_user_handle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
-        android:textStyle="italic"
-        android:textAlignment="viewStart"
-        android:gravity="start"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/tweet_user_image"
         app:layout_constraintStart_toEndOf="@id/tweet_user_image"
-        app:layout_constraintTop_toBottomOf="@+id/tweet_user_name"
-        tools:text="\@CriticalMaps" />
+        app:layout_constraintTop_toTopOf="@+id/tweet_user_image"
+        tools:text="Critical Maps" />
 
     <TextView
-        android:id="@+id/tweet_creation_date"
-        android:layout_width="wrap_content"
+        android:id="@+id/tweet_user_handle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tweet_user_name"
+        android:maxLines="1"
+        android:textColor="@color/twitter_nickname"
+        app:layout_constraintBottom_toBottomOf="@+id/tweet_user_name"
+        app:layout_constraintEnd_toStartOf="@+id/tweet_creation_date_time"
+        app:layout_constraintLeft_toRightOf="@id/tweet_user_name"
+        app:layout_constraintRight_toLeftOf="@id/tweet_creation_date_time"
+        app:layout_constraintStart_toEndOf="@+id/tweet_user_name"
+        app:layout_constraintTop_toTopOf="@+id/tweet_user_name"
+        tools:text="\@CriticalMapsDoubleLengthName" />
+
+    <TextView
+        android:id="@+id/tweet_creation_date_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tweet_user_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tweet_user_name"
         tools:text="01.01.2015" />
-
-    <TextView
-        android:id="@+id/tweet_creation_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tweet_user_handle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="19:30" />
 
     <TextView
         android:id="@+id/tweet_text"
@@ -94,17 +74,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:textAlignment="viewStart"
-        android:gravity="start"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/twitter_message"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tweet_user_image"
+        app:layout_constraintStart_toEndOf="@+id/tweet_user_image"
+        app:layout_constraintTop_toBottomOf="@+id/tweet_user_name"
         tools:text="@string/lorem_ipsum" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
