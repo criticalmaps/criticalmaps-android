@@ -69,7 +69,6 @@ public class ChatFragment extends Fragment {
 
     //misc
     private boolean isTextInputEnabled = true;
-    private boolean isDataConnectionAvailable = true;
     private ChatMessageAdapter chatMessageAdapter;
     private Unbinder unbinder;
 
@@ -104,12 +103,13 @@ public class ChatFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        sendButton.setEnabled(editMessageTextField.getText().length() > 0);
+        final String message = editMessageTextField.getText().toString();
+        sendButton.setEnabled(!message.trim().isEmpty());
 
         editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                setSendButtonEnabledWithAnimation(s.length() > 0);
+                updateSendButtonEnabledState();
             }
         });
     }
@@ -146,7 +146,7 @@ public class ChatFragment extends Fragment {
 
     @OnClick(R.id.chat_send_btn)
     void handleSendClicked() {
-        String message = editMessageTextField.getText().toString();
+        final String message = editMessageTextField.getText().toString().trim();
 
         if (message.isEmpty()) {
             return;
@@ -159,7 +159,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void displayNewData() {
-        List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
+        final List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
         chatMessageAdapter.updateData(savedAndOutgoingMessages);
 
         if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
@@ -196,8 +196,7 @@ public class ChatFragment extends Fragment {
     @SuppressWarnings("unused")
     @Subscribe
     public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
-        isDataConnectionAvailable = e.isConnected;
-        setTextInputState(isDataConnectionAvailable);
+        setTextInputState(e.isConnected);
     }
 
     private void setTextInputState(final boolean dataEnabled) {
@@ -207,12 +206,15 @@ public class ChatFragment extends Fragment {
             textInputLayout.setHint(getString(R.string.chat_no_data_connection_hint));
             isTextInputEnabled = false;
         } else if (!isTextInputEnabled) {
-            if (editMessageTextField.getText().length() > 0) {
-                setSendButtonEnabledWithAnimation(true);
-            }
+            updateSendButtonEnabledState();
             editMessageTextField.setEnabled(true);
             textInputLayout.setHint(getString(R.string.chat_text));
             isTextInputEnabled = true;
         }
+    }
+
+    private void updateSendButtonEnabledState() {
+        final String message = editMessageTextField.getText().toString();
+        setSendButtonEnabledWithAnimation(!message.trim().isEmpty());
     }
 }
