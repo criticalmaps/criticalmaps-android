@@ -1,17 +1,21 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,8 +26,6 @@ import de.stephanlindauer.criticalmaps.adapter.TweetAdapter;
 import de.stephanlindauer.criticalmaps.handler.PostTweetHandler;
 import de.stephanlindauer.criticalmaps.handler.TwitterGetHandler;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
-
-import java.util.ArrayList;
 
 public class TwitterFragment extends Fragment {
 
@@ -42,6 +44,9 @@ public class TwitterFragment extends Fragment {
 
     @BindView(R.id.swipe_container)
     public SwipeRefreshLayout swipeLayout;
+
+    @BindView(R.id.twitter_new_tweet_button)
+    public FloatingActionButton newTweetButton;
 
     //adapter
     private TweetAdapter tweetAdapter;
@@ -64,7 +69,17 @@ public class TwitterFragment extends Fragment {
 
         tweetAdapter = new TweetAdapter(getActivity(), new ArrayList<>());
         tweetsRecyclerView.setAdapter(tweetAdapter);
-
+        tweetsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && newTweetButton.getVisibility() == View.VISIBLE) {
+                    newTweetButton.hide();
+                } else if (dy < 0 && newTweetButton.getVisibility() != View.VISIBLE) {
+                    newTweetButton.show();
+                }
+            }
+        });
         swipeLayout.setOnRefreshListener(() ->
                 new TwitterGetHandler(TwitterFragment.this).execute());
 

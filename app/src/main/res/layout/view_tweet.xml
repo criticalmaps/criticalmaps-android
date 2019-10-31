@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/tweet_user_image"
@@ -86,5 +87,13 @@
         app:layout_constraintStart_toEndOf="@+id/tweet_user_image"
         app:layout_constraintTop_toBottomOf="@+id/tweet_user_name"
         tools:text="@string/lorem_ipsum" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/twitter_divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tweet_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

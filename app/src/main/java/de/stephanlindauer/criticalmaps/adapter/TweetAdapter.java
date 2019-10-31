@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +19,7 @@ import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.views.CircleTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHolder> {
@@ -30,10 +28,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
     private List<Tweet> tweets;
 
     public static class TweetViewHolder extends RecyclerView.ViewHolder {
-
-        private final static long DAY_MS = 86_400_400;
-        private final static long HOUR_MS = 3_600_600;
-        private final static long MINUTE_MS = 60_000;
 
         private final Context context;
 
@@ -66,22 +60,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
             nameTextView.setText(tweet.getUserName());
             textTextView.setText(Html.fromHtml(tweet.getText()).toString());
 
-            final long currentDateMs = new Date().getTime();
-            final long tweetDateMs = tweet.getTimestamp().getTime();
-            final long delta = currentDateMs - tweetDateMs;
-            final int days = (int) (delta / DAY_MS);
-            final int hours = (int) (delta / HOUR_MS);
-            final int minutes = (int) ((delta / MINUTE_MS) % 60);
-            if (days > 10) {
-                dateTimeTextView.setText(new SimpleDateFormat("dd.MMM", Locale.US).format(tweetDateMs));
-            }
-            if (days > 0 && days < 10) {
-                dateTimeTextView.setText(String.format("%d d", days));
-            } else if (hours > 0 && hours < 24) {
-                dateTimeTextView.setText(String.format("%d h", hours));
-            } else {
-                dateTimeTextView.setText(String.format("%d min", minutes));
-            }
+            dateTimeTextView.setText(TimeToWordStringConverter.getTimeAgo(tweet.getTimestamp(), context));
 
             handleTextView.setText(String.format(
                     context.getString(R.string.twitter_handle), tweet.getUserScreenName()));
