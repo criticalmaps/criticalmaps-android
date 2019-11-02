@@ -94,7 +94,6 @@ dependencies {
 
     implementation 'org.ligi:AXT:0.37'
     implementation 'info.metadude.android:typed-preferences:2.1.0'
-    implementation 'com.github.armcha:AutoLinkTextViewV2:2.1.1'
 
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation "com.google.dagger:dagger:$dagger_version"

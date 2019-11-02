@@ -122,6 +122,10 @@
     <string name="timetoword_yesterday">yesterday</string>
     <string name="timetoword_daysago">%d days ago</string>
 
+    <string name="timetoword_minutesago_short">%d m</string>
+    <string name="timetoword_hoursago_short">%d h</string>
+    <string name="timetoword_daysago_short">%d d</string>
+
     <!-- camera -->
     <string name="camera_confirm_image_upload">
         <![CDATA[

@@ -60,6 +60,7 @@ public class TwitterFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
 
         tweetsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
