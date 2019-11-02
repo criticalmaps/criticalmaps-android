@@ -20,6 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        jcenter()
         mavenCentral()
         maven { url  "https://jetbrains.bintray.com/trove4j" }
         maven { url  "https://dl.bintray.com/ligi/maven" }

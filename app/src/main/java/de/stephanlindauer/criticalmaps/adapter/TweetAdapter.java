@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,8 @@ import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
 import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.views.CircleTransformation;
+import io.github.armcha.autolink.AutoLinkTextView;
+import io.github.armcha.autolink.MODE_HASHTAG;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHolder> {
 
@@ -34,7 +37,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
         @BindView(R.id.tweet_user_name)
         TextView nameTextView;
         @BindView(R.id.tweet_text)
-        TextView textTextView;
+        AutoLinkTextView textTextView;
         @BindView(R.id.tweet_creation_date_time)
         TextView dateTimeTextView;
         @BindView(R.id.tweet_user_handle)
@@ -46,6 +49,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
             super(itemView);
             this.context = context;
             ButterKnife.bind(this, itemView);
+            textTextView.setHashTagModeColor(ContextCompat.getColor(context, R.color.twitter_hashtag));
+            textTextView.addAutoLinkMode(MODE_HASHTAG.INSTANCE);
         }
 
         public void bind(Tweet tweet) {
@@ -58,6 +63,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
                     .into(userImageView);
 
             nameTextView.setText(tweet.getUserName());
+
             textTextView.setText(Html.fromHtml(tweet.getText()).toString());
 
             dateTimeTextView.setText(TimeToWordStringConverter.getTimeAgo(tweet.getTimestamp(), context));

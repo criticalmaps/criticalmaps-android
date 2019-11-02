@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="@id/tweet_user_name"
         tools:text="01.01.2015" />
 
-    <TextView
+    <io.github.armcha.autolink.AutoLinkTextView
         android:id="@+id/tweet_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
