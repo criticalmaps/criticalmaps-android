@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/twitter_nickname"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tweet_user_handle"
