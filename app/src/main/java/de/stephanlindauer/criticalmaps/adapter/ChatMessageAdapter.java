@@ -34,13 +34,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         @BindView(R.id.secondLine)
         TextView valueView;
 
+        private ObjectAnimator sendingAnimator;
+
         private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
-        private final Context context;
 
         public ChatMessageViewHolder(View itemView) {
             super(itemView);
-            context = itemView.getContext();
             ButterKnife.bind(this, itemView);
         }
 
@@ -49,14 +49,17 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             if (message instanceof ReceivedChatMessage) {
                 dateFormatter.setTimeZone(TimeZone.getDefault());
                 labelView.setText(TimeToWordStringConverter.getTimeAgo(
-                        ((ReceivedChatMessage) message).getTimestamp(), context));
-                labelView.clearAnimation();
+                        ((ReceivedChatMessage) message).getTimestamp(), itemView.getContext()));
+                if (sendingAnimator != null) {
+                    sendingAnimator.end();
+                    labelView.setAlpha(1f);
+                    sendingAnimator = null;
+                }
             } else {
                 labelView.setText(R.string.chat_sending);
 
-                ObjectAnimator sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
-                        itemView.getContext(),
-                        R.animator.map_gps_fab_searching_animation);
+                sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                        itemView.getContext(), R.animator.map_gps_fab_searching_animation);
                 sendingAnimator.setTarget(labelView);
                 sendingAnimator.start();
             }
