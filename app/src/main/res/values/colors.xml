@@ -66,6 +66,10 @@
     <color name="twitter_error_message_text">@color/colorError</color>
     <color name="twitter_indicator_color_first">@color/colorSecondary</color>
     <color name="twitter_indicator_color_second">@color/colorPrimaryLight</color>
+    <color name="twitter_nickname">#909399</color>
+    <color name="twitter_message">#DADCE0</color>
+    <color name="twitter_divider">#45474D</color>
+    <color name="twitter_hashtag">@color/colorSecondary</color>
 
     <!-- Tweet -->
     <color name="tweet_progress_bar_background">@color/colorPrimary</color>
