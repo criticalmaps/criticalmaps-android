@@ -14,8 +14,6 @@ public class TimeToWordStringConverter {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
-    private static final SimpleDateFormat SHORT_DATE_FORMAT = new SimpleDateFormat("dd. MMM", Locale.US);
-
     public static String getTimeAgo(Date date, Context context) {
         long past = date.getTime();
         long now = new Date().getTime();
@@ -50,7 +48,7 @@ public class TimeToWordStringConverter {
         } else if (diff < 7 * DAY_MILLIS) {
             return context.getString(R.string.timetoword_daysago_short, diff / DAY_MILLIS);
         } else {
-            return SHORT_DATE_FORMAT.format(past);
+            return new SimpleDateFormat("dd. MMM", Locale.US).format(past);
         }
     }
 }
