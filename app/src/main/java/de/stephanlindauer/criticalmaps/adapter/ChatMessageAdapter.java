@@ -2,7 +2,7 @@ package de.stephanlindauer.criticalmaps.adapter;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
-import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +26,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
     private List<IChatMessage> chatMessages;
 
-    public static class ChatMessageViewHolder extends RecyclerView.ViewHolder {
+    static class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.firstLine)
         TextView labelView;
@@ -36,29 +36,32 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
         private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
-        private final Context context;
+        private ObjectAnimator sendingAnimator;
 
-        public ChatMessageViewHolder(View itemView) {
+        ChatMessageViewHolder(View itemView) {
             super(itemView);
-            context = itemView.getContext();
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(IChatMessage message) {
+        void bind(IChatMessage message) {
             valueView.setText(message.getMessage());
             if (message instanceof ReceivedChatMessage) {
                 dateFormatter.setTimeZone(TimeZone.getDefault());
                 labelView.setText(TimeToWordStringConverter.getTimeAgo(
-                        ((ReceivedChatMessage) message).getTimestamp(), context));
-                labelView.clearAnimation();
+                        ((ReceivedChatMessage) message).getTimestamp(), itemView.getContext()));
             } else {
                 labelView.setText(R.string.chat_sending);
-
-                ObjectAnimator sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
-                        itemView.getContext(),
-                        R.animator.map_gps_fab_searching_animation);
+                sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                        itemView.getContext(), R.animator.map_gps_fab_searching_animation);
                 sendingAnimator.setTarget(labelView);
                 sendingAnimator.start();
+            }
+        }
+
+        void clearAnimation() {
+            if (sendingAnimator != null) {
+                sendingAnimator.cancel();
+                itemView.setAlpha(1f);
             }
         }
     }
@@ -78,6 +81,11 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public void onBindViewHolder(@NonNull ChatMessageViewHolder holder, int position) {
         holder.bind(chatMessages.get(position));
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull ChatMessageViewHolder holder) {
+        holder.clearAnimation();
     }
 
     @Override
