@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.view.ViewGroup;
 
+import org.jetbrains.annotations.NotNull;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
@@ -25,11 +26,9 @@ import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import timber.log.Timber;
 
 public class MapViewUtils {
-    
-    private final static OnlineTileSourceBase WIKIMEDIA = new XYTileSource("Wikimedia",
-            1, 19, 256, ".png",
-            new String[] {"https://maps.wikimedia.org/osm-intl/"},
-            "Wikimedia maps | Map data © OpenStreetMap contributors");
+    private static final String TILE_SOURCE_BASEURL = "https://maps.wikimedia.org/osm-intl/";
+    private static final String TILE_SOURCE_COPYRIGHT =
+            "Wikimedia maps | Map data © OpenStreetMap contributors";
 
     private MapViewUtils() {}
 
@@ -60,11 +59,14 @@ public class MapViewUtils {
                 + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME
                 + " (" + activity.getString(R.string.contact_email) + ")");
 
-        MapTileProviderBasic mapnikTileProvider =
-                new MapTileProviderBasic(activity.getApplicationContext(), WIKIMEDIA);
+        OnlineTileSourceBase onlineTileSourceBase = determineTileResolution();
 
-        MapView mapView = new MapView(activity, mapnikTileProvider);
+        MapTileProviderBasic mapTileProviderBasic =
+                new MapTileProviderBasic(activity.getApplicationContext(), onlineTileSourceBase);
+
+        MapView mapView = new MapView(activity, mapTileProviderBasic);
         mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
@@ -96,6 +98,36 @@ public class MapViewUtils {
 
             }
         };
+    }
+
+    private static OnlineTileSourceBase determineTileResolution() {
+        // When in doubt use the next higher quality tiles.
+        // Still scale with mapView.setTilesScaledToDpi(true). Usually this will be 1:1 but when
+        // not will ensure consistent appearance across devices
+
+        float density = App.components().app().getResources().getDisplayMetrics().density;
+
+        if (density <= 1) {
+            return getWikimediaTileSource("Wikimedia_1x", 256, ".png");
+        } else if (density <= 1.3) {
+            return getWikimediaTileSource("Wikimedia_1_3x", 332, "@1.3x.png");
+        } else if (density <= 1.5) {
+            return getWikimediaTileSource("Wikimedia_1_5x", 384, "@1.5x.png");
+        } else if (density <= 2.0) {
+            return getWikimediaTileSource("Wikimedia_2x", 512, "@2x.png");
+        } else if (density <= 2.6) {
+            return getWikimediaTileSource("Wikimedia_2_6x", 665, "@2.6x.png");
+        } else {
+            return getWikimediaTileSource("Wikimedia_3x", 768, "@3x.png");
+        }
+    }
+
+    @NotNull
+    private static XYTileSource getWikimediaTileSource(
+            String name, int tileSize, String filenameEnding) {
+        return new XYTileSource(
+                name, 1, 19, tileSize,
+                filenameEnding, new String[]{TILE_SOURCE_BASEURL}, TILE_SOURCE_COPYRIGHT);
     }
 
     private static void setMaxCacheSize(IConfigurationProvider configuration) {
