@@ -51,6 +51,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
                         ((ReceivedChatMessage) message).getTimestamp(), itemView.getContext()));
             } else {
                 labelView.setText(R.string.chat_sending);
+                
                 sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
                         itemView.getContext(), R.animator.map_gps_fab_searching_animation);
                 sendingAnimator.setTarget(labelView);
@@ -61,7 +62,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         void clearAnimation() {
             if (sendingAnimator != null) {
                 sendingAnimator.cancel();
-                itemView.setAlpha(1f);
+                labelView.setAlpha(1f);
             }
         }
     }
