@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.app.Activity;
 import androidx.core.content.ContextCompat;
 
-import android.view.View;
 import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;
