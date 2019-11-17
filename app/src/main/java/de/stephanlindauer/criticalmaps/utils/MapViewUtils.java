@@ -64,10 +64,7 @@ public class MapViewUtils {
                 new MapTileProviderBasic(activity.getApplicationContext(), WIKIMEDIA);
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
-        if (BuildConfig.DEBUG) {
-            mapView.getZoomController().setVisibility(
-                    CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
-        }
+        mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
