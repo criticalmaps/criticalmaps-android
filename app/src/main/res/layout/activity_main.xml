@@ -43,6 +43,7 @@
                 android:id="@+id/drawer_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:elevation="0dp"
                 app:itemIconTint="@color/nav_item_icon_tint"
                 app:itemTextColor="@color/nav_item_text"
                 app:headerLayout="@layout/navdrawer_header"
