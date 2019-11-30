@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.App;
@@ -120,7 +121,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.TweetViewHol
 
             itemView.setOnClickListener(v ->
                     context.startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://twitter.com/aasif/status/" + tweet.getTweetId()))));
+                            Uri.parse("https://twitter.com/" + tweet.getUserScreenName() + "/status/" + tweet.getTweetId()))));
         }
     }
 }
