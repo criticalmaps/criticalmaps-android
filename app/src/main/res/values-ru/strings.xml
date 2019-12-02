@@ -39,6 +39,8 @@
     <string name="map_gps_permissions_permanently_denied_title">Доступ к местоположению закрыт</string>
     <string name="map_gps_permissions_permanently_denied_text">Ранее вы запретили доступ к своем местоположению. Без него вы и другие пользователи не смогут видеть ваше местоположение. Вы все еще сможете видеть других пользователей, но имейте в виду, что приложению необходимо как можно больше пользователей, делящихся своим местоположением.\nХотите ли вы дать разрешение в настройках приложения сейчас?</string>
     <string name="map_location_permissions_rationale_text">Доступ к местоположению имеет решающее значение для работы приложения. Это нужно для просмотра вашего местоположения на карте, чтобы делиться своим местоположением с другими пользователями, писать сообщения и загружать изображения. Без этого вы все равно сможете следить за другими, но помните, что приложение зависит от того, как много людей делятся своим местоположением.\nВы хотите дать разрешение сейчас?</string>
+    <string name="map_oberserver_mode_info_heading">Режим наблюдения активирован</string>
+    <string name="map_observer_mode_info_text">Уже присоединился к массам?\nОтлично! Пожалуйста отключите режим наблюдения для того чтобы помочь другим видеть куда вы направляетесь!</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Отслеживание Critical Maps</string>
@@ -117,6 +119,10 @@
     <string name="timetoword_hoursago">%dчасов назад</string>
     <string name="timetoword_yesterday">вчера</string>
     <string name="timetoword_daysago">%dдней назад</string>
+
+    <string name="timetoword_minutesago_short">%d м</string>
+    <string name="timetoword_hoursago_short">%d ч</string>
+    <string name="timetoword_daysago_short">%d д</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">

@@ -54,20 +54,20 @@
 
             <TextView
                 style="@style/about_heading"
-                android:text="@string/about_heading_contributions" />
-
-            <TextView
-                style="@style/about_content"
-                android:text="@string/about_text_contributors" />
-
-            <TextView
-                style="@style/about_heading"
                 android:text="@string/about_heading_code" />
 
             <ImageButton
                 android:id="@+id/about_github"
                 style="@style/about_button"
                 app:srcCompat="@drawable/ic_about_github" />
+
+            <TextView
+                style="@style/about_heading"
+                android:text="@string/about_heading_contributions" />
+
+            <TextView
+                style="@style/about_content"
+                android:text="@string/about_text_contributors" />
 
             <TextView
                 style="@style/about_heading"

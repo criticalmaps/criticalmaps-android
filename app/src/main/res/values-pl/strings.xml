@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- nav -->
+    <string name="section_map">Mapa</string>
+    <string name="section_rules">Zasady</string>
+    <string name="section_twitter">Twitter</string>
+    <string name="section_about">Informacje</string>
+    <string name="section_chat">Czat</string>
+    <string name="section_settings">Ustawienia</string>
+    <string name="observer_mode">Tryb oberwatora</string>
+    <string name="open_drawer">Otwórz menu</string>
+    <string name="close_drawer">Zamknij menu</string>
+    <string name="nav_observer_mode_text">Włącz jeśli nie bierzesz udziału w Masie, ale nadal chcesz śledzić jej przebieg.</string>
+
+    <!-- close -->
+    <string name="close">Czy na pewno chcesz zamknąć aplikację?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
+    <!-- activity bar -->
+    <string name="close_button">Zamknij</string>
+    <string name="feedback">Uwagi</string>
+    <string name="datenschutz">Polityka prywatności</string>
+    <string name="take_picture">Zrób zdjęcie</string>
+    <string name="rate_the_app">Oceń aplikację</string>
+
+    <!-- fragment_map -->
+    <string name="map_searching_for_location">Poczekaj na sygnał GPS</string>
+    <string name="map_no_internet_connection_title">Brak połączenia z Internetem</string>
+    <string name="map_no_internet_connection_text">Bez połączenia z Internetem nie będziesz mieć możliwości zobaczenia innych uczestników, udostępnienia Twojej lokalizacji oraz korzystania z wiadomości na czacie. W zasadzie aplikacja traci wtedy jakąkolwiek wartość :(\nWejdź do ustawień telefonu i włącz dane sieci komórkowej.</string>
+    <string name="map_no_gps_title">Brak sygnału GPS</string>
+    <string name="map_no_gps_text">Twoje urządzenie nie ma włączonego GPS lub danych sieci komórkowej.
+Inni użytkownicy nie zobaczą Twojej lokalizacji, ale nadal możesz śledzić Masę. </string>
+    <string name="map_gps_disabled_title">GPS jest wyłączony</string>
+    <string name="map_gps_disabled_text">GPS i dane sieci komórkowej są wyłączone w Twoim urządzeniu. Inni użytkownicy nie będę mogli zobaczyć Twojej lokalizacji. Możesz nadal śledzić Masę, ale pamiętaj, że im więcej uczestników udostępnia lokalizację, tym lepiej aplikacja działa dla wszystkich. Pomóż naszej społeczności i włącz dale lokalizacji w ustawieniach telefonu.</string>
+    <string name="map_gps_permissions_permanently_denied_title">Dane lokalizacji nie są włączone</string>
+    <string name="map_gps_permissions_permanently_denied_text">Wcześniej odrzuciłeś/aś dostęp do Twojej lokalizacji. Twoja pozycja na mapie nie będzie widoczna ani dla Ciebie ani dla innych uczestników. Możesz nadal śledzić Masę, ale pamiętaj, że aplikacja działa najlepiej gdy jak najwięcej osób udostępnia swoją lokalizację.\nCzy chcesz nadać teraz dostęp do lokalizacji w ustawieniach aplikacji?</string>
+    <!-- notification -->
+    <string name="notification_tracking_title">Critical Maps - zapis przejazdu</string>
+    <string name="notification_tracking_text">Aplikacja działa w tle i zapisuje Twoje położenie. Zamknij aplikację jeśli nie chcesz kontynuować zapisywania lokalizacji.</string>
+    <string name="notification_channel_name">Powiadomienie o zapisie</string>
+    <string name="notification_channel_description_max300chars">Nie zalecamy wyłączania notyfikacji. Możesz przez to przypadkowo nie zauważyć trwającego zapisu trasy.</string>
+    <string name="notification_tracking_close">Zamknij</string>
+    <string name="notification_tracking_open">Otwórz</string>
+
+    <!-- fragment_rules -->
+    <string name="rules_corken">Blokady?!</string>
+    <string name="rules_corken_explain">Chroń kierowców przed ich samymi tworząc blokady!</string>
+    <string name="rules_oncoming_traffic">Kiedy pojawia się ruch</string>
+    <string name="rules_oncoming_traffic_explain">Nie jedź po przeciwległym pasie</string>
+    <string name="rules_steady">Spokojnie!</string>
+    <string name="rules_steady_explain">Kiedy jedziesz z przodu - nie przyspieszaj. Jeśli jesteś z tyłu - nie zostawiaj pustych przestrzeni.</string>
+    <string name="rules_brake">Nie zatrzymuj się nagle!</string>
+    <string name="rules_brake_explain">Ale jeśli naprawdę musisz, ostrzeż osoby za Tobą.</string>
+    <string name="rules_green">Jeśli jedziesz z przodu - zatrzymuj się na czerwonych światłach.</string>
+    <string name="rules_green_explain">Kiedy spotka Cię czerwone światło podczas jazdy w czole Masy, zatrzymaj się.</string>
+    <string name="rules_friendly">Wyluzuj</string>
+    <string name="rules_friendly_explain">Nie daj się sprowokować. Bądź przyjazny dla policji i kierowców oraz innych osób, które nie będą podzielały naszego entuzjazmu.</string>
+    <string name="rules_fun">Baw się dobrze!</string>
+    <string name="rules_fun_explain">Korzystaj z odzyskanych ulic i ciesz się muzyką z rowerów z nagłośnieniem. Rozmawiaj z kierowcami i pieszymi i pozwól im dowiedzieć się o tym co się dzieje. I najważniejsze - baw się dobrze!</string>
+    <string name="rules_image_source">Obrazki od criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
+
+    <!-- fragment_twitter -->
+    <string name="twitter_heading">Wszystkie twitty o \"CriticalMaps\"</string>
+    <string name="twitter_try_again">Spróbuj ponownie!</string>
+
+    <!-- fragment_chat -->
+    <string name="chat_heading">Wiadomość zostanie usunięta po 30 minutach.</string>
+    <string name="chat_send">Wyślij</string>
+    <string name="chat_text">Twoja wiadomość &#8230;</string>
+    <string name="chat_sending">Wysyłam &#8230;</string>
+    <string name="chat_no_data_connection_hint">Brak połączenia z Internetem &#8230;</string>
+
+    <!-- fragment_about -->
+    <string name="about_heading_social">społeczność</string>
+    <string name="about_heading_website">strona www</string>
+    <string name="about_heading_contributions">współtworzenie</string>
+    <string name="about_heading_code">kod</string>
+    <string name="about_heading_opensource">licencje open source</string>
+    <string name="about_text_opensource">Używamy poniższych bibliotek open source. Ogromne podziękowania dla wszystkich zaangażowanych w projekt!</string>
+    <string name="about_license_website">strona www</string>
+    <string name="about_license_more">więcej</string>
+    <string name="about_license_less">mniej</string>
+
+    <!-- fragment_settings -->
+    <string name="settings_storage_header">Ustawienia pamięci</string>
+    <string name="settings_cache_subheading">Pamięć podręczna map</string>
+    <string name="settings_cache_clear">Wyczyść</string>
+    <string name="settings_cache_used_mb">Wykorzystanie: %s</string>
+    <string name="settings_cache_cache_mb">Pamięć podręczna: %s</string>
+    <string name="settings_cache_free_mb">Wolne: %s</string>
+    <string name="settings_cache_currently_used">Aktualne wykorzystanie %s</string>
+    <string name="settings_choose_storage_subheading">Wybór miejsca zapisu danych</string>
+    <string name="settings_choose_storage_mb_free">(%s wolne)</string>
+    <string name="settings_choose_storage_choose_title">Miejsce zapisu danych</string>
+    <string name="settings_choose_storage_confirm_title">Obecna pamięć podręczna zostanie wyczyszczona</string>
+    <string name="settings_choose_storage_confirm_message">Zmiana miejsca zapisu danych wyczyści pamięć podręczną. Obszary mapy będą musiały zostać ponownie pobrane w celu wyświetlania.</string>
+    <string name="settings_screen_header">Ustawienia ekranu</string>
+    <string name="settings_show_on_lockscreen_subheading">Pokaż na zablokowanym ekranie</string>
+    <string name="settings_show_on_lockscreen_summary">Wyświetlaj aplikację nawet po zablokowaniu ekranu</string>
+    <string name="settings_keep_screen_on_subheading">Zablokuj ekran</string>
+    <string name="settings_keep_screen_on_summary">Chroni przed automatycznym wygaszeniem ekranu kiedy aplikacja jest wyłączona</string>
+    <string name="settings_map_header">Ustawienia map</string>
+    <string name="settings_map_rotation_subheading">Obracanie ekranu</string>
+    <string name="settings_map_rotation_summary">Pozwól na obracanie ekranu map</string>
+
+    <!-- time to word -->
+    <string name="timetoword_justnow">właśnie teraz</string>
+    <string name="timetoword_aminuteago">minutę temu</string>
+    <string name="timetoword_minutesago">%d minut temu</string>
+    <string name="timetoword_anhourago">godzinę temu</string>
+    <string name="timetoword_hoursago">%d godzin temu</string>
+    <string name="timetoword_yesterday">wczoraj</string>
+    <string name="timetoword_daysago">%d dni temu</string>
+
+    <!-- camera -->
+    <string name="camera_confirm_image_upload">
+ <![CDATA[
+D <![CDATA[ Czy chcesz wysłać zdjęcie do 1criticalmaps.net1? \nZostanie ono opublikowane w ramach licencji 2CC BY-SA 4.02. 
+]]>
+</string>
+    <string name="camera_upload">Prześlij zdjęcie!</string>
+    <string name="camera_discard">Nie :-(</string>
+    <string name="camera_uploading_progress">Przesyłam &#8230;</string>
+    <string name="camera_upload_failed_title">Przesyłanie zdjęcia nie powiodło się</string>
+    <string name="camera_upload_failed_message">Spróbuj ponownie</string>
+    <string name="camera_processing_image">Przetwarzam zdjęcie &#8230;</string>
+    <string name="camera_no_location">Nie możesz wysłać zdjęcia bez dostępu do sygnału GPS</string>
+    <string name="camera_no_outputfile">Nie można zapisać pliku w telefonie</string>
+    <string name="camera_image_upload_succeeded_title">Zdjęcie zostało przesłane!</string>
+    <string name="camera_image_upload_succeeded_message">Zdjęcie jest przesyłane do galerii criticalmaps.net</string>
+    <string name="camera_no_camera">Nie możesz zrobić zdjęcia jeśli Twoje urządzenie nie posiada kamery.</string>
+    <string name="camera_permissions_permanently_denied_title">Brak dostępu do karty SD</string>
+    <string name="camera_external_storage_permission_rationale_text">Aby przesłać zdjęcia, muszą zostać najpierw zapisane na Twoim urządzeniu. Do tego potrzebne będzie przyznanie dostępu do Twojej karty SD. \nCzy chcesz nadać ten dostęp teraz?</string>
+
+    <!-- misc -->
+    <string name="something_went_wrong">Coś poszło nie tak.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Anuluj</string>
+    <string name="permissions_rationale_title">Czy przyznać wymagane pozwolenia?</string>
+    <string name="permissions_open_settings">Otwórz ustawienia</string>
+    <string name="storage_name_internal">Pamięć telefonu</string>
+    <string name="storage_name_external">Zewnętrzna karta SD</string>
+    <!-- introduction -->
+    <string name="introduction_heading">Zapoznaj się z tą krótką instrukcją.</string>
+    <string name="introduction_own_icon">To Twój wygląd:\u0020</string>
+    <string name="introduction_other_icon">Tak wyglądają inni uczestnicy:</string>
+    <string name="introduction_close_app">Zamknij aplikację jeśli nie chcesz by zapis trasy był aktywny.</string>
+    <string name="introduction_careful">Skupiaj się na ruchu zamiast przeglądać aplikację.</string>
+    <string name="introduction_bugs">Jeśli znajdziesz problemy w aplikacji, pomóż nam ulepszać aplikację. Kliknij przycisk \"Uwagi\" z menu ustawień.</string>
+    <string name="introduction_requisites">Aby aplikacja działała poprawnie potrzebujesz połączenia z Internetem oraz aktywnego działania modułu GPS.</string>
+</resources>

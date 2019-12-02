@@ -39,6 +39,8 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="map_gps_permissions_permanently_denied_title">Accès à la position GPS refusé</string>
     <string name="map_gps_permissions_permanently_denied_text">Tu n\'as pas donné à l\'app l\'accès à ta position. Sans accès à ta position, ni toi ni les autres utilisateurs ne pourront voir ta position sur la carte. Tu peux suivre la Critical Mass mais souviens toi que l\'app fonctionne mieux si un maximum de personnes partage leur position.\nVeux tu donner à l\'app l\'accès à ta position ?</string>
     <string name="map_location_permissions_rationale_text">L\'accès à ta position est crucial pour que l\'application fonctionne. Elle est nécessaire pour voir ta position sur la carte, partager ta position avec les autres utilisateurs, utiliser la messagerie instantanée et partager des photos. Sans partager ta position, tu peux quand même suivre la Critical Mass mais souviens toi que l\'app est plus utile si un maximum de personnes partage leur position.\nVeux tu donner à l\'app accès à ta position ?</string>
+    <string name="map_oberserver_mode_info_heading">Mode observateur activé</string>
+    <string name="map_observer_mode_info_text">Tu as rejoint la Critical Mass ?\nCool ! Merci de désactiver le mode observateur pour aider les autres utilisateurs à voir où tu vas !</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Suivi GPS Critical Maps</string>
@@ -117,6 +119,10 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="timetoword_hoursago">il y a %d heures</string>
     <string name="timetoword_yesterday">hier</string>
     <string name="timetoword_daysago">il y a %d jours</string>
+
+    <string name="timetoword_minutesago_short">%d m</string>
+    <string name="timetoword_hoursago_short">%d h</string>
+    <string name="timetoword_daysago_short">%d j</string>
 
     <!-- camera -->
     <string name="camera_confirm_image_upload">
