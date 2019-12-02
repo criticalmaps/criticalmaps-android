@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        dagger_version = "2.22.1"
-        butterknife_version = "10.1.0"
+        dagger_version = "2.25.2"
+        butterknife_version = "10.2.0"
     }
 
     repositories {
@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.6.5'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.7.1'
     }

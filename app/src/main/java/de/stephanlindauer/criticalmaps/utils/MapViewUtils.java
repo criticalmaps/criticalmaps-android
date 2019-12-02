@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.app.Activity;
 import androidx.core.content.ContextCompat;
 
-import android.view.View;
 import android.view.ViewGroup;
 
 import org.osmdroid.config.Configuration;
@@ -65,10 +64,7 @@ public class MapViewUtils {
                 new MapTileProviderBasic(activity.getApplicationContext(), WIKIMEDIA);
 
         MapView mapView = new MapView(activity, mapnikTileProvider);
-        if (BuildConfig.DEBUG) {
-            mapView.getZoomController().setVisibility(
-                    CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
-        }
+        mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(1.0d);
         mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));

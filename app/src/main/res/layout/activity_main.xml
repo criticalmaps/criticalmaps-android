@@ -47,10 +47,12 @@
                     android:id="@+id/drawer_navigation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:headerLayout="@layout/navdrawer_header"
+                    app:elevation="0dp"
                     app:itemIconTint="@color/nav_item_icon_tint"
                     app:itemTextColor="@color/nav_item_text"
-                    app:menu="@menu/menu_navdrawer" />
+                    app:itemBackground="@color/navigation_drawer_item_background_states"
+                    app:headerLayout="@layout/navdrawer_header"
+                    app:menu="@menu/menu_navdrawer"/>
 
                 <TextView
                     android:id="@+id/navigation_observer_mode_text"
