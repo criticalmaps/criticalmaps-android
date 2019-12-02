@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -44,11 +45,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PermissionCheckHandler;
-import de.stephanlindauer.criticalmaps.handler.PrerequisitesChecker;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
 import de.stephanlindauer.criticalmaps.handler.StartCameraHandler;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.BuildInfo;
 import de.stephanlindauer.criticalmaps.helper.clientinfo.DeviceInformation;
+import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.FragmentProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
@@ -61,19 +62,25 @@ import timber.log.Timber;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final static String KEY_NAVID = "main_navid";
-    private final static String KEY_SAVEDFRAGMENTSTATES = "main_savedfragmentstate";
-    private final static String KEY_NEWCAMERAOUTPUTFILE = "main_newcameraoutputfile";
-
-    private Uri newCameraOutputFile;
-    private int currentNavId;
-    private SparseArray<Fragment.SavedState> savedFragmentStates = new SparseArray<>();
+    private final static String KEY_NAV_ID = "main_navid";
+    private final static String KEY_SAVED_FRAGMENT_STATES = "main_savedfragmentstate";
+    private final static String KEY_NEW_CAMERA_OUTPUT_FILE = "main_newcameraoutputfile";
 
     @Inject
     public PermissionCheckHandler permissionCheckHandler;
 
     @Inject
     SharedPreferences sharedPreferences;
+    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
+            (sharedPreferences, key) -> {
+                if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
+                    setShowOnLockscreen();
+                } else if (SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
+                    setKeepScreenOn();
+                }
+            };
+    @Inject
+    LocationUpdateManager locationUpdateManager;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -87,16 +94,17 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
 
-    private SwitchCompat observerModeSwitch;
+    @BindView(R.id.understand_button)
+    Button understandButton;
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
-            (sharedPreferences, key) -> {
-                if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
-                    setShowOnLockscreen();
-                } else if (SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
-                    setKeepScreenOn();
-                }
-            };
+    @BindView(R.id.introduction_view)
+    View introductionView;
+
+    private Uri newCameraOutputFile;
+    private int currentNavId;
+    private SparseArray<Fragment.SavedState> savedFragmentStates = new SparseArray<>();
+    private SwitchCompat observerModeSwitch;
+    private BooleanPreference introductionAlreadyShownPreference;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -141,8 +149,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
         navigationMenuView.setNestedScrollingEnabled(false);
 
-        new PrerequisitesChecker(this).showIntroductionIfNotShownBefore();
-
         setShowOnLockscreen();
         setKeepScreenOn();
 
@@ -155,6 +161,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         permissionCheckHandler.attachActivity(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(
                 sharedPreferenceChangeListener);
+        introductionAlreadyShownPreference = new BooleanPreference(sharedPreferences, SharedPrefsKeys.INTRODUCTION_ALREADY_SHOWN);
     }
 
     @Override
@@ -184,16 +191,25 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         observerModeSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleObserverModeSwitchCheckedChanged(isChecked));
 
+        understandButton.setOnClickListener(view -> {
+            introductionView.setVisibility(View.GONE);
+
+            introductionAlreadyShownPreference.set(true);
+            if (!locationUpdateManager.checkPermission()) {
+                locationUpdateManager.requestPermission();
+            }
+        });
+
         if (savedInstanceState != null) {
             SparseArray<Fragment.SavedState> restoredStates =
-                    savedInstanceState.getSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES);
+                    savedInstanceState.getSparseParcelableArray(KEY_SAVED_FRAGMENT_STATES);
             if (restoredStates != null) {
                 savedFragmentStates = restoredStates;
             }
 
-            newCameraOutputFile = savedInstanceState.getParcelable(KEY_NEWCAMERAOUTPUTFILE);
+            newCameraOutputFile = savedInstanceState.getParcelable(KEY_NEW_CAMERA_OUTPUT_FILE);
 
-            currentNavId = savedInstanceState.getInt(KEY_NAVID);
+            currentNavId = savedInstanceState.getInt(KEY_NAV_ID);
             if (currentNavId != R.id.navigation_map) {
                 // set toolbar title
                 //noinspection ConstantConditions
@@ -221,6 +237,14 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             }
         } else {
             navigateTo(R.id.navigation_map);
+
+            final boolean shouldShowIntroduction =
+                    !introductionAlreadyShownPreference.isSet() ||
+                            !introductionAlreadyShownPreference.get() ||
+                            !locationUpdateManager.checkPermission();
+            if (shouldShowIntroduction) {
+                introductionView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -276,12 +300,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void startFeedbackIntent() {
-        Intent Email = new Intent(Intent.ACTION_SEND);
-        Email.setType("text/email");
-        Email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email)});
-        Email.putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps");
-        Email.putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString());
-        startActivity(Intent.createChooser(Email, "Send Feedback:"));
+        Intent intent = new Intent(Intent.ACTION_SEND)
+                .setType("text/email")
+                .putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email)})
+                .putExtra(Intent.EXTRA_SUBJECT, "feedback critical maps")
+                .putExtra(Intent.EXTRA_TEXT, DeviceInformation.getString() + BuildInfo.getString());
+        startActivity(Intent.createChooser(intent, "Send Feedback:"));
     }
 
     private void startDatenschutzIntent() {
@@ -343,10 +367,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_NAVID, currentNavId);
-        outState.putSparseParcelableArray(KEY_SAVEDFRAGMENTSTATES, savedFragmentStates);
+        outState.putInt(KEY_NAV_ID, currentNavId);
+        outState.putSparseParcelableArray(KEY_SAVED_FRAGMENT_STATES, savedFragmentStates);
         if (newCameraOutputFile != null) {
-            outState.putParcelable(KEY_NEWCAMERAOUTPUTFILE, newCameraOutputFile);
+            outState.putParcelable(KEY_NEW_CAMERA_OUTPUT_FILE, newCameraOutputFile);
         }
     }
 
@@ -438,9 +462,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         radiusAnimator.setDuration(durationMillis);
         marginAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         radiusAnimator.addUpdateListener(animation -> {
-                    float value = (float) animation.getAnimatedValue();
-                    toolbarBackground.setCornerRadius(value);
-                });
+            float value = (float) animation.getAnimatedValue();
+            toolbarBackground.setCornerRadius(value);
+        });
 
         marginAnimator.start();
         radiusAnimator.start();

@@ -54,7 +54,6 @@ import javax.inject.Inject;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.infowindow.InfoWindow;
@@ -107,7 +106,6 @@ public class MapFragment extends Fragment {
 
     //misc
     private boolean isInitialLocationSet = false;
-    private boolean mightComeBackWithLocationPermission = false;
     private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
@@ -328,16 +326,6 @@ public class MapFragment extends Fragment {
         super.onResume();
         eventBus.register(this);
 
-        // Workaround to handle case when location permission was granted via app ops while the
-        // app is running.
-        if (mightComeBackWithLocationPermission) {
-            // additional check needed because requesting permission will always trigger onResume()
-            // even if no dialog is shown. This would send us into an infinite loop
-            if (locationUpdateManager.checkPermission()) {
-                locationUpdateManager.requestPermission();
-            }
-        }
-
         sharedPreferences.registerOnSharedPreferenceChangeListener(
                 observerModeOnSharedPreferenceChangeListener);
     }
@@ -402,16 +390,13 @@ public class MapFragment extends Fragment {
 
     @Subscribe
     public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
-        mightComeBackWithLocationPermission = false;
         if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
             setGpsStatusNonexistent();
         } else if (e.status == GpsStatusChangedEvent.Status.DISABLED) {
             setGpsStatusDisabled();
         } else if (e.status == GpsStatusChangedEvent.Status.PERMISSION_PERMANENTLY_DENIED) {
-            mightComeBackWithLocationPermission = true;
             setGpsStatusPermissionsPermanentlyDenied();
         } else if (e.status == GpsStatusChangedEvent.Status.NO_PERMISSIONS) {
-            mightComeBackWithLocationPermission = true;
             setGpsStatusNoPermissions();
         } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||
                 e.status == GpsStatusChangedEvent.Status.HIGH_ACCURACY) {

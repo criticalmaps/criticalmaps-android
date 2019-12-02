@@ -160,9 +160,8 @@ public class LocationUpdateManager {
             return;
         }
 
-        // If permissions are not granted, request them and only start listening on success
+        // If permissions are not granted, don't start listening
         if (noPermission) {
-            requestPermission();
             return;
         }
 
