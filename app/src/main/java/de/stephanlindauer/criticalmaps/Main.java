@@ -237,14 +237,14 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             }
         } else {
             navigateTo(R.id.navigation_map);
+        }
 
-            final boolean shouldShowIntroduction =
-                    !introductionAlreadyShownPreference.isSet() ||
-                            !introductionAlreadyShownPreference.get() ||
-                            !locationUpdateManager.checkPermission();
-            if (shouldShowIntroduction) {
-                introductionView.setVisibility(View.VISIBLE);
-            }
+        final boolean shouldShowIntroduction =
+                !introductionAlreadyShownPreference.isSet() ||
+                        !introductionAlreadyShownPreference.get() ||
+                        !locationUpdateManager.checkPermission();
+        if (shouldShowIntroduction) {
+            introductionView.setVisibility(View.VISIBLE);
         }
     }
 
