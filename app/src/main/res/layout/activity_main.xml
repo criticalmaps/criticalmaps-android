@@ -48,11 +48,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:elevation="0dp"
+                    app:headerLayout="@layout/navdrawer_header"
+                    app:itemBackground="@drawable/nav_drawer_item_background_states"
                     app:itemIconTint="@color/nav_item_icon_tint"
                     app:itemTextColor="@color/nav_item_text"
-                    app:itemBackground="@drawable/nav_drawer_item_background_states"
-                    app:headerLayout="@layout/navdrawer_header"
-                    app:menu="@menu/menu_navdrawer"/>
+                    app:menu="@menu/menu_navdrawer" />
 
                 <TextView
                     android:id="@+id/navigation_observer_mode_text"
@@ -91,14 +91,14 @@
             android:src="@drawable/logo_launch_screen" />
 
         <TextView
+            android:id="@+id/introduction_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:lineSpacingExtra="6dp"
             android:paddingStart="32dp"
             android:paddingEnd="32dp"
-            android:text="Critical Maps verwendet deine GPS Daten anonymisiert um sie mit anderen Critical Nutzern zu teilen.\n\n
-Mit Benutzung der App stimmst Du unserer Datenschutzerklärung zu."
+            android:text="@string/introduction_gps"
             android:textAlignment="center"
             android:textColor="@color/colorOnPrimary"
             android:textSize="16sp" />

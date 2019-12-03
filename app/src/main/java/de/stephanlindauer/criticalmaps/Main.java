@@ -10,6 +10,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -99,6 +102,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @BindView(R.id.introduction_view)
     View introductionView;
+
+    @BindView(R.id.introduction_text)
+    TextView introductionTextView;
 
     private Uri newCameraOutputFile;
     private int currentNavId;
@@ -244,6 +250,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                         !introductionAlreadyShownPreference.get() ||
                         !locationUpdateManager.checkPermission();
         if (shouldShowIntroduction) {
+            introductionTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            introductionTextView.setText(Html.fromHtml(getString(R.string.introduction_gps)));
             introductionView.setVisibility(View.VISIBLE);
         }
     }
