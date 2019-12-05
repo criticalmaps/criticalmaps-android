@@ -65,6 +65,7 @@ public class MapFragment extends Fragment {
     private final static String KEY_MAP_POSITION = "map_position";
     private final static String KEY_MAP_ORIENTATION = "map_orientation";
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
+    private final static double DEFAULT_ZOOM_LEVEL = 12;
 
     //dependencies
     @Inject
@@ -114,6 +115,8 @@ public class MapFragment extends Fragment {
     private Drawable ownLocationIconObserver;
 
     private Unbinder unbinder;
+
+    private GeoPoint defaultGeoPoint = new GeoPoint(52.499571,13.4140875,15);
 
     //OnClickListeners for location FAB
     private final View.OnClickListener centerLocationOnClickListener = new View.OnClickListener() {
@@ -222,6 +225,7 @@ public class MapFragment extends Fragment {
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
+        zoomToLocation(defaultGeoPoint, DEFAULT_ZOOM_LEVEL);
 
         oberserverInfowWindow = MapViewUtils.createObserverInfoWindow(mapView);
 
@@ -332,7 +336,7 @@ public class MapFragment extends Fragment {
 
     private void handleFirstLocationUpdate() {
         setGpsStatusFixed();
-        zoomToLocation(ownLocationModel.ownLocation, 12.0d);
+        zoomToLocation(ownLocationModel.ownLocation, DEFAULT_ZOOM_LEVEL);
         isInitialLocationSet = true;
     }
 
