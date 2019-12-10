@@ -1,3 +1,10 @@
+<p align="center"><a href="https://www.criticalmaps.net"><img src="https://github.com/criticalmaps/criticalmaps-ios/blob/master/images/logo.png" width="250" /></a></p>
+
+<p align="center">
+<a title="Play Store Link" target="_blank" alt="Link to the Play Store"><a href="https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="170" /></a>
+<a title="F-Droid Link" target="_blank" alt="Link to the F-Droid Store"><a href="https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps"><img src="https://f-droid.org/wiki/images/c/c4/F-Droid-button_available-on.png" width="170" /></a>
+</p>
+  
 # Critical Mass Android App
 
 [![Build Status](https://travis-ci.org/criticalmaps/criticalmaps-android.svg)](https://travis-ci.org/criticalmaps/criticalmaps-android)
@@ -11,11 +18,6 @@ http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 ## What's this app?
 
 This app tracks your location and shares it via a map with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
-
-## Where can i get the app?
-
-<a title="Play Store Link" target="_blank" alt="Link to the Play Store"><a href="https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="170" /></a>
-<a title="F-Droid Link" target="_blank" alt="Link to the F-Droid"><a href="https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps"><img src="https://f-droid.org/wiki/images/c/c4/F-Droid-button_available-on.png" width="170" /></a>
 
 ## Is there a version for iOS devices?
 
