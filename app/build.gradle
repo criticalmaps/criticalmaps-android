@@ -105,7 +105,7 @@ dependencies {
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'com.google.truth:truth:0.41'
+    testImplementation 'com.google.truth:truth:1.0'
     testImplementation 'org.mockito:mockito-core:2.23.0'
 
     androidTestImplementation 'androidx.test:core:1.2.0'
