@@ -49,7 +49,7 @@ public class ServerResponseProcessorTest {
     }
 
     @Test
-    public void process_noEventIsFiredForInvalidJSON() throws IOException, URISyntaxException {
+    public void process_noEventIsFiredForInvalidJSON() {
         final EventBus eventMock = mock(EventBus.class);
         final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));

@@ -36,7 +36,10 @@ Check: http://criticalmaps.net
 
 ## App screenshot
 
-![app-screenshot](https://raw.githubusercontent.com/criticalmaps/media/master/android/readme/screenshot.jpg)
+<p align="center">
+<img src="https://raw.githubusercontent.com/criticalmaps/criticalmaps-android/master/Screenshot_1576339542.png" width="300" />
+<img src="https://raw.githubusercontent.com/criticalmaps/criticalmaps-android/master/Screenshot_1576339557.png" width="300" />
+</p>
 
 ## Contributors
 
