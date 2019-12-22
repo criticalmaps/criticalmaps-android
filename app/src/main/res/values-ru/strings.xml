@@ -162,7 +162,7 @@
     <string name="introduction_careful">Пожалуйста, обратите внимание на движение, а не на приложение.</string>
     <string name="introduction_bugs">Если вы нашли ошибки в приложении, пожалуйста, сообщите нам нажав на кнопку \"Обратная связь\" в меню \"Настройки\".</string>
     <string name="introduction_requisites">Для того, чтобы приложение работало правильно, вам нужно иметь работающее мобильное соединение и GPS.</string>
-    <string name="introduction_activate_gps">Включить GPS</string>
+    <string name="introduction_accept">Принимаю</string>
     <string name="introduction_gps">
         <![CDATA[
         Приложение Critical Maps делится вашим анонимным местоположением с другими пользователями. Используя данное приложение вы подтверждаете согласие с нашей <a href="https://criticalmaps.net/info">политикой конфиденциальности</a>.

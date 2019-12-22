@@ -111,7 +111,7 @@
             android:layout_marginTop="32dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="@string/introduction_activate_gps"
+            android:text="@string/introduction_accept"
             android:textColor="@color/colorBackground"
             android:theme="@style/AlertDialogTheme" />
     </LinearLayout>

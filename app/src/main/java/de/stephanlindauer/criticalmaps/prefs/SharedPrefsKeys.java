@@ -3,8 +3,8 @@ package de.stephanlindauer.criticalmaps.prefs;
 import de.stephanlindauer.criticalmaps.BuildConfig;
 
 public interface SharedPrefsKeys {
-    String INTRODUCTION_ALREADY_SHOWN =
-            BuildConfig.APPLICATION_ID + ".INTRODUCTION_ALREADY_SHOWN";
+    String PRIVACY_POLICY_ACCEPTED =
+            BuildConfig.APPLICATION_ID + ".PRIVACY_POLICY_ACCEPTED";
     String OSMDROID_BASE_PATH =
             BuildConfig.APPLICATION_ID + ".OSMDROID_BASE_PATH";
     String OBSERVER_MODE_ACTIVE =

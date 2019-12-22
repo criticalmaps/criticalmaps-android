@@ -158,7 +158,7 @@
     <string name="introduction_careful">Sei bitte vorsichtig und achte lieber auf den Verkehr, als auf die App.</string>
     <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
     <string name="introduction_requisites">Damit alles richtig funktioniert brauchst du eine halbwegs stabile mobile Internet-Verbindung und aktiviertes GPS.</string>
-    <string name="introduction_activate_gps">GPS aktivieren</string>
+    <string name="introduction_accept">Akzeptieren</string>
     <string name="introduction_gps">
         <![CDATA[
         Critical Maps teilt Deine anonymisierten GPS Informationen mit anderen Nutzern. Mit Benutzung der App stimmst Du unserer <a href="https://criticalmaps.net/info">Datenschutzerklärung</a> zu.

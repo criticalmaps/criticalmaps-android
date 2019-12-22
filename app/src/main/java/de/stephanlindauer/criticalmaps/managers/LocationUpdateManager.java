@@ -168,7 +168,7 @@ public class LocationUpdateManager {
         startListening();
     }
 
-    private void startListening() {
+    public void startListening() {
         // Set GPS status in case we're coming back after permission request
         postStatusEvent();
 

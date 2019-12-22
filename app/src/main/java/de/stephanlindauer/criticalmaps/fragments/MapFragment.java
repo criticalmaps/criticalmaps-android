@@ -10,15 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +19,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.otto.Subscribe;
+
+import org.osmdroid.tileprovider.modules.SqlTileWriter;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
+
+import javax.inject.Inject;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.squareup.otto.Subscribe;
-
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
@@ -49,15 +58,6 @@ import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import info.metadude.android.typedpreferences.BooleanPreference;
 
-import javax.inject.Inject;
-
-import org.osmdroid.tileprovider.modules.SqlTileWriter;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
-
 public class MapFragment extends Fragment {
 
     // constants
@@ -66,6 +66,8 @@ public class MapFragment extends Fragment {
     private final static String KEY_MAP_ORIENTATION = "map_orientation";
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
     private final static double DEFAULT_ZOOM_LEVEL = 12;
+    private final static double NO_GPS_PERMISSION_ZOOM_LEVEL = 3;
+    private final GeoPoint defaultGeoPoint = new GeoPoint(52.499571, 13.4140875, 15);
 
     //dependencies
     @Inject
@@ -115,8 +117,6 @@ public class MapFragment extends Fragment {
     private Drawable ownLocationIconObserver;
 
     private Unbinder unbinder;
-
-    private GeoPoint defaultGeoPoint = new GeoPoint(52.499571,13.4140875,15);
 
     //OnClickListeners for location FAB
     private final View.OnClickListener centerLocationOnClickListener = new View.OnClickListener() {
@@ -225,7 +225,6 @@ public class MapFragment extends Fragment {
 
         mapView = MapViewUtils.createMapView(getActivity());
         mapContainer.addView(mapView);
-        zoomToLocation(defaultGeoPoint, DEFAULT_ZOOM_LEVEL);
 
         oberserverInfowWindow = MapViewUtils.createObserverInfoWindow(mapView);
 
@@ -332,6 +331,12 @@ public class MapFragment extends Fragment {
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(
                 observerModeOnSharedPreferenceChangeListener);
+
+        if (locationUpdateManager.checkPermission()) {
+            locationUpdateManager.startListening();
+        } else {
+            zoomToLocation(defaultGeoPoint, NO_GPS_PERMISSION_ZOOM_LEVEL);
+        }
     }
 
     private void handleFirstLocationUpdate() {

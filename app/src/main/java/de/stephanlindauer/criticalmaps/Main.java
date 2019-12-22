@@ -73,17 +73,26 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     public PermissionCheckHandler permissionCheckHandler;
 
     @Inject
+    LocationUpdateManager locationUpdateManager;
+
+    @Inject
     SharedPreferences sharedPreferences;
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
             (sharedPreferences, key) -> {
-                if (SharedPrefsKeys.SHOW_ON_LOCKSCREEN.equals(key)) {
-                    setShowOnLockscreen();
-                } else if (SharedPrefsKeys.KEEP_SCREEN_ON.equals(key)) {
-                    setKeepScreenOn();
+                switch (key) {
+                    case SharedPrefsKeys.SHOW_ON_LOCKSCREEN:
+                        setShowOnLockscreen();
+                        break;
+                    case SharedPrefsKeys.KEEP_SCREEN_ON:
+                        setKeepScreenOn();
+                        break;
+                    case SharedPrefsKeys.PRIVACY_POLICY_ACCEPTED:
+                        if (!locationUpdateManager.checkPermission()) {
+                            locationUpdateManager.requestPermission();
+                        }
+                        break;
                 }
             };
-    @Inject
-    LocationUpdateManager locationUpdateManager;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -110,7 +119,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private int currentNavId;
     private SparseArray<Fragment.SavedState> savedFragmentStates = new SparseArray<>();
     private SwitchCompat observerModeSwitch;
-    private BooleanPreference introductionAlreadyShownPreference;
+    private BooleanPreference privacyPolicyAcceptedPreference;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -165,9 +174,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     protected void onStart() {
         super.onStart();
         permissionCheckHandler.attachActivity(this);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(
-                sharedPreferenceChangeListener);
-        introductionAlreadyShownPreference = new BooleanPreference(sharedPreferences, SharedPrefsKeys.INTRODUCTION_ALREADY_SHOWN);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        privacyPolicyAcceptedPreference = new BooleanPreference(sharedPreferences, SharedPrefsKeys.PRIVACY_POLICY_ACCEPTED);
     }
 
     @Override
@@ -199,11 +207,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         understandButton.setOnClickListener(view -> {
             introductionView.setVisibility(View.GONE);
-
-            introductionAlreadyShownPreference.set(true);
-            if (!locationUpdateManager.checkPermission()) {
-                locationUpdateManager.requestPermission();
-            }
+            privacyPolicyAcceptedPreference.set(true);
         });
 
         if (savedInstanceState != null) {
@@ -245,11 +249,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             navigateTo(R.id.navigation_map);
         }
 
-        final boolean shouldShowIntroduction =
-                !introductionAlreadyShownPreference.isSet() ||
-                        !introductionAlreadyShownPreference.get() ||
-                        !locationUpdateManager.checkPermission();
-        if (shouldShowIntroduction) {
+        final boolean isPrivacyPolicyAccepted =
+                !privacyPolicyAcceptedPreference.isSet() || !privacyPolicyAcceptedPreference.get();
+        if (isPrivacyPolicyAccepted) {
             introductionTextView.setMovementMethod(LinkMovementMethod.getInstance());
             introductionTextView.setText(Html.fromHtml(getString(R.string.introduction_gps)));
             introductionView.setVisibility(View.VISIBLE);
