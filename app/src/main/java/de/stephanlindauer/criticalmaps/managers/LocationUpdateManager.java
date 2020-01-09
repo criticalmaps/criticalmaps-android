@@ -160,16 +160,15 @@ public class LocationUpdateManager {
             return;
         }
 
-        // If permissions are not granted, request them and only start listening on success
+        // If permissions are not granted, don't start listening
         if (noPermission) {
-            requestPermission();
             return;
         }
 
         startListening();
     }
 
-    private void startListening() {
+    public void startListening() {
         // Set GPS status in case we're coming back after permission request
         postStatusEvent();
 

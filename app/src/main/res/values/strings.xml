@@ -165,4 +165,10 @@
     <string name="introduction_careful">Please rather pay attention to traffic instead of the app.</string>
     <string name="introduction_bugs">If you find bugs in the app, please let us know by clicking the feedback-button in the settings-menu.</string>
     <string name="introduction_requisites">In order for this app to run properly, you need to have a working mobile data connection and GPS enabled.</string>
+    <string name="introduction_accept">Accept</string>
+    <string name="introduction_gps">
+        <![CDATA[
+        Critical Maps shares your anonymous GPS information with other users. By using the app you agree to our <a href="https://criticalmaps.net/info">privacy policy</a>.
+        ]]>
+    </string>
 </resources>

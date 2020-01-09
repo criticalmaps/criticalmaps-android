@@ -10,15 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +19,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.otto.Subscribe;
+
+import org.osmdroid.tileprovider.modules.SqlTileWriter;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
+
+import javax.inject.Inject;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.squareup.otto.Subscribe;
-
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
@@ -49,15 +58,6 @@ import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import info.metadude.android.typedpreferences.BooleanPreference;
 
-import javax.inject.Inject;
-
-import org.osmdroid.tileprovider.modules.SqlTileWriter;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
-
 public class MapFragment extends Fragment {
 
     // constants
@@ -65,6 +65,9 @@ public class MapFragment extends Fragment {
     private final static String KEY_MAP_POSITION = "map_position";
     private final static String KEY_MAP_ORIENTATION = "map_orientation";
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
+    private final static double DEFAULT_ZOOM_LEVEL = 12;
+    private final static double NO_GPS_PERMISSION_ZOOM_LEVEL = 3;
+    private final GeoPoint defaultGeoPoint = new GeoPoint(52.499571, 13.4140875, 15);
 
     //dependencies
     @Inject
@@ -106,7 +109,6 @@ public class MapFragment extends Fragment {
 
     //misc
     private boolean isInitialLocationSet = false;
-    private boolean mightComeBackWithLocationPermission = false;
     private ObjectAnimator gpsSearchingAnimator;
 
     //cache drawables
@@ -327,23 +329,19 @@ public class MapFragment extends Fragment {
         super.onResume();
         eventBus.register(this);
 
-        // Workaround to handle case when location permission was granted via app ops while the
-        // app is running.
-        if (mightComeBackWithLocationPermission) {
-            // additional check needed because requesting permission will always trigger onResume()
-            // even if no dialog is shown. This would send us into an infinite loop
-            if (locationUpdateManager.checkPermission()) {
-                locationUpdateManager.requestPermission();
-            }
-        }
-
         sharedPreferences.registerOnSharedPreferenceChangeListener(
                 observerModeOnSharedPreferenceChangeListener);
+
+        if (locationUpdateManager.checkPermission()) {
+            locationUpdateManager.startListening();
+        } else {
+            zoomToLocation(defaultGeoPoint, NO_GPS_PERMISSION_ZOOM_LEVEL);
+        }
     }
 
     private void handleFirstLocationUpdate() {
         setGpsStatusFixed();
-        zoomToLocation(ownLocationModel.ownLocation, 12.0d);
+        zoomToLocation(ownLocationModel.ownLocation, DEFAULT_ZOOM_LEVEL);
         isInitialLocationSet = true;
     }
 
@@ -401,16 +399,13 @@ public class MapFragment extends Fragment {
 
     @Subscribe
     public void handleGpsStatusChangedEvent(GpsStatusChangedEvent e) {
-        mightComeBackWithLocationPermission = false;
         if (e.status == GpsStatusChangedEvent.Status.NONEXISTENT) {
             setGpsStatusNonexistent();
         } else if (e.status == GpsStatusChangedEvent.Status.DISABLED) {
             setGpsStatusDisabled();
         } else if (e.status == GpsStatusChangedEvent.Status.PERMISSION_PERMANENTLY_DENIED) {
-            mightComeBackWithLocationPermission = true;
             setGpsStatusPermissionsPermanentlyDenied();
         } else if (e.status == GpsStatusChangedEvent.Status.NO_PERMISSIONS) {
-            mightComeBackWithLocationPermission = true;
             setGpsStatusNoPermissions();
         } else if (e.status == GpsStatusChangedEvent.Status.LOW_ACCURACY ||
                 e.status == GpsStatusChangedEvent.Status.HIGH_ACCURACY) {
