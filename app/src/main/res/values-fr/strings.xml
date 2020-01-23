@@ -13,7 +13,7 @@
     <string name="nav_observer_mode_text">Activer si tu ne participes pas à la Critical mass pas mais que tu veux quand même la suivre.</string>
 
     <!-- close -->
-    <string name="close">Fermer l\'application?</string>
+    <string name="close">Fermer l\'application ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
@@ -64,7 +64,7 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="rules_friendly">Détends-toi</string>
     <string name="rules_friendly_explain">Ne vous laissez pas provoquer. Soyez gentil avec la police, les automobilistes et tout les autres, même si eux ne le sont pas.</string>
     <string name="rules_fun">Amuse-toi !</string>
-    <string name="rules_fun_explain">Profites des rues reconquis. Explore les Sound Bikes. Parle aux automobilistes et piétons afin de leur expliquer ce qui se passe. Le plus important: Amuse-toi!</string>
+    <string name="rules_fun_explain">Profite des rues reconquises. Explore les Sound Bikes. Parle aux automobilistes et piétons afin de leur expliquer ce qui se passe. Le plus important: Amuse-toi !</string>
     <string name="rules_image_source">Images de criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
@@ -76,7 +76,7 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="chat_send">Envoyer</string>
     <string name="chat_text">Ton message…</string>
     <string name="chat_sending">Envoi en cours…</string>
-    <string name="chat_no_data_connection_hint">Pas de connexion internet...</string>
+    <string name="chat_no_data_connection_hint">Pas de connexion internet &#8230;</string>
 
     <!-- fragment_about -->
     <string name="about_heading_social">réseaux sociaux</string>
@@ -163,4 +163,9 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="introduction_careful">Sois vigilant à la circulation au lieu de regarder l\'application.</string>
     <string name="introduction_bugs">Si tu trouves un bug dans l\'application, signale-le nous en cliquant sur feedback dans les paramètres.</string>
     <string name="introduction_requisites">Afin de permettre un bon fonctionnement de l\'application, tu devras avoir accès à une connexion de données mobiles et ton GPS doit être activé.</string>
+    <string name="introduction_accept">Accepter</string>
+    <string name="introduction_gps">
+<![CDATA[
+Critical Maps partage votre position GPS anonymement avec les autres utilisateurs. En utilisant l\'app, vous acceptez <a href=\"https://criticalmaps.net/info\"> notre politique de confidentialité</a>.
+]]></string>
 </resources>
