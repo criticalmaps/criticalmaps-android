@@ -10,7 +10,7 @@
     <string name="observer_mode">Mode observateur</string>
     <string name="open_drawer">Ouvrir le menu</string>
     <string name="close_drawer">Fermer le menu</string>
-    <string name="nav_observer_mode_text">Activer si tu ne participes pas à la Critical mass pas mais que tu veux quand même la suivre.</string>
+    <string name="nav_observer_mode_text">Activer si tu ne participes pas à la Critical mass mais que tu veux quand même la suivre.</string>
 
     <!-- close -->
     <string name="close">Fermer l\'application ?</string>
@@ -27,8 +27,8 @@
     <!-- fragment_map -->
     <string name="map_searching_for_location">Attente d\'un signal GPS valide</string>
     <string name="map_no_internet_connection_title">Pas de connexion internet</string>
-    <string name="map_no_internet_connection_text">Sans connexion internet tu ne seras pas être capable
-de voir les autres, partager ta position ou lire et écrire les messages instantanés.
+    <string name="map_no_internet_connection_text">Sans connexion internet tu pourras pas
+voir les autres, partager ta position ou lire et écrire des messages instantanés.
 L\'application n\'est pas très utile comme ça :(
 Merci de vérifier tes paramètres et activer les données mobiles.</string>
     <string name="map_no_gps_title">Pas de signal GPS</string>
@@ -55,14 +55,14 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="rules_corken_explain">Protège les automobilistes d\'eux-mêmes en utilisant le corking!</string>
     <string name="rules_oncoming_traffic">Circulation en sens inverse</string>
     <string name="rules_oncoming_traffic_explain">Ne pas utiliser la voie en sens inverse</string>
-    <string name="rules_steady">Tranquille!</string>
+    <string name="rules_steady">Tranquille !</string>
     <string name="rules_steady_explain">Si t\'es parmi les premiers: ne vas pas trop vite! Si t\'es en arrière: ferme les écarts.</string>
     <string name="rules_brake">Pas de freinage brutal !</string>
     <string name="rules_brake_explain">Si tu dois vraiment t\'arrêter, essaye de prévenir ceux qui roulent derrière toi.</string>
     <string name="rules_green">Si t\'es en premier: arrête-toi aux feux rouges !</string>
     <string name="rules_green_explain">Si t\'arrives à un feu de circulation et t\'es parmi les premiers du groupe, assure toi de t\'arrêter si le feu est rouge.</string>
     <string name="rules_friendly">Détends-toi</string>
-    <string name="rules_friendly_explain">Ne vous laissez pas provoquer. Soyez gentil avec la police, les automobilistes et tout les autres, même si eux ne le sont pas.</string>
+    <string name="rules_friendly_explain">Ne vous laissez pas provoquer. Soyez gentil avec la police, les automobilistes et tous les autres, même si eux ne le sont pas.</string>
     <string name="rules_fun">Amuse-toi !</string>
     <string name="rules_fun_explain">Profite des rues reconquises. Explore les Sound Bikes. Parle aux automobilistes et piétons afin de leur expliquer ce qui se passe. Le plus important: Amuse-toi !</string>
     <string name="rules_image_source">Images de criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
