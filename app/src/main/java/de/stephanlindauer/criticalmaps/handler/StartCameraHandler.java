@@ -32,7 +32,7 @@ public class StartCameraHandler {
     }
 
     public void execute() {
-        if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_camera);
             return;
         }
