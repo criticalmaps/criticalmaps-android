@@ -22,7 +22,9 @@ import java.io.File;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.BuildConfig;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
+import info.metadude.android.typedpreferences.BooleanPreference;
 import timber.log.Timber;
 
 public class MapViewUtils {
@@ -37,7 +39,8 @@ public class MapViewUtils {
 
         StorageLocationProvider.StorageLocation storageLocation =
                 App.components().storageProvider().getActiveStorageLocation();
-        if (storageLocation == null) {
+        boolean noStoredTilesExist = storageLocation == null;
+        if (noStoredTilesExist) {
             storageLocation = App.components().storageProvider().getAndSaveBestStorageLocation();
         }
         File osmdroidBasePath = storageLocation.osmdroidBasePath;
@@ -50,8 +53,8 @@ public class MapViewUtils {
 
         setMaxCacheSize(configuration);
 
-        // TODO Expiration! setExpirationExtendedDuration() OR setExpirationOverrideDuration()
-        // TODO Add option to adjust
+        // TODO Add option to adjust expiration?
+        //      setExpirationExtendedDuration() OR setExpirationOverrideDuration()
 
         configuration.setMapViewHardwareAccelerated(true);
         configuration.setUserAgentValue(BuildConfig.APPLICATION_ID + "/"
@@ -59,7 +62,19 @@ public class MapViewUtils {
                 + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME
                 + " (" + activity.getString(R.string.contact_email) + ")");
 
-        OnlineTileSourceBase onlineTileSourceBase = determineTileResolution();
+        BooleanPreference useHighResTilesPreference = new BooleanPreference(
+                App.components().sharedPreferences(), SharedPrefsKeys.USE_HIGH_RES_MAP_TILES);
+
+        // Default to high res on clean run of the app (either first run or after app cache clear)
+        // If there already cached tiles, don't assume user wants to switch to high res
+        if (!useHighResTilesPreference.isSet()) {
+            useHighResTilesPreference.set(noStoredTilesExist);
+        }
+
+        boolean useHighResTiles = useHighResTilesPreference.get();
+
+        OnlineTileSourceBase onlineTileSourceBase = determineTileResolution(useHighResTiles);
+        Timber.d("Using %s tilesource.", onlineTileSourceBase.toString());
 
         MapTileProviderBasic mapTileProviderBasic =
                 new MapTileProviderBasic(activity.getApplicationContext(), onlineTileSourceBase);
@@ -100,15 +115,18 @@ public class MapViewUtils {
         };
     }
 
-    private static OnlineTileSourceBase determineTileResolution() {
+    private static OnlineTileSourceBase determineTileResolution(boolean useHighResTiles) {
         // When in doubt use the next higher quality tiles.
         // Still scale with mapView.setTilesScaledToDpi(true). Usually this will be 1:1 but when
-        // not will ensure consistent appearance across devices
-
-        float density = App.components().app().getResources().getDisplayMetrics().density;
+        // not will ensure consistent appearance across devices.
+        // If high res option is off, slip density determination and always use 1x.
+        float density = 0f;
+        if (useHighResTiles) {
+            density = App.components().app().getResources().getDisplayMetrics().density;
+        }
 
         if (density <= 1) {
-            return getWikimediaTileSource("Wikimedia_1x", 256, ".png");
+            return getWikimediaTileSource("Wikimedia", 256, ".png");
         } else if (density <= 1.3) {
             return getWikimediaTileSource("Wikimedia_1_3x", 332, "@1.3x.png");
         } else if (density <= 1.5) {
@@ -131,7 +149,7 @@ public class MapViewUtils {
     }
 
     private static void setMaxCacheSize(IConfigurationProvider configuration) {
-        // code adapted from osmdroid's DefaulConfigurationProvider.load()
+        // code adapted from osmdroid's DefaultConfigurationProvider.load()
         long cacheSize = 0;
         File dbFile = new File(configuration.getOsmdroidTileCache().getAbsolutePath()
                 + File.separator + SqlTileWriter.DATABASE_FILENAME);

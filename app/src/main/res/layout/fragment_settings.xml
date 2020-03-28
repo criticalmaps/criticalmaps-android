@@ -404,6 +404,68 @@
                 android:paddingRight="?android:attr/scrollbarSize">
 
                 <ImageView
+                    android:id="@+id/settings_high_res_tiles_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/settings_high_res_tiles_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="@string/settings_high_res_tiles_subheading"/>
+
+                    <TextView
+                        android:id="@+id/settings_high_res_tiles_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/settings_high_res_tiles_title"
+                        android:layout_alignLeft="@id/settings_high_res_tiles_title"
+                        android:layout_below="@id/settings_high_res_tiles_title"
+                        android:maxLines="4"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:text="@string/settings_high_res_tiles_summary"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/widget_frame7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/settings_high_res_tiles_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:paddingRight="?android:attr/scrollbarSize">
+
+                <ImageView
                     android:id="@+id/settings_map_rotation_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
