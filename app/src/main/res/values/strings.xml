@@ -112,6 +112,8 @@
     <string name="settings_map_header">Map settings</string>
     <string name="settings_map_rotation_subheading">Rotation</string>
     <string name="settings_map_rotation_summary">Allow the map to be rotated</string>
+    <string name="settings_high_res_tiles_subheading">High quality</string>
+    <string name="settings_high_res_tiles_summary">Looks way better but also uses more bandwidth and storage</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>

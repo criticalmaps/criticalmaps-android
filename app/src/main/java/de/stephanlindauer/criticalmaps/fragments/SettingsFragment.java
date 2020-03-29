@@ -64,6 +64,9 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.settings_map_rotation_checkbox)
     MaterialCheckBox mapRotationCheckbox;
 
+    @BindView(R.id.settings_high_res_tiles_checkbox)
+    MaterialCheckBox highResTilesCheckbox;
+
     @Inject
     StorageLocationProvider storageLocationProvider;
 
@@ -105,6 +108,9 @@ public class SettingsFragment extends Fragment {
 
         mapRotationCheckbox.setChecked(
                 !new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).get());
+
+        highResTilesCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).get());
     }
 
     private void updateStorageGraph() {
@@ -223,6 +229,12 @@ public class SettingsFragment extends Fragment {
     void handleDisableMapRotationChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).set(!isChecked);
+    }
+
+    @OnCheckedChanged(R.id.settings_high_res_tiles_checkbox)
+    void handleUseHighResTilesChecked(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).set(isChecked);
     }
 
     @Override
