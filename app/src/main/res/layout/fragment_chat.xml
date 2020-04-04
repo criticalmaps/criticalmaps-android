@@ -58,6 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:hint="@string/chat_text"
                 app:boxStrokeColor="@color/chat_textinputlayout_box_stroke_color"
                 app:hintTextColor="@color/colorSecondary"
@@ -67,6 +68,7 @@
                     android:id="@+id/chat_edit_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:imeOptions="actionSend"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +82,7 @@
                     app:backgroundTint="@color/chat_fab_background_states"
                     app:tint="@color/chat_fab_drawable_states"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:contentDescription="@string/chat_send"/>
