@@ -9,8 +9,7 @@
              android:focusableInTouchMode="true"
              android:descendantFocusability="beforeDescendants"
              android:fitsSystemWindows="true"
-             android:paddingTop="@dimen/toolbar_height"
-             tools:menu="actionbar_buttons">
+             android:paddingTop="@dimen/toolbar_height">
 
     <LinearLayout
             android:orientation="vertical"

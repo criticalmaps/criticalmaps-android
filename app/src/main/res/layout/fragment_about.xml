@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingTop="@dimen/toolbar_height"
-    tools:menu="actionbar_buttons">
+    android:paddingTop="@dimen/toolbar_height">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/about_scrollview"
@@ -34,12 +33,14 @@
                 <ImageButton
                     android:id="@+id/about_facebook"
                     app:srcCompat="@drawable/ic_about_facebook"
-                    style="@style/about_button" />
+                    style="@style/about_button"
+                    android:contentDescription="@string/facebook" />
 
                 <ImageButton
                     android:id="@+id/about_twitter"
                     app:srcCompat="@drawable/ic_about_twitter"
-                    style="@style/about_button" />
+                    style="@style/about_button"
+                    android:contentDescription="@string/twitter" />
 
             </LinearLayout>
 

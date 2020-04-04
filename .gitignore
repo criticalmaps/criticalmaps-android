@@ -4,7 +4,6 @@
 /build
 /app/build
 /app/release
-/.idea
 *.iml
 *.apk
 /captures
