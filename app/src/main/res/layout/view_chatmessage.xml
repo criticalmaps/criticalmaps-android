@@ -1,10 +1,9 @@
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:paddingTop="12dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="12dp">
 
     <TextView
         android:id="@+id/firstLine"
@@ -12,9 +11,9 @@ android:paddingTop="12dp">
         android:layout_height="wrap_content"
         android:gravity="start"
         android:textAlignment="viewStart"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary"
         tools:text="3 minutes ago" />
 
     <TextView
@@ -24,13 +23,13 @@ android:paddingTop="12dp">
         android:layout_marginTop="4dp"
         android:gravity="start"
         android:textAlignment="viewStart"
-        android:textSize="16sp"
         android:textColor="?android:attr/textColorSecondary"
+        android:textSize="16sp"
         tools:text="@string/lorem_ipsum" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:src="@drawable/border_top"/>
+        android:src="@drawable/border_top" />
 </LinearLayout>

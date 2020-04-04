@@ -8,34 +8,34 @@
     <item
         android:id="@+id/take_picture"
         android:icon="@drawable/ic_toolbar_take_image"
-        app:showAsAction="always"
         android:title="@string/take_picture"
+        app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/action_close"
         android:icon="@drawable/ic_toolbar_close"
-        app:showAsAction="always"
         android:title="@string/close_button"
+        app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
         android:icon="@drawable/ic_toolbar_overflow"
         android:orderInCategory="11111"
-        app:showAsAction="always"
         android:title=""
+        app:showAsAction="always"
         tools:ignore="AlwaysShowAction">
         <menu>
             <item
                 android:id="@+id/settings_feedback"
-                app:showAsAction="never"
-                android:title="@string/feedback" />
+                android:title="@string/feedback"
+                app:showAsAction="never" />
             <item
                 android:id="@+id/settings_datenschutz"
-                app:showAsAction="never"
-                android:title="@string/datenschutz" />
+                android:title="@string/datenschutz"
+                app:showAsAction="never" />
             <item
-            android:id="@+id/rate_the_app"
-            app:showAsAction="never"
-            android:title="@string/rate_the_app" />
+                android:id="@+id/rate_the_app"
+                android:title="@string/rate_the_app"
+                app:showAsAction="never" />
         </menu>
     </item>
 </menu>

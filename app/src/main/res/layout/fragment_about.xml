@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,8 +16,8 @@
             android:id="@+id/about_subcontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true">
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/about_heading"
@@ -32,15 +30,15 @@
 
                 <ImageButton
                     android:id="@+id/about_facebook"
-                    app:srcCompat="@drawable/ic_about_facebook"
                     style="@style/about_button"
-                    android:contentDescription="@string/facebook" />
+                    android:contentDescription="@string/facebook"
+                    app:srcCompat="@drawable/ic_about_facebook" />
 
                 <ImageButton
                     android:id="@+id/about_twitter"
-                    app:srcCompat="@drawable/ic_about_twitter"
                     style="@style/about_button"
-                    android:contentDescription="@string/twitter" />
+                    android:contentDescription="@string/twitter"
+                    app:srcCompat="@drawable/ic_about_twitter" />
 
             </LinearLayout>
 
@@ -76,87 +74,87 @@
 
             <TextView
                 style="@style/about_content"
-                android:text="@string/about_text_opensource"/>
+                android:text="@string/about_text_opensource" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_aospsupport"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_aospsupport"
-                app:link="@string/licenses_link_aospsupport"
                 app:copyright="@string/licenses_copyright_aospsupport"
-                app:notice="@string/licenses_notice_aospsupport"/>
+                app:link="@string/licenses_link_aospsupport"
+                app:name="@string/licenses_name_aospsupport"
+                app:notice="@string/licenses_notice_aospsupport" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_axt"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_axt"
-                app:link="@string/licenses_link_axt"
                 app:copyright="@string/licenses_copyright_axt"
-                app:notice="@string/licenses_notice_axt"/>
+                app:link="@string/licenses_link_axt"
+                app:name="@string/licenses_name_axt"
+                app:notice="@string/licenses_notice_axt" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_butterknife"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_butterknife"
-                app:link="@string/licenses_link_butterknife"
                 app:copyright="@string/licenses_copyright_butterknife"
-                app:notice="@string/licenses_notice_butterknife"/>
+                app:link="@string/licenses_link_butterknife"
+                app:name="@string/licenses_name_butterknife"
+                app:notice="@string/licenses_notice_butterknife" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_dagger2"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_dagger2"
-                app:link="@string/licenses_link_dagger2"
                 app:copyright="@string/licenses_copyright_dagger2"
-                app:notice="@string/licenses_notice_dagger2"/>
+                app:link="@string/licenses_link_dagger2"
+                app:name="@string/licenses_name_dagger2"
+                app:notice="@string/licenses_notice_dagger2" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_otto"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_otto"
-                app:link="@string/licenses_link_otto"
                 app:copyright="@string/licenses_copyright_otto"
-                app:notice="@string/licenses_notice_otto"/>
+                app:link="@string/licenses_link_otto"
+                app:name="@string/licenses_name_otto"
+                app:notice="@string/licenses_notice_otto" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_okhttp"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_okhttp"
-                app:link="@string/licenses_link_okhttp"
                 app:copyright="@string/licenses_copyright_okhttp"
-                app:notice="@string/licenses_notice_okhttp"/>
+                app:link="@string/licenses_link_okhttp"
+                app:name="@string/licenses_name_okhttp"
+                app:notice="@string/licenses_notice_okhttp" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_osmdroid"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_osmdroid"
-                app:link="@string/licenses_link_osmdroid"
                 app:copyright="@string/licenses_copyright_osmdroid"
-                app:notice="@string/licenses_notice_osmdroid"/>
+                app:link="@string/licenses_link_osmdroid"
+                app:name="@string/licenses_name_osmdroid"
+                app:notice="@string/licenses_notice_osmdroid" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_osmbonuspack"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_osmbonuspack"
-                app:link="@string/licenses_link_osmbonuspack"
                 app:copyright="@string/licenses_copyright_osmbonuspack"
-                app:notice="@string/licenses_notice_osmbonuspack"/>
+                app:link="@string/licenses_link_osmbonuspack"
+                app:name="@string/licenses_name_osmbonuspack"
+                app:notice="@string/licenses_notice_osmbonuspack" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_picasso"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_picasso"
-                app:link="@string/licenses_link_picasso"
                 app:copyright="@string/licenses_copyright_picasso"
-                app:notice="@string/licenses_notice_picasso"/>
+                app:link="@string/licenses_link_picasso"
+                app:name="@string/licenses_name_picasso"
+                app:notice="@string/licenses_notice_picasso" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_typed_preferences"
                 style="@style/about_license_panel"
-                app:name="@string/licenses_name_typed_preferences"
-                app:link="@string/licenses_link_typed_preferences"
                 app:copyright="@string/licenses_copyright_typed_preferences"
-                app:notice="@string/licenses_notice_typed_preferences"/>
+                app:link="@string/licenses_link_typed_preferences"
+                app:name="@string/licenses_name_typed_preferences"
+                app:notice="@string/licenses_notice_typed_preferences" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

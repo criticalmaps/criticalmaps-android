@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -25,16 +24,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/colorSecondary"
+                android:gravity="start"
                 android:paddingStart="16dp"
                 android:paddingLeft="16dp"
+                android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="16dp"
+                android:text="@string/settings_storage_header"
                 android:textAlignment="viewStart"
-                android:gravity="start"
-                android:text="@string/settings_storage_header" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/colorSecondary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,17 +48,17 @@
                     android:id="@+id/settings_clear_cache_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -69,97 +68,100 @@
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/settings_cache_subheading"/>
+                        android:text="@string/settings_cache_subheading"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/settings_clear_cache_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@id/settings_clear_cache_title"
                         android:layout_below="@id/settings_clear_cache_title"
+                        android:layout_alignStart="@id/settings_clear_cache_title"
+                        android:layout_alignLeft="@id/settings_clear_cache_title"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"
-                        android:layout_alignLeft="@id/settings_clear_cache_title"
-                        tools:text="Currently using 125.78 MB"/>
+                        tools:text="Currently using 125.78 MB" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/widget_frame2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
+
                     <Button
                         android:id="@+id/settings_clear_cache_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/settings_cache_clear"/>
+                        android:text="@string/settings_cache_clear" />
                 </LinearLayout>
             </LinearLayout>
+
             <de.stephanlindauer.criticalmaps.views.StorageSpaceGraph
                 android:id="@+id/settings_storagegraph"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
-                android:paddingRight="?android:attr/scrollbarSize"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                app:usedSpaceColor="@color/settings_used_space"
+                android:layout_marginLeft="16dp"
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:paddingRight="?android:attr/scrollbarSize"
+                app:freeSpaceColor="@color/settings_free_space"
                 app:tilecacheColor="@color/settings_cache_space"
-                app:freeSpaceColor="@color/settings_free_space"/>
+                app:usedSpaceColor="@color/settings_used_space" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="?android:attr/scrollbarSize"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:paddingRight="?android:attr/scrollbarSize">
 
                 <ImageView
-                    android:layout_height="10dp"
                     android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="4dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@color/settings_used_space"/>
+                    android:layout_marginRight="4dp"
+                    android:background="@color/settings_used_space" />
 
                 <TextView
                     android:id="@+id/settings_cache_used_mb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginEnd="12dp"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
                     tools:text="Used: 16050 MB" />
 
                 <ImageView
-                    android:layout_height="10dp"
                     android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="4dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@color/settings_cache_space"/>
+                    android:layout_marginRight="4dp"
+                    android:background="@color/settings_cache_space" />
 
                 <TextView
                     android:id="@+id/settings_cache_cache_mb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginEnd="12dp"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
                     tools:text="Cache: 48 MB" />
 
                 <ImageView
-                    android:layout_height="10dp"
                     android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="4dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@color/settings_free_space"/>
+                    android:layout_marginRight="4dp"
+                    android:background="@color/settings_free_space" />
 
                 <TextView
                     android:id="@+id/settings_cache_free_mb"
@@ -182,24 +184,24 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingRight="?android:attr/scrollbarSize"
-                android:paddingEnd="?android:attr/scrollbarSize">
+                android:paddingEnd="?android:attr/scrollbarSize"
+                android:paddingRight="?android:attr/scrollbarSize">
 
                 <ImageView
                     android:id="@+id/icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -209,28 +211,28 @@
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/settings_choose_storage_subheading"/>
+                        android:text="@string/settings_choose_storage_subheading"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/settings_choose_storage_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@id/title3"
                         android:layout_below="@id/title3"
+                        android:layout_alignStart="@id/title3"
+                        android:layout_alignLeft="@id/title3"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"
-                        android:layout_alignLeft="@id/title3"
-                        tools:text="@string/storage_name_internal"/>
+                        tools:text="@string/storage_name_internal" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/widget_frame3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:orientation="vertical" >
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
             </LinearLayout>
 
             <!-- Screen Settings -->
@@ -238,16 +240,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/colorSecondary"
+                android:gravity="start"
                 android:paddingStart="16dp"
                 android:paddingLeft="16dp"
+                android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="16dp"
+                android:text="@string/settings_screen_header"
                 android:textAlignment="viewStart"
-                android:gravity="start"
-                android:text="@string/settings_screen_header" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/colorSecondary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -262,17 +264,17 @@
                     android:id="@+id/settings_show_on_lockscreen_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -282,32 +284,34 @@
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/settings_show_on_lockscreen_subheading"/>
+                        android:text="@string/settings_show_on_lockscreen_subheading"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/settings_show_on_lockscreen_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/settings_show_on_lockscreen_title"
                         android:layout_alignStart="@id/settings_show_on_lockscreen_title"
                         android:layout_alignLeft="@id/settings_show_on_lockscreen_title"
-                        android:layout_below="@id/settings_show_on_lockscreen_title"
                         android:maxLines="4"
+                        android:text="@string/settings_show_on_lockscreen_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:text="@string/settings_show_on_lockscreen_summary"/>
+                        android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/widget_frame4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
+
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/settings_show_on_lockscreen_checkbox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="true"/>
+                        android:checked="true" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -329,17 +333,17 @@
                     android:id="@+id/settings_keep_screen_on_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -349,32 +353,34 @@
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/settings_keep_screen_on_subheading"/>
+                        android:text="@string/settings_keep_screen_on_subheading"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/settings_keep_screen_on_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/settings_keep_screen_on_title"
                         android:layout_alignStart="@id/settings_keep_screen_on_title"
                         android:layout_alignLeft="@id/settings_keep_screen_on_title"
-                        android:layout_below="@id/settings_keep_screen_on_title"
                         android:maxLines="4"
+                        android:text="@string/settings_keep_screen_on_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:text="@string/settings_keep_screen_on_summary"/>
+                        android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/widget_frame5"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
+
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/settings_keep_screen_on_checkbox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="true"/>
+                        android:checked="true" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -383,16 +389,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/colorSecondary"
+                android:gravity="start"
                 android:paddingStart="16dp"
                 android:paddingLeft="16dp"
+                android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="16dp"
+                android:text="@string/settings_map_header"
                 android:textAlignment="viewStart"
-                android:gravity="start"
-                android:text="@string/settings_map_header" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/colorSecondary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -407,17 +413,17 @@
                     android:id="@+id/settings_high_res_tiles_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -427,32 +433,34 @@
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/settings_high_res_tiles_subheading"/>
+                        android:text="@string/settings_high_res_tiles_subheading"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/settings_high_res_tiles_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/settings_high_res_tiles_title"
                         android:layout_alignStart="@id/settings_high_res_tiles_title"
                         android:layout_alignLeft="@id/settings_high_res_tiles_title"
-                        android:layout_below="@id/settings_high_res_tiles_title"
                         android:maxLines="4"
+                        android:text="@string/settings_high_res_tiles_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:text="@string/settings_high_res_tiles_summary"/>
+                        android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/widget_frame7"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
+
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/settings_high_res_tiles_checkbox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="false"/>
+                        android:checked="false" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -469,17 +477,17 @@
                     android:id="@+id/settings_map_rotation_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -489,32 +497,34 @@
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/settings_map_rotation_subheading"/>
+                        android:text="@string/settings_map_rotation_subheading"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/settings_map_rotation_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/settings_map_rotation_title"
                         android:layout_alignStart="@id/settings_map_rotation_title"
                         android:layout_alignLeft="@id/settings_map_rotation_title"
-                        android:layout_below="@id/settings_map_rotation_title"
                         android:maxLines="4"
+                        android:text="@string/settings_map_rotation_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:text="@string/settings_map_rotation_summary"/>
+                        android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/widget_frame6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
+
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/settings_map_rotation_checkbox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="true"/>
+                        android:checked="true" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
