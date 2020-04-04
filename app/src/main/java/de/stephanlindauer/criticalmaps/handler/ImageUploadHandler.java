@@ -6,14 +6,15 @@ import android.os.AsyncTask;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
+
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import de.stephanlindauer.criticalmaps.vo.ResultType;
-import java.io.File;
-import java.io.IOException;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -80,7 +81,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
             //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
             if (response.isSuccessful() && response.body().string().equals("success")) {
-                    return ResultType.SUCCEEDED;
+                return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
         }

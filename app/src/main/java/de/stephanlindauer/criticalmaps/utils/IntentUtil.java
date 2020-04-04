@@ -7,7 +7,8 @@ import android.view.View;
 
 public class IntentUtil {
 
-    private IntentUtil() {}
+    private IntentUtil() {
+    }
 
     public static void startFromURL(final Context context, final String urlString) {
         final Intent i = new Intent(Intent.ACTION_VIEW);

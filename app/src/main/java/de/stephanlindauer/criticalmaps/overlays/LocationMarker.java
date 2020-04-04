@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps.overlays;
 
-import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 
 public class LocationMarker extends Marker {
 

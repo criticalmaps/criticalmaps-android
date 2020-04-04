@@ -11,8 +11,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
 import de.stephanlindauer.criticalmaps.model.twitter.Tweet;
+import de.stephanlindauer.criticalmaps.utils.TwitterUtils;
 
 @Singleton
 public class TwitterModel {

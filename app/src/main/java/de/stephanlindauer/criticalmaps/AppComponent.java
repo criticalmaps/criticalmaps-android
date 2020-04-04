@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Singleton;
+
 import dagger.BindsInstance;
 import dagger.Component;
 import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
@@ -13,7 +15,6 @@ import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.TwitterModel;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
-import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
 @Singleton

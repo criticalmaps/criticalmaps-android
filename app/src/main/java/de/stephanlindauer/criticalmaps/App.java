@@ -10,6 +10,10 @@ public class App extends Application {
 
     private static AppComponent appComponent;
 
+    public static AppComponent components() {
+        return appComponent;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -21,10 +25,6 @@ public class App extends Application {
         }
 
         appComponent = DaggerAppComponent.builder().app(this).build();
-    }
-
-    public static AppComponent components() {
-        return appComponent;
     }
 
     private static class NoOpTree extends Timber.Tree {

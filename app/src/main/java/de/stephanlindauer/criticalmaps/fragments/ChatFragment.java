@@ -5,13 +5,6 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -20,8 +13,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import butterknife.OnEditorAction;
-import butterknife.Unbinder;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.otto.Subscribe;
 
 import org.ligi.axt.AXT;
@@ -35,6 +34,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
+import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
@@ -42,8 +43,8 @@ import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
-import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.provider.EventBus;
 
 public class ChatFragment extends Fragment {
 
@@ -162,7 +163,7 @@ public class ChatFragment extends Fragment {
         final List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
         chatMessageAdapter.updateData(savedAndOutgoingMessages);
 
-        if (chatRecyclerView.getScrollState() ==  RecyclerView.SCROLL_STATE_IDLE) {
+        if (chatRecyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
             chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
         }
     }

@@ -2,7 +2,9 @@ package de.stephanlindauer.criticalmaps.handler;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+
 import androidx.appcompat.app.AlertDialog;
+
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 

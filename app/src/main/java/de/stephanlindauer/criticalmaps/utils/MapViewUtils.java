@@ -1,9 +1,9 @@
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.app.Activity;
-import androidx.core.content.ContextCompat;
-
 import android.view.ViewGroup;
+
+import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
 import org.osmdroid.config.Configuration;
@@ -32,7 +32,8 @@ public class MapViewUtils {
     private static final String TILE_SOURCE_COPYRIGHT =
             "Wikimedia maps | Map data © OpenStreetMap contributors";
 
-    private MapViewUtils() {}
+    private MapViewUtils() {
+    }
 
     public static MapView createMapView(Activity activity) {
         IConfigurationProvider configuration = Configuration.getInstance();
@@ -164,8 +165,8 @@ public class MapViewUtils {
                 configuration.getTileFileSystemCacheMaxBytes());
 
         if (configuration.getTileFileSystemCacheMaxBytes() > (freeSpace + cacheSize)) {
-            configuration.setTileFileSystemCacheMaxBytes((long)((freeSpace + cacheSize) * 0.95));
-            configuration.setTileFileSystemCacheTrimBytes((long)((freeSpace + cacheSize) * 0.90));
+            configuration.setTileFileSystemCacheMaxBytes((long) ((freeSpace + cacheSize) * 0.95));
+            configuration.setTileFileSystemCacheTrimBytes((long) ((freeSpace + cacheSize) * 0.90));
         }
 
         Timber.d("getTileFileSystemCacheMaxBytes(): %d",

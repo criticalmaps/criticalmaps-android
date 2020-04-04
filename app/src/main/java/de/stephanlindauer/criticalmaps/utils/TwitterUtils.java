@@ -7,7 +7,8 @@ import java.util.Locale;
 
 public class TwitterUtils {
 
-    private TwitterUtils() {}
+    private TwitterUtils() {
+    }
 
     public static Date getTwitterDate(String date) throws ParseException {
         String twitterTimeFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";

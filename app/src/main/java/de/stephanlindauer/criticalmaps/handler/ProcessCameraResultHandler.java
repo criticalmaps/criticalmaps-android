@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -15,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,9 +32,9 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
     private final Activity activity;
     private final File newCameraOutputFile;
+    private final Picasso picasso;
     private File processedImageFile;
     private ProgressDialog progressDialog;
-    private final Picasso picasso;
 
     public ProcessCameraResultHandler(Activity activity, File newCameraOutputFile) {
         this.activity = activity;

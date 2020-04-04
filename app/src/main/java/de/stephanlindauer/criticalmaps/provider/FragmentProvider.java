@@ -2,8 +2,14 @@ package de.stephanlindauer.criticalmaps.provider;
 
 import androidx.annotation.IdRes;
 import androidx.fragment.app.Fragment;
+
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.fragments.*;
+import de.stephanlindauer.criticalmaps.fragments.AboutFragment;
+import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
+import de.stephanlindauer.criticalmaps.fragments.MapFragment;
+import de.stephanlindauer.criticalmaps.fragments.RulesFragment;
+import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
+import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
 
 public class FragmentProvider {
 
