@@ -180,8 +180,9 @@ public class MapFragment extends Fragment {
                     .setPositiveButton(R.string.permissions_open_settings, (dialog, which) -> {
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                                 Uri.fromParts("package", getActivity().getPackageName(), null));
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);})
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    })
                     .create()
                     .show();
 
