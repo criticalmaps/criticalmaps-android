@@ -7,71 +7,32 @@ import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.checkbox.MaterialCheckBox;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
+import de.stephanlindauer.criticalmaps.databinding.FragmentSettingsBinding;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
-import de.stephanlindauer.criticalmaps.views.StorageSpaceGraph;
 import info.metadude.android.typedpreferences.BooleanPreference;
 import timber.log.Timber;
 
 public class SettingsFragment extends Fragment {
-
-    private Unbinder unbinder;
-
-    @BindView(R.id.settings_storagegraph)
-    StorageSpaceGraph storageSpaceGraph;
-
-    @BindView(R.id.settings_clear_cache_summary)
-    TextView clearCacheSummary;
-
-    @BindView(R.id.settings_cache_used_mb)
-    TextView usedSpace;
-
-    @BindView(R.id.settings_cache_cache_mb)
-    TextView cacheSpace;
-
-    @BindView(R.id.settings_cache_free_mb)
-    TextView freeSpace;
-
-    @BindView(R.id.settings_choose_storage_summary)
-    TextView chooseStorageSummary;
-
-    @BindView(R.id.settings_show_on_lockscreen_checkbox)
-    MaterialCheckBox showOnLockScreenCheckbox;
-
-    @BindView(R.id.settings_keep_screen_on_checkbox)
-    MaterialCheckBox keepScreenOnCheckbox;
-
-    @BindView(R.id.settings_map_rotation_checkbox)
-    MaterialCheckBox mapRotationCheckbox;
-
-    @BindView(R.id.settings_high_res_tiles_checkbox)
-    MaterialCheckBox highResTilesCheckbox;
-
     @Inject
     StorageLocationProvider storageLocationProvider;
 
     @Inject
     SharedPreferences sharedPreferences;
+
+    private FragmentSettingsBinding binding;
 
     @Override
     @Nullable
@@ -80,7 +41,8 @@ public class SettingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -94,24 +56,33 @@ public class SettingsFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        //noinspection ConstantConditions
-        unbinder = ButterKnife.bind(this, getView());
-
         updateClearCachePref();
         updateStorageGraph();
         updateChooseStoragePref();
 
-        showOnLockScreenCheckbox.setChecked(
+        binding.settingsShowOnLockscreenCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
 
-        keepScreenOnCheckbox.setChecked(
+        binding.settingsKeepScreenOnCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).get());
 
-        mapRotationCheckbox.setChecked(
+        binding.settingsMapRotationCheckbox.setChecked(
                 !new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).get());
 
-        highResTilesCheckbox.setChecked(
+        binding.settingsHighResTilesCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).get());
+
+        binding.settingsClearCacheButton.setOnClickListener(v -> handleClearCacheClicked());
+        binding.settingsChooseStorageContainer.setOnClickListener(v -> handleChooseStorageClicked());
+
+        binding.settingsShowOnLockscreenCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleShowOnLockscreenChecked(isChecked));
+        binding.settingsKeepScreenOnCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleKeepScreenOnChecked(isChecked));
+        binding.settingsMapRotationCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
+        binding.settingsHighResTilesCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleUseHighResTilesChecked(isChecked));
     }
 
     private void updateStorageGraph() {
@@ -125,14 +96,15 @@ public class SettingsFragment extends Fragment {
 
         float tilePercentage = (float) tileSize / currentStorageLocation.totalSize;
 
-        usedSpace.setText(String.format(getString(R.string.settings_cache_used_mb),
+        binding.settingsCacheUsedSpaceText.setText(String.format(getString(R.string.settings_cache_used_mb),
                 Formatter.formatShortFileSize(getActivity(), currentStorageLocation.usedSpace)));
-        cacheSpace.setText(String.format(getString(R.string.settings_cache_cache_mb),
+        binding.settingsCacheUsedCacheSpaceText.setText(String.format(getString(R.string.settings_cache_cache_mb),
                 Formatter.formatShortFileSize(getActivity(), tileSize)));
-        freeSpace.setText(String.format(getString(R.string.settings_cache_free_mb),
+        binding.settingsCacheFreeSpaceText.setText(String.format(getString(R.string.settings_cache_free_mb),
                 Formatter.formatShortFileSize(getActivity(), currentStorageLocation.freeSpace)));
 
-        storageSpaceGraph.setBarPercentagesAnimated(usedPercentage, tilePercentage);
+        binding.settingsCacheStoragespacegraph.setBarPercentagesAnimated(
+                usedPercentage, tilePercentage);
     }
 
     private void updateClearCachePref() {
@@ -140,23 +112,22 @@ public class SettingsFragment extends Fragment {
                 storageLocationProvider.getActiveStorageLocation().getCacheSize();
         Timber.d("Current cache size: %s",
                 Formatter.formatShortFileSize(getActivity(), currentSize));
-        clearCacheSummary.setText(
+        binding.settingsClearCacheSummaryText.setText(
                 String.format(getString(R.string.settings_cache_currently_used),
                         Formatter.formatShortFileSize(getActivity(), currentSize)));
     }
 
     private void updateChooseStoragePref() {
-        chooseStorageSummary.setText(storageLocationProvider.getActiveStorageLocation().displayName);
+        binding.settingsChooseStorageSummaryText.setText(
+                storageLocationProvider.getActiveStorageLocation().displayName);
     }
 
-    @OnClick(R.id.settings_clear_cache_button)
     void handleClearCacheClicked() {
         storageLocationProvider.getActiveStorageLocation().clearCache();
         updateClearCachePref();
         updateStorageGraph();
     }
 
-    @OnClick(R.id.settings_choose_storage_container)
     void handleChooseStorageClicked() {
         ArrayList<StorageLocationProvider.StorageLocation> storageLocations =
                 storageLocationProvider.getAllWritableStorageLocations();
@@ -214,25 +185,21 @@ public class SettingsFragment extends Fragment {
                 .show();
     }
 
-    @OnCheckedChanged(R.id.settings_show_on_lockscreen_checkbox)
     void handleShowOnLockscreenChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).set(isChecked);
     }
 
-    @OnCheckedChanged(R.id.settings_keep_screen_on_checkbox)
     void handleKeepScreenOnChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).set(isChecked);
     }
 
-    @OnCheckedChanged(R.id.settings_map_rotation_checkbox)
     void handleDisableMapRotationChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).set(!isChecked);
     }
 
-    @OnCheckedChanged(R.id.settings_high_res_tiles_checkbox)
     void handleUseHighResTilesChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).set(isChecked);
@@ -241,6 +208,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        binding = null;
     }
 }

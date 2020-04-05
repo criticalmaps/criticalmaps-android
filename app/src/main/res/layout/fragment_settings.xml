@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:paddingTop="@dimen/toolbar_height"
-    tools:theme="@style/AppTheme"
-    tools:viewBindingIgnore="true">
+    tools:theme="@style/AppTheme">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/settings_scrollview"
@@ -73,7 +72,7 @@
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
-                        android:id="@+id/settings_clear_cache_summary"
+                        android:id="@+id/settings_clear_cache_summary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_clear_cache_title"
@@ -101,7 +100,7 @@
             </LinearLayout>
 
             <de.stephanlindauer.criticalmaps.views.StorageSpaceGraph
-                android:id="@+id/settings_storagegraph"
+                android:id="@+id/settings_cache_storagespacegraph"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:layout_marginStart="16dp"
@@ -131,7 +130,7 @@
                     android:background="@color/settings_used_space" />
 
                 <TextView
-                    android:id="@+id/settings_cache_used_mb"
+                    android:id="@+id/settings_cache_used_space_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -148,7 +147,7 @@
                     android:background="@color/settings_cache_space" />
 
                 <TextView
-                    android:id="@+id/settings_cache_cache_mb"
+                    android:id="@+id/settings_cache_used_cache__space_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -165,7 +164,7 @@
                     android:background="@color/settings_free_space" />
 
                 <TextView
-                    android:id="@+id/settings_cache_free_mb"
+                    android:id="@+id/settings_cache_free_space_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -216,7 +215,7 @@
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
-                        android:id="@+id/settings_choose_storage_summary"
+                        android:id="@+id/settings_choose_storage_summary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/title3"
