@@ -4,22 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:viewBindingIgnore="true">
+    android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/map_container"
+        android:id="@+id/map_container_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/map_overlay_container"
+        android:id="@+id/map_overlay_container_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="?attr/actionBarSize">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/set_current_location_center"
+            android:id="@+id/map_set_center_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -32,7 +31,7 @@
             tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/set_rotation_north"
+            android:id="@+id/map_set_north_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -46,11 +45,11 @@
             tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/map_no_data_connectivity"
+            android:id="@+id/map_no_data_connectivity_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/set_rotation_north"
+            android:layout_toRightOf="@id/map_set_north_fab"
             android:gravity="center_vertical|center_horizontal"
             android:visibility="invisible"
             app:backgroundTint="@color/map_fab_warning"
@@ -61,7 +60,7 @@
             tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/map_osm_notice"
+            android:id="@+id/map_osm_notice_text"
             style="@style/map_osm_notice"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
