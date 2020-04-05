@@ -10,12 +10,11 @@
     tools:viewBindingIgnore="true">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/rules_scrollview"
+        android:id="@+id/rules_container_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/rules_subcontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -47,7 +46,6 @@
                         app:srcCompat="@drawable/rules_corken" />
 
                     <TextView
-                        android:id="@+id/rules_corken_text"
                         style="@style/rules_explainer"
                         android:text="@string/rules_corken_explain" />
                 </LinearLayout>
