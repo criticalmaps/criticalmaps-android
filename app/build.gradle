@@ -93,8 +93,6 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     implementation 'com.squareup.okhttp3:okhttp:3.12.6'
-    implementation "com.jakewharton:butterknife:$butterknife_version"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 
     implementation 'org.ligi:AXT:0.37'
     implementation 'info.metadude.android:typed-preferences:2.1.0'
