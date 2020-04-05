@@ -6,20 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingTop="@dimen/toolbar_height"
-    tools:viewBindingIgnore="true">
+    android:paddingTop="@dimen/toolbar_height">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_container"
+            android:id="@+id/twitter_container_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tweet_list"
+                android:id="@+id/twitter_tweets_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/view_tweet" />
@@ -39,7 +38,7 @@
             app:useCompatPadding="true" />
 
         <LinearLayout
-            android:id="@+id/twitter_error"
+            android:id="@+id/twitter_error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
