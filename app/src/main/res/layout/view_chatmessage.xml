@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="12dp"
-    tools:viewBindingIgnore="true">
+    android:paddingTop="12dp">
 
     <TextView
-        android:id="@+id/firstLine"
+        android:id="@+id/chatmessage_label_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
@@ -20,7 +19,7 @@
         tools:text="3 minutes ago" />
 
     <TextView
-        android:id="@+id/secondLine"
+        android:id="@+id/chatmessage_message_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

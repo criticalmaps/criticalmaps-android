@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.otto.Subscribe;
 
 import org.ligi.axt.AXT;
@@ -31,14 +28,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnEditorAction;
-import butterknife.Unbinder;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
+import de.stephanlindauer.criticalmaps.databinding.FragmentChatBinding;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
@@ -47,32 +40,15 @@ import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 
 public class ChatFragment extends Fragment {
-
-    //dependencies
     @Inject
     ChatModel chatModel;
 
     @Inject
     EventBus eventBus;
 
-    //view
-    @BindView(R.id.chat_recycler)
-    RecyclerView chatRecyclerView;
-
-    @BindView(R.id.text_input_layout)
-    TextInputLayout textInputLayout;
-
-    @BindView(R.id.chat_edit_message)
-    EditText editMessageTextField;
-
-    @BindView(R.id.chat_send_btn)
-    FloatingActionButton sendButton;
-
-    //misc
     private boolean isTextInputEnabled = true;
     private ChatMessageAdapter chatMessageAdapter;
-    private Unbinder unbinder;
-
+    private FragmentChatBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -80,11 +56,10 @@ public class ChatFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         App.components().inject(this);
-        View chatView = inflater.inflate(R.layout.fragment_chat, container, false);
-        unbinder = ButterKnife.bind(this, chatView);
+        binding = FragmentChatBinding.inflate(inflater, container, false);
 
-        chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        return chatView;
+        binding.chatMessagesRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        return binding.getRoot();
     }
 
     @Override
@@ -92,22 +67,26 @@ public class ChatFragment extends Fragment {
         super.onActivityCreated(savedState);
 
         chatMessageAdapter = new ChatMessageAdapter(new ArrayList<>());
-        chatRecyclerView.setAdapter(chatMessageAdapter);
+        binding.chatMessagesRecyclerview.setAdapter(chatMessageAdapter);
         displayNewData();
 
-        textInputLayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
-        editMessageTextField.setFilters(
+        binding.chatMessageTextinputlayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
+        binding.chatMessageEdittext.setFilters(
                 new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
+        binding.chatMessageEdittext.setOnEditorActionListener(
+                (v, actionId, event) -> handleEditorAction(actionId));
+
+        binding.chatSendButton.setOnClickListener(v -> handleSendClicked());
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        final String message = editMessageTextField.getText().toString();
-        sendButton.setEnabled(!message.trim().isEmpty());
+        final String message = binding.chatMessageEdittext.getText().toString();
+        binding.chatSendButton.setEnabled(!message.trim().isEmpty());
 
-        editMessageTextField.addTextChangedListener(new SimpleTextWatcher() {
+        binding.chatMessageEdittext.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 updateSendButtonEnabledState();
@@ -116,28 +95,27 @@ public class ChatFragment extends Fragment {
     }
 
     private void setSendButtonEnabledWithAnimation(final boolean enabled) {
-        if (sendButton.isEnabled() == enabled) {
+        if (binding.chatSendButton.isEnabled() == enabled) {
             return;
         }
 
         final AnimatorSet animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
                 R.animator.chat_fab_state_change);
-        animatorSet.setTarget(sendButton);
+        animatorSet.setTarget(binding.chatSendButton);
 
         // flip button state for color change after first half of the animation
         final ArrayList<Animator> animations = animatorSet.getChildAnimations();
         animations.get(0).addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                sendButton.setEnabled(enabled);
+                binding.chatSendButton.setEnabled(enabled);
             }
         });
 
         animatorSet.start();
     }
 
-    @OnEditorAction(R.id.chat_edit_message)
-    boolean handleEditorAction(int actionId) {
+    private boolean handleEditorAction(int actionId) {
         if (actionId == EditorInfo.IME_ACTION_SEND) {
             handleSendClicked();
             return true;
@@ -145,9 +123,8 @@ public class ChatFragment extends Fragment {
         return false;
     }
 
-    @OnClick(R.id.chat_send_btn)
-    void handleSendClicked() {
-        final String message = editMessageTextField.getText().toString().trim();
+    private void handleSendClicked() {
+        final String message = binding.chatMessageEdittext.getText().toString().trim();
 
         if (message.isEmpty()) {
             return;
@@ -155,7 +132,7 @@ public class ChatFragment extends Fragment {
 
         chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
 
-        editMessageTextField.setText("");
+        binding.chatMessageEdittext.setText("");
         displayNewData();
     }
 
@@ -163,8 +140,8 @@ public class ChatFragment extends Fragment {
         final List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
         chatMessageAdapter.updateData(savedAndOutgoingMessages);
 
-        if (chatRecyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
-            chatRecyclerView.scrollToPosition(savedAndOutgoingMessages.size() - 1);
+        if (binding.chatMessagesRecyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
+            binding.chatMessagesRecyclerview.scrollToPosition(savedAndOutgoingMessages.size() - 1);
         }
     }
 
@@ -179,13 +156,13 @@ public class ChatFragment extends Fragment {
     public void onPause() {
         super.onPause();
         eventBus.unregister(this);
-        AXT.at(editMessageTextField).hideKeyBoard();
+        AXT.at(binding.chatMessageEdittext).hideKeyBoard();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        binding = null;
     }
 
     @SuppressWarnings("unused")
@@ -203,19 +180,19 @@ public class ChatFragment extends Fragment {
     private void setTextInputState(final boolean dataEnabled) {
         if (!dataEnabled) {
             setSendButtonEnabledWithAnimation(false);
-            editMessageTextField.setEnabled(false);
-            textInputLayout.setHint(getString(R.string.chat_no_data_connection_hint));
+            binding.chatMessageEdittext.setEnabled(false);
+            binding.chatMessageTextinputlayout.setHint(getString(R.string.chat_no_data_connection_hint));
             isTextInputEnabled = false;
         } else if (!isTextInputEnabled) {
             updateSendButtonEnabledState();
-            editMessageTextField.setEnabled(true);
-            textInputLayout.setHint(getString(R.string.chat_text));
+            binding.chatMessageEdittext.setEnabled(true);
+            binding.chatMessageTextinputlayout.setHint(getString(R.string.chat_text));
             isTextInputEnabled = true;
         }
     }
 
     private void updateSendButtonEnabledState() {
-        final String message = editMessageTextField.getText().toString();
+        final String message = binding.chatMessageEdittext.getText().toString();
         setSendButtonEnabledWithAnimation(!message.trim().isEmpty());
     }
 }
