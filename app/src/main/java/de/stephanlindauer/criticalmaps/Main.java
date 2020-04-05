@@ -19,9 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
@@ -29,11 +26,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,8 +40,7 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import de.stephanlindauer.criticalmaps.databinding.ActivityMainBinding;
 import de.stephanlindauer.criticalmaps.handler.ApplicationCloseHandler;
 import de.stephanlindauer.criticalmaps.handler.PermissionCheckHandler;
 import de.stephanlindauer.criticalmaps.handler.ProcessCameraResultHandler;
@@ -95,26 +89,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 }
             };
 
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-
-    @BindView(R.id.drawer_navigation)
-    NavigationView drawerNavigation;
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
-    @BindView(R.id.content_frame)
-    FrameLayout contentFrame;
-
-    @BindView(R.id.understand_button)
-    Button understandButton;
-
-    @BindView(R.id.introduction_view)
-    View introductionView;
-
-    @BindView(R.id.introduction_text)
-    TextView introductionTextView;
+    private ActivityMainBinding binding;
 
     private Uri newCameraOutputFile;
     private int currentNavId;
@@ -128,28 +103,29 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         super.onCreate(bundle);
 
         App.components().inject(this);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            binding.drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
             // inset the toolbar down by the status bar height
-            ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, (v, insets) -> {
                 ViewGroup.MarginLayoutParams lpToolbar =
-                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                        (ViewGroup.MarginLayoutParams) binding.toolbar.getLayoutParams();
                 lpToolbar.topMargin += insets.getSystemWindowInsetTop();
 
-                toolbar.setLayoutParams(lpToolbar);
+                binding.toolbar.setLayoutParams(lpToolbar);
 
                 // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(toolbar, null);
+                ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, null);
                 return insets;
             });
 
             // inset header in nav drawer down by the status bar height
-            View navHeader = drawerNavigation.getHeaderView(0);
+            View navHeader = binding.drawerNavigation.getHeaderView(0);
             ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
                 v.setPaddingRelative(
                         v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
@@ -183,31 +159,31 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        drawerNavigation.setNavigationItemSelectedListener(this);
+        binding.drawerNavigation.setNavigationItemSelectedListener(this);
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+                this, binding.drawerLayout, binding.toolbar, R.string.open_drawer, R.string.close_drawer);
 
-        drawerLayout.addDrawerListener(mDrawerToggle);
+        binding.drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener() {
+        binding.drawerLayout.addDrawerListener(new DrawerClosingDrawerLayoutListener() {
             @Override
             public void onDrawerClosed(@NonNull View drawerView) {
                 super.onDrawerClosed(drawerView);
-                navigateTo(drawerNavigation.getCheckedItem().getItemId());
+                navigateTo(binding.drawerNavigation.getCheckedItem().getItemId());
             }
         });
 
-        observerModeSwitch = drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
+        observerModeSwitch = binding.drawerNavigation.getMenu().findItem(R.id.navigation_observer_mode)
                 .getActionView().findViewById(R.id.navigation_observer_mode_switch);
         observerModeSwitch.setChecked(new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get());
         observerModeSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleObserverModeSwitchCheckedChanged(isChecked));
 
-        understandButton.setOnClickListener(view -> {
-            introductionView.setVisibility(View.GONE);
+        binding.understandButton.setOnClickListener(view -> {
+            binding.introductionView.setVisibility(View.GONE);
             privacyPolicyAcceptedPreference.set(true);
         });
 
@@ -224,21 +200,21 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             if (currentNavId != R.id.navigation_map) {
                 // set toolbar title
                 //noinspection ConstantConditions
-                getSupportActionBar().setTitle(drawerNavigation.getCheckedItem().getTitle());
+                getSupportActionBar().setTitle(binding.drawerNavigation.getCheckedItem().getTitle());
 
                 // set toolbar margins
                 ViewGroup.MarginLayoutParams toolbarParams =
-                        (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                        (ViewGroup.MarginLayoutParams) binding.toolbar.getLayoutParams();
                 int marginPixels =
                         getResources().getDimensionPixelSize(R.dimen.map_toolbar_margins);
 
                 toolbarParams.topMargin -= marginPixels;
                 toolbarParams.rightMargin -= marginPixels;
                 toolbarParams.leftMargin -= marginPixels;
-                toolbar.setLayoutParams(toolbarParams);
+                binding.toolbar.setLayoutParams(toolbarParams);
 
                 // set toolbar background
-                ((GradientDrawable) toolbar.getBackground()).setCornerRadius(0F);
+                ((GradientDrawable) binding.toolbar.getBackground()).setCornerRadius(0F);
 
                 // set statusbar color
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -253,9 +229,9 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         final boolean isPrivacyPolicyAccepted =
                 !privacyPolicyAcceptedPreference.isSet() || !privacyPolicyAcceptedPreference.get();
         if (isPrivacyPolicyAccepted) {
-            introductionTextView.setMovementMethod(LinkMovementMethod.getInstance());
-            introductionTextView.setText(Html.fromHtml(getString(R.string.introduction_gps)));
-            introductionView.setVisibility(View.VISIBLE);
+            binding.introductionText.setMovementMethod(LinkMovementMethod.getInstance());
+            binding.introductionText.setText(Html.fromHtml(getString(R.string.introduction_gps)));
+            binding.introductionView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -299,8 +275,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawers();
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawers();
         } else {
             super.onBackPressed();
         }
@@ -389,7 +365,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getGroupId() == R.id.navigation_group) {
             item.setChecked(true);
-            drawerLayout.closeDrawer(GravityCompat.START);
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
             //noinspection ConstantConditions
             getSupportActionBar().setTitle(item.getTitle());
             return true;
@@ -442,7 +418,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     private void animateToolbar(int durationMillis, boolean toMap) {
         ViewGroup.MarginLayoutParams toolbarParamsChanging =
-                (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                (ViewGroup.MarginLayoutParams) binding.toolbar.getLayoutParams();
 
         ViewGroup.MarginLayoutParams toolbarParamsStart =
                 new ViewGroup.MarginLayoutParams(toolbarParamsChanging);
@@ -461,10 +437,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             toolbarParamsChanging.topMargin = toolbarParamsStart.topMargin - animatedValue;
             toolbarParamsChanging.rightMargin = toolbarParamsStart.rightMargin - animatedValue;
             toolbarParamsChanging.leftMargin = toolbarParamsStart.leftMargin - animatedValue;
-            toolbar.setLayoutParams(toolbarParamsChanging);
+            binding.toolbar.setLayoutParams(toolbarParamsChanging);
         });
 
-        GradientDrawable toolbarBackground = (GradientDrawable) toolbar.getBackground();
+        GradientDrawable toolbarBackground = (GradientDrawable) binding.toolbar.getBackground();
         float radiusMap = getResources().getDimension(R.dimen.map_toolbar_corner_radius);
         float radiusFrom = toMap ? 0 : radiusMap;
         float radiusTo = toMap ? radiusMap : 0;
