@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingTop="@dimen/toolbar_height"
-    tools:menu="actionbar_buttons">
+    android:paddingTop="@dimen/toolbar_height">
 
     <RelativeLayout
         android:layout_width="match_parent"

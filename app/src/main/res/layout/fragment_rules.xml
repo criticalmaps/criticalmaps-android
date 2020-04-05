@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/toolbar_height"
-    android:fitsSystemWindows="true"
-    tools:menu="actionbar_buttons">
+    android:fitsSystemWindows="true">
 
     <androidx.core.widget.NestedScrollView
             android:id="@+id/rules_scrollview"
