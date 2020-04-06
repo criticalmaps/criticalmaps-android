@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.StringRes;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -13,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.StringRes;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

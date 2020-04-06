@@ -1,10 +1,10 @@
 package de.stephanlindauer.criticalmaps;
 
-import org.junit.Rule;
-import org.junit.Test;
-
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.Rule;
+import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;

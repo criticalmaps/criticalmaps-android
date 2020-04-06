@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/toolbar_height"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/toolbar_height">
 
     <androidx.core.widget.NestedScrollView
-            android:id="@+id/rules_scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/rules_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-                android:id="@+id/rules_subcontainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="vertical">
+            android:id="@+id/rules_subcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
 
             <!-- "Note that the margins around the card (its “gutters”) need to be listed in the layout
             of the card and cannot be included in a style tag." -->
@@ -39,17 +37,17 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_corken"/>
+                        android:text="@string/rules_corken" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_corken"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_corken" />
 
                     <TextView
                         android:id="@+id/rules_corken_text"
                         style="@style/rules_explainer"
-                        android:text="@string/rules_corken_explain"/>
+                        android:text="@string/rules_corken_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -66,16 +64,16 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_oncoming_traffic"/>
+                        android:text="@string/rules_oncoming_traffic" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_oncoming_traffic"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_oncoming_traffic" />
 
                     <TextView
                         style="@style/rules_explainer"
-                        android:text="@string/rules_oncoming_traffic_explain"/>
+                        android:text="@string/rules_oncoming_traffic_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -92,16 +90,16 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_steady"/>
+                        android:text="@string/rules_steady" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_steady"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_steady" />
 
                     <TextView
                         style="@style/rules_explainer"
-                        android:text="@string/rules_steady_explain"/>
+                        android:text="@string/rules_steady_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -118,16 +116,16 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_brake"/>
+                        android:text="@string/rules_brake" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_brake"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_brake" />
 
                     <TextView
                         style="@style/rules_explainer"
-                        android:text="@string/rules_brake_explain"/>
+                        android:text="@string/rules_brake_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -144,16 +142,16 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_green"/>
+                        android:text="@string/rules_green" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_green"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_green" />
 
                     <TextView
                         style="@style/rules_explainer"
-                        android:text="@string/rules_green_explain"/>
+                        android:text="@string/rules_green_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -170,16 +168,16 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_friendly"/>
+                        android:text="@string/rules_friendly" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_friendly"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_friendly" />
 
                     <TextView
                         style="@style/rules_explainer"
-                        android:text="@string/rules_friendly_explain"/>
+                        android:text="@string/rules_friendly_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -196,22 +194,22 @@
 
                     <TextView
                         style="@style/rules_heading"
-                        android:text="@string/rules_fun"/>
+                        android:text="@string/rules_fun" />
 
                     <ImageView
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:srcCompat="@drawable/rules_fun"/>
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/rules_fun" />
 
                     <TextView
                         style="@style/rules_explainer"
-                        android:text="@string/rules_fun_explain"/>
+                        android:text="@string/rules_fun_explain" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 style="@style/rules_image_source_text"
-                android:text="@string/rules_image_source"/>
+                android:text="@string/rules_image_source" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

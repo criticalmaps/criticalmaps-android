@@ -1,6 +1,8 @@
 package de.stephanlindauer.criticalmaps.events;
 
 public final class GpsStatusChangedEvent {
+    public Status status;
+
     public enum Status {
         NONEXISTENT,
         DISABLED,
@@ -9,6 +11,4 @@ public final class GpsStatusChangedEvent {
         LOW_ACCURACY,
         HIGH_ACCURACY
     }
-
-    public Status status;
 }

@@ -4,7 +4,8 @@
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/background_launch_screen_logo</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorBackground
+        </item>
     </style>
 
     <!-- Base application theme -->
@@ -22,8 +23,11 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/main_statusbarcolor_map</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/main_navbarcolor</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/main_statusbarcolor_map
+        </item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/main_navbarcolor
+        </item>
         <!-- needed for background on api 16 below: -->
         <item name="android:windowBackground">@color/colorBackground</item>
     </style>
@@ -35,7 +39,8 @@
     </style>
 
     <style name="rules_heading" parent="Widget.MaterialComponents.CardView">
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6
+        </item>
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="android:layout_margin">16dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -66,7 +71,8 @@
     </style>
 
     <style name="about_heading">
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5
+        </item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_width">match_parent</item>

@@ -19,6 +19,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.otto.Subscribe;
 
@@ -31,14 +40,6 @@ import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 import javax.inject.Inject;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -59,14 +60,15 @@ import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import info.metadude.android.typedpreferences.BooleanPreference;
 
 public class MapFragment extends Fragment {
-
     // constants
     private final static String KEY_MAP_ZOOMLEVEL = "map_zoomlevel";
     private final static String KEY_MAP_POSITION = "map_position";
     private final static String KEY_MAP_ORIENTATION = "map_orientation";
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
+
     private final static double DEFAULT_ZOOM_LEVEL = 12;
     private final static double NO_GPS_PERMISSION_ZOOM_LEVEL = 3;
+
     private final GeoPoint defaultGeoPoint = new GeoPoint(52.499571, 13.4140875, 15);
 
     //dependencies
@@ -178,8 +180,9 @@ public class MapFragment extends Fragment {
                     .setPositiveButton(R.string.permissions_open_settings, (dialog, which) -> {
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                                 Uri.fromParts("package", getActivity().getPackageName(), null));
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);})
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    })
                     .create()
                     .show();
 

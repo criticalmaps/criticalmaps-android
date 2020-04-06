@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+
 import de.stephanlindauer.criticalmaps.R;
 
 public class AlertBuilder {

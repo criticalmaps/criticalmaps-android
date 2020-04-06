@@ -3,16 +3,16 @@ package de.stephanlindauer.criticalmaps.fragments;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
-
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 
@@ -73,7 +73,8 @@ public class SettingsFragment extends Fragment {
     @Inject
     SharedPreferences sharedPreferences;
 
-    @Override @Nullable
+    @Override
+    @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

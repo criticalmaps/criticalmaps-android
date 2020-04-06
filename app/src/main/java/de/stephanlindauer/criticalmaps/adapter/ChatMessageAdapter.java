@@ -2,13 +2,13 @@ package de.stephanlindauer.criticalmaps.adapter;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -19,8 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
-import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 
@@ -51,7 +51,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
                         ((ReceivedChatMessage) message).getTimestamp(), itemView.getContext()));
             } else {
                 labelView.setText(R.string.chat_sending);
-                
+
                 sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
                         itemView.getContext(), R.animator.map_gps_fab_searching_animation);
                 sendingAnimator.setTarget(labelView);

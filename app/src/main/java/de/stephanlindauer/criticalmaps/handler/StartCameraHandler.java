@@ -8,8 +8,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import androidx.core.content.FileProvider;
+
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
+
+import java.io.File;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.Main;
@@ -18,8 +21,6 @@ import de.stephanlindauer.criticalmaps.model.PermissionRequest;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
-
-import java.io.File;
 
 public class StartCameraHandler {
 
@@ -93,7 +94,8 @@ public class StartCameraHandler {
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                             Uri.fromParts("package", activity.getPackageName(), null));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    activity.startActivity(intent);})
+                    activity.startActivity(intent);
+                })
                 .create()
                 .show();
     }

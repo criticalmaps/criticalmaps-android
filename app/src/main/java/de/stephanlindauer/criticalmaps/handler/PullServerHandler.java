@@ -2,15 +2,21 @@ package de.stephanlindauer.criticalmaps.handler;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
-import java.io.IOException;
-import javax.inject.Inject;
-
 import info.metadude.android.typedpreferences.BooleanPreference;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -18,10 +24,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import timber.log.Timber;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class PullServerHandler extends AsyncTask<Void, Void, String> {
 

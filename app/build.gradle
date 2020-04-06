@@ -5,7 +5,7 @@ apply plugin: 'net.ltgt.errorprone'
 // Place actual signing configuration in "keystore.properties"
 // "keystore.properties" is in .gitignore and will not be checked into repo
 def keystorePropertiesFile = rootProject.file("keystore.properties")
-if(!keystorePropertiesFile.exists() ) {
+if (!keystorePropertiesFile.exists()) {
     keystorePropertiesFile = rootProject.file("dummy_keystore.properties")
 }
 def keystoreProperties = new Properties()

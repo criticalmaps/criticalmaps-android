@@ -13,12 +13,12 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        tools:src="@android:drawable/sym_def_app_icon"/>
+        tools:src="@android:drawable/sym_def_app_icon" />
 
     <TextView
         android:id="@+id/picture_confirm_text"
         style="@style/picture_upload_confirmation_text"
         android:layout_gravity="center"
-        tools:text="@string/camera_confirm_image_upload"/>
+        tools:text="@string/camera_confirm_image_upload" />
 
 </LinearLayout>

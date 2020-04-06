@@ -19,11 +19,14 @@ public class PermissionRequest {
         this.permission = permission;
         this.rationale = rationale;
         this.onGrantedCallback =
-                onGrantedCallback != null ? onGrantedCallback : () -> {};
+                onGrantedCallback != null ? onGrantedCallback : () -> {
+                };
         this.onDeniedCallback =
-                onDeniedCallback != null ? onDeniedCallback : () -> {};
+                onDeniedCallback != null ? onDeniedCallback : () -> {
+                };
         this.onPermanentlyDeniedCallback =
-                onPermanentlyDeniedCallback != null ? onPermanentlyDeniedCallback : () -> {};
+                onPermanentlyDeniedCallback != null ? onPermanentlyDeniedCallback : () -> {
+                };
         // Can only use lower 16 bits for requestCode --> short
         this.requestCode = (short) Math.round(Math.random() * Short.MAX_VALUE);
     }

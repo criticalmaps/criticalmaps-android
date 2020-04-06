@@ -2,10 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- AOSP Support Libraries -->
-    <string translatable="false" name="licenses_name_aospsupport">AOSP Support Libraries</string>
-    <string translatable="false" name="licenses_link_aospsupport">https://android.googlesource.com/platform/frameworks/support</string>
-    <string translatable="false" name="licenses_copyright_aospsupport">Copyright 2014 The Android Open Source Project</string>
-    <string translatable="false" name="licenses_notice_aospsupport" tools:ignore="TypographyOther">
+    <string name="licenses_name_aospsupport" translatable="false">AOSP Support Libraries</string>
+    <string name="licenses_link_aospsupport" translatable="false">https://android.googlesource.com/platform/frameworks/support</string>
+    <string name="licenses_copyright_aospsupport" translatable="false">Copyright 2014 The Android Open Source Project</string>
+    <string name="licenses_notice_aospsupport" translatable="false" tools:ignore="TypographyOther">
     Copyright (C) 2014 The Android Open Source Project\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -23,10 +23,10 @@
 
 
     <!-- AXT -->
-    <string translatable="false" name="licenses_name_axt">AXT</string>
-    <string translatable="false" name="licenses_link_axt">https://github.com/ligi/AXT</string>
-    <string translatable="false" name="licenses_copyright_axt">Copyright 2013 ligi</string>
-    <string translatable="false" name="licenses_notice_axt">
+    <string name="licenses_name_axt" translatable="false">AXT</string>
+    <string name="licenses_link_axt" translatable="false">https://github.com/ligi/AXT</string>
+    <string name="licenses_copyright_axt" translatable="false">Copyright 2013 ligi</string>
+    <string name="licenses_notice_axt" translatable="false">
     Copyright 2013 ligi\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -44,10 +44,10 @@
 
 
     <!-- Butterknife -->
-    <string translatable="false" name="licenses_name_butterknife">Butterknife</string>
-    <string translatable="false" name="licenses_link_butterknife">https://github.com/JakeWharton/butterknife</string>
-    <string translatable="false" name="licenses_copyright_butterknife">Copyright 2013 Jake Wharton</string>
-    <string translatable="false" name="licenses_notice_butterknife">
+    <string name="licenses_name_butterknife" translatable="false">Butterknife</string>
+    <string name="licenses_link_butterknife" translatable="false">https://github.com/JakeWharton/butterknife</string>
+    <string name="licenses_copyright_butterknife" translatable="false">Copyright 2013 Jake Wharton</string>
+    <string name="licenses_notice_butterknife" translatable="false">
     Copyright 2013 Jake Wharton\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -65,10 +65,10 @@
 
 
     <!-- Dagger 2 -->
-    <string translatable="false" name="licenses_name_dagger2">Dagger 2</string>
-    <string translatable="false" name="licenses_link_dagger2">https://github.com/google/dagger</string>
-    <string translatable="false" name="licenses_copyright_dagger2">Copyright 2012 The Dagger Authors</string>
-    <string translatable="false" name="licenses_notice_dagger2">
+    <string name="licenses_name_dagger2" translatable="false">Dagger 2</string>
+    <string name="licenses_link_dagger2" translatable="false">https://github.com/google/dagger</string>
+    <string name="licenses_copyright_dagger2" translatable="false">Copyright 2012 The Dagger Authors</string>
+    <string name="licenses_notice_dagger2" translatable="false">
     Copyright 2012 The Dagger Authors\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -86,10 +86,10 @@
 
 
     <!-- Otto -->
-    <string translatable="false" name="licenses_name_otto">Otto</string>
-    <string translatable="false" name="licenses_link_otto">https://github.com/square/otto</string>
-    <string translatable="false" name="licenses_copyright_otto">Copyright 2012 Square, Inc.\nCopyright 2010 Google, Inc.</string>
-    <string translatable="false" name="licenses_notice_otto">
+    <string name="licenses_name_otto" translatable="false">Otto</string>
+    <string name="licenses_link_otto" translatable="false">https://github.com/square/otto</string>
+    <string name="licenses_copyright_otto" translatable="false">Copyright 2012 Square, Inc.\nCopyright 2010 Google, Inc.</string>
+    <string name="licenses_notice_otto" translatable="false">
     Copyright 2013 Square, Inc.\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -107,10 +107,10 @@
 
 
     <!-- OkHttp -->
-    <string translatable="false" name="licenses_name_okhttp">OkHttp</string>
-    <string translatable="false" name="licenses_link_okhttp">https://github.com/square/okhttp</string>
-    <string translatable="false" name="licenses_copyright_okhttp">Copyright 2014 Square, Inc.</string>
-    <string translatable="false" name="licenses_notice_okhttp">
+    <string name="licenses_name_okhttp" translatable="false">OkHttp</string>
+    <string name="licenses_link_okhttp" translatable="false">https://github.com/square/okhttp</string>
+    <string name="licenses_copyright_okhttp" translatable="false">Copyright 2014 Square, Inc.</string>
+    <string name="licenses_notice_okhttp" translatable="false">
     Copyright 2014 Square, Inc.\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -128,19 +128,19 @@
 
 
     <!-- osmdroid -->
-    <string translatable="false" name="licenses_name_osmdroid">osmdroid</string>
-    <string translatable="false" name="licenses_link_osmdroid">https://github.com/osmdroid/osmdroid</string>
-    <string translatable="false" name="licenses_copyright_osmdroid">Copyright osmdroid</string>
-    <string translatable="false" name="licenses_notice_osmdroid">
+    <string name="licenses_name_osmdroid" translatable="false">osmdroid</string>
+    <string name="licenses_link_osmdroid" translatable="false">https://github.com/osmdroid/osmdroid</string>
+    <string name="licenses_copyright_osmdroid" translatable="false">Copyright osmdroid</string>
+    <string name="licenses_notice_osmdroid" translatable="false">
         Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
     </string>
 
 
     <!-- OSMBonusPack -->
-    <string translatable="false" name="licenses_name_osmbonuspack">OSMBonusPack</string>
-    <string translatable="false" name="licenses_link_osmbonuspack">https://github.com/MKergall/osmbonuspack</string>
-    <string translatable="false" name="licenses_copyright_osmbonuspack">Copyright OSMBonusPack</string>
-    <string translatable="false" name="licenses_notice_osmbonuspack">
+    <string name="licenses_name_osmbonuspack" translatable="false">OSMBonusPack</string>
+    <string name="licenses_link_osmbonuspack" translatable="false">https://github.com/MKergall/osmbonuspack</string>
+    <string name="licenses_copyright_osmbonuspack" translatable="false">Copyright OSMBonusPack</string>
+    <string name="licenses_notice_osmbonuspack" translatable="false">
     The components inside this GitHub project are under LGPL licence, with an important simplification: The constraints described in Section 5.d and 5.e of the <a href="https://github.com/MKergall/osmbonuspack/blob/master/LICENSE.md">LGPL LICENCE</a> are DISCARDED.\n
     \n
     This means that you are allowed to convey a Combined Work without providing the user any way to recombine or relink the application, and without providing any shared library mechanism.\n
@@ -150,10 +150,10 @@
 
 
     <!-- Picasso -->
-    <string translatable="false" name="licenses_name_picasso">Picasso</string>
-    <string translatable="false" name="licenses_link_picasso">https://github.com/square/picasso</string>
-    <string translatable="false" name="licenses_copyright_picasso">Copyright 2013 Square, Inc.</string>
-    <string translatable="false" name="licenses_notice_picasso">
+    <string name="licenses_name_picasso" translatable="false">Picasso</string>
+    <string name="licenses_link_picasso" translatable="false">https://github.com/square/picasso</string>
+    <string name="licenses_copyright_picasso" translatable="false">Copyright 2013 Square, Inc.</string>
+    <string name="licenses_notice_picasso" translatable="false">
     Copyright 2013 Square, Inc.\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
@@ -171,10 +171,10 @@
 
 
     <!-- Typed Preferences -->
-    <string translatable="false" name="licenses_name_typed_preferences">Typed Preferences</string>
-    <string translatable="false" name="licenses_link_typed_preferences">https://github.com/johnjohndoe/TypedPreferences</string>
-    <string translatable="false" name="licenses_copyright_typed_preferences">Copyright 2014–2016 Tobias Preuss</string>
-    <string translatable="false" name="licenses_notice_typed_preferences" tools:ignore="TypographyOther">
+    <string name="licenses_name_typed_preferences" translatable="false">Typed Preferences</string>
+    <string name="licenses_link_typed_preferences" translatable="false">https://github.com/johnjohndoe/TypedPreferences</string>
+    <string name="licenses_copyright_typed_preferences" translatable="false">Copyright 2014–2016 Tobias Preuss</string>
+    <string name="licenses_notice_typed_preferences" translatable="false" tools:ignore="TypographyOther">
     Copyright 2014–2016 Tobias Preuss\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");

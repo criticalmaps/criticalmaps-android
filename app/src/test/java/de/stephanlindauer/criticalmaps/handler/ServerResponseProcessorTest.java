@@ -27,7 +27,7 @@ public class ServerResponseProcessorTest {
         final String json = AXT.at(new File(getClass().getClassLoader()
                 .getResource("simple_server_response.json").toURI())).readToString();
         final ChatModel chatModel = mock(ChatModel.class);
-        final ServerResponseProcessor tested =new ServerResponseProcessor(
+        final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
 
         tested.process(json);
@@ -56,6 +56,6 @@ public class ServerResponseProcessorTest {
 
         tested.process("borken");
 
-        verify(eventMock,never()).post(Events.NEW_SERVER_RESPONSE_EVENT);
+        verify(eventMock, never()).post(Events.NEW_SERVER_RESPONSE_EVENT);
     }
 }

@@ -6,10 +6,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import androidx.annotation.Nullable;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
 import de.stephanlindauer.criticalmaps.R;
 
@@ -78,7 +79,7 @@ public class StorageSpaceGraph extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         drawableArea.set(
-                getPaddingLeft(), getPaddingTop(),w - getPaddingRight(), h - getPaddingBottom());
+                getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
         setBars();
     }
 

@@ -1,8 +1,9 @@
 package de.stephanlindauer.criticalmaps.model;
 
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
-import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
-import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -11,15 +12,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import okhttp3.internal.Util;
-import timber.log.Timber;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
+import okhttp3.internal.Util;
+import timber.log.Timber;
 
 @Singleton
 public class ChatModel {

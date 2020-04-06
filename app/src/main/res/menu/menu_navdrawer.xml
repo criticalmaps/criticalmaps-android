@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:checkableBehavior="single" android:id="@+id/navigation_group">
+    <group
+        android:id="@+id/navigation_group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/navigation_map"
             android:checked="true"
@@ -37,9 +39,9 @@
     <group>
         <item
             android:id="@+id/navigation_observer_mode"
+            android:checkable="false"
             android:icon="@drawable/ic_nav_observer"
             android:title="@string/observer_mode"
-            android:checkable="false"
             app:actionLayout="@layout/navdrawer_observer_mode_switch" />
     </group>
 </menu>

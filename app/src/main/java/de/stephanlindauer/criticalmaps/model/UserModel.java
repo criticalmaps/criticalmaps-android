@@ -24,8 +24,7 @@ public class UserModel {
     @Inject
     public UserModel(App app) {
 
-        @SuppressLint("HardwareIds")
-        final String androidId = getString(app.getContentResolver(), Settings.Secure.ANDROID_ID);
+        @SuppressLint("HardwareIds") final String androidId = getString(app.getContentResolver(), Settings.Secure.ANDROID_ID);
 
         final GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.add(Calendar.HOUR, 6);

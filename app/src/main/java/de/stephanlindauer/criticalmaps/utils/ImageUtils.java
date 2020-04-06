@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.os.Environment;
+
 import androidx.annotation.Nullable;
 
 import java.io.File;
@@ -17,7 +18,8 @@ import timber.log.Timber;
 
 public class ImageUtils {
 
-    private ImageUtils() {}
+    private ImageUtils() {
+    }
 
     @Nullable
     public static File getNewCacheImageFile() {
