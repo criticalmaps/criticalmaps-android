@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main">
@@ -9,14 +10,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/about_license_name"
+            android:id="@+id/licensepanel_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/about_content_text" />
 
         <TextView
-            android:id="@+id/about_license_link"
+            android:id="@+id/licensepanel_link_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -35,14 +36,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/about_license_copyright"
+            android:id="@+id/licensepanel_copyright_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/about_content_text" />
 
         <TextView
-            android:id="@+id/about_license_expandcollapse"
+            android:id="@+id/licensepanel_expandcollapse_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -57,7 +58,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/about_license_notice"
+        android:id="@+id/licensepanel_notice_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

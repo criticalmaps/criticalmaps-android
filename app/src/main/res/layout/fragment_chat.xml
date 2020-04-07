@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -32,7 +33,7 @@
             android:textSize="14sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chat_recycler"
+            android:id="@+id/chat_messages_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -52,7 +53,7 @@
             android:padding="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout"
+                android:id="@+id/chat_message_textinputlayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -64,7 +65,7 @@
                 app:hintTextColor="@color/colorSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/chat_edit_message"
+                    android:id="@+id/chat_message_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -72,7 +73,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/chat_send_btn"
+                android:id="@+id/chat_send_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

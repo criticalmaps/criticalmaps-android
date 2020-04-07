@@ -30,7 +30,7 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
 
     @Override
     protected void onPreExecute() {
-        twitterFragment.swipeLayout.setRefreshing(true);
+        twitterFragment.setRefreshing(true);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class TwitterGetHandler extends AsyncTask<Void, Void, ResultType> {
             return;
         }
 
-        twitterFragment.swipeLayout.setRefreshing(false);
+        twitterFragment.setRefreshing(false);
 
         if (resultType == ResultType.FAILED) {
             twitterFragment.showErrorMessage();

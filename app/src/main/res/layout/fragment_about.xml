@@ -8,12 +8,12 @@
     android:paddingTop="@dimen/toolbar_height">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/about_scrollview"
+        android:id="@+id/about_container_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/about_subcontainer"
+            android:id="@+id/about_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
@@ -29,13 +29,13 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/about_facebook"
+                    android:id="@+id/about_facebook_button"
                     style="@style/about_button"
                     android:contentDescription="@string/facebook"
                     app:srcCompat="@drawable/ic_about_facebook" />
 
                 <ImageButton
-                    android:id="@+id/about_twitter"
+                    android:id="@+id/about_twitter_button"
                     style="@style/about_button"
                     android:contentDescription="@string/twitter"
                     app:srcCompat="@drawable/ic_about_twitter" />
@@ -56,7 +56,7 @@
                 android:text="@string/about_heading_code" />
 
             <ImageButton
-                android:id="@+id/about_github"
+                android:id="@+id/about_github_button"
                 style="@style/about_button"
                 app:srcCompat="@drawable/ic_about_github" />
 

@@ -8,7 +8,7 @@
     android:background="?attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/tweet_user_image"
+        android:id="@+id/tweet_user_avatar_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
         tools:src="@drawable/ic_about_twitter" />
 
     <TextView
-        android:id="@+id/tweet_user_name"
+        android:id="@+id/tweet_user_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -31,13 +31,13 @@
         android:maxLines="1"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tweet_user_handle"
-        app:layout_constraintStart_toEndOf="@+id/tweet_user_image"
-        app:layout_constraintTop_toTopOf="@+id/tweet_user_image"
+        app:layout_constraintEnd_toStartOf="@+id/tweet_user_handle_text"
+        app:layout_constraintStart_toEndOf="@+id/tweet_user_avatar_image"
+        app:layout_constraintTop_toTopOf="@+id/tweet_user_avatar_image"
         tools:text="Critical Maps" />
 
     <TextView
-        android:id="@+id/tweet_user_handle"
+        android:id="@+id/tweet_user_handle_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,13 +46,13 @@
         android:layout_marginRight="8dp"
         android:maxLines="1"
         android:textColor="@color/twitter_nickname"
-        app:layout_constraintEnd_toStartOf="@+id/tweet_creation_date_time"
-        app:layout_constraintStart_toEndOf="@+id/tweet_user_name"
-        app:layout_constraintTop_toTopOf="@+id/tweet_user_name"
+        app:layout_constraintEnd_toStartOf="@+id/tweet_creation_date_time_text"
+        app:layout_constraintStart_toEndOf="@+id/tweet_user_name_text"
+        app:layout_constraintTop_toTopOf="@+id/tweet_user_name_text"
         tools:text="\@CriticalMapsDoubleLengthName" />
 
     <TextView
-        android:id="@+id/tweet_creation_date_time"
+        android:id="@+id/tweet_creation_date_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -60,15 +60,15 @@
         android:textColor="@color/twitter_nickname"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tweet_user_handle"
+        app:layout_constraintBottom_toBottomOf="@+id/tweet_user_handle_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tweet_user_handle"
-        app:layout_constraintTop_toTopOf="@+id/tweet_user_handle"
+        app:layout_constraintStart_toEndOf="@+id/tweet_user_handle_text"
+        app:layout_constraintTop_toTopOf="@+id/tweet_user_handle_text"
         tools:text="02. Nov" />
 
     <TextView
-        android:id="@+id/tweet_text"
+        android:id="@+id/tweet_content_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,10 +81,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/tweet_user_image"
+        app:layout_constraintLeft_toRightOf="@+id/tweet_user_avatar_image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tweet_user_image"
-        app:layout_constraintTop_toBottomOf="@+id/tweet_user_name"
+        app:layout_constraintStart_toEndOf="@+id/tweet_user_avatar_image"
+        app:layout_constraintTop_toBottomOf="@+id/tweet_user_name_text"
         tools:text="@string/lorem_ipsum" />
 
     <View
@@ -93,6 +93,6 @@
         android:background="@color/twitter_divider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tweet_text" />
+        app:layout_constraintStart_toStartOf="@+id/tweet_content_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

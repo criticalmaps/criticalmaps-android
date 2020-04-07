@@ -2,18 +2,19 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingTop="@dimen/toolbar_height">
+    android:paddingTop="@dimen/toolbar_height"
+    tools:viewBindingIgnore="true">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/rules_scrollview"
+        android:id="@+id/rules_container_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/rules_subcontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -45,7 +46,6 @@
                         app:srcCompat="@drawable/rules_corken" />
 
                     <TextView
-                        android:id="@+id/rules_corken_text"
                         style="@style/rules_explainer"
                         android:text="@string/rules_corken_explain" />
                 </LinearLayout>
