@@ -12,7 +12,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.2'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.6.5'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.7.1'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:1.1.1'
     }
 }
 
