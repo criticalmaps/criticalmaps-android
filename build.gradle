@@ -1,7 +1,6 @@
 buildscript {
     ext {
         dagger_version = "2.25.4"
-        butterknife_version = "10.2.1"
     }
 
     repositories {

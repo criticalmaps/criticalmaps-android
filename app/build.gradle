@@ -33,14 +33,6 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                        'butterknife.minSdk': getMinSdkVersion().getApiString()
-                ]
-            }
-        }
     }
 
     buildTypes {
