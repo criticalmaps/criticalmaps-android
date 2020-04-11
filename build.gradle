@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        dagger_version = "2.25.4"
+        dagger_version = "2.27"
     }
 
     repositories {
@@ -11,7 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.2'
-        classpath 'de.mobilej.unmock:UnMockPlugin:0.6.5'
+        classpath 'de.mobilej.unmock:UnMockPlugin:0.7.6'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:1.1.1'
     }
 }
