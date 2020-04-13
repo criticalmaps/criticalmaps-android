@@ -256,7 +256,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 handleCloseRequested();
                 break;
             case R.id.take_picture:
-                new StartCameraHandler(this, permissionCheckHandler).execute();
+                new StartCameraHandler(this).execute();
                 break;
             case R.id.settings_feedback:
                 startFeedbackIntent();
