@@ -17,7 +17,7 @@
     </string>
 
     <!-- non-translatable content descriptions -->
-    <string name="facebook">Facebook</string>
-    <string name="twitter">Twitter</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="twitter" translatable="false">Twitter</string>
 </resources>
 
