@@ -47,7 +47,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.ServerSyncService" />
+        <service
+            android:name=".service.ServerSyncService"
+            android:description="@string/app_name"
+            android:foregroundServiceType="location" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
