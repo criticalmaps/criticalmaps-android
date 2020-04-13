@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:paddingTop="@dimen/toolbar_height"
-    tools:theme="@style/AppTheme">
+    tools:theme="@style/AppTheme"
+    tools:keep="@layout/fragment_settings">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/settings_scrollview"
