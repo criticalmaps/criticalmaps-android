@@ -26,8 +26,18 @@ public class StartCameraHandler {
         this.activity = mainActivity;
     }
 
+    @SuppressLint("UnsupportedChromeOsCameraSystemFeature")
     public void execute() {
-        if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+        boolean deviceHasCamera;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
+            deviceHasCamera =
+                    activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        } else {
+            deviceHasCamera =
+                    activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        }
+
+        if (!deviceHasCamera) {
             AlertBuilder.show(activity, R.string.something_went_wrong, R.string.camera_no_camera);
             return;
         }
