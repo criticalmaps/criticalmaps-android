@@ -8,8 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature
@@ -47,7 +48,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.ServerSyncService" />
+        <service
+            android:name=".service.ServerSyncService"
+            android:description="@string/app_name"
+            android:foregroundServiceType="location" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

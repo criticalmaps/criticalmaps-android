@@ -3,6 +3,8 @@ package de.stephanlindauer.criticalmaps.utils;
 import android.os.Environment;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.EnvironmentCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,11 +41,17 @@ public class ImageUtils {
         return new File(baseDir, filename);
     }
 
-    public static File movePhotoToPublicDir(File source) {
-        File basePath = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CriticalMaps");
+    public static File movePhotoToFilesDir(File source) {
+        File storagePath = ContextCompat.getExternalFilesDirs(App.components().app(),
+                Environment.DIRECTORY_PICTURES)[0];
 
-        File destination = prepareImageFileFromBaseDir(basePath);
+        if (storagePath == null || !Environment.MEDIA_MOUNTED.equals(
+                EnvironmentCompat.getStorageState(storagePath))) {
+            Timber.d("getExternalFilesDir not available");
+            storagePath = App.components().app().getFilesDir();
+        }
+
+        File destination = prepareImageFileFromBaseDir(storagePath);
 
         try (FileChannel sourceChannel = new FileInputStream(source).getChannel();
              FileChannel destChannel = new FileOutputStream(destination).getChannel()) {

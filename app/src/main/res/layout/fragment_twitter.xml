@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingTop="@dimen/toolbar_height">
+    android:paddingTop="@dimen/toolbar_height"
+    tools:keep="@layout/fragment_twitter">
 
     <RelativeLayout
         android:layout_width="match_parent"

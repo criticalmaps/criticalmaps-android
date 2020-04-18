@@ -256,7 +256,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 handleCloseRequested();
                 break;
             case R.id.take_picture:
-                new StartCameraHandler(this, permissionCheckHandler).execute();
+                new StartCameraHandler(this).execute();
                 break;
             case R.id.settings_feedback:
                 startFeedbackIntent();
@@ -317,7 +317,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         if (requestCode == RequestCodes.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
             File movedFile =
-                    ImageUtils.movePhotoToPublicDir(new File(newCameraOutputFile.getPath()));
+                    ImageUtils.movePhotoToFilesDir(new File(newCameraOutputFile.getPath()));
             newCameraOutputFile = null;
             new ProcessCameraResultHandler(this, movedFile).execute();
         }

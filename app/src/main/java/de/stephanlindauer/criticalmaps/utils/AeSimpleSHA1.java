@@ -12,6 +12,7 @@ public class AeSimpleSHA1 {
     public static String SHA1(String text) {
         try {
             final MessageDigest md = MessageDigest.getInstance("SHA-1");
+            //noinspection CharsetObjectCanBeUsed - NOTE fix not applicable on API16
             md.update(text.getBytes("iso-8859-1"), 0, text.length());
             final byte[] sha1hash = md.digest();
             return convertToHex(sha1hash);
