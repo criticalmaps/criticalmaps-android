@@ -56,6 +56,7 @@ import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 import info.metadude.android.typedpreferences.BooleanPreference;
+import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -320,6 +321,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                     ImageUtils.movePhotoToFilesDir(new File(newCameraOutputFile.getPath()));
             newCameraOutputFile = null;
             new ProcessCameraResultHandler(this, movedFile).execute();
+        }
+
+        if(requestCode == RequestCodes.CHOOSE_TRACK_RESULT_CODE){
+            Uri trackUri = data.getData();
+            String trackPath = trackUri.getPath();
+            new StringPreference(
+                    sharedPreferences, SharedPrefsKeys.TRACK_PATH).set(trackPath);
         }
     }
 

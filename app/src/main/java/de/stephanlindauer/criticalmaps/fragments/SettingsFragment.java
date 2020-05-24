@@ -1,7 +1,9 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -20,9 +22,12 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.FragmentSettingsBinding;
+import de.stephanlindauer.criticalmaps.handler.ChooseTrackHandler;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
+import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 import info.metadude.android.typedpreferences.BooleanPreference;
+import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
 
 public class SettingsFragment extends Fragment {
@@ -59,6 +64,7 @@ public class SettingsFragment extends Fragment {
         updateClearCachePref();
         updateStorageGraph();
         updateChooseStoragePref();
+        updateTrackPath();
 
         binding.settingsShowOnLockscreenCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
@@ -71,6 +77,8 @@ public class SettingsFragment extends Fragment {
 
         binding.settingsHighResTilesCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).get());
+        binding.settingsShowTrackCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_TRACK).get());
 
         binding.settingsClearCacheButton.setOnClickListener(v -> handleClearCacheClicked());
         binding.settingsChooseStorageContainer.setOnClickListener(v -> handleChooseStorageClicked());
@@ -83,7 +91,26 @@ public class SettingsFragment extends Fragment {
                 (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
         binding.settingsHighResTilesCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleUseHighResTilesChecked(isChecked));
+        binding.settingsShowTrackCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleShowTrack(isChecked));
+        binding.settingsChooseTrackContainer.setOnClickListener(v -> handleChooseTrackClicked());
+
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RequestCodes.CHOOSE_TRACK_RESULT_CODE) {
+            Uri trackUri = data.getData();
+            String trackPath = trackUri.getPath();
+            new StringPreference(
+                    sharedPreferences, SharedPrefsKeys.TRACK_PATH).set(trackPath);
+            updateTrackPath();
+        }
+    }
+
+
 
     private void updateStorageGraph() {
         StorageLocationProvider.StorageLocation currentStorageLocation =
@@ -120,6 +147,12 @@ public class SettingsFragment extends Fragment {
     private void updateChooseStoragePref() {
         binding.settingsChooseStorageSummaryText.setText(
                 storageLocationProvider.getActiveStorageLocation().displayName);
+    }
+
+    public void updateTrackPath() {
+        String trackPath = new StringPreference(
+                sharedPreferences, SharedPrefsKeys.TRACK_PATH).get();
+        binding.settingsChooseTrackSummaryText.setText(trackPath);
     }
 
     void handleClearCacheClicked() {
@@ -203,6 +236,15 @@ public class SettingsFragment extends Fragment {
     void handleUseHighResTilesChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).set(isChecked);
+    }
+
+    void handleShowTrack(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.SHOW_TRACK).set(isChecked);
+    }
+
+    void handleChooseTrackClicked() {
+        new ChooseTrackHandler(this).execute();
     }
 
     @Override
