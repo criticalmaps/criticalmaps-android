@@ -155,6 +155,7 @@
 
     <!-- tracks -->
     <string name="track_choose">Choose Track</string>
+    <string name="gpx_reading_error">Error while reading GPX-file</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Something went wrong.</string>

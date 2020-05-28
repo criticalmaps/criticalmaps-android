@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,32 +30,31 @@ public class GpxReader {
     private static final String ATTRIBUTE_LAT = "lat";
     private static final String ATTRIBUTE_LON = "lon";
     private static final String ELEMENT_ELE = "ele";
-    public static final String ELEMENT_WPT = "wpt";
+    private static final String ELEMENT_WPT = "wpt";
 
-    private GpxReader() {
+    private final GpxModel gpxModel;
+
+    @Inject
+    public GpxReader(GpxModel gpxModel) {
+        this.gpxModel = gpxModel;
     }
 
-    public static void readTrackFromGpx(InputStream gpxInputStream, GpxModel gpxModel, String uri) {
+    public void readTrackFromGpx(InputStream gpxInputStream, String uri) throws IOException, SAXException, ParserConfigurationException {
         gpxModel.clear();
-        try {
-            readGpxFile(gpxInputStream, gpxModel);
-        } catch (ParserConfigurationException | IOException | SAXException e) {
-            e.printStackTrace();
-            // TODO
-        }
+        readGpxFile(gpxInputStream, gpxModel);
         gpxModel.setUri(uri);
     }
 
-    private static void readGpxFile(InputStream gpxInputStream, GpxModel gpxModel) throws ParserConfigurationException, IOException, SAXException {
+    private void readGpxFile(InputStream gpxInputStream, GpxModel gpxModel) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document gpxDocument = documentBuilder.parse(gpxInputStream);
         Element gpxElement = gpxDocument.getDocumentElement();
-        readTracks(gpxModel, gpxElement);
-        readWaypoints(gpxModel, gpxElement);
+        readTracks(gpxElement);
+        readWaypoints(gpxElement);
     }
 
-    private static void readWaypoints(GpxModel gpxModel, Element gpxElement) {
+    private void readWaypoints(Element gpxElement) {
         NodeList wptList = gpxElement.getElementsByTagName(ELEMENT_WPT);
         for (int i = 0; i < wptList.getLength(); i++) {
             Element wpt = (Element) wptList.item(i);
@@ -64,7 +64,7 @@ public class GpxReader {
         }
     }
 
-    private static void readTracks(GpxModel gpxModel, Element gpxElement) {
+    private void readTracks(Element gpxElement) {
         NodeList trkList = gpxElement.getElementsByTagName(ELEMENT_TRK);
         for (int i = 0; i < trkList.getLength(); i++) {
             Element track = (Element) trkList.item(i);
@@ -74,7 +74,7 @@ public class GpxReader {
         }
     }
 
-    private static String parseName(Element track) {
+    private String parseName(Element track) {
         NodeList nameList = track.getElementsByTagName(ELEMENT_NAME);
         if (nameList.getLength() > 0) {
             return nameList.item(0).getTextContent();
@@ -83,7 +83,7 @@ public class GpxReader {
     }
 
     @NotNull
-    private static List<GeoPoint> getTrackPoints(Element track) {
+    private List<GeoPoint> getTrackPoints(Element track) {
         List<GeoPoint> trackPoints = new ArrayList<>();
         NodeList trksegList = track.getElementsByTagName(ELEMENT_TRKSEG);
         for (int j = 0; j < trksegList.getLength(); j++) {
@@ -98,7 +98,7 @@ public class GpxReader {
     }
 
     @NotNull
-    private static GeoPoint parsePoint(Element point) {
+    private GeoPoint parsePoint(Element point) {
         GeoPoint newPoint;
         double lat = Double.parseDouble(point.getAttributes().getNamedItem(ATTRIBUTE_LAT).getNodeValue());
         double lon = Double.parseDouble(point.getAttributes().getNamedItem(ATTRIBUTE_LON).getNodeValue());

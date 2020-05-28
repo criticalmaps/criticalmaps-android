@@ -8,13 +8,16 @@ import android.widget.Toast;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.xml.sax.SAXException;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Inject;
+import javax.xml.parsers.ParserConfigurationException;
 
 import de.stephanlindauer.criticalmaps.App;
+import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxModel;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxPoi;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxTrack;
@@ -28,13 +31,15 @@ public class ShowGpxHandler {
     private final SharedPreferences sharedPreferences;
     private final GpxModel gpxModel;
     private final App app;
+    private final GpxReader gpxReader;
 
 
     @Inject
-    public ShowGpxHandler(SharedPreferences sharedPreferences, GpxModel gpxModel, App app) {
+    public ShowGpxHandler(SharedPreferences sharedPreferences, GpxModel gpxModel, App app, GpxReader gpxReader) {
         this.sharedPreferences = sharedPreferences;
         this.gpxModel = gpxModel;
         this.app = app;
+        this.gpxReader = gpxReader;
     }
 
     public void showGpx(MapView mapView) {
@@ -75,10 +80,9 @@ public class ShowGpxHandler {
     private void readFile(String trackPath) {
         try {
             InputStream gpxInputStream = app.getContentResolver().openInputStream(Uri.parse(trackPath));
-            GpxReader.readTrackFromGpx(gpxInputStream, gpxModel, trackPath);
-        } catch (FileNotFoundException | SecurityException e) {
-            Toast.makeText(app, e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+            gpxReader.readTrackFromGpx(gpxInputStream, trackPath);
+        } catch (SecurityException | IOException | SAXException | ParserConfigurationException e) {
+            Toast.makeText(app, R.string.gpx_reading_error, Toast.LENGTH_SHORT).show();
         }
     }
 }
