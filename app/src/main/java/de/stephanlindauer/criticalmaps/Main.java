@@ -322,13 +322,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             newCameraOutputFile = null;
             new ProcessCameraResultHandler(this, movedFile).execute();
         }
-
-        if(requestCode == RequestCodes.CHOOSE_TRACK_RESULT_CODE){
-            Uri trackUri = data.getData();
-            String trackPath = trackUri.getPath();
-            new StringPreference(
-                    sharedPreferences, SharedPrefsKeys.TRACK_PATH).set(trackPath);
-        }
     }
 
     public void setNewCameraOutputFile(Uri newCameraOutputFile) {

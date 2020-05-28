@@ -539,7 +539,7 @@
                     android:paddingRight="?android:attr/scrollbarSize">
 
                 <ImageView
-                        android:id="@+id/settings_show_track_icon"
+                        android:id="@+id/settings_show_gpx_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center" />
@@ -556,24 +556,24 @@
                         android:layout_weight="1">
 
                     <TextView
-                            android:id="@+id/settings_show_track_title"
+                            android:id="@+id/settings_show_gpx_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="marquee"
                             android:fadingEdge="horizontal"
                             android:singleLine="true"
-                            android:text="@string/settings_show_track_subheading"
+                            android:text="@string/settings_show_gpx_subheading"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
-                            android:id="@+id/settings_show_track_summary"
+                            android:id="@+id/settings_show_gpx_summary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/settings_show_track_title"
-                            android:layout_alignStart="@id/settings_show_track_title"
-                            android:layout_alignLeft="@id/settings_show_track_title"
+                            android:layout_below="@id/settings_show_gpx_title"
+                            android:layout_alignStart="@id/settings_show_gpx_title"
+                            android:layout_alignLeft="@id/settings_show_gpx_title"
                             android:maxLines="4"
-                            android:text="@string/settings_show_track_summary"
+                            android:text="@string/settings_show_gpx_summary"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                             android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
@@ -586,7 +586,7 @@
                         android:orientation="vertical">
 
                     <com.google.android.material.checkbox.MaterialCheckBox
-                            android:id="@+id/settings_show_track_checkbox"
+                            android:id="@+id/settings_show_gpx_checkbox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:checked="true" />
@@ -594,7 +594,7 @@
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/settings_choose_track_container"
+                    android:id="@+id/settings_choose_gpx_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
@@ -604,7 +604,7 @@
                     android:paddingRight="?android:attr/scrollbarSize">
 
                 <ImageView
-                        android:id="@+id/icon_choose_track"
+                        android:id="@+id/icon_choose_gpx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center" />
@@ -621,30 +621,30 @@
                         android:layout_weight="1">
 
                     <TextView
-                            android:id="@+id/title_choose_track"
+                            android:id="@+id/title_choose_gpx"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="marquee"
                             android:fadingEdge="horizontal"
                             android:singleLine="true"
-                            android:text="@string/settings_choose_track_subheading"
+                            android:text="@string/settings_choose_gpx_subheading"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
-                            android:id="@+id/settings_choose_track_summary_text"
+                            android:id="@+id/settings_choose_gpx_summary_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/title_choose_track"
-                            android:layout_alignStart="@id/title_choose_track"
-                            android:layout_alignLeft="@id/title_choose_track"
+                            android:layout_below="@id/title_choose_gpx"
+                            android:layout_alignStart="@id/title_choose_gpx"
+                            android:layout_alignLeft="@id/title_choose_gpx"
                             android:maxLines="4"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                             android:textColor="?android:attr/textColorSecondary"
-                            tools:text="@string/settings_track_name_default" />
+                            tools:text="@string/settings_gpx_file_default" />
                 </RelativeLayout>
 
                 <LinearLayout
-                        android:id="@+id/widget_choose_track"
+                        android:id="@+id/widget_choose_gpx"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"

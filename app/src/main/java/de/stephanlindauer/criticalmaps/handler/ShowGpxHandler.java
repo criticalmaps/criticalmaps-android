@@ -43,16 +43,29 @@ public class ShowGpxHandler {
     }
 
     public void showGpx(MapView mapView) {
-        boolean showTrack = new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_TRACK).get();
+        boolean showTrack = new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_GPX).get();
         if (!showTrack) {
             return;
         }
 
-        String trackPath = new StringPreference(sharedPreferences, SharedPrefsKeys.TRACK_PATH).get();
-        if (gpxModel.getUri() == null || !gpxModel.getUri().equals(trackPath)) {
-            readFile(trackPath);
+        String gpxUri = new StringPreference(sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
+        if (gpxModel.getUri() == null || !gpxModel.getUri().equals(gpxUri)) {
+            readFile(gpxUri);
         }
 
+        showModelOnMap(mapView);
+    }
+
+    private void readFile(String trackPath) {
+        try {
+            InputStream gpxInputStream = app.getContentResolver().openInputStream(Uri.parse(trackPath));
+            gpxReader.readDataFromStream(gpxInputStream, trackPath);
+        } catch (SecurityException | IOException | SAXException | ParserConfigurationException e) {
+            Toast.makeText(app, R.string.gpx_reading_error, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showModelOnMap(MapView mapView) {
         for (GpxTrack track : gpxModel.getTracks()) {
             addTrackToMap(mapView, track);
         }
@@ -75,14 +88,5 @@ public class ShowGpxHandler {
         marker.setPosition(poi.getPosition());
         marker.setTitle(poi.getName());
         mapView.getOverlayManager().add(marker);
-    }
-
-    private void readFile(String trackPath) {
-        try {
-            InputStream gpxInputStream = app.getContentResolver().openInputStream(Uri.parse(trackPath));
-            gpxReader.readTrackFromGpx(gpxInputStream, trackPath);
-        } catch (SecurityException | IOException | SAXException | ParserConfigurationException e) {
-            Toast.makeText(app, R.string.gpx_reading_error, Toast.LENGTH_SHORT).show();
-        }
     }
 }

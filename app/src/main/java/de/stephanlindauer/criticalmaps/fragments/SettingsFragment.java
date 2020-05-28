@@ -44,7 +44,6 @@ public class SettingsFragment extends Fragment {
     @Inject
     App app;
 
-
     @Override
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -70,7 +69,7 @@ public class SettingsFragment extends Fragment {
         updateClearCachePref();
         updateStorageGraph();
         updateChooseStoragePref();
-        updateTrackPath();
+        updateGpxFileName();
 
         binding.settingsShowOnLockscreenCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
@@ -83,8 +82,8 @@ public class SettingsFragment extends Fragment {
 
         binding.settingsHighResTilesCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).get());
-        binding.settingsShowTrackCheckbox.setChecked(
-                new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_TRACK).get());
+        binding.settingsShowGpxCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_GPX).get());
 
         binding.settingsClearCacheButton.setOnClickListener(v -> handleClearCacheClicked());
         binding.settingsChooseStorageContainer.setOnClickListener(v -> handleChooseStorageClicked());
@@ -97,9 +96,9 @@ public class SettingsFragment extends Fragment {
                 (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
         binding.settingsHighResTilesCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleUseHighResTilesChecked(isChecked));
-        binding.settingsShowTrackCheckbox.setOnCheckedChangeListener(
+        binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleShowTrack(isChecked));
-        binding.settingsChooseTrackContainer.setOnClickListener(v -> handleChooseTrackClicked());
+        binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
 
     }
 
@@ -107,13 +106,13 @@ public class SettingsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RequestCodes.CHOOSE_TRACK_RESULT_CODE) {
-            Uri trackUri = data.getData();
-            String trackPath = trackUri.toString();
+        if (requestCode == RequestCodes.CHOOSE_GPX_RESULT_CODE) {
+            Uri fileUri = data.getData();
+            String gpxFile = fileUri.toString();
             new StringPreference(
-                    sharedPreferences, SharedPrefsKeys.TRACK_PATH).set(trackPath);
+                    sharedPreferences, SharedPrefsKeys.GPX_FILE).set(gpxFile);
             persistPermissionOnFile(data, app.getContentResolver());
-            updateTrackPath();
+            updateGpxFileName();
         }
     }
 
@@ -155,10 +154,10 @@ public class SettingsFragment extends Fragment {
                 storageLocationProvider.getActiveStorageLocation().displayName);
     }
 
-    public void updateTrackPath() {
-        String trackPath = new StringPreference(
-                sharedPreferences, SharedPrefsKeys.TRACK_PATH).get();
-        binding.settingsChooseTrackSummaryText.setText(trackPath);
+    public void updateGpxFileName() {
+        String gpxFile = new StringPreference(
+                sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
+        binding.settingsChooseGpxSummaryText.setText(gpxFile);
     }
 
     void handleClearCacheClicked() {
@@ -246,7 +245,7 @@ public class SettingsFragment extends Fragment {
 
     void handleShowTrack(boolean isChecked) {
         new BooleanPreference(
-                sharedPreferences, SharedPrefsKeys.SHOW_TRACK).set(isChecked);
+                sharedPreferences, SharedPrefsKeys.SHOW_GPX).set(isChecked);
     }
 
     void handleChooseTrackClicked() {

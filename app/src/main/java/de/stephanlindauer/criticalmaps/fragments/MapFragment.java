@@ -253,7 +253,6 @@ public class MapFragment extends Fragment {
         showGpxHandler.showGpx(mapView);
     }
 
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void adjustToWindowsInsets() {
         // No-op on < API21

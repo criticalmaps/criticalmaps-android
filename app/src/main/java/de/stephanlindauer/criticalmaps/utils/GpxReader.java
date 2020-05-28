@@ -39,7 +39,7 @@ public class GpxReader {
         this.gpxModel = gpxModel;
     }
 
-    public void readTrackFromGpx(InputStream gpxInputStream, String uri) throws IOException, SAXException, ParserConfigurationException {
+    public void readDataFromStream(InputStream gpxInputStream, String uri) throws IOException, SAXException, ParserConfigurationException {
         gpxModel.clear();
         readGpxFile(gpxInputStream, gpxModel);
         gpxModel.setUri(uri);
@@ -74,14 +74,6 @@ public class GpxReader {
         }
     }
 
-    private String parseName(Element track) {
-        NodeList nameList = track.getElementsByTagName(ELEMENT_NAME);
-        if (nameList.getLength() > 0) {
-            return nameList.item(0).getTextContent();
-        }
-        return null;
-    }
-
     @NotNull
     private List<GeoPoint> getTrackPoints(Element track) {
         List<GeoPoint> trackPoints = new ArrayList<>();
@@ -95,6 +87,14 @@ public class GpxReader {
             }
         }
         return trackPoints;
+    }
+
+    private String parseName(Element track) {
+        NodeList nameList = track.getElementsByTagName(ELEMENT_NAME);
+        if (nameList.getLength() > 0) {
+            return nameList.item(0).getTextContent();
+        }
+        return null;
     }
 
     @NotNull
