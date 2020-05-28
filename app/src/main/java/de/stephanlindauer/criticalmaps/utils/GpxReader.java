@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import de.stephanlindauer.criticalmaps.model.gpx.GpxModel;
+import de.stephanlindauer.criticalmaps.model.gpx.GpxPoi;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxTrack;
 
 public class GpxReader {
@@ -28,6 +29,7 @@ public class GpxReader {
     private static final String ATTRIBUTE_LAT = "lat";
     private static final String ATTRIBUTE_LON = "lon";
     private static final String ELEMENT_ELE = "ele";
+    public static final String ELEMENT_WPT = "wpt";
 
     private GpxReader() {
     }
@@ -47,14 +49,19 @@ public class GpxReader {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document gpxDocument = documentBuilder.parse(gpxInputStream);
-
         Element gpxElement = gpxDocument.getDocumentElement();
         readTracks(gpxModel, gpxElement);
         readWaypoints(gpxModel, gpxElement);
     }
 
     private static void readWaypoints(GpxModel gpxModel, Element gpxElement) {
-
+        NodeList wptList = gpxElement.getElementsByTagName(ELEMENT_WPT);
+        for (int i = 0; i < wptList.getLength(); i++) {
+            Element wpt = (Element) wptList.item(i);
+            GeoPoint location = parsePoint(wpt);
+            String pointName = parseName(wpt);
+            gpxModel.getPoiList().add(new GpxPoi(pointName, location));
+        }
     }
 
     private static void readTracks(GpxModel gpxModel, Element gpxElement) {
@@ -62,13 +69,17 @@ public class GpxReader {
         for (int i = 0; i < trkList.getLength(); i++) {
             Element track = (Element) trkList.item(i);
             List<GeoPoint> trackPoints = getTrackPoints(track);
-            NodeList nameList = track.getElementsByTagName(ELEMENT_NAME);
-            String trackName = null;
-            if (nameList.getLength() > 0) {
-                trackName = nameList.item(0).getTextContent();
-            }
+            String trackName = parseName(track);
             gpxModel.getTracks().add(new GpxTrack(trackName, trackPoints));
         }
+    }
+
+    private static String parseName(Element track) {
+        NodeList nameList = track.getElementsByTagName(ELEMENT_NAME);
+        if (nameList.getLength() > 0) {
+            return nameList.item(0).getTextContent();
+        }
+        return null;
     }
 
     @NotNull
@@ -80,19 +91,19 @@ public class GpxReader {
             NodeList trkptList = trkseg.getElementsByTagName(ELEMENT_TRKPT);
             for (int k = 0; k < trkptList.getLength(); k++) {
                 Element trkpt = (Element) trkptList.item(k);
-                trackPoints.add(parseTrackpoint(trkpt));
+                trackPoints.add(parsePoint(trkpt));
             }
         }
         return trackPoints;
     }
 
     @NotNull
-    private static GeoPoint parseTrackpoint(Element trkpt) {
+    private static GeoPoint parsePoint(Element point) {
         GeoPoint newPoint;
-        double lat = Double.parseDouble(trkpt.getAttributes().getNamedItem(ATTRIBUTE_LAT).getNodeValue());
-        double lon = Double.parseDouble(trkpt.getAttributes().getNamedItem(ATTRIBUTE_LON).getNodeValue());
+        double lat = Double.parseDouble(point.getAttributes().getNamedItem(ATTRIBUTE_LAT).getNodeValue());
+        double lon = Double.parseDouble(point.getAttributes().getNamedItem(ATTRIBUTE_LON).getNodeValue());
 
-        NodeList eleList = trkpt.getElementsByTagName(ELEMENT_ELE);
+        NodeList eleList = point.getElementsByTagName(ELEMENT_ELE);
         if (eleList.getLength() > 0) {
             double ele = Double.parseDouble(eleList.item(0).getTextContent());
             newPoint = new GeoPoint(lat, lon, ele);

@@ -6,36 +6,35 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxModel;
+import de.stephanlindauer.criticalmaps.model.gpx.GpxPoi;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxTrack;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.utils.GpxReader;
 import info.metadude.android.typedpreferences.BooleanPreference;
 import info.metadude.android.typedpreferences.StringPreference;
 
-public class ShowTrackHandler {
+public class ShowGpxHandler {
 
-    SharedPreferences sharedPreferences;
-    GpxModel gpxModel;
-    App app;
-    PermissionCheckHandler permissionCheckHandler;
+    private final SharedPreferences sharedPreferences;
+    private final GpxModel gpxModel;
+    private final App app;
 
 
     @Inject
-    public ShowTrackHandler(SharedPreferences sharedPreferences, GpxModel gpxModel, App app, PermissionCheckHandler permissionCheckHandler) {
+    public ShowGpxHandler(SharedPreferences sharedPreferences, GpxModel gpxModel, App app) {
         this.sharedPreferences = sharedPreferences;
         this.gpxModel = gpxModel;
         this.app = app;
-        this.permissionCheckHandler = permissionCheckHandler;
     }
 
     public void showGpx(MapView mapView) {
@@ -45,12 +44,16 @@ public class ShowTrackHandler {
         }
 
         String trackPath = new StringPreference(sharedPreferences, SharedPrefsKeys.TRACK_PATH).get();
-        if (!Objects.equals(gpxModel.getUri(), trackPath)) {
+        if (gpxModel.getUri() == null || !gpxModel.getUri().equals(trackPath)) {
             readFile(trackPath);
         }
 
         for (GpxTrack track : gpxModel.getTracks()) {
             addTrackToMap(mapView, track);
+        }
+
+        for (GpxPoi poi : gpxModel.getPoiList()) {
+            addPoiToMap(mapView, poi);
         }
     }
 
@@ -60,6 +63,13 @@ public class ShowTrackHandler {
         trackLine.setTitle(track.getName());
         trackLine.getOutlinePaint().setColor(Color.RED);
         mapView.getOverlayManager().add(trackLine);
+    }
+
+    private void addPoiToMap(MapView mapView, GpxPoi poi) {
+        Marker marker = new Marker(mapView);
+        marker.setPosition(poi.getPosition());
+        marker.setTitle(poi.getName());
+        mapView.getOverlayManager().add(marker);
     }
 
     private void readFile(String trackPath) {

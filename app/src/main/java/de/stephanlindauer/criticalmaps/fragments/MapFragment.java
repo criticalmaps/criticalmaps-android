@@ -43,7 +43,7 @@ import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
-import de.stephanlindauer.criticalmaps.handler.ShowTrackHandler;
+import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -80,7 +80,7 @@ public class MapFragment extends Fragment {
     LocationUpdateManager locationUpdateManager;
 
     @Inject
-    ShowTrackHandler showTrackHandler;
+    ShowGpxHandler showGpxHandler;
 
     @Inject
     SharedPreferences sharedPreferences;
@@ -250,7 +250,7 @@ public class MapFragment extends Fragment {
         }
         binding.mapSetNorthFab.setRotation(mapView.getMapOrientation());
 
-        showTrackHandler.showGpx(mapView);
+        showGpxHandler.showGpx(mapView);
     }
 
 
