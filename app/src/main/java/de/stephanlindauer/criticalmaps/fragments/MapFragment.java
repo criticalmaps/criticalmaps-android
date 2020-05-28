@@ -43,9 +43,11 @@ import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.handler.ShowTrackHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.model.gpx.GpxModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
@@ -66,6 +68,9 @@ public class MapFragment extends Fragment {
     OwnLocationModel ownLocationModel;
 
     @Inject
+    GpxModel gpxModel;
+
+    @Inject
     OtherUsersLocationModel otherUsersLocationModel;
 
     @Inject
@@ -75,7 +80,13 @@ public class MapFragment extends Fragment {
     LocationUpdateManager locationUpdateManager;
 
     @Inject
+    ShowTrackHandler showTrackHandler;
+
+    @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    App app;
 
     private MapView mapView;
     private InfoWindow oberserverInfowWindow;
@@ -238,7 +249,10 @@ public class MapFragment extends Fragment {
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
         }
         binding.mapSetNorthFab.setRotation(mapView.getMapOrientation());
+
+        showTrackHandler.showGpx(mapView);
     }
+
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void adjustToWindowsInsets() {

@@ -30,6 +30,8 @@ import info.metadude.android.typedpreferences.BooleanPreference;
 import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
 
+import static de.stephanlindauer.criticalmaps.utils.GpxUtils.persistPermissionOnFile;
+
 public class SettingsFragment extends Fragment {
     @Inject
     StorageLocationProvider storageLocationProvider;
@@ -38,6 +40,10 @@ public class SettingsFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
     private FragmentSettingsBinding binding;
+
+    @Inject
+    App app;
+
 
     @Override
     @Nullable
@@ -103,13 +109,13 @@ public class SettingsFragment extends Fragment {
 
         if (requestCode == RequestCodes.CHOOSE_TRACK_RESULT_CODE) {
             Uri trackUri = data.getData();
-            String trackPath = trackUri.getPath();
+            String trackPath = trackUri.toString();
             new StringPreference(
                     sharedPreferences, SharedPrefsKeys.TRACK_PATH).set(trackPath);
+            persistPermissionOnFile(data, app.getContentResolver());
             updateTrackPath();
         }
     }
-
 
 
     private void updateStorageGraph() {
@@ -244,7 +250,7 @@ public class SettingsFragment extends Fragment {
     }
 
     void handleChooseTrackClicked() {
-        new ChooseTrackHandler(this).execute();
+        new ChooseTrackHandler(this).openChooser();
     }
 
     @Override
