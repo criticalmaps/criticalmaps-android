@@ -56,7 +56,6 @@ import de.stephanlindauer.criticalmaps.utils.ImageUtils;
 import de.stephanlindauer.criticalmaps.utils.IntentUtil;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 import info.metadude.android.typedpreferences.BooleanPreference;
-import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

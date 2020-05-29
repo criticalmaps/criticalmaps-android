@@ -47,7 +47,6 @@ import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.model.gpx.GpxModel;
 import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
@@ -68,9 +67,6 @@ public class MapFragment extends Fragment {
     OwnLocationModel ownLocationModel;
 
     @Inject
-    GpxModel gpxModel;
-
-    @Inject
     OtherUsersLocationModel otherUsersLocationModel;
 
     @Inject
@@ -84,9 +80,6 @@ public class MapFragment extends Fragment {
 
     @Inject
     SharedPreferences sharedPreferences;
-
-    @Inject
-    App app;
 
     private MapView mapView;
     private InfoWindow oberserverInfowWindow;
