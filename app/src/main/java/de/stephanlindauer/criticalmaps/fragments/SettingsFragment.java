@@ -3,8 +3,10 @@ package de.stephanlindauer.criticalmaps.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,7 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.FragmentSettingsBinding;
-import de.stephanlindauer.criticalmaps.handler.ChooseTrackHandler;
+import de.stephanlindauer.criticalmaps.handler.ChooseGpxFileHandler;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
@@ -106,8 +108,11 @@ public class SettingsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RequestCodes.CHOOSE_GPX_RESULT_CODE) {
+        if (requestCode == RequestCodes.CHOOSE_GPX_RESULT_CODE && resultCode == Activity.RESULT_OK) {
             Uri fileUri = data.getData();
+            if (fileUri == null) {
+                return;
+            }
             String gpxFile = fileUri.toString();
             new StringPreference(
                     sharedPreferences, SharedPrefsKeys.GPX_FILE).set(gpxFile);
@@ -154,10 +159,18 @@ public class SettingsFragment extends Fragment {
                 storageLocationProvider.getActiveStorageLocation().displayName);
     }
 
-    public void updateGpxFileName() {
+    private void updateGpxFileName() {
         String gpxFile = new StringPreference(
                 sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
-        binding.settingsChooseGpxSummaryText.setText(gpxFile);
+        String filename = gpxFile;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Cursor fileCursor = getContext().getContentResolver().query(Uri.parse(gpxFile), null, null, null);
+            if (fileCursor != null) {
+                fileCursor.moveToFirst();
+                filename = fileCursor.getString(fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            }
+        }
+        binding.settingsChooseGpxSummaryText.setText(filename);
     }
 
     void handleClearCacheClicked() {
@@ -249,7 +262,7 @@ public class SettingsFragment extends Fragment {
     }
 
     void handleChooseTrackClicked() {
-        new ChooseTrackHandler(this).openChooser();
+        new ChooseGpxFileHandler(this).openChooser();
     }
 
     @Override

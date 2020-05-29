@@ -56,10 +56,10 @@ public class ShowGpxHandler {
         showModelOnMap(mapView);
     }
 
-    private void readFile(String trackPath) {
+    private void readFile(String gpxUri) {
         try {
-            InputStream gpxInputStream = app.getContentResolver().openInputStream(Uri.parse(trackPath));
-            gpxReader.readDataFromStream(gpxInputStream, trackPath);
+            InputStream gpxInputStream = app.getContentResolver().openInputStream(Uri.parse(gpxUri));
+            gpxReader.readDataFromStream(gpxInputStream, gpxUri);
         } catch (SecurityException | IOException | SAXException | ParserConfigurationException e) {
             Toast.makeText(app, R.string.gpx_reading_error, Toast.LENGTH_SHORT).show();
         }

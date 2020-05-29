@@ -6,10 +6,10 @@ import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
 import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 
-public class ChooseTrackHandler {
+public class ChooseGpxFileHandler {
     private final SettingsFragment activity;
 
-    public ChooseTrackHandler(SettingsFragment activity) {
+    public ChooseGpxFileHandler(SettingsFragment activity) {
         this.activity = activity;
     }
 

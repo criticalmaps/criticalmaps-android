@@ -41,11 +41,11 @@ public class GpxReader {
 
     public void readDataFromStream(InputStream gpxInputStream, String uri) throws IOException, SAXException, ParserConfigurationException {
         gpxModel.clear();
-        readGpxFile(gpxInputStream, gpxModel);
+        readGpxFile(gpxInputStream);
         gpxModel.setUri(uri);
     }
 
-    private void readGpxFile(InputStream gpxInputStream, GpxModel gpxModel) throws ParserConfigurationException, IOException, SAXException {
+    private void readGpxFile(InputStream gpxInputStream) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document gpxDocument = documentBuilder.parse(gpxInputStream);
