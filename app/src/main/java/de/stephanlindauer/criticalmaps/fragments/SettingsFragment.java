@@ -105,8 +105,8 @@ public class SettingsFragment extends Fragment {
                     (buttonView, isChecked) -> handleShowTrack(isChecked));
             binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
         } else {
-            binding.settingsShowGpxContainer.setVisibility(View.INVISIBLE);
-            binding.settingsChooseGpxContainer.setVisibility(View.INVISIBLE);
+            binding.settingsShowGpxContainer.setVisibility(View.GONE);
+            binding.settingsChooseGpxContainer.setVisibility(View.GONE);
         }
 
     }
@@ -127,7 +127,6 @@ public class SettingsFragment extends Fragment {
             updateGpxFileName();
         }
     }
-
 
     private void updateStorageGraph() {
         StorageLocationProvider.StorageLocation currentStorageLocation =
