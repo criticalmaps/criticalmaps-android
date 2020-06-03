@@ -112,6 +112,10 @@
     <string name="settings_map_header">Map settings</string>
     <string name="settings_map_rotation_subheading">Rotation</string>
     <string name="settings_map_rotation_summary">Allow the map to be rotated</string>
+    <string name="settings_show_gpx_subheading">Show GPX-file</string>
+    <string name="settings_show_gpx_summary">Show GPX-file on the map</string>
+    <string name="settings_choose_gpx_subheading">Choose GPX-file</string>
+    <string name="settings_gpx_file_default">None</string>
     <string name="settings_high_res_tiles_subheading">High quality</string>
     <string name="settings_high_res_tiles_summary">Looks way better but also uses more bandwidth and storage</string>
 
@@ -148,6 +152,10 @@
     <string name="camera_permissions_permanently_denied_title">SD card access denied</string>
     <string name="camera_permissions_permanently_denied_text">You previously denied permission to access your SD card. This means images can\'t be saved to your device.\nDo you want to grant the permission now in the app settings?</string>
     <string name="camera_external_storage_permission_rationale_text">To upload images they first have to be saved on your device. Therefore access to your SD card is required.\nDo you want to grant this permission now?</string>
+
+    <!-- gpx -->
+    <string name="gpx_choose">Choose GPX-file</string>
+    <string name="gpx_reading_error">Error while reading GPX-file</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Something went wrong.</string>

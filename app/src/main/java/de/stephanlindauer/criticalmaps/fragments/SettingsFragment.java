@@ -1,8 +1,13 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +25,15 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.FragmentSettingsBinding;
+import de.stephanlindauer.criticalmaps.handler.ChooseGpxFileHandler;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
+import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 import info.metadude.android.typedpreferences.BooleanPreference;
+import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
+
+import static de.stephanlindauer.criticalmaps.utils.GpxUtils.persistPermissionOnFile;
 
 public class SettingsFragment extends Fragment {
     @Inject
@@ -33,6 +43,9 @@ public class SettingsFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
     private FragmentSettingsBinding binding;
+
+    @Inject
+    App app;
 
     @Override
     @Nullable
@@ -59,6 +72,7 @@ public class SettingsFragment extends Fragment {
         updateClearCachePref();
         updateStorageGraph();
         updateChooseStoragePref();
+        updateGpxFileName();
 
         binding.settingsShowOnLockscreenCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
@@ -71,6 +85,8 @@ public class SettingsFragment extends Fragment {
 
         binding.settingsHighResTilesCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).get());
+        binding.settingsShowGpxCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_GPX).get());
 
         binding.settingsClearCacheButton.setOnClickListener(v -> handleClearCacheClicked());
         binding.settingsChooseStorageContainer.setOnClickListener(v -> handleChooseStorageClicked());
@@ -83,7 +99,35 @@ public class SettingsFragment extends Fragment {
                 (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
         binding.settingsHighResTilesCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleUseHighResTilesChecked(isChecked));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
+                    (buttonView, isChecked) -> handleShowTrack(isChecked));
+            binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
+        } else {
+            binding.settingsShowGpxContainer.setVisibility(View.INVISIBLE);
+            binding.settingsChooseGpxContainer.setVisibility(View.INVISIBLE);
+        }
+
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RequestCodes.CHOOSE_GPX_RESULT_CODE && resultCode == Activity.RESULT_OK) {
+            Uri fileUri = data.getData();
+            if (fileUri == null) {
+                return;
+            }
+            String gpxFile = fileUri.toString();
+            new StringPreference(
+                    sharedPreferences, SharedPrefsKeys.GPX_FILE).set(gpxFile);
+            persistPermissionOnFile(data, app.getContentResolver());
+            updateGpxFileName();
+        }
+    }
+
 
     private void updateStorageGraph() {
         StorageLocationProvider.StorageLocation currentStorageLocation =
@@ -120,6 +164,20 @@ public class SettingsFragment extends Fragment {
     private void updateChooseStoragePref() {
         binding.settingsChooseStorageSummaryText.setText(
                 storageLocationProvider.getActiveStorageLocation().displayName);
+    }
+
+    private void updateGpxFileName() {
+        String gpxFile = new StringPreference(
+                sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
+        String filename = gpxFile;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Cursor fileCursor = getContext().getContentResolver().query(Uri.parse(gpxFile), null, null, null);
+            if (fileCursor != null) {
+                fileCursor.moveToFirst();
+                filename = fileCursor.getString(fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            }
+        }
+        binding.settingsChooseGpxSummaryText.setText(filename);
     }
 
     void handleClearCacheClicked() {
@@ -203,6 +261,15 @@ public class SettingsFragment extends Fragment {
     void handleUseHighResTilesChecked(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).set(isChecked);
+    }
+
+    void handleShowTrack(boolean isChecked) {
+        new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.SHOW_GPX).set(isChecked);
+    }
+
+    void handleChooseTrackClicked() {
+        new ChooseGpxFileHandler(this).openChooser();
     }
 
     @Override

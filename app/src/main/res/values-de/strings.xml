@@ -110,6 +110,10 @@
     <string name="settings_map_header">Karteneinstellungen</string>
     <string name="settings_map_rotation_subheading">Drehung</string>
     <string name="settings_map_rotation_summary">Drehen der Karte erlauben</string>
+    <string name="settings_show_gpx_subheading">GPX-Datei anzeigen</string>
+    <string name="settings_show_gpx_summary">GPX-Datei auf der Karte anzeigen</string>
+    <string name="settings_choose_gpx_subheading">GPX-Datei auswählen</string>
+    <string name="settings_gpx_file_default">nicht ausgewählt</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
@@ -139,6 +143,10 @@
     <string name="camera_permissions_permanently_denied_title">Zugriff auf SD-Karte ist verweigert</string>
     <string name="camera_permissions_permanently_denied_text">Du hast zuvor den Zugriff auf deine SD-Karte abgelehnt. Das bedeutet, dass Bilder nicht auf deinem Gerät gespeichert werden können.\nMöchtest du den Zugriff jetzt in den App-Einstellungen erlauben?</string>
     <string name="camera_external_storage_permission_rationale_text">Um Bilder hochzuladen, müssen diese zuerst auf deinem Gerät gespeichert werden. Dafür ist Zugriff auf deine SD-Karte notwendig.\nMöchtest du den Zugriff jetzt erlauben?</string>
+
+    <!-- gpx -->
+    <string name="gpx_choose">GPX-Datei auswählen</string>
+    <string name="gpx_reading_error">Fehler beim Lesen der GPX-Datei</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>

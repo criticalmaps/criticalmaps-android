@@ -17,4 +17,8 @@ public interface SharedPrefsKeys {
             BuildConfig.APPLICATION_ID + ".DISABLE_MAP_ROTATION";
     String USE_HIGH_RES_MAP_TILES =
             BuildConfig.APPLICATION_ID + ".USE_HIGH_RES_MAP_TILES";
+    String SHOW_GPX =
+            BuildConfig.APPLICATION_ID + ".SHOW_GPX";
+    String GPX_FILE =
+            BuildConfig.APPLICATION_ID + ".GPX_FILE";
 }

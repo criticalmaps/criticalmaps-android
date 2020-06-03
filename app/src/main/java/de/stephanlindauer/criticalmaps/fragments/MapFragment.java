@@ -43,6 +43,7 @@ import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -73,6 +74,9 @@ public class MapFragment extends Fragment {
 
     @Inject
     LocationUpdateManager locationUpdateManager;
+
+    @Inject
+    ShowGpxHandler showGpxHandler;
 
     @Inject
     SharedPreferences sharedPreferences;
@@ -238,6 +242,8 @@ public class MapFragment extends Fragment {
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
         }
         binding.mapSetNorthFab.setRotation(mapView.getMapOrientation());
+
+        showGpxHandler.showGpx(mapView);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
