@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.format.Formatter;
@@ -98,9 +99,15 @@ public class SettingsFragment extends Fragment {
                 (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
         binding.settingsHighResTilesCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleUseHighResTilesChecked(isChecked));
-        binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> handleShowTrack(isChecked));
-        binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
+                    (buttonView, isChecked) -> handleShowTrack(isChecked));
+            binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
+        } else {
+            binding.settingsShowGpxContainer.setVisibility(View.INVISIBLE);
+            binding.settingsChooseGpxContainer.setVisibility(View.INVISIBLE);
+        }
 
     }
 
