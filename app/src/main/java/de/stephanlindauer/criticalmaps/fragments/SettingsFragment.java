@@ -174,6 +174,7 @@ public class SettingsFragment extends Fragment {
             if (fileCursor != null) {
                 fileCursor.moveToFirst();
                 filename = fileCursor.getString(fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                fileCursor.close();
             }
         }
         binding.settingsChooseGpxSummaryText.setText(filename);
