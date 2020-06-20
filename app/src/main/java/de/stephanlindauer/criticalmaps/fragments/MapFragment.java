@@ -442,6 +442,9 @@ public class MapFragment extends Fragment {
         binding.mapSetCenterFab.setBackgroundTintList(
                 ContextCompat.getColorStateList(getActivity(), colorResId));
         binding.mapSetCenterFab.setImageResource(iconResId);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            binding.mapSetCenterFab.refreshDrawableState();
+        }
         binding.mapSetCenterFab.setOnClickListener(onClickListener);
     }
 
