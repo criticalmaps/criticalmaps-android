@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.osmdroid.util.GeoPoint;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 public class OwnLocationModelTest {
     @Test
@@ -24,11 +25,11 @@ public class OwnLocationModelTest {
         assertThat(tested.hasPreciseLocation()).isTrue();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getLocationJson_throwsWhenNoLocation() {
-        // TODO use JUnit's assertThrows() instead when 4.13 is out
         OwnLocationModel tested = new OwnLocationModel();
-        tested.getLocationJson();
+
+        assertThrows(NullPointerException.class, tested::getLocationJson);
     }
 
     @Test
