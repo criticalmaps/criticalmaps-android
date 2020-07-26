@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -108,7 +109,6 @@ public class SettingsFragment extends Fragment {
             binding.settingsShowGpxContainer.setVisibility(View.GONE);
             binding.settingsChooseGpxContainer.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -174,6 +174,7 @@ public class SettingsFragment extends Fragment {
             if (fileCursor != null) {
                 fileCursor.moveToFirst();
                 filename = fileCursor.getString(fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                fileCursor.close();
             }
         }
         binding.settingsChooseGpxSummaryText.setText(filename);
@@ -267,6 +268,7 @@ public class SettingsFragment extends Fragment {
                 sharedPreferences, SharedPrefsKeys.SHOW_GPX).set(isChecked);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     void handleChooseTrackClicked() {
         new ChooseGpxFileHandler(this).openChooser();
     }
