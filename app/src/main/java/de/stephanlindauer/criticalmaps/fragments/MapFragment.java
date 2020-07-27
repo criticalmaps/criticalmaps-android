@@ -82,7 +82,7 @@ public class MapFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
     private MapView mapView;
-    private InfoWindow oberserverInfowWindow;
+    private InfoWindow observerInfoWindow;
 
     private final GeoPoint defaultGeoPoint = new GeoPoint(52.499571, 13.4140875, 15);
     private boolean isInitialLocationSet = false;
@@ -201,7 +201,7 @@ public class MapFragment extends Fragment {
         mapView = MapViewUtils.createMapView(getActivity());
         binding.mapContainerLayout.addView(mapView);
 
-        oberserverInfowWindow = MapViewUtils.createObserverInfoWindow(mapView);
+        observerInfoWindow = MapViewUtils.createObserverInfoWindow(mapView);
 
         binding.mapSetCenterFab.setOnClickListener(centerLocationOnClickListener);
         binding.mapSetNorthFab.setOnClickListener(rotationNorthOnClickListener);
@@ -285,14 +285,14 @@ public class MapFragment extends Fragment {
             if (new BooleanPreference(
                     sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get()) {
                 ownMarker.setIcon(ownLocationIconObserver);
-                ownMarker.setInfoWindow(oberserverInfowWindow);
+                ownMarker.setInfoWindow(observerInfoWindow);
                 // since we're currently creating new markers on every refresh, this workaround
                 // is needed to update the info window's position if it's open
-                if (oberserverInfowWindow.isOpen()) {
+                if (observerInfoWindow.isOpen()) {
                     ownMarker.showInfoWindow();
                 }
             } else {
-                oberserverInfowWindow.close();
+                observerInfoWindow.close();
                 ownMarker.setIcon(ownLocationIcon);
             }
             mapView.getOverlays().add(ownMarker);
