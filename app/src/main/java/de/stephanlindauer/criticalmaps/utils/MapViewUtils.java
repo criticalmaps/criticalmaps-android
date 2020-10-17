@@ -11,6 +11,7 @@ import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.SqlTileWriter;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
@@ -28,9 +29,11 @@ import info.metadude.android.typedpreferences.BooleanPreference;
 import timber.log.Timber;
 
 public class MapViewUtils {
+    /*
     private static final String TILE_SOURCE_BASEURL = "https://maps.wikimedia.org/osm-intl/";
     private static final String TILE_SOURCE_COPYRIGHT =
             "Wikimedia maps | Map data © OpenStreetMap contributors";
+    */
 
     private MapViewUtils() {
     }
@@ -63,6 +66,7 @@ public class MapViewUtils {
                 + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME
                 + " (" + activity.getString(R.string.contact_email) + ")");
 
+        /*
         BooleanPreference useHighResTilesPreference = new BooleanPreference(
                 App.components().sharedPreferences(), SharedPrefsKeys.USE_HIGH_RES_MAP_TILES);
 
@@ -76,6 +80,9 @@ public class MapViewUtils {
 
         OnlineTileSourceBase onlineTileSourceBase = determineTileResolution(useHighResTiles);
         Timber.d("Using %s tilesource.", onlineTileSourceBase.toString());
+         */
+
+        OnlineTileSourceBase onlineTileSourceBase = TileSourceFactory.MAPNIK;
 
         MapTileProviderBasic mapTileProviderBasic =
                 new MapTileProviderBasic(activity.getApplicationContext(), onlineTileSourceBase);
@@ -116,6 +123,7 @@ public class MapViewUtils {
         };
     }
 
+    /*
     private static OnlineTileSourceBase determineTileResolution(boolean useHighResTiles) {
         // When in doubt use the next higher quality tiles.
         // Still scale with mapView.setTilesScaledToDpi(true). Usually this will be 1:1 but when
@@ -148,6 +156,7 @@ public class MapViewUtils {
                 name, 1, 19, tileSize,
                 filenameEnding, new String[]{TILE_SOURCE_BASEURL}, TILE_SOURCE_COPYRIGHT);
     }
+    */
 
     private static void setMaxCacheSize(IConfigurationProvider configuration) {
         // code adapted from osmdroid's DefaultConfigurationProvider.load()
