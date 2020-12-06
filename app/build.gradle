@@ -21,13 +21,12 @@ android {
         }
     }
 
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 42
         versionName "2.6.6"
         vectorDrawables.useSupportLibrary = true
