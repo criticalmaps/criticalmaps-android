@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import static de.stephanlindauer.criticalmaps.utils.AxtUtils.hideKeyBoard;
+
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
@@ -20,9 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.otto.Subscribe;
 
-import org.ligi.axt.AXT;
-import org.ligi.axt.simplifications.SimpleTextWatcher;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +37,7 @@ import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
+import de.stephanlindauer.criticalmaps.utils.AxtUtils.SimpleTextWatcher;
 
 public class ChatFragment extends Fragment {
     @Inject
@@ -156,7 +156,7 @@ public class ChatFragment extends Fragment {
     public void onPause() {
         super.onPause();
         eventBus.unregister(this);
-        AXT.at(binding.chatMessageEdittext).hideKeyBoard();
+        hideKeyBoard(binding.chatMessageEdittext);
     }
 
     @Override
