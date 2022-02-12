@@ -46,20 +46,12 @@ android {
             signingConfig signingConfigs.releaseConfig
         }
     }
-
-    lintOptions {
-        warning 'MissingTranslation'
-        warning 'StringFormatInvalid'
-        warning 'NewApi'
-
-        // https://github.com/square/okio/issues/58
-        // http://jakewharton.github.io/butterknife/
-        warning 'InvalidPackage'
-    }
-
     packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        resources {
+            excludes += ['META-INF/services/javax.annotation.processing.Processor']
+        }
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -68,6 +60,9 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+    lint {
+        warning 'MissingTranslation', 'StringFormatInvalid', 'NewApi', 'InvalidPackage'
     }
 }
 
