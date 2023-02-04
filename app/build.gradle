@@ -64,6 +64,7 @@ android {
     lint {
         warning 'MissingTranslation', 'StringFormatInvalid', 'NewApi', 'InvalidPackage'
     }
+    namespace 'de.stephanlindauer.criticalmaps'
 }
 
 dependencies {

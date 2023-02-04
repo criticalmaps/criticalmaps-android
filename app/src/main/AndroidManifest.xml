@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="de.stephanlindauer.criticalmaps">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -33,12 +31,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
-        android:supportsRtl="true"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:supportsRtl="true">
 
         <activity
             android:name="de.stephanlindauer.criticalmaps.Main"
-            android:label="@string/app_name"
+            android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Launcher"
             android:windowSoftInputMode="adjustResize">
@@ -63,5 +60,4 @@
                 android:resource="@xml/fileprovider_paths" />
         </provider>
     </application>
-
 </manifest>
