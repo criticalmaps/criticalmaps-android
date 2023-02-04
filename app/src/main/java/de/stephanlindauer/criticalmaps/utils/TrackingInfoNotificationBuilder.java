@@ -13,24 +13,28 @@ import de.stephanlindauer.criticalmaps.Main;
 import de.stephanlindauer.criticalmaps.R;
 
 public class TrackingInfoNotificationBuilder {
-    //const
     public static final int NOTIFICATION_ID = 12456;
     private static final int INTENT_CLOSE_ID = 176456;
     private static final int INTENT_OPEN_ID = 133256;
     private static final String NOTIFICATION_CHANNEL_ID = "cm_notification_channel_id";
 
     public static Notification getNotification(Application application) {
+        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            pendingIntentFlags += PendingIntent.FLAG_IMMUTABLE;
+        }
+
         Intent openIntent = new Intent(application, Main.class);
         openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         openIntent.putExtra("shouldClose", false);
         PendingIntent openPendingIntent = PendingIntent.getActivity(application, INTENT_OPEN_ID,
-                openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                openIntent, pendingIntentFlags);
 
         Intent closeIntent = new Intent(application, Main.class);
         closeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         closeIntent.putExtra("shouldClose", true);
         PendingIntent closePendingIntent = PendingIntent.getActivity(application, INTENT_CLOSE_ID,
-                closeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                closeIntent, pendingIntentFlags);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationManager mNotificationManager =
