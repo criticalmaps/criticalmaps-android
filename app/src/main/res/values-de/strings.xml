@@ -7,10 +7,10 @@
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Einstellungen</string>
-    <string name="observer_mode">Beobachtermodus</string>
+    <string name="observer_mode">Unsichtbarmodus</string>
     <string name="open_drawer">Menü öffnen</string>
     <string name="close_drawer">Menü schließen</string>
-    <string name="nav_observer_mode_text">Wenn du nicht selbst teilnimmst, aber sehen möchtest wo die Mass ist, aktiviere den Beobachtermodus.</string>
+    <string name="nav_observer_mode_text">Wenn du nicht selbst teilnimmst, aber sehen möchtest wo die Mass ist, aktiviere den Unsichtbarmodus.</string>
 
     <!-- close -->
     <string name="close">App wirklich beenden?</string>
@@ -27,17 +27,20 @@
     <!-- fragment_map -->
     <string name="map_searching_for_location">Warte auf GPS-Signal</string>
     <string name="map_no_internet_connection_title">Keine Internetverbindung</string>
-    <string name="map_no_internet_connection_text">Ohne Internetverbindung kannst du keine anderen Nutzer sehen, dein Standort wird nicht geteilt und du kannst keine Chat-Nachrichten lesen oder schreiben. Die App ist so quasi nutzlos :(\nBitte überprüfe deine Einstellungen und aktiviere deine Datenverbindung.</string>
+    <string name="map_no_internet_connection_text">Ohne Internetverbindung kannst du keine anderen Teilnehmenden sehen, dein Standort wird nicht geteilt und du kannst keine Chat-Nachrichten lesen oder schreiben. Die App ist so quasi nutzlos :(\nBitte überprüfe deine Einstellungen und aktiviere deine Datenverbindung.</string>
     <string name="map_no_gps_title">Kein GPS verfügbar</string>
-    <string name="map_no_gps_text">Dieses Gerät hat weder GPS noch kann der Standort über Netzwerk-Informationen bestimmt werden. Andere Nutzer können also deinen Standort nicht sehen, du kannst die Mass aber trotzdem verfolgen.</string>
+    <string name="map_no_gps_text">Dieses Gerät hat weder GPS noch kann der Standort über Netzwerk-Informationen bestimmt werden. Andere können also deinen Standort nicht sehen, du kannst die Mass aber trotzdem verfolgen.</string>
     <string name="map_gps_disabled_title">GPS ist deaktiviert</string>
     <string name="map_gps_disabled_text">GPS und Netzwerk-Standort sind momentan deaktiviert. Dein Standort kann also nicht mit den anderen geteilt werden. Du kannst der Mass zwar auch so folgen, denk aber bitte daran, dass die App darauf angewiesen ist, dass so viele wie möglich ihren Standort teilen.\nEs wäre also schön, wenn du die Standortermittlung aktivieren würdest.</string>
     <string name="map_gps_permissions_permanently_denied_title">Standortzugriff ist verweigert</string>
-    <string name="map_gps_permissions_permanently_denied_text">Du hast zuvor den Zugriff auf deinen Standort abgelehnt. Ohne diesen können du und andere Nutzer deinen Standort auf der Karte nicht sehen. Du kannst trotzdem sehen wo die Mass sich befindet, aber denk bitte daran, dass die App davon lebt, dass möglichst viele Leute ihren Standort teilen.\nMöchtest du den Zugriff jetzt in den App-Einstellungen erlauben?</string>
-    <string name="map_location_permissions_rationale_text">Der Zugriff auf deinen Standort ist entscheidend für die Funktion der App. Dieser wird benötigt damit du deine Position auf der Karte siehst und diese mit anderen Nutzern geteilt werden kann, um Chat-Nachrichten zu schreiben und um Bilder hochzuladen. Du kannst zwar trotzdem sehen wo die Mass sich befindet, aber denk bitte daran, dass die App davon lebt, dass möglichst viele Leute ihren Standort teilen.\nMöchtest du den Zugriff jetzt erlauben?</string>
+    <string name="map_gps_permissions_permanently_denied_text">Du hast zuvor den Zugriff auf deinen Standort abgelehnt. Ohne diesen können du und Andere deinen Standort auf der Karte nicht sehen. Du kannst trotzdem sehen wo die Mass sich befindet, aber denk bitte daran, dass die App davon lebt, dass möglichst viele Leute ihren Standort teilen.\nMöchtest du den Zugriff jetzt in den App-Einstellungen erlauben?</string>
+    <string name="map_location_permissions_rationale_text">Der Zugriff auf deinen Standort ist entscheidend für die Funktion der App. Dieser wird benötigt damit du deine Position auf der Karte siehst und diese mit Anderen geteilt werden kann, um Chat-Nachrichten zu schreiben und um Bilder hochzuladen. Du kannst zwar trotzdem sehen wo die Mass sich befindet, aber denk bitte daran, dass die App davon lebt, dass möglichst viele Leute ihren Standort teilen.\nMöchtest du den Zugriff jetzt erlauben?</string>
+    <string name="map_oberserver_mode_info_heading">Unsichtbarmodus ist aktiv</string>
+    <string name="map_observer_mode_info_text">Bist du schon bei der CM?\nToll! Bitte deaktiviere jetzt den Unsichtbarmodus und hilf anderen, die CM zu finden.</string>
+
     <!-- notification -->
     <string name="notification_tracking_title">Critical Maps Tracking</string>
-    <string name="notification_tracking_text">Die App läuft im Hintergrund und zeichnet deine Location-Daten auf. Bitte vergiss nicht, die App auszuschalten, wenn du nicht mehr getrackt werden willst. </string>
+    <string name="notification_tracking_text">Die App läuft im Hintergrund und zeichnet deine Standort-Daten auf. Bitte vergiss nicht, die App auszuschalten, wenn du nicht mehr getrackt werden willst. </string>
     <string name="notification_channel_name">Tracking-Benachrichtigung</string>
     <string name="notification_channel_description_max300chars">Wir empfehlen nicht, die Benachrichtigung zu deaktivieren, da du sonst versehentlich das Tracking aktiviert lassen könntest.</string>
     <string name="notification_tracking_close">Beenden</string>
@@ -45,26 +48,20 @@
 
     <!-- fragment_rules -->
     <string name="rules_corken">Corken!?</string>
-    <string name="rules_corken_explain">Schütze Autofahrer vor sich selbst durch corken!</string>
+    <string name="rules_corken_explain">Schütze Autofahrende vor sich selbst durch corken!</string>
     <string name="rules_oncoming_traffic">Gegenverkehr</string>
     <string name="rules_oncoming_traffic_explain">Verzichte darauf auf der Gegenfahrbahn zu fahren.</string>
     <string name="rules_steady">Sachte, Keule!</string>
-    <string name="rules_steady_explain">Vorne: nicht rasen! Hinten: Lücken zufahren!</string>
+    <string name="rules_steady_explain">Vorne: Nicht rasen! Hinten: Lücken zufahren!</string>
     <string name="rules_brake">Keine Vollbremsungen!</string>
     <string name="rules_brake_explain">Wenn\'s mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.
     </string>
     <string name="rules_green">Vorne nur bei Grün</string>
-    <string name="rules_green_explain">Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün
-        schaltet.
-    </string>
+    <string name="rules_green_explain">Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün schaltet.</string>
     <string name="rules_friendly">Locker bleiben</string>
-    <string name="rules_friendly_explain">Lass dich nicht provozieren. Sei freundlich zur Polizei, Autofahrern und allen
-        Anderen, auch wenn die\'s nicht sind.
-    </string>
+    <string name="rules_friendly_explain">Lass dich nicht provozieren. Sei freundlich zur Polizei, Autofahrerenden und allen Anderen, auch wenn die\'s nicht sind.</string>
     <string name="rules_fun">Hab Spaß!</string>
-    <string name="rules_fun_explain">Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check
-        die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!
-    </string>
+    <string name="rules_fun_explain">Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check die Bikes deiner Umgebung aus. Quatsch Autofahrende, Umherstehende, Mitfahrende an. Hab Spaß!</string>
     <string name="rules_image_source">Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
@@ -104,16 +101,18 @@
     <string name="settings_choose_storage_confirm_message">Wenn du den Speicherort änderst wird der aktuelle Cache gelöscht. Die Kartendaten werden beim Betrachten neu heruntergeladen.</string>
     <string name="settings_screen_header">Bildschirmeinstellungen</string>
     <string name="settings_show_on_lockscreen_subheading">Auf Sperrbildschirm anzeigen</string>
-    <string name="settings_show_on_lockscreen_summary">Nutze die App weiter, selbst wenn das Gerät gesperrt wird</string>
+    <string name="settings_show_on_lockscreen_summary">Nutze die App weiter, selbst wenn der Bildschirm gesperrt ist</string>
     <string name="settings_keep_screen_on_subheading">Bildschirm anlassen</string>
     <string name="settings_keep_screen_on_summary">Bildschirm geht nicht automatisch aus, während die App offen ist</string>
     <string name="settings_map_header">Karteneinstellungen</string>
     <string name="settings_map_rotation_subheading">Drehung</string>
     <string name="settings_map_rotation_summary">Drehen der Karte erlauben</string>
-    <string name="settings_show_gpx_subheading">GPX-Datei anzeigen</string>
-    <string name="settings_show_gpx_summary">GPX-Datei auf der Karte anzeigen</string>
-    <string name="settings_choose_gpx_subheading">GPX-Datei auswählen</string>
-    <string name="settings_gpx_file_default">nicht ausgewählt</string>
+    <string name="settings_show_gpx_subheading">GPX-Daten anzeigen</string>
+    <string name="settings_show_gpx_summary">GPX-Daten auf der Karte anzeigen</string>
+    <string name="settings_choose_gpx_subheading">GPX-Daten auswählen</string>
+    <string name="settings_gpx_file_default">Nichts</string>
+    <string name="settings_high_res_tiles_subheading">Hohe Qualität</string>
+    <string name="settings_high_res_tiles_summary">Bessere Darstellung, verbraucht aber mehr Daten und Speicherplatz</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
@@ -132,12 +131,12 @@
     <string name="camera_upload">Foto hochladen!</string>
     <string name="camera_discard">Och nööö :-(</string>
     <string name="camera_uploading_progress">Lade hoch &#8230;</string>
-    <string name="camera_upload_failed_title">Hochladen hat nicht funktioniert</string>
+    <string name="camera_upload_failed_title">Fehler beim Hochladen</string>
     <string name="camera_upload_failed_message">Bitte versuch es später nochmal</string>
     <string name="camera_processing_image">Foto wird verarbeitet</string>
     <string name="camera_no_location">Ohne GPS-Signal kannst du keine Bilder hochladen</string>
     <string name="camera_no_outputfile">Datei kann nicht gespeichert werden.</string>
-    <string name="camera_image_upload_succeeded_title">Bild-Upload erfolgreich!</string>
+    <string name="camera_image_upload_succeeded_title">Bild erfolgreich hochgeladen!</string>
     <string name="camera_image_upload_succeeded_message">Das Bild steht jetzt in der Galerie auf criticalmaps.net</string>
     <string name="camera_no_camera">Du kannst keine Bilder aufnehmen, wenn dein Smartphone keine Kamera hat.</string>
     <string name="camera_permissions_permanently_denied_title">Zugriff auf SD-Karte ist verweigert</string>
@@ -145,8 +144,8 @@
     <string name="camera_external_storage_permission_rationale_text">Um Bilder hochzuladen, müssen diese zuerst auf deinem Gerät gespeichert werden. Dafür ist Zugriff auf deine SD-Karte notwendig.\nMöchtest du den Zugriff jetzt erlauben?</string>
 
     <!-- gpx -->
-    <string name="gpx_choose">GPX-Datei auswählen</string>
-    <string name="gpx_reading_error">Fehler beim Lesen der GPX-Datei</string>
+    <string name="gpx_choose">GPX-Daten auswählen</string>
+    <string name="gpx_reading_error">Fehler beim Lesen der GPX-Daten</string>
 
     <!-- misc -->
     <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>
@@ -161,7 +160,7 @@
     <!-- introduction -->
     <string name="introduction_heading">Lies dir bitte kurz folgende Infos durch, damit du weißt, was hier abgeht.</string>
     <string name="introduction_own_icon">So siehst du aus:\u0020</string>
-    <string name="introduction_other_icon">So sehen alle anderen User aus:\u0020</string>
+    <string name="introduction_other_icon">So sehen alle Anderen aus:\u0020</string>
     <string name="introduction_close_app">Wenn du nicht mehr getrackt werden willst, schließe die App einfach wieder.</string>
     <string name="introduction_careful">Sei bitte vorsichtig und achte lieber auf den Verkehr, als auf die App.</string>
     <string name="introduction_bugs">Wenn irgendwas nicht richtig funktioniert, sag uns bitte bescheid, indem du auf den Feedback-Button in den Settings klickst.</string>
@@ -169,7 +168,7 @@
     <string name="introduction_accept">Akzeptieren</string>
     <string name="introduction_gps">
         <![CDATA[
-        Critical Maps teilt Deine anonymisierten GPS Informationen mit anderen Nutzern. Mit Benutzung der App stimmst Du unserer <a href="https://criticalmaps.net/info">Datenschutzerklärung</a> zu.
+        Critical Maps teilt deine anonymen GPS-Daten mit Anderen. Wenn du diese App benutzt, stimmst du der <a href=\"https://criticalmaps.net/info\">privacy policy</a>zu.
         ]]>
     </string>
 </resources>
