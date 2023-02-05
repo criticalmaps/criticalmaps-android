@@ -191,7 +191,7 @@ public class StorageLocationProvider {
         public long freeSpace;
         public long usedSpace;
 
-        private File dbFile;
+        private final File dbFile;
 
         public StorageLocation(Context context, File path) {
             if (!path.exists() || !isPathAvailableForWrite(context, path)) {

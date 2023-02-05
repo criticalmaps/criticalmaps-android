@@ -6,8 +6,8 @@ import java.util.List;
 
 public class GpxTrack {
 
-    private String name;
-    private List<GeoPoint> waypoints;
+    private final String name;
+    private final List<GeoPoint> waypoints;
 
     public GpxTrack(String name, List<GeoPoint> waypoints) {
         this.name = name;

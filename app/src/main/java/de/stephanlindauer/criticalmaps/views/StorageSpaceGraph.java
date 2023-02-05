@@ -19,15 +19,15 @@ public class StorageSpaceGraph extends View {
     private float usedSpacePercentage = 0.4f;
     private float tilecachePercentage = 0.1f;
 
-    private Paint usedSpacePaint;
-    private Paint tilecachePaint;
-    private Paint freeSpacePaint;
+    private final Paint usedSpacePaint;
+    private final Paint tilecachePaint;
+    private final Paint freeSpacePaint;
 
-    private Rect usedSpaceArea;
-    private Rect tilecacheBarArea;
-    private Rect freeSpaceArea;
+    private final Rect usedSpaceArea;
+    private final Rect tilecacheBarArea;
+    private final Rect freeSpaceArea;
 
-    private Rect drawableArea;
+    private final Rect drawableArea;
 
     public StorageSpaceGraph(Context context) {
         this(context, null);
