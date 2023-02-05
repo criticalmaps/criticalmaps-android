@@ -348,6 +348,7 @@ public class MapFragment extends Fragment {
         try {
             ((SqlTileWriter) mapView.getTileProvider().getTileWriter()).refreshDb();
         } catch (Exception ignored) {
+            // nothing we can do
         }
         mapView = null;
         binding = null;

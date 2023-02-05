@@ -38,13 +38,13 @@ public class LocationUpdateManager {
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
     private static final int LOCATION_NEW_THRESHOLD = 30 * 1000; //30 seconds
-    private static final String[] USED_PROVIDERS = new String[]{
+
+    private final String[] USED_PROVIDERS = new String[]{
             LocationManager.GPS_PROVIDER,
             LocationManager.NETWORK_PROVIDER};
-    public static final String[] PERMISSIONS = {
+    private final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};
-
     private final LocationManager locationManager;
     private Location lastPublishedLocation;
 
@@ -222,6 +222,7 @@ public class LocationUpdateManager {
         try {
             eventBus.unregister(this);
         } catch (IllegalArgumentException ignored) {
+            // nothing we can do
         }
     }
 

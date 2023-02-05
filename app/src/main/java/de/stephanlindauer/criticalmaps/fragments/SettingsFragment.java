@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -161,6 +162,7 @@ public class SettingsFragment extends Fragment {
                 storageLocationProvider.getActiveStorageLocation().displayName);
     }
 
+    @SuppressLint("Range") // FIXME
     private void updateGpxFileName() {
         String gpxFile = new StringPreference(
                 sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
