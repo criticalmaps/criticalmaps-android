@@ -7,6 +7,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -35,12 +37,12 @@ public class PermissionCheckHandler {
         this.activity = null;
     }
 
-    public void requestPermissionWithRationaleIfNeeded(PermissionRequest permissionRequest) {
-        Timber.d("%s", permissionRequest.getPermission());
+    public void requestPermissionsWithRationaleIfNeeded(PermissionRequest permissionRequest) {
+        Timber.d("%s", Arrays.toString(permissionRequest.getPermissions()));
         activePermissionRequest = permissionRequest;
 
         // short-circuit here if already granted
-        if (checkPermissionGranted(permissionRequest.getPermission())) {
+        if (checkPermissionsGranted(permissionRequest.getPermissions())) {
             activePermissionRequest.getOnGrantedCallback().run();
             activePermissionRequest = null;
             return;
@@ -53,8 +55,12 @@ public class PermissionCheckHandler {
             return;
         }
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                activity, activePermissionRequest.getPermission())) {
+        boolean shouldShowRationale = false;
+        for (String permission : activePermissionRequest.getPermissions()) {
+            shouldShowRationale = shouldShowRationale ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
+        }
+        if (shouldShowRationale) {
             requestWithRationale();
         } else {
             request();
@@ -74,28 +80,34 @@ public class PermissionCheckHandler {
     private void request() {
         ActivityCompat.requestPermissions(
                 activity,
-                new String[]{activePermissionRequest.getPermission()},
+                activePermissionRequest.getPermissions(),
                 activePermissionRequest.getRequestCode());
     }
 
     public boolean handlePermissionRequestCallback(int requestCode, int[] grantResults) {
-        Timber.d("requestCode = %s", requestCode);
+        Timber.d("requestCode = %s; grantResults = %s",
+                requestCode, Arrays.toString(grantResults));
         if (requestCode != activePermissionRequest.getRequestCode()) {
             return false;
         }
 
-        // we handle/need only single permission requests for now
-        if (grantResults.length != 1) {
-            return false;
+        boolean allPermissionsGranted = true;
+        for (int result : grantResults) {
+            allPermissionsGranted = allPermissionsGranted &&
+                    result == PackageManager.PERMISSION_GRANTED;
         }
 
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (allPermissionsGranted) {
             activePermissionRequest.getOnGrantedCallback().run();
             activePermissionRequest = null;
             return true;
         } else {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(
-                    activity, activePermissionRequest.getPermission())) {
+            boolean shouldShowRationale = false;
+            for (String permission : activePermissionRequest.getPermissions()) {
+                shouldShowRationale = shouldShowRationale ||
+                        ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
+            }
+            if (!shouldShowRationale) {
                 // denied and no rationale should be shown indicates permanently denied
                 activePermissionRequest.getOnPermanentlyDeniedCallback().run();
             } else {
@@ -108,9 +120,14 @@ public class PermissionCheckHandler {
         return true;
     }
 
-
-    public static boolean checkPermissionGranted(String permission) {
-        return PackageManager.PERMISSION_GRANTED ==
-                ContextCompat.checkSelfPermission(App.components().app(), permission);
+    public static boolean checkPermissionsGranted(String[] permissions) {
+        boolean permissionsGranted = true;
+        for (String permission : permissions) {
+            permissionsGranted = permissionsGranted && (PackageManager.PERMISSION_GRANTED ==
+                    ContextCompat.checkSelfPermission(App.components().app(), permission));
+        }
+        Timber.d("Permissions: %s; granted: %b",
+                Arrays.toString(permissions), permissionsGranted);
+        return permissionsGranted;
     }
 }

@@ -3,12 +3,15 @@ package de.stephanlindauer.criticalmaps.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.ligi.axt.AXT;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
@@ -34,8 +37,8 @@ public class ChatModelTest {
     @Test
     public void setFromJson_testThatChatmessagesAreSorted() throws IOException, URISyntaxException,
             JSONException {
-        final String json = AXT.at(new File(getClass().getClassLoader()
-                .getResource("simple_server_response.json").toURI())).readToString();
+        final String json = readToString(new File(getClass().getClassLoader()
+                .getResource("simple_server_response.json").toURI()));
         final JSONObject response = new JSONObject(json);
         final ChatModel tested = new ChatModel();
 
@@ -67,8 +70,8 @@ public class ChatModelTest {
     @Test
     public void setFromJson_existingMessagesAreReplaced() throws URISyntaxException, IOException,
             JSONException {
-        final String json = AXT.at(new File(getClass().getClassLoader()
-                .getResource("simple_server_response.json").toURI())).readToString();
+        final String json = readToString(new File(getClass().getClassLoader()
+                .getResource("simple_server_response.json").toURI()));
         final JSONObject testResponse = new JSONObject(json).getJSONObject("chatMessages");
         final ChatModel tested = new ChatModel();
 
@@ -77,5 +80,28 @@ public class ChatModelTest {
 
         tested.setFromJson(testResponse);
         assertThat(tested.getSavedAndOutgoingMessages()).hasSize(sizeBefore);
+    }
+
+    public String readToString(File file) throws IOException {
+        return readToString(Charset.defaultCharset(), file);
+    }
+
+    public String readToString(Charset charset, File file) throws IOException {
+        final FileInputStream stream = new FileInputStream(file);
+        try {
+            return readToStringFromFileInputStream(charset, stream);
+        } finally {
+            stream.close();
+        }
+    }
+
+    private String readToStringFromFileInputStream(Charset charset, FileInputStream stream) throws IOException {
+        final FileChannel fc = stream.getChannel();
+        try {
+            final MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+            return charset.decode(bb).toString();
+        } finally {
+            fc.close();
+        }
     }
 }

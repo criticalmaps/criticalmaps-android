@@ -4,8 +4,8 @@ import org.osmdroid.util.GeoPoint;
 
 public class GpxPoi {
 
-    private String name;
-    private GeoPoint position;
+    private final String name;
+    private final GeoPoint position;
 
     public GpxPoi(String name, GeoPoint position) {
         this.name = name;

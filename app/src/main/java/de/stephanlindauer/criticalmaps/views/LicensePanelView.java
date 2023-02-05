@@ -1,6 +1,7 @@
 package de.stephanlindauer.criticalmaps.views;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -90,6 +91,7 @@ public class LicensePanelView extends LinearLayout {
         return new SavedState(superState, binding.licensepanelNoticeText.getVisibility());
     }
 
+    @SuppressLint("WrongConstant") // Visibilities from saved state are valid values
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState savedState = (SavedState) state;

@@ -345,7 +345,11 @@ public class MapFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         // properly closes the cache db since it's stored in a static field in osmdroid...
-        ((SqlTileWriter) mapView.getTileProvider().getTileWriter()).refreshDb();
+        try {
+            ((SqlTileWriter) mapView.getTileProvider().getTileWriter()).refreshDb();
+        } catch (Exception ignored) {
+            // nothing we can do
+        }
         mapView = null;
         binding = null;
     }

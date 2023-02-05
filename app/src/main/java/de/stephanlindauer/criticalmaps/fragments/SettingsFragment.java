@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -84,10 +85,6 @@ public class SettingsFragment extends Fragment {
         binding.settingsMapRotationCheckbox.setChecked(
                 !new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).get());
 
-        /*
-        binding.settingsHighResTilesCheckbox.setChecked(
-                new BooleanPreference(sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).get());
-         */
         binding.settingsShowGpxCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_GPX).get());
 
@@ -100,10 +97,6 @@ public class SettingsFragment extends Fragment {
                 (buttonView, isChecked) -> handleKeepScreenOnChecked(isChecked));
         binding.settingsMapRotationCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
-        /*
-        binding.settingsHighResTilesCheckbox.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> handleUseHighResTilesChecked(isChecked));
-         */
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
@@ -169,6 +162,7 @@ public class SettingsFragment extends Fragment {
                 storageLocationProvider.getActiveStorageLocation().displayName);
     }
 
+    @SuppressLint("Range") // FIXME
     private void updateGpxFileName() {
         String gpxFile = new StringPreference(
                 sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
@@ -261,13 +255,6 @@ public class SettingsFragment extends Fragment {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).set(!isChecked);
     }
-
-    /*
-    void handleUseHighResTilesChecked(boolean isChecked) {
-        new BooleanPreference(
-                sharedPreferences, SharedPrefsKeys.USE_HIGH_RES_MAP_TILES).set(isChecked);
-    }
-    */
 
     void handleShowTrack(boolean isChecked) {
         new BooleanPreference(

@@ -9,7 +9,6 @@ import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
 import de.stephanlindauer.criticalmaps.fragments.MapFragment;
 import de.stephanlindauer.criticalmaps.fragments.RulesFragment;
 import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
-import de.stephanlindauer.criticalmaps.fragments.TwitterFragment;
 
 public class FragmentProvider {
 
@@ -17,9 +16,6 @@ public class FragmentProvider {
         switch (navId) {
             case R.id.navigation_map:
                 return new MapFragment();
-
-            case R.id.navigation_twitter:
-                return new TwitterFragment();
 
             case R.id.navigation_rules:
                 return new RulesFragment();

@@ -84,6 +84,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
                 return ResultType.SUCCEEDED;
             }
         } catch (Exception ignored) {
+            // nothing we can do
         }
 
         return ResultType.FAILED;
