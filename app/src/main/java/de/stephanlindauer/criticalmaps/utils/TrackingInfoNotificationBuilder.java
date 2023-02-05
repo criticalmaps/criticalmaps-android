@@ -71,7 +71,8 @@ public class TrackingInfoNotificationBuilder {
                         .addAction(R.drawable.ic_notification_close,
                                 application.getString(R.string.notification_tracking_close),
                                 closePendingIntent)
-                        .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE);
+                        .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
+                        .setOngoing(true);
 
         return builder.build();
     }
