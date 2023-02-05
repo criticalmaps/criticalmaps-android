@@ -62,19 +62,7 @@
     <color name="settings_cache_space">@color/colorSecondary</color>
     <color name="settings_free_space">@color/colorPrimary</color>
 
-    <!-- Twitter -->
-    <color name="twitter_error_message_text">@color/colorError</color>
-    <color name="twitter_indicator_color_first">@color/colorSecondary</color>
-    <color name="twitter_indicator_color_second">@color/colorPrimaryLight</color>
-    <color name="twitter_nickname">#909399</color>
-    <color name="twitter_message">#DADCE0</color>
-    <color name="twitter_divider">#45474D</color>
-    <color name="twitter_hashtag">@color/colorSecondary</color>
-
-    <!-- Tweet -->
-    <color name="tweet_progress_bar_background">@color/colorPrimary</color>
-
-    <!-- Header/Footer used in chat and twitter fragment -->
+    <!-- Header/Footer used in chat fragment -->
     <color name="border_bottom_background">@color/colorBackground</color>
     <color name="border_bottom_divider">@color/colorSecondary</color>
 

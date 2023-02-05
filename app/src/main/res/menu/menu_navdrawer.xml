@@ -16,11 +16,6 @@
             android:title="@string/section_chat" />
 
         <item
-            android:id="@+id/navigation_twitter"
-            android:icon="@drawable/ic_nav_twitter"
-            android:title="@string/section_twitter" />
-
-        <item
             android:id="@+id/navigation_rules"
             android:icon="@drawable/ic_nav_rules"
             android:title="@string/section_rules" />
