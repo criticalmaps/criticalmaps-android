@@ -29,22 +29,22 @@ import de.stephanlindauer.criticalmaps.provider.EventBus;
 
 @Singleton
 public class LocationUpdateManager {
-
     private final OwnLocationModel ownLocationModel;
     private final EventBus eventBus;
     private final PermissionCheckHandler permissionCheckHandler;
     private final App app;
     private boolean isUpdating = false;
 
-    //const
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
     private static final int LOCATION_NEW_THRESHOLD = 30 * 1000; //30 seconds
     private static final String[] USED_PROVIDERS = new String[]{
             LocationManager.GPS_PROVIDER,
             LocationManager.NETWORK_PROVIDER};
+    public static final String[] PERMISSIONS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION};
 
-    //misc
     private final LocationManager locationManager;
     private Location lastPublishedLocation;
 
@@ -130,6 +130,7 @@ public class LocationUpdateManager {
         for (String provider : USED_PROVIDERS) {
             if (allProviders.contains(provider)) {
                 atLeastOneProviderExists = true;
+                break;
             }
         }
         return atLeastOneProviderExists;
@@ -203,18 +204,17 @@ public class LocationUpdateManager {
     }
 
     public boolean checkPermission() {
-        return PermissionCheckHandler.checkPermissionGranted(
-                Manifest.permission.ACCESS_FINE_LOCATION); //TODO does this exist on devices with only network location?
+        return PermissionCheckHandler.checkPermissionsGranted(PERMISSIONS);
     }
 
     public void requestPermission() {
         PermissionRequest permissionRequest = new PermissionRequest(
-                Manifest.permission.ACCESS_FINE_LOCATION,
+                PERMISSIONS,
                 app.getString(R.string.map_location_permissions_rationale_text),
                 this::startListening,
                 null,
                 this::setAndPostPermissionPermanentlyDeniedEvent);
-        permissionCheckHandler.requestPermissionWithRationaleIfNeeded(permissionRequest);
+        permissionCheckHandler.requestPermissionsWithRationaleIfNeeded(permissionRequest);
     }
 
     public void handleShutdown() {
