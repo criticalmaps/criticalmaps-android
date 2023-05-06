@@ -1,13 +1,13 @@
-<p align="center"><a href="https://www.criticalmaps.net"><img src="https://github.com/criticalmaps/criticalmaps-ios/blob/master/images/logo.png" width="250" /></a></p>
+<p align="center"><a href="https://www.criticalmaps.net"><img src="https://github.com/criticalmaps/criticalmaps-ios/blob/4aff6db9e709accd3536144ae71dce76611f6565/_images/Icon.svg" width="250" /></a></p>
 
 <p align="center">
-<a title="Play Store Link" target="_blank" href="https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="170" alt="Link to the Play Store"/></a>
-<a title="F-Droid Link" target="_blank" href="https://f-droid.org/repository/browse/?fdid=de.stephanlindauer.criticalmaps"><img src="https://f-droid.org/wiki/images/c/c4/F-Droid-button_available-on.png" width="170" alt="Link to the F-Droid Store"/></a>
+<a href='https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
+<a title="F-Droid Link" target="_blank" href="https://f-droid.org/en/packages/de.stephanlindauer.criticalmaps/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="80" alt="Get it on F-Droid"/></a>
 </p>
 
 # Critical Mass Android App
 
-[![Build Status](https://travis-ci.org/criticalmaps/criticalmaps-android.svg)](https://travis-ci.org/criticalmaps/criticalmaps-android)
+[![CI](https://github.com/criticalmaps/criticalmaps-android/actions/workflows/android.yml/badge.svg)](https://github.com/criticalmaps/criticalmaps-android/actions/workflows/android.yml)
 
 ## What's "Critical Mass"?
 
