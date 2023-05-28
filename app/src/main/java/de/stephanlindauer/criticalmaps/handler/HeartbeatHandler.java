@@ -3,7 +3,6 @@ package de.stephanlindauer.criticalmaps.handler;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +24,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import timber.log.Timber;
 
-public class PullServerHandler extends AsyncTask<Void, Void, String> {
+public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
 
     //dependencies
     private final ChatModel chatModel;
@@ -37,7 +36,7 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     private final LocationUpdateManager locationUpdateManager;
 
     @Inject
-    public PullServerHandler(ChatModel chatModel,
+    public HeartbeatHandler(ChatModel chatModel,
                              OwnLocationModel ownLocationModel,
                              UserModel userModel,
                              ServerResponseProcessor serverResponseProcessor,
@@ -54,54 +53,45 @@ public class PullServerHandler extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
+        final boolean isObserverModeActive = new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get();
+
+        if (!isObserverModeActive && ownLocationModel.hasPreciseLocation()
+                && locationUpdateManager.isUpdating()) {
+            Timber.d("Heartbeat preconditions are fulfilled.");
+        } else {
+            Timber.d("Heartbeat preconditions are not fulfilled.");
+            return null;
+        }
+
         String jsonPostString = getJsonObject().toString();
 
         final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPostString);
-        final Request request = new Request.Builder().url(Endpoints.MAIN_POST).post(body).build();
+        final Request request = new Request.Builder().url(Endpoints.LOCATION_PUT).put(body).build();
 
         try {
             final Response response = okHttpClient.newCall(request).execute();
-            if (response.isSuccessful()) {
-                //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
-                return response.body().string();
+            if (!response.isSuccessful()) {
+                //TODO Display error to user
             }
         } catch (IOException e) {
             Timber.e(e);
         }
-        return "";
+        return null;
     }
 
-    @Override
-    protected void onPostExecute(String result) {
-        if (!result.isEmpty()) {
-            serverResponseProcessor.process(result);
-        }
-    }
 
     private JSONObject getJsonObject() {
-        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject;
+        jsonObject = ownLocationModel.getLocationJson();
 
-        try {
+        try{
             jsonObject.put("device", userModel.getChangingDeviceToken());
-
-            final boolean isObserverModeActive = new BooleanPreference(
-                    sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get();
-
-            Timber.d("observer mode enabled: %s", isObserverModeActive);
-
-            if (!isObserverModeActive && ownLocationModel.hasPreciseLocation()
-                    && locationUpdateManager.isUpdating()) {
-                jsonObject.put("location", ownLocationModel.getLocationJson());
-            }
-
-            if (chatModel.hasOutgoingMessages()) {
-                JSONArray messages = chatModel.getOutgoingMessagesAsJson();
-                jsonObject.put("messages", messages);
-            }
         } catch (JSONException e) {
             Timber.e(e);
         }
+        
         return jsonObject;
     }
 }
