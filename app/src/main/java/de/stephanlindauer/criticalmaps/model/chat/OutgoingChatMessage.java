@@ -4,11 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import okhttp3.internal.Util;
 
-public class OutgoingChatMessage implements IChatMessage {
+public class OutgoingChatMessage {
 
     private final Date timestamp;
     private final String urlEncodedMessage;
@@ -30,7 +29,6 @@ public class OutgoingChatMessage implements IChatMessage {
         return urlEncodedMessage;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }

@@ -33,9 +33,9 @@ import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.databinding.FragmentChatBinding;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AxtUtils.SimpleTextWatcher;
 
@@ -45,6 +45,7 @@ public class ChatFragment extends Fragment {
 
     @Inject
     EventBus eventBus;
+
 
     private boolean isTextInputEnabled = true;
     private ChatMessageAdapter chatMessageAdapter;
@@ -70,9 +71,9 @@ public class ChatFragment extends Fragment {
         binding.chatMessagesRecyclerview.setAdapter(chatMessageAdapter);
         displayNewData();
 
-        binding.chatMessageTextinputlayout.setCounterMaxLength(IChatMessage.MAX_LENGTH);
+        binding.chatMessageTextinputlayout.setCounterMaxLength(ChatModel.MESSAGE_MAX_LENGTH);
         binding.chatMessageEdittext.setFilters(
-                new InputFilter[]{new InputFilter.LengthFilter(IChatMessage.MAX_LENGTH)});
+                new InputFilter[]{new InputFilter.LengthFilter(ChatModel.MESSAGE_MAX_LENGTH)});
         binding.chatMessageEdittext.setOnEditorActionListener(
                 (v, actionId, event) -> handleEditorAction(actionId));
 
@@ -130,18 +131,18 @@ public class ChatFragment extends Fragment {
             return;
         }
 
-        chatModel.setNewOutgoingMessage(new OutgoingChatMessage(message));
+        chatModel.sendNewOutgoingMessage(new OutgoingChatMessage(message));
 
         binding.chatMessageEdittext.setText("");
         displayNewData();
     }
 
     private void displayNewData() {
-        final List<IChatMessage> savedAndOutgoingMessages = chatModel.getSavedAndOutgoingMessages();
-        chatMessageAdapter.updateData(savedAndOutgoingMessages);
+        final List<ReceivedChatMessage> receivedChatMessages = chatModel.getReceivedChatMessages();
+        chatMessageAdapter.updateData(receivedChatMessages);
 
         if (binding.chatMessagesRecyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
-            binding.chatMessagesRecyclerview.scrollToPosition(savedAndOutgoingMessages.size() - 1);
+            binding.chatMessagesRecyclerview.scrollToPosition(receivedChatMessages.size() - 1);
         }
     }
 

@@ -65,9 +65,9 @@ public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
             return null;
         }
 
-        String jsonPostString = getJsonObject().toString();
+        String jsonPutBody = getJsonObject().toString();
 
-        final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPostString);
+        final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPutBody);
         final Request request = new Request.Builder().url(Endpoints.LOCATION_PUT).put(body).build();
 
         try {

@@ -1,5 +1,7 @@
 package de.stephanlindauer.criticalmaps.model;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +18,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import okhttp3.internal.Util;
@@ -24,36 +25,38 @@ import timber.log.Timber;
 
 @Singleton
 public class ChatModel {
+    public static int MESSAGE_MAX_LENGTH = 255;
 
-    private final List<OutgoingChatMessage> outgoingMessages = new ArrayList<>();
-    private List<ReceivedChatMessage> chatMessages = new ArrayList<>();
+    private final UserModel userModel;
+
+    private List<ReceivedChatMessage> receivedChatMessages = new ArrayList<>();
 
     @Inject
-    public ChatModel() {
+    public ChatModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 
-    public void setFromJson(JSONObject jsonObject) throws JSONException,
+    @NonNull
+    public List<ReceivedChatMessage> getReceivedChatMessages() {
+        return this.receivedChatMessages;
+    }
+
+    public void setFromJson(JSONArray jsonArray) throws JSONException,
             UnsupportedEncodingException {
-        chatMessages = new ArrayList<>(jsonObject.length());
+        receivedChatMessages = new ArrayList<>(jsonArray.length());
 
-        Iterator<String> identifiers = jsonObject.keys();
-        while (identifiers.hasNext()) {
-            String identifier = identifiers.next();
-            JSONObject value = jsonObject.getJSONObject(identifier);
-            String message = URLDecoder.decode(value.getString("message"), Util.UTF_8.name());
-            Date timestamp = new Date(Long.parseLong(value.getString("timestamp")) * 1000);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-            Iterator<OutgoingChatMessage> outgoingChatMessageIterator = outgoingMessages.iterator();
-            while (outgoingChatMessageIterator.hasNext()) {
-                if (outgoingChatMessageIterator.next().getIdentifier().equals(identifier)) {
-                    outgoingChatMessageIterator.remove();
-                }
-            }
+            String device = URLDecoder.decode(jsonObject.getString("device"), Util.UTF_8.name());
+            String identifier = URLDecoder.decode(jsonObject.getString("identifier"), Util.UTF_8.name());
+            String message = URLDecoder.decode(jsonObject.getString("message"), Util.UTF_8.name());
+            Date timestamp = new Date(Long.parseLong(jsonObject.getString("timestamp")) * 1000);
 
-            chatMessages.add(new ReceivedChatMessage(message, timestamp));
+            receivedChatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
 
-        Collections.sort(chatMessages, new Comparator<ReceivedChatMessage>() {
+        Collections.sort(receivedChatMessages, new Comparator<ReceivedChatMessage>() {
             @Override
             public int compare(ReceivedChatMessage oneChatMessages,
                                ReceivedChatMessage otherChatMessage) {
@@ -62,36 +65,15 @@ public class ChatModel {
         });
     }
 
-    public void setNewOutgoingMessage(OutgoingChatMessage newOutgoingMessage) {
-        outgoingMessages.add(newOutgoingMessage);
-    }
-
-    public JSONArray getOutgoingMessagesAsJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (OutgoingChatMessage outgoingChatMessage : outgoingMessages) {
-            try {
-                JSONObject messageObject = new JSONObject();
-                messageObject.put("text", outgoingChatMessage.getUrlEncodedMessage());
-                messageObject.put("timestamp", outgoingChatMessage.getTimestamp().getTime());
-                messageObject.put("identifier", outgoingChatMessage.getIdentifier());
-                jsonArray.put(messageObject);
-            } catch (JSONException e) {
-                Timber.d(e);
-            }
+    public void sendNewOutgoingMessage(OutgoingChatMessage newOutgoingMessage) {
+        JSONObject messageObject = new JSONObject();
+        try {
+            messageObject.put("text", newOutgoingMessage.getUrlEncodedMessage());
+            messageObject.put("timestamp", newOutgoingMessage.getTimestamp().getTime());
+            messageObject.put("identifier", newOutgoingMessage.getIdentifier());
+            messageObject.put("device", userModel.getChangingDeviceToken());
+        } catch (JSONException e) {
+            Timber.d(e);
         }
-        return jsonArray;
-    }
-
-    public ArrayList<IChatMessage> getSavedAndOutgoingMessages() {
-        int mergedListsSize = chatMessages.size() + outgoingMessages.size();
-        ArrayList<IChatMessage> mergeArrayList = new ArrayList<>(mergedListsSize);
-        mergeArrayList.addAll(chatMessages);
-        mergeArrayList.addAll(outgoingMessages);
-        return mergeArrayList;
-    }
-
-    public boolean hasOutgoingMessages() {
-        return !outgoingMessages.isEmpty();
     }
 }

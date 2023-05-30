@@ -1,5 +1,6 @@
 package de.stephanlindauer.criticalmaps.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
@@ -19,18 +20,16 @@ public class OtherUsersLocationModel {
     public OtherUsersLocationModel() {
     }
 
-    public void setFromJson(JSONObject jsonObject) throws JSONException {
-        otherUsersLocations = new ArrayList<>(jsonObject.length());
+    public void setFromJson(JSONArray jsonArray) throws JSONException {
+        otherUsersLocations = new ArrayList<>(jsonArray.length());
+            for (int i=0; i < jsonArray.length(); i++) {
+                JSONObject locationObject  = jsonArray.getJSONObject(i);
 
-        Iterator<String> keys = jsonObject.keys();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            JSONObject value = jsonObject.getJSONObject(key);
-            int latitudeE6 = Integer.parseInt(value.getString("latitude"));
-            int longitudeE6 = Integer.parseInt(value.getString("longitude"));
+                int latitudeE6 = Integer.parseInt(locationObject.getString("latitude"));
+                int longitudeE6 = Integer.parseInt(locationObject.getString("longitude"));
 
-            otherUsersLocations.add(
-                    new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
+                otherUsersLocations.add(
+                        new GeoPoint(latitudeE6 / 1000000.0D, longitudeE6 / 1000000.0D));
         }
     }
 

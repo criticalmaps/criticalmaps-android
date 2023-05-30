@@ -15,13 +15,12 @@ import java.util.TimeZone;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.ViewChatmessageBinding;
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 
-    private List<IChatMessage> chatMessages;
+    private List<ReceivedChatMessage> chatMessages;
 
     static class ChatMessageViewHolder extends RecyclerView.ViewHolder {
         private final ViewChatmessageBinding binding;
@@ -34,7 +33,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             this.binding = binding;
         }
 
-        void bind(IChatMessage message) {
+        void bind(ReceivedChatMessage message) {
             binding.chatmessageMessageText.setText(message.getMessage());
             if (message instanceof ReceivedChatMessage) {
                 dateFormatter.setTimeZone(TimeZone.getDefault());
@@ -58,7 +57,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         }
     }
 
-    public ChatMessageAdapter(List<IChatMessage> chatMessages) {
+    public ChatMessageAdapter(List<ReceivedChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
 
@@ -87,7 +86,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         return chatMessages.size();
     }
 
-    public void updateData(List<IChatMessage> savedAndOutgoingMessages) {
+    public void updateData(List<ReceivedChatMessage> savedAndOutgoingMessages) {
         this.chatMessages = savedAndOutgoingMessages;
         notifyDataSetChanged();
     }
