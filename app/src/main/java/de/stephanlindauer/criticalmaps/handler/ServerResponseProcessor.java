@@ -29,7 +29,7 @@ public class ServerResponseProcessor {
     public void process(final String jsonString) {
         try {
             final JSONArray jsonArray = new JSONArray(jsonString);
-                otherUsersLocationModel.setFromJson(jsonArray);
+            otherUsersLocationModel.setFromJson(jsonArray);
 
             eventBus.post(Events.NEW_SERVER_RESPONSE_EVENT);
         } catch (Exception e) {

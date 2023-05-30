@@ -30,7 +30,6 @@ public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
     private final ChatModel chatModel;
     private final OwnLocationModel ownLocationModel;
     private final UserModel userModel;
-    private final ServerResponseProcessor serverResponseProcessor;
     private final OkHttpClient okHttpClient;
     private final SharedPreferences sharedPreferences;
     private final LocationUpdateManager locationUpdateManager;
@@ -46,7 +45,6 @@ public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
         this.chatModel = chatModel;
         this.ownLocationModel = ownLocationModel;
         this.userModel = userModel;
-        this.serverResponseProcessor = serverResponseProcessor;
         this.okHttpClient = okHttpClient;
         this.sharedPreferences = sharedPreferences;
         this.locationUpdateManager = locationUpdateManager;
