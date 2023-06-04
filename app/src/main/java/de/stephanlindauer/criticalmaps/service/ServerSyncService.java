@@ -17,7 +17,7 @@ import javax.inject.Provider;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
-import de.stephanlindauer.criticalmaps.handler.PullServerHandler;
+import de.stephanlindauer.criticalmaps.handler.PutLocationHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
@@ -25,7 +25,7 @@ import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
 public class ServerSyncService extends Service {
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final int SERVER_SYNC_INTERVAL = 45 * 1000; // 45 sec
+    private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
 
     private Timer timerPullServer;
 
@@ -36,7 +36,7 @@ public class ServerSyncService extends Service {
     NetworkConnectivityChangeHandler networkConnectivityChangeHandler;
 
     @Inject
-    Provider<PullServerHandler> pullServerHandler;
+    Provider<PutLocationHandler> putLocationHandler;
 
     @Inject
     EventBus eventBus;
@@ -66,7 +66,7 @@ public class ServerSyncService extends Service {
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
             public void run() {
-                pullServerHandler.get().execute();
+                putLocationHandler.get().execute();
             }
         };
         timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);

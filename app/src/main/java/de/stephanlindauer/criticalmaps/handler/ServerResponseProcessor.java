@@ -1,6 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import javax.inject.Inject;
 
@@ -25,15 +25,20 @@ public class ServerResponseProcessor {
         this.chatModel = chatModel;
     }
 
-    public void process(final String jsonString) {
+    public void processLocations(final String jsonString) {
         try {
-            final JSONObject jsonObject = new JSONObject(jsonString);
-            if (jsonObject.has("locations")) {
-                otherUsersLocationModel.setFromJson(jsonObject.getJSONObject("locations"));
-            }
-            if (jsonObject.has("locations")) {
-                chatModel.setFromJson(jsonObject.getJSONObject("chatMessages"));
-            }
+            final JSONArray jsonArray = new JSONArray(jsonString);
+            otherUsersLocationModel.setFromJson(jsonArray);
+            eventBus.post(Events.NEW_SERVER_RESPONSE_EVENT);
+        } catch (Exception e) {
+            Timber.d(e);
+        }
+    }
+
+    public void processChatmessages(final String jsonString) {
+        try {
+            final JSONArray jsonArray = new JSONArray(jsonString);
+            chatModel.setFromJson(jsonArray);
             eventBus.post(Events.NEW_SERVER_RESPONSE_EVENT);
         } catch (Exception e) {
             Timber.d(e);

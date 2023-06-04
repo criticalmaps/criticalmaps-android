@@ -33,7 +33,7 @@ public class ServerResponseProcessorTest {
         final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
 
-        tested.process(json);
+        tested.processLocations(json);
 
         verify(chatModel).setFromJson(any(JSONObject.class));
     }
@@ -46,7 +46,7 @@ public class ServerResponseProcessorTest {
         final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
 
-        tested.process(json);
+        tested.processLocations(json);
 
         verify(eventMock, times(1)).post(Events.NEW_SERVER_RESPONSE_EVENT);
     }
@@ -57,7 +57,7 @@ public class ServerResponseProcessorTest {
         final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
 
-        tested.process("borken");
+        tested.processLocations("borken");
 
         verify(eventMock, never()).post(Events.NEW_SERVER_RESPONSE_EVENT);
     }

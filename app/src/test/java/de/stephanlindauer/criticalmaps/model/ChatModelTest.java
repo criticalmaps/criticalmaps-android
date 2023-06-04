@@ -13,7 +13,6 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 
-import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 
 import static com.google.common.truth.Truth.assertThat;

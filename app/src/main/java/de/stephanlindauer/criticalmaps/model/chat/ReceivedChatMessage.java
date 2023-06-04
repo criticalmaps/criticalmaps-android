@@ -2,9 +2,8 @@ package de.stephanlindauer.criticalmaps.model.chat;
 
 import java.util.Date;
 
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 
-public class ReceivedChatMessage implements IChatMessage {
+public class ReceivedChatMessage {
 
     private final Date timestamp;
     private final String message;
@@ -18,7 +17,6 @@ public class ReceivedChatMessage implements IChatMessage {
         return timestamp;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }

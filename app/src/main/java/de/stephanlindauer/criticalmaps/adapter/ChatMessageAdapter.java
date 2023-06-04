@@ -15,50 +15,32 @@ import java.util.TimeZone;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.ViewChatmessageBinding;
-import de.stephanlindauer.criticalmaps.interfaces.IChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder> {
 
-    private List<IChatMessage> chatMessages;
+    private List<ReceivedChatMessage> chatMessages;
 
     static class ChatMessageViewHolder extends RecyclerView.ViewHolder {
         private final ViewChatmessageBinding binding;
         private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
-        private ObjectAnimator sendingAnimator;
 
         ChatMessageViewHolder(ViewChatmessageBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        void bind(IChatMessage message) {
+        void bind(ReceivedChatMessage message) {
             binding.chatmessageMessageText.setText(message.getMessage());
-            if (message instanceof ReceivedChatMessage) {
-                dateFormatter.setTimeZone(TimeZone.getDefault());
-                binding.chatmessageLabelText.setText(TimeToWordStringConverter.getTimeAgo(
-                        ((ReceivedChatMessage) message).getTimestamp(), itemView.getContext()));
-            } else {
-                binding.chatmessageLabelText.setText(R.string.chat_sending);
-
-                sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
-                        itemView.getContext(), R.animator.map_gps_fab_searching_animation);
-                sendingAnimator.setTarget(binding.chatmessageLabelText);
-                sendingAnimator.start();
-            }
-        }
-
-        void clearAnimation() {
-            if (sendingAnimator != null) {
-                sendingAnimator.cancel();
-                binding.chatmessageLabelText.setAlpha(1f);
-            }
+            dateFormatter.setTimeZone(TimeZone.getDefault());
+            binding.chatmessageLabelText.setText(TimeToWordStringConverter.getTimeAgo(
+                    message.getTimestamp(), itemView.getContext()));
         }
     }
 
-    public ChatMessageAdapter(List<IChatMessage> chatMessages) {
+    public ChatMessageAdapter(List<ReceivedChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
 
@@ -78,16 +60,11 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     }
 
     @Override
-    public void onViewDetachedFromWindow(@NonNull ChatMessageViewHolder holder) {
-        holder.clearAnimation();
-    }
-
-    @Override
     public int getItemCount() {
         return chatMessages.size();
     }
 
-    public void updateData(List<IChatMessage> savedAndOutgoingMessages) {
+    public void updateData(List<ReceivedChatMessage> savedAndOutgoingMessages) {
         this.chatMessages = savedAndOutgoingMessages;
         notifyDataSetChanged();
     }
