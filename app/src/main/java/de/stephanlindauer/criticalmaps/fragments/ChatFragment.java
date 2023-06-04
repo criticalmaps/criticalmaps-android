@@ -24,8 +24,11 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
@@ -33,23 +36,30 @@ import de.stephanlindauer.criticalmaps.adapter.ChatMessageAdapter;
 import de.stephanlindauer.criticalmaps.databinding.FragmentChatBinding;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.handler.GetChatmessagesHandler;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AxtUtils.SimpleTextWatcher;
 
+
 public class ChatFragment extends Fragment {
+    @Inject
+    Provider<GetChatmessagesHandler> getChatmessagesHandler;
+
     @Inject
     ChatModel chatModel;
 
     @Inject
     EventBus eventBus;
 
-
     private boolean isTextInputEnabled = true;
     private ChatMessageAdapter chatMessageAdapter;
     private FragmentChatBinding binding;
+    private Timer timerGetChatmessages;
+
+    private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -151,11 +161,13 @@ public class ChatFragment extends Fragment {
         super.onResume();
         displayNewData();
         eventBus.register(this);
+        startGetChatmessagesTimer();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        stopGetChatmessagesTimer();
         eventBus.unregister(this);
         hideKeyBoard(binding.chatMessageEdittext);
     }
@@ -176,6 +188,12 @@ public class ChatFragment extends Fragment {
     @Subscribe
     public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
         setTextInputState(e.isConnected);
+
+        if (e.isConnected && timerGetChatmessages == null) {
+            startGetChatmessagesTimer();
+        } else {
+            stopGetChatmessagesTimer();
+        }
     }
 
     private void setTextInputState(final boolean dataEnabled) {
@@ -195,5 +213,26 @@ public class ChatFragment extends Fragment {
     private void updateSendButtonEnabledState() {
         final String message = binding.chatMessageEdittext.getText().toString();
         setSendButtonEnabledWithAnimation(!message.trim().isEmpty());
+    }
+
+    private void startGetChatmessagesTimer() {
+        stopGetChatmessagesTimer();
+
+        timerGetChatmessages = new Timer();
+
+        TimerTask timerTaskPullServer = new TimerTask() {
+            @Override
+            public void run() {
+                getChatmessagesHandler.get().execute();
+            }
+        };
+        timerGetChatmessages.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
+    }
+
+    private void stopGetChatmessagesTimer() {
+        if (timerGetChatmessages != null) {
+            timerGetChatmessages.cancel();
+            timerGetChatmessages = null;
+        }
     }
 }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,13 +22,14 @@ import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import okhttp3.internal.Util;
 import timber.log.Timber;
 
+
 @Singleton
 public class ChatModel {
-    public static int MESSAGE_MAX_LENGTH = 255;
 
     private final UserModel userModel;
-
     private List<ReceivedChatMessage> receivedChatMessages = new ArrayList<>();
+
+    public static int MESSAGE_MAX_LENGTH = 255;
 
     @Inject
     public ChatModel(UserModel userModel) {
