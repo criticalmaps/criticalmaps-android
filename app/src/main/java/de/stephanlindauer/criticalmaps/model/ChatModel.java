@@ -18,7 +18,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import de.stephanlindauer.criticalmaps.handler.PostChatmessagesHandler;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import okhttp3.internal.Util;
@@ -58,13 +57,7 @@ public class ChatModel {
             receivedChatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
 
-        Collections.sort(receivedChatMessages, new Comparator<ReceivedChatMessage>() {
-            @Override
-            public int compare(ReceivedChatMessage oneChatMessages,
-                               ReceivedChatMessage otherChatMessage) {
-                return oneChatMessages.getTimestamp().compareTo(otherChatMessage.getTimestamp());
-            }
-        });
+        Collections.sort(receivedChatMessages, Comparator.comparing(ReceivedChatMessage::getTimestamp));
     }
 
     public JSONObject createNewOutgoingMessage(String message) {
