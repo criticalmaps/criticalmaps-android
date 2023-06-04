@@ -1,0 +1,32 @@
+[
+  {
+    "device": "ec0381f4842815a213771ba5155f09b1d6fb97b5",
+    "latitude": 52322786,
+    "longitude": 13061227,
+    "timestamp": 1685910782
+  },
+  {
+    "device": "5551614c74e377b9745145aabdbec9aa0f3b2bc1",
+    "latitude": 52509919,
+    "longitude": 13258792,
+    "timestamp": 1685910783
+  },
+  {
+    "device": "d5bcc1556ff3a60e436e5b503c7efbe4e249e36d",
+    "latitude": 52550509,
+    "longitude": 13406121,
+    "timestamp": 1685910795
+  },
+  {
+    "device": "7a55cfa0f84154f4c669e2e63c9e9e438ae8180a",
+    "latitude": 52510930,
+    "longitude": 13439071,
+    "timestamp": 1685910784
+  },
+  {
+    "device": "eaedd319cfe37edab0916bf3acb2bc445c430603",
+    "latitude": 52521592,
+    "longitude": 13356797,
+    "timestamp": 1685910735
+  }
+]

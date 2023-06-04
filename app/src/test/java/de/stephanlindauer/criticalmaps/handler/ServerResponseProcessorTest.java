@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps.handler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.File;
@@ -28,20 +28,20 @@ public class ServerResponseProcessorTest {
     public void process_chatmessagesAreSetOnModel() throws IOException, URISyntaxException,
             JSONException {
         final String json = readToString(new File(getClass().getClassLoader()
-                .getResource("simple_server_response.json").toURI()));
+                .getResource("server_response_locations.json").toURI()));
         final ChatModel chatModel = mock(ChatModel.class);
         final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), mock(EventBus.class), chatModel);
 
-        tested.processLocations(json);
+        tested.processChatmessages(json);
 
-        verify(chatModel).setFromJson(any(JSONObject.class));
+        verify(chatModel).setFromJson(any(JSONArray.class));
     }
 
     @Test
     public void process_eventIsFiredForValidJSON() throws IOException, URISyntaxException {
         final String json = readToString(new File(getClass().getClassLoader()
-                .getResource("simple_server_response.json").toURI()));
+                .getResource("server_response_locations.json").toURI()));
         final EventBus eventMock = mock(EventBus.class);
         final ServerResponseProcessor tested = new ServerResponseProcessor(
                 mock(OtherUsersLocationModel.class), eventMock, mock(ChatModel.class));
@@ -67,21 +67,15 @@ public class ServerResponseProcessorTest {
     }
 
     public String readToString(Charset charset, File file) throws IOException {
-        final FileInputStream stream = new FileInputStream(file);
-        try {
+        try (FileInputStream stream = new FileInputStream(file)) {
             return readToStringFromFileInputStream(charset, stream);
-        } finally {
-            stream.close();
         }
     }
 
     private String readToStringFromFileInputStream(Charset charset, FileInputStream stream) throws IOException {
-        final FileChannel fc = stream.getChannel();
-        try {
+        try (FileChannel fc = stream.getChannel()) {
             final MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
             return charset.decode(bb).toString();
-        } finally {
-            fc.close();
         }
     }
 }
