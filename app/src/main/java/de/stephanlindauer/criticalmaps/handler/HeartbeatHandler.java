@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import de.stephanlindauer.criticalmaps.BuildConfig;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -17,6 +18,7 @@ import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
 import info.metadude.android.typedpreferences.BooleanPreference;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -66,7 +68,10 @@ public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
         String jsonPutBody = getJsonObject().toString();
 
         final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPutBody);
-        final Request request = new Request.Builder().url(Endpoints.LOCATION_PUT).put(body).build();
+        final Headers headers = Headers.of("app-version", BuildConfig.VERSION_NAME);
+
+        final Request request = new Request.Builder().url(Endpoints.LOCATION_PUT).put(body).headers(headers).build();
+
 
         try {
             final Response response = okHttpClient.newCall(request).execute();
