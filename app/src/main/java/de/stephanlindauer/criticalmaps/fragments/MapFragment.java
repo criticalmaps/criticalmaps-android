@@ -34,7 +34,11 @@ import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
@@ -43,6 +47,8 @@ import de.stephanlindauer.criticalmaps.events.GpsStatusChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
+import de.stephanlindauer.criticalmaps.handler.GetLocationHandler;
+import de.stephanlindauer.criticalmaps.handler.PutLocationHandler;
 import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
@@ -53,6 +59,7 @@ import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
 import info.metadude.android.typedpreferences.BooleanPreference;
+import timber.log.Timber;
 
 public class MapFragment extends Fragment {
     private final static String KEY_MAP_ZOOMLEVEL = "map_zoomlevel";
@@ -62,6 +69,16 @@ public class MapFragment extends Fragment {
 
     private final static double DEFAULT_ZOOM_LEVEL = 12;
     private final static double NO_GPS_PERMISSION_ZOOM_LEVEL = 3;
+
+    private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
+
+    private Timer timerGetLocation;
+
+
+
+    @Inject
+    Provider<GetLocationHandler> getLocationHandler;
+
 
     @Inject
     OwnLocationModel ownLocationModel;
@@ -305,6 +322,9 @@ public class MapFragment extends Fragment {
     public void onResume() {
         super.onResume();
         eventBus.register(this);
+        startGetLocationTimer();
+
+        Timber.d("onResume");
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(
                 observerModeOnSharedPreferenceChangeListener);
@@ -336,6 +356,9 @@ public class MapFragment extends Fragment {
     public void onPause() {
         super.onPause();
         eventBus.unregister(this);
+        stopGetLocationTimer();
+
+        Timber.d("onPause");
 
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(
                 observerModeOnSharedPreferenceChangeListener);
@@ -472,4 +495,25 @@ public class MapFragment extends Fragment {
     private void setToLocation(final GeoPoint location) {
         mapView.getController().setCenter(location);
     }
+    private void startGetLocationTimer() {
+        stopGetLocationTimer();
+
+        timerGetLocation = new Timer();
+
+        TimerTask timerTaskPullServer = new TimerTask() {
+            @Override
+            public void run() {
+                getLocationHandler.get().execute();
+            }
+        };
+        timerGetLocation.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
+    }
+
+    private void stopGetLocationTimer() {
+        if (timerGetLocation != null) {
+            timerGetLocation.cancel();
+            timerGetLocation = null;
+        }
+    }
+
 }

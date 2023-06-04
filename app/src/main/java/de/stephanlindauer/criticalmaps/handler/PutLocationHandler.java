@@ -26,7 +26,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import timber.log.Timber;
 
-public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
+public class PutLocationHandler extends AsyncTask<Void, Void, Void> {
 
     //dependencies
     private final ChatModel chatModel;
@@ -37,13 +37,13 @@ public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
     private final LocationUpdateManager locationUpdateManager;
 
     @Inject
-    public HeartbeatHandler(ChatModel chatModel,
-                             OwnLocationModel ownLocationModel,
-                             UserModel userModel,
-                             ServerResponseProcessor serverResponseProcessor,
-                             OkHttpClient okHttpClient,
-                             SharedPreferences sharedPreferences,
-                             LocationUpdateManager locationUpdateManager) {
+    public PutLocationHandler(ChatModel chatModel,
+                              OwnLocationModel ownLocationModel,
+                              UserModel userModel,
+                              ServerResponseProcessor serverResponseProcessor,
+                              OkHttpClient okHttpClient,
+                              SharedPreferences sharedPreferences,
+                              LocationUpdateManager locationUpdateManager) {
         this.chatModel = chatModel;
         this.ownLocationModel = ownLocationModel;
         this.userModel = userModel;
@@ -71,7 +71,6 @@ public class HeartbeatHandler extends AsyncTask<Void, Void, Void> {
         final Headers headers = Headers.of("app-version", BuildConfig.VERSION_NAME);
 
         final Request request = new Request.Builder().url(Endpoints.LOCATION_PUT).put(body).headers(headers).build();
-
 
         try {
             final Response response = okHttpClient.newCall(request).execute();

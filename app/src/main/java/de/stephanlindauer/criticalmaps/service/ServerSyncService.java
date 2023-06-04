@@ -17,7 +17,7 @@ import javax.inject.Provider;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.handler.NetworkConnectivityChangeHandler;
-import de.stephanlindauer.criticalmaps.handler.HeartbeatHandler;
+import de.stephanlindauer.criticalmaps.handler.PutLocationHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
@@ -36,7 +36,7 @@ public class ServerSyncService extends Service {
     NetworkConnectivityChangeHandler networkConnectivityChangeHandler;
 
     @Inject
-    Provider<HeartbeatHandler> heartbeatHandler;
+    Provider<PutLocationHandler> putLocationHandler;
 
     @Inject
     EventBus eventBus;
@@ -66,7 +66,7 @@ public class ServerSyncService extends Service {
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
             public void run() {
-                heartbeatHandler.get().execute();
+                putLocationHandler.get().execute();
             }
         };
         timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
