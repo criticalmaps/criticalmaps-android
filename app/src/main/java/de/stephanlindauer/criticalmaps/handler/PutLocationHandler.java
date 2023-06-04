@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import de.stephanlindauer.criticalmaps.BuildConfig;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
-import de.stephanlindauer.criticalmaps.model.ChatModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
@@ -26,10 +25,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import timber.log.Timber;
 
+
 public class PutLocationHandler extends AsyncTask<Void, Void, Void> {
 
-    //dependencies
-    private final ChatModel chatModel;
     private final OwnLocationModel ownLocationModel;
     private final UserModel userModel;
     private final OkHttpClient okHttpClient;
@@ -37,14 +35,12 @@ public class PutLocationHandler extends AsyncTask<Void, Void, Void> {
     private final LocationUpdateManager locationUpdateManager;
 
     @Inject
-    public PutLocationHandler(ChatModel chatModel,
-                              OwnLocationModel ownLocationModel,
-                              UserModel userModel,
-                              ServerResponseProcessor serverResponseProcessor,
-                              OkHttpClient okHttpClient,
-                              SharedPreferences sharedPreferences,
-                              LocationUpdateManager locationUpdateManager) {
-        this.chatModel = chatModel;
+    public PutLocationHandler(
+            OwnLocationModel ownLocationModel,
+            UserModel userModel,
+            OkHttpClient okHttpClient,
+            SharedPreferences sharedPreferences,
+            LocationUpdateManager locationUpdateManager) {
         this.ownLocationModel = ownLocationModel;
         this.userModel = userModel;
         this.okHttpClient = okHttpClient;
@@ -69,31 +65,31 @@ public class PutLocationHandler extends AsyncTask<Void, Void, Void> {
 
         final RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonPutBody);
         final Headers headers = Headers.of("app-version", BuildConfig.VERSION_NAME);
-
         final Request request = new Request.Builder().url(Endpoints.LOCATION_PUT).put(body).headers(headers).build();
 
         try {
             final Response response = okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
                 //TODO Display error to user
+                Timber.d("Put location unsuccessful with code %d", response.code());
             }
+            response.close();
         } catch (IOException e) {
             Timber.e(e);
         }
+
         return null;
     }
 
-
     private JSONObject getJsonObject() {
-        JSONObject jsonObject;
-        jsonObject = ownLocationModel.getLocationJson();
+        JSONObject jsonObject = ownLocationModel.getLocationJson();
 
-        try{
+        try {
             jsonObject.put("device", userModel.getChangingDeviceToken());
         } catch (JSONException e) {
             Timber.e(e);
         }
-        
+
         return jsonObject;
     }
 }
