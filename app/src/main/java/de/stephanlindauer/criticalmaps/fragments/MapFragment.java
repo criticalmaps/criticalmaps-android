@@ -70,8 +70,6 @@ public class MapFragment extends Fragment {
     private final static double NO_GPS_PERMISSION_ZOOM_LEVEL = 3;
     private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
 
-    private Timer timerGetLocation;
-
     @Inject
     Provider<GetLocationHandler> getLocationHandler;
 
@@ -106,6 +104,8 @@ public class MapFragment extends Fragment {
     private Drawable ownLocationIconObserver;
 
     private FragmentMapBinding binding;
+
+    private Timer timerGetLocation;
 
     private final View.OnClickListener centerLocationOnClickListener = new View.OnClickListener() {
         @Override
@@ -390,6 +390,12 @@ public class MapFragment extends Fragment {
             binding.mapNoDataConnectivityFab.hide();
         } else {
             binding.mapNoDataConnectivityFab.show();
+        }
+
+        if (e.isConnected && timerGetLocation == null) {
+            startGetLocationTimer();
+        } else {
+            stopGetLocationTimer();
         }
     }
 
