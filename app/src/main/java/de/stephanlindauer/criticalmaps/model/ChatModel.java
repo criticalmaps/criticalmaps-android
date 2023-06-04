@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,8 +18,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
+import de.stephanlindauer.criticalmaps.handler.PostChatmessagesHandler;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
+import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
 import okhttp3.internal.Util;
 import timber.log.Timber;
 
@@ -65,15 +67,23 @@ public class ChatModel {
         });
     }
 
-    public void sendNewOutgoingMessage(OutgoingChatMessage newOutgoingMessage) {
+    public JSONObject createNewOutgoingMessage(String message) {
         JSONObject messageObject = new JSONObject();
         try {
-            messageObject.put("text", newOutgoingMessage.getUrlEncodedMessage());
-            messageObject.put("timestamp", newOutgoingMessage.getTimestamp().getTime());
-            messageObject.put("identifier", newOutgoingMessage.getIdentifier());
+            messageObject.put("text", urlEncodeMessage(message));
+            messageObject.put("identifier", AeSimpleSHA1.SHA1(message + Math.random()));
             messageObject.put("device", userModel.getChangingDeviceToken());
         } catch (JSONException e) {
             Timber.d(e);
+        }
+        return messageObject;
+    }
+
+    private String urlEncodeMessage(String messageToEncode) {
+        try {
+            return URLEncoder.encode(messageToEncode, Util.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            return "";
         }
     }
 }

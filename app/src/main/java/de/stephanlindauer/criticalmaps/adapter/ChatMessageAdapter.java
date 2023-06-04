@@ -26,7 +26,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         private final ViewChatmessageBinding binding;
         private final DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.SHORT, Locale.getDefault());
-        private ObjectAnimator sendingAnimator;
 
         ChatMessageViewHolder(ViewChatmessageBinding binding) {
             super(binding.getRoot());
@@ -35,25 +34,9 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
         void bind(ReceivedChatMessage message) {
             binding.chatmessageMessageText.setText(message.getMessage());
-            if (message instanceof ReceivedChatMessage) {
-                dateFormatter.setTimeZone(TimeZone.getDefault());
-                binding.chatmessageLabelText.setText(TimeToWordStringConverter.getTimeAgo(
-                        ((ReceivedChatMessage) message).getTimestamp(), itemView.getContext()));
-            } else {
-                binding.chatmessageLabelText.setText(R.string.chat_sending);
-
-                sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
-                        itemView.getContext(), R.animator.map_gps_fab_searching_animation);
-                sendingAnimator.setTarget(binding.chatmessageLabelText);
-                sendingAnimator.start();
-            }
-        }
-
-        void clearAnimation() {
-            if (sendingAnimator != null) {
-                sendingAnimator.cancel();
-                binding.chatmessageLabelText.setAlpha(1f);
-            }
+            dateFormatter.setTimeZone(TimeZone.getDefault());
+            binding.chatmessageLabelText.setText(TimeToWordStringConverter.getTimeAgo(
+                    message.getTimestamp(), itemView.getContext()));
         }
     }
 
@@ -74,11 +57,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public void onBindViewHolder(@NonNull ChatMessageViewHolder holder, int position) {
         holder.bind(chatMessages.get(position));
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(@NonNull ChatMessageViewHolder holder) {
-        holder.clearAnimation();
     }
 
     @Override

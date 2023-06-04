@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.otto.Subscribe;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +40,8 @@ import de.stephanlindauer.criticalmaps.databinding.FragmentChatBinding;
 import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.handler.GetChatmessagesHandler;
+import de.stephanlindauer.criticalmaps.handler.PostChatmessagesHandler;
 import de.stephanlindauer.criticalmaps.model.ChatModel;
-import de.stephanlindauer.criticalmaps.model.chat.OutgoingChatMessage;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AxtUtils.SimpleTextWatcher;
@@ -57,9 +60,10 @@ public class ChatFragment extends Fragment {
     private boolean isTextInputEnabled = true;
     private ChatMessageAdapter chatMessageAdapter;
     private FragmentChatBinding binding;
+    // private ObjectAnimator sendingAnimator;
     private Timer timerGetChatmessages;
 
-    private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
+    private final int SERVER_SYNC_INTERVAL = 20 * 1000; // 20 sec
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -141,11 +145,50 @@ public class ChatFragment extends Fragment {
             return;
         }
 
-        chatModel.sendNewOutgoingMessage(new OutgoingChatMessage(message));
+        // TODO handle UI state while sending, even though it shouldn't be noticeable
+
+        JSONObject messageObject = chatModel.createNewOutgoingMessage(message);
+        new PostChatmessagesHandler(messageObject, new Runnable() {
+            @Override
+            public void run() {
+                // TODO check if still alive; else bail!
+                // TODO reset UI state
+                // clearAnimation();
+
+                // Restart timer task so sent message shows up in list immediately
+                stopGetChatmessagesTimer();
+                startGetChatmessagesTimer();
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                // TODO check if still alive; else bail!
+                // TODO reset UI state
+                Toast.makeText(getContext(), R.string.something_went_wrong, Toast.LENGTH_LONG).show();
+            }
+        }).execute();
 
         binding.chatMessageEdittext.setText("");
         displayNewData();
     }
+
+    /*
+    private void setSendingAnimation() {
+        binding.chatmessageLabelText.setText(R.string.chat_sending);
+
+        sendingAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(
+                itemView.getContext(), R.animator.map_gps_fab_searching_animation);
+        sendingAnimator.setTarget(binding.chatmessageLabelText);
+        sendingAnimator.start();
+    }
+
+    private void clearAnimation() {
+        if (sendingAnimator != null) {
+            sendingAnimator.cancel();
+            binding.chatmessageLabelText.setAlpha(1f);
+        }
+    }
+    */
 
     private void displayNewData() {
         final List<ReceivedChatMessage> receivedChatMessages = chatModel.getReceivedChatMessages();
@@ -175,6 +218,8 @@ public class ChatFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        // TODO
+        // clearAnimation();
         binding = null;
     }
 
