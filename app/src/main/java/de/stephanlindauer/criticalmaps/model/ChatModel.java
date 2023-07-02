@@ -57,7 +57,8 @@ public class ChatModel {
             receivedChatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
 
-        Collections.sort(receivedChatMessages, Comparator.comparing(ReceivedChatMessage::getTimestamp));
+        Collections.sort(receivedChatMessages,
+                (oneChatMessages, otherChatMessage) -> oneChatMessages.getTimestamp().compareTo(otherChatMessage.getTimestamp()));
     }
 
     public JSONObject createNewOutgoingMessage(String message) {
