@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -277,6 +278,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     public void onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawers();
+        } else if (currentNavId != R.id.navigation_map) {
+            navigateTo(R.id.navigation_map);
         } else {
             super.onBackPressed();
         }
