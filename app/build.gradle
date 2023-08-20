@@ -21,7 +21,7 @@ android {
         }
     }
 
-    compileSdkVersion 33
+    compileSdk 33
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
@@ -50,6 +50,7 @@ android {
             signingConfig signingConfigs.releaseConfig
         }
     }
+
     packagingOptions {
         resources {
             excludes += ['META-INF/services/javax.annotation.processing.Processor']
@@ -68,6 +69,7 @@ android {
     lint {
         warning 'MissingTranslation', 'StringFormatInvalid', 'NewApi', 'InvalidPackage'
     }
+
     namespace 'de.stephanlindauer.criticalmaps'
 }
 
