@@ -64,6 +64,7 @@ public class TrackingInfoNotificationBuilder {
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(application.getString(R.string.notification_tracking_text)))
                         .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setCategory(NotificationCompat.CATEGORY_SERVICE)
                         .setContentIntent(openPendingIntent)
                         .addAction(R.drawable.ic_notification_open,
                                 application.getString(R.string.notification_tracking_open),

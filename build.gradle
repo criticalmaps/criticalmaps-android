@@ -1,18 +1,17 @@
 buildscript {
     ext {
-        dagger_version = "2.44.2"
+        dagger_version = "2.47"
     }
 
     repositories {
         google()
-        // gradle-errorprone-plugin:
-        maven { url "https://plugins.gradle.org/m2/" }
+        gradlePluginPortal() // gradle-errorprone-plugin
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.1.0'
         classpath 'com.github.bjoernq:unmockplugin:0.7.9'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:2.0.2'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
     }
 }
 

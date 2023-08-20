@@ -21,7 +21,6 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -252,24 +251,19 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_close:
-                handleCloseRequested();
-                break;
-            case R.id.take_picture:
-                new StartCameraHandler(this).execute();
-                break;
-            case R.id.settings_feedback:
-                startFeedbackIntent();
-                break;
-            case R.id.settings_datenschutz:
-                startDatenschutzIntent();
-                break;
-            case R.id.rate_the_app:
-                startRateTheApp();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_close) {
+            handleCloseRequested();
+        } else if (itemId == R.id.take_picture) {
+            new StartCameraHandler(this).execute();
+        } else if (itemId == R.id.settings_feedback) {
+            startFeedbackIntent();
+        } else if (itemId == R.id.settings_datenschutz) {
+            startDatenschutzIntent();
+        } else if (itemId == R.id.rate_the_app) {
+            startRateTheApp();
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }
