@@ -13,22 +13,16 @@ import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
 public class FragmentProvider {
 
     public static Fragment getFragmentForNavId(@IdRes int navId) {
-        switch (navId) {
-            case R.id.navigation_map:
-                return new MapFragment();
-
-            case R.id.navigation_rules:
-                return new RulesFragment();
-
-            case R.id.navigation_chat:
-                return new ChatFragment();
-
-            case R.id.navigation_settings:
-                return new SettingsFragment();
-
-            default:
-            case R.id.navigation_about:
-                return new AboutFragment();
+        if (navId == R.id.navigation_map) {
+            return new MapFragment();
+        } else if (navId == R.id.navigation_rules) {
+            return new RulesFragment();
+        } else if (navId == R.id.navigation_chat) {
+            return new ChatFragment();
+        } else if (navId == R.id.navigation_settings) {
+            return new SettingsFragment();
+        } else { // R.id.navigation_about
+            return new AboutFragment();
         }
     }
 }
