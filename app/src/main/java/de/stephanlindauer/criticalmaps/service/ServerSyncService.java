@@ -27,7 +27,7 @@ public class ServerSyncService extends Service {
     @SuppressWarnings("FieldCanBeLocal")
     private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
 
-    private Timer timerPullServer;
+    private Timer locationUploadTimer;
 
     @Inject
     LocationUpdateManager locationUpdateManager;
@@ -60,8 +60,8 @@ public class ServerSyncService extends Service {
         eventBus.register(this);
     }
 
-    private void startPullServerTimer() {
-        timerPullServer = new Timer();
+    private void startLocationUploadTimer() {
+        locationUploadTimer = new Timer();
 
         TimerTask timerTaskPullServer = new TimerTask() {
             @Override
@@ -69,13 +69,13 @@ public class ServerSyncService extends Service {
                 putLocationHandler.get().execute();
             }
         };
-        timerPullServer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
+        locationUploadTimer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
-    private void stopPullServerTimer() {
-        if (timerPullServer != null) {
-            timerPullServer.cancel();
-            timerPullServer = null;
+    private void stopLocationUploadTimer() {
+        if (locationUploadTimer != null) {
+            locationUploadTimer.cancel();
+            locationUploadTimer = null;
         }
     }
 
@@ -84,7 +84,7 @@ public class ServerSyncService extends Service {
         eventBus.unregister(this);
         locationUpdateManager.handleShutdown();
         networkConnectivityChangeHandler.stop();
-        stopPullServerTimer();
+        stopLocationUploadTimer();
     }
 
     @Override
@@ -95,10 +95,10 @@ public class ServerSyncService extends Service {
 
     @Subscribe
     public void handleNetworkConnectivityChanged(NetworkConnectivityChangedEvent e) {
-        if (e.isConnected && timerPullServer == null) {
-            startPullServerTimer();
+        if (e.isConnected && locationUploadTimer == null) {
+            startLocationUploadTimer();
         } else {
-            stopPullServerTimer();
+            stopLocationUploadTimer();
         }
     }
 
