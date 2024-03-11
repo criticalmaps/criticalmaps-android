@@ -148,7 +148,7 @@
     <string name="gpx_reading_error">Fehler beim Lesen der GPX-Daten</string>
 
     <!-- misc -->
-    <string name="something_went_wrong">Eine Fehler ist aufgetreten</string>
+    <string name="something_went_wrong">Ein Fehler ist aufgetreten</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="permissions_rationale_title">Benötigte Rechte erteilen?</string>
