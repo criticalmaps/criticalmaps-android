@@ -69,7 +69,7 @@ public class ServerSyncService extends Service {
                 putLocationHandler.get().execute();
             }
         };
-        locationUploadTimer.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
+        locationUploadTimer.schedule(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
     private void stopLocationUploadTimer() {
