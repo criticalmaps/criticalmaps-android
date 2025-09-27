@@ -6,10 +6,8 @@ import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Singleton
