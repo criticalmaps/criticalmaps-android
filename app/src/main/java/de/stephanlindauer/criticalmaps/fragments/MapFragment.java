@@ -2,7 +2,6 @@ package de.stephanlindauer.criticalmaps.fragments;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -256,9 +256,13 @@ public class MapFragment extends Fragment {
         binding.mapSetNorthFab.setRotation(mapView.getMapOrientation());
 
         showGpxHandler.showGpx(mapView);
+
+        if (!LocationUpdateManager.checkPermission()) {
+            zoomToLocation(defaultGeoPoint, NO_GPS_PERMISSION_ZOOM_LEVEL);
+        }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void adjustToWindowsInsets() {
         // No-op on < API21
         ViewCompat.setOnApplyWindowInsetsListener(binding.mapOverlayContainerLayout, (v, insets) -> {
@@ -320,12 +324,6 @@ public class MapFragment extends Fragment {
         eventBus.register(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(
                 observerModeOnSharedPreferenceChangeListener);
-
-        if (locationUpdateManager.checkPermission()) {
-            locationUpdateManager.startListening();
-        } else {
-            zoomToLocation(defaultGeoPoint, NO_GPS_PERMISSION_ZOOM_LEVEL);
-        }
 
         startGetLocationTimer();
     }
@@ -505,7 +503,7 @@ public class MapFragment extends Fragment {
                 getLocationHandler.get().execute();
             }
         };
-        timerGetLocation.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
+        timerGetLocation.schedule(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
     private void stopGetLocationTimer() {

@@ -2,7 +2,6 @@ package de.stephanlindauer.criticalmaps;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -82,7 +82,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                         setKeepScreenOn();
                         break;
                     case SharedPrefsKeys.PRIVACY_POLICY_ACCEPTED:
-                        if (!locationUpdateManager.checkPermission()) {
+                        if (!LocationUpdateManager.checkPermission()) {
                             locationUpdateManager.requestPermission();
                         }
                         break;
@@ -143,8 +143,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         setShowOnLockscreen();
         setKeepScreenOn();
-
-        ServerSyncService.startService();
     }
 
     @Override
@@ -226,12 +224,23 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             navigateTo(R.id.navigation_map);
         }
 
-        final boolean isPrivacyPolicyAccepted =
-                !privacyPolicyAcceptedPreference.isSet() || !privacyPolicyAcceptedPreference.get();
-        if (isPrivacyPolicyAccepted) {
+        locationUpdateManager.initialize();
+
+        final boolean isPrivacyPolicyAccepted = privacyPolicyAcceptedPreference.get();
+        if (!isPrivacyPolicyAccepted) {
             binding.introductionText.setMovementMethod(LinkMovementMethod.getInstance());
             binding.introductionText.setText(Html.fromHtml(getString(R.string.introduction_gps)));
             binding.introductionView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Timber.d("onResume() called");
+        final boolean isPrivacyPolicyAccepted = privacyPolicyAcceptedPreference.get();
+        if (isPrivacyPolicyAccepted) {
+            initiateServiceStartIfPermitted();
         }
     }
 
@@ -454,7 +463,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         radiusAnimator.start();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private void fadeInStatusBarColor(int duration, boolean toMap) {
         int colorMap = ContextCompat.getColor(this, R.color.main_statusbarcolor_map);
         int colorOthers = ContextCompat.getColor(this, R.color.main_statusbarcolor_others);
@@ -483,5 +492,18 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private void handleObserverModeSwitchCheckedChanged(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).set(isChecked);
+    }
+
+    private void initiateServiceStartIfPermitted() {
+        if (LocationUpdateManager.checkPermission()) {
+            if (!ServerSyncService.isCurrentlyRunning()) {
+                Timber.d("Location and notification permissions granted. Attempting to start ServerSyncService.");
+                ServerSyncService.startService();
+            } else {
+                Timber.d("Location and notification permission granted, but service is already running.");
+            }
+        } else {
+            Timber.d("Location and notification permission NOT granted. ServerSyncService will not be started.");
+        }
     }
 }

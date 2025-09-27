@@ -1,9 +1,13 @@
 package de.stephanlindauer.criticalmaps.service;
 
+import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION;
+
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import com.squareup.otto.Subscribe;
@@ -21,13 +25,14 @@ import de.stephanlindauer.criticalmaps.handler.PutLocationHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.TrackingInfoNotificationBuilder;
+import timber.log.Timber;
 
 public class ServerSyncService extends Service {
 
     @SuppressWarnings("FieldCanBeLocal")
     private final int SERVER_SYNC_INTERVAL = 30 * 1000; // 30 sec
-
     private Timer locationUploadTimer;
+    private static boolean isRunning = false;
 
     @Inject
     LocationUpdateManager locationUpdateManager;
@@ -46,18 +51,18 @@ public class ServerSyncService extends Service {
         return null;
     }
 
+    @SuppressLint("InlinedApi")
     @Override
     public void onCreate() {
+        super.onCreate();
+
         App.components().inject(this);
-
-        startForeground(TrackingInfoNotificationBuilder.NOTIFICATION_ID,
-                TrackingInfoNotificationBuilder.getNotification(getApplication()));
-
-        locationUpdateManager.initializeAndStartListening();
-
+        ServiceCompat.startForeground(this, TrackingInfoNotificationBuilder.NOTIFICATION_ID,
+                TrackingInfoNotificationBuilder.getNotification(getApplication()), FOREGROUND_SERVICE_TYPE_LOCATION);
         networkConnectivityChangeHandler.start();
-
+        locationUpdateManager.startListening();
         eventBus.register(this);
+        isRunning = true;
     }
 
     private void startLocationUploadTimer() {
@@ -85,6 +90,9 @@ public class ServerSyncService extends Service {
         locationUpdateManager.handleShutdown();
         networkConnectivityChangeHandler.stop();
         stopLocationUploadTimer();
+        isRunning = false;
+
+        super.onDestroy();
     }
 
     @Override
@@ -104,6 +112,11 @@ public class ServerSyncService extends Service {
 
     public static void startService() {
         App app = App.components().app();
+        if (!LocationUpdateManager.checkPermission()) {
+            Timber.d("ServerSyncService cannot be started without location and notification permission.");
+            return;
+        }
+
         Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
         ContextCompat.startForegroundService(app, syncServiceIntent);
     }
@@ -112,5 +125,9 @@ public class ServerSyncService extends Service {
         App app = App.components().app();
         Intent syncServiceIntent = new Intent(app, ServerSyncService.class);
         app.stopService(syncServiceIntent);
+    }
+
+    public static boolean isCurrentlyRunning() {
+        return isRunning;
     }
 }

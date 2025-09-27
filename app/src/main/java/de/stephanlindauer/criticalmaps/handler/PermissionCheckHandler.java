@@ -42,7 +42,7 @@ public class PermissionCheckHandler {
         activePermissionRequest = permissionRequest;
 
         // short-circuit here if already granted
-        if (checkPermissionsGranted(permissionRequest.getPermissions())) {
+        if (checkAllPermissionsGranted(permissionRequest.getPermissions())) {
             activePermissionRequest.getOnGrantedCallback().run();
             activePermissionRequest = null;
             return;
@@ -91,7 +91,8 @@ public class PermissionCheckHandler {
             return false;
         }
 
-        boolean allPermissionsGranted = true;
+        // Note: Can be an empty array that should be treated as cancellation.
+        boolean allPermissionsGranted = grantResults.length > 0;
         for (int result : grantResults) {
             allPermissionsGranted = allPermissionsGranted &&
                     result == PackageManager.PERMISSION_GRANTED;
@@ -120,7 +121,7 @@ public class PermissionCheckHandler {
         return true;
     }
 
-    public static boolean checkPermissionsGranted(String[] permissions) {
+    public static boolean checkAllPermissionsGranted(String[] permissions) {
         boolean permissionsGranted = true;
         for (String permission : permissions) {
             permissionsGranted = permissionsGranted && (PackageManager.PERMISSION_GRANTED ==
