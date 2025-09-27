@@ -18,7 +18,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="16dp"
+            android:paddingRight="16dp">
 
             <!-- Storage Settings -->
             <TextView
@@ -26,11 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:gravity="start"
-                android:paddingStart="16dp"
-                android:paddingLeft="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dp"
-                android:paddingRight="16dp"
                 android:text="@string/settings_storage_header"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -41,9 +41,7 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <ImageView
                     android:id="@+id/settings_clear_cache_icon"
@@ -54,11 +52,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
@@ -104,10 +98,6 @@
                 android:id="@+id/settings_cache_storagespacegraph"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize"
                 app:freeSpaceColor="@color/settings_free_space"
                 app:tilecacheColor="@color/settings_cache_space"
                 app:usedSpaceColor="@color/settings_used_space" />
@@ -115,12 +105,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginBottom="16dp"
-                android:orientation="horizontal"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="10dp"
@@ -184,24 +170,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
-
-                <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
@@ -227,13 +201,6 @@
                         android:textColor="?android:attr/textColorSecondary"
                         tools:text="@string/storage_name_internal" />
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/widget_frame3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical" />
             </LinearLayout>
 
             <!-- Screen Settings -->
@@ -242,11 +209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:gravity="start"
-                android:paddingStart="16dp"
-                android:paddingLeft="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dp"
-                android:paddingRight="16dp"
                 android:text="@string/settings_screen_header"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -257,24 +220,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
-
-                <ImageView
-                    android:id="@+id/settings_show_on_lockscreen_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
@@ -326,24 +277,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
-
-                <ImageView
-                    android:id="@+id/settings_keep_screen_on_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
@@ -391,11 +330,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:gravity="start"
-                android:paddingStart="16dp"
-                android:paddingLeft="16dp"
                 android:paddingTop="16dp"
-                android:paddingEnd="16dp"
-                android:paddingRight="16dp"
                 android:text="@string/settings_map_header"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -406,24 +341,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
-
-                <ImageView
-                    android:id="@+id/settings_map_rotation_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
@@ -471,24 +394,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
-
-                <ImageView
-                    android:id="@+id/settings_show_gpx_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
@@ -536,24 +447,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingEnd="?android:attr/scrollbarSize"
-                android:paddingRight="?android:attr/scrollbarSize">
-
-                <ImageView
-                    android:id="@+id/icon_choose_gpx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 

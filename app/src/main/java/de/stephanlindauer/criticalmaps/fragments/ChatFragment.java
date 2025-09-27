@@ -271,7 +271,7 @@ public class ChatFragment extends Fragment {
                 getChatmessagesHandler.get().execute();
             }
         };
-        timerGetChatmessages.scheduleAtFixedRate(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
+        timerGetChatmessages.schedule(timerTaskPullServer, 0, SERVER_SYNC_INTERVAL);
     }
 
     private void stopGetChatmessagesTimer() {

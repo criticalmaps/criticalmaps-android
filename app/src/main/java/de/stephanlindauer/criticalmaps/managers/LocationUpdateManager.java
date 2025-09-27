@@ -3,10 +3,13 @@ package de.stephanlindauer.criticalmaps.managers;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
 
 import com.squareup.otto.Produce;
 
@@ -42,9 +45,12 @@ public class LocationUpdateManager {
     private final String[] USED_PROVIDERS = new String[]{
             LocationManager.GPS_PROVIDER,
             LocationManager.NETWORK_PROVIDER};
+
+    @SuppressLint("InlinedApi")
     private final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION};
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.POST_NOTIFICATIONS};
     private final LocationManager locationManager;
     private Location lastPublishedLocation;
 
@@ -143,7 +149,7 @@ public class LocationUpdateManager {
         return isUpdating;
     }
 
-    public void initializeAndStartListening() {
+    public void initialize() {
         boolean noProviderExists = !checkIfAtLeastOneProviderExits();
         boolean noPermission = !checkPermission();
 
@@ -165,8 +171,6 @@ public class LocationUpdateManager {
         if (noPermission) {
             return;
         }
-
-        startListening();
     }
 
     public void startListening() {
@@ -203,8 +207,12 @@ public class LocationUpdateManager {
         }
     }
 
-    public boolean checkPermission() {
-        return PermissionCheckHandler.checkPermissionsGranted(PERMISSIONS);
+    @SuppressLint("InlinedApi")
+    public static boolean checkPermission() {
+        App app = App.components().app();
+        return (ContextCompat.checkSelfPermission(app, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(app, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                && ContextCompat.checkSelfPermission(app, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void requestPermission() {

@@ -1,7 +1,5 @@
 package de.stephanlindauer.criticalmaps.adapter;
 
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.ViewChatmessageBinding;
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.utils.TimeToWordStringConverter;

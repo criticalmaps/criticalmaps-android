@@ -39,16 +39,16 @@
         the Mass, but remember that the app depends on as many people as possible sharing their
         location.\nSo please consider enabling location services in your device settings.</string>
     <string name="map_gps_permissions_permanently_denied_title">Location access is denied</string>
-    <string name="map_gps_permissions_permanently_denied_text">You previously denied permission to access your location. Without location access you and other users won\'t be able to see your location on the map. You can still follow the Mass, but remember that the app depends on as many people as possible sharing their location.\nDo you want to grant the permission now in the app settings?</string>
-    <string name="map_location_permissions_rationale_text">Location access is crucial for the app to work. It is required to view your location on the map, share you location with other users, write chat messages and upload images. Without it you can still follow the Mass, but remember that the app depends on as many people as possible sharing their location.\nDo you want to grant the permission now?</string>
+    <string name="map_gps_permissions_permanently_denied_text">You previously denied permission to access your location and show notifications. Without location access you and other users won\'t be able to see your location on the map. Notifications are required to inform you that the app is still running in the background. You can still follow the Mass, but remember that the app depends on as many people as possible sharing their location.\nDo you want to grant the permission now in the app settings?</string>
+    <string name="map_location_permissions_rationale_text">Location and notification access is crucial for the app to work. It is required to view your location on the map, share you location with other users, write chat messages and upload images. Notifications are required to inform you that the app is still running in the background. Without it you can still follow the Mass, but remember that the app depends on as many people as possible sharing their location.\nDo you want to grant the permission now?</string>
     <string name="map_oberserver_mode_info_heading">Observer mode is active</string>
     <string name="map_observer_mode_info_text">Already joined the mass?\nNice! Please disable observer mode now to help others see where you\'re going!</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Critical Maps Tracking</string>
-    <string name="notification_tracking_text">The App runs in the background and records your location data. Please close the App when you don\'t want to be tracked anymore.</string>
+    <string name="notification_tracking_text">The App runs in the background and sends your location data. Please close the App when you don\'t want to be tracked anymore.</string>
     <string name="notification_channel_name">Tracking notification</string>
-    <string name="notification_channel_description_max300chars">We do not recommend disabling the notification since you might inadvertently keep tracking turned on.</string>
+    <string name="notification_channel_description_max300chars">It is not recommended to disable the notification since you might inadvertently keep tracking turned on.</string>
     <string name="notification_tracking_close">Close</string>
     <string name="notification_tracking_open">Open</string>
 

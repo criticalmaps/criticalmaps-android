@@ -21,7 +21,7 @@ import okhttp3.OkHttpClient;
 public interface AppComponent {
     void inject(Main main);
     void inject(ServerSyncService serverSyncService);
-    void inject(MapFragment serverSyncService);
+    void inject(MapFragment mapFragment);
     void inject(ChatFragment chatFragment);
 	void inject(SettingsFragment settingsFragment);
 
