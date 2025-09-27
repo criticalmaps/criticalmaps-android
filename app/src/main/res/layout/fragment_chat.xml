@@ -24,10 +24,8 @@
             android:background="@drawable/border_bottom"
             android:gravity="start"
             android:paddingStart="16dp"
-            android:paddingLeft="16dp"
             android:paddingTop="8dp"
             android:paddingEnd="0dp"
-            android:paddingRight="0dp"
             android:paddingBottom="8dp"
             android:text="@string/chat_heading"
             android:textAlignment="viewStart"
@@ -39,9 +37,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingStart="16dp"
-            android:paddingLeft="16dp"
             android:paddingEnd="0dp"
-            android:paddingRight="0dp"
             tools:listitem="@layout/view_chatmessage" />
 
         <LinearLayout
@@ -79,7 +75,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="2dp"
                 android:contentDescription="@string/chat_send"
                 app:backgroundTint="@color/chat_fab_background_states"

@@ -113,7 +113,6 @@
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:background="@color/settings_used_space" />
 
                 <TextView
@@ -122,7 +121,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginRight="12dp"
                     tools:text="Used: 16050 MB" />
 
                 <ImageView
@@ -130,7 +128,6 @@
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:background="@color/settings_cache_space" />
 
                 <TextView
@@ -139,7 +136,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginRight="12dp"
                     tools:text="Cache: 48 MB" />
 
                 <ImageView
@@ -147,7 +143,6 @@
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:background="@color/settings_free_space" />
 
                 <TextView
@@ -195,7 +190,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/title3"
                         android:layout_alignStart="@id/title3"
-                        android:layout_alignLeft="@id/title3"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"
@@ -245,7 +239,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_show_on_lockscreen_title"
                         android:layout_alignStart="@id/settings_show_on_lockscreen_title"
-                        android:layout_alignLeft="@id/settings_show_on_lockscreen_title"
                         android:maxLines="4"
                         android:text="@string/settings_show_on_lockscreen_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -302,7 +295,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_keep_screen_on_title"
                         android:layout_alignStart="@id/settings_keep_screen_on_title"
-                        android:layout_alignLeft="@id/settings_keep_screen_on_title"
                         android:maxLines="4"
                         android:text="@string/settings_keep_screen_on_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -366,7 +358,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_map_rotation_title"
                         android:layout_alignStart="@id/settings_map_rotation_title"
-                        android:layout_alignLeft="@id/settings_map_rotation_title"
                         android:maxLines="4"
                         android:text="@string/settings_map_rotation_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -419,7 +410,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_show_gpx_title"
                         android:layout_alignStart="@id/settings_show_gpx_title"
-                        android:layout_alignLeft="@id/settings_show_gpx_title"
                         android:maxLines="4"
                         android:text="@string/settings_show_gpx_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -472,7 +462,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/title_choose_gpx"
                         android:layout_alignStart="@id/title_choose_gpx"
-                        android:layout_alignLeft="@id/title_choose_gpx"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"

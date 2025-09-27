@@ -64,7 +64,6 @@
             android:id="@+id/map_osm_notice_text"
             style="@style/map_osm_notice"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:text="@string/osm_credits" />
 

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.format.Formatter;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -98,14 +96,9 @@ public class SettingsFragment extends Fragment {
         binding.settingsMapRotationCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleDisableMapRotationChecked(isChecked));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
-                    (buttonView, isChecked) -> handleShowTrack(isChecked));
-            binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
-        } else {
-            binding.settingsShowGpxContainer.setVisibility(View.GONE);
-            binding.settingsChooseGpxContainer.setVisibility(View.GONE);
-        }
+        binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> handleShowTrack(isChecked));
+        binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
     }
 
     @Override
@@ -167,14 +160,14 @@ public class SettingsFragment extends Fragment {
         String gpxFile = new StringPreference(
                 sharedPreferences, SharedPrefsKeys.GPX_FILE).get();
         String filename = gpxFile;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            Cursor fileCursor = getContext().getContentResolver().query(Uri.parse(gpxFile), null, null, null);
-            if (fileCursor != null) {
-                fileCursor.moveToFirst();
-                filename = fileCursor.getString(fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                fileCursor.close();
-            }
+
+        Cursor fileCursor = getContext().getContentResolver().query(Uri.parse(gpxFile), null, null, null);
+        if (fileCursor != null) {
+            fileCursor.moveToFirst();
+            filename = fileCursor.getString(fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            fileCursor.close();
         }
+
         binding.settingsChooseGpxSummaryText.setText(filename);
     }
 
@@ -261,7 +254,6 @@ public class SettingsFragment extends Fragment {
                 sharedPreferences, SharedPrefsKeys.SHOW_GPX).set(isChecked);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     void handleChooseTrackClicked() {
         new ChooseGpxFileHandler(this).openChooser();
     }
