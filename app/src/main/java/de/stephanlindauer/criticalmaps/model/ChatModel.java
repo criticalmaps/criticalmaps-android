@@ -19,7 +19,6 @@ import javax.inject.Singleton;
 
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
-import okhttp3.internal.Util;
 import timber.log.Timber;
 
 
@@ -48,9 +47,9 @@ public class ChatModel {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-            String device = URLDecoder.decode(jsonObject.getString("device"), Util.UTF_8.name());
-            String identifier = URLDecoder.decode(jsonObject.getString("identifier"), Util.UTF_8.name());
-            String message = URLDecoder.decode(jsonObject.getString("message"), Util.UTF_8.name());
+            String device = URLDecoder.decode(jsonObject.getString("device"), "UTF-8");
+            String identifier = URLDecoder.decode(jsonObject.getString("identifier"), "UTF-8");
+            String message = URLDecoder.decode(jsonObject.getString("message"), "UTF-8");
             Date timestamp = new Date(Long.parseLong(jsonObject.getString("timestamp")) * 1000);
 
             receivedChatMessages.add(new ReceivedChatMessage(message, timestamp));
@@ -74,7 +73,7 @@ public class ChatModel {
 
     private String urlEncodeMessage(String messageToEncode) {
         try {
-            return URLEncoder.encode(messageToEncode, Util.UTF_8.name());
+            return URLEncoder.encode(messageToEncode, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             return "";
         }
