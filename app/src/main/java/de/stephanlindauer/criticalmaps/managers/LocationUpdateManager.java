@@ -37,6 +37,7 @@ public class LocationUpdateManager {
     private final PermissionCheckHandler permissionCheckHandler;
     private final App app;
     private boolean isUpdating = false;
+    private boolean isEventBusRegistered = false;
 
     private static final float LOCATION_REFRESH_DISTANCE = 20; //20 meters
     private static final long LOCATION_REFRESH_TIME = 12 * 1000; //12 seconds
@@ -160,7 +161,11 @@ public class LocationUpdateManager {
         } else {
             setStatusEvent();
         }
-        eventBus.register(this);
+
+        if(!isEventBusRegistered) {
+            eventBus.register(this);
+            isEventBusRegistered = true;
+        }
 
         // Short-circuit here: if no provider exists don't start listening
         if (noProviderExists) {
@@ -232,6 +237,7 @@ public class LocationUpdateManager {
         } catch (IllegalArgumentException ignored) {
             // nothing we can do
         }
+        isEventBusRegistered = false;
     }
 
     private void publishNewLocation(Location location) {
