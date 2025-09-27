@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        dagger_version = "2.47"
+        dagger_version = "2.52"
     }
 
     repositories {
