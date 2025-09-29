@@ -5,13 +5,12 @@ buildscript {
 
     repositories {
         google()
-        gradlePluginPortal() // gradle-errorprone-plugin
+        gradlePluginPortal() // unmockplugin
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.11.2'
         classpath 'com.github.bjoernq:unmockplugin:0.9.0'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
     }
 }
 
