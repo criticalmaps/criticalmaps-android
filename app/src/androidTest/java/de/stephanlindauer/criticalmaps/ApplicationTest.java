@@ -1,7 +1,7 @@
 package de.stephanlindauer.criticalmaps;
 
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 public class ApplicationTest {
 
     @Rule
-    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    public ActivityScenarioRule<Main> mActivityRule = new ActivityScenarioRule<>(Main.class);
 
     @Test
     public void verifyAppLaunches() {
