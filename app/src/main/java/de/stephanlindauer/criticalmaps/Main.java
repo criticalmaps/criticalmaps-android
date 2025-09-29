@@ -138,7 +138,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         }
 
         // This is a little hacky and might break with a materialcomponents lib update
-        RecyclerView navigationMenuView = findViewById(R.id.design_navigation_view);
+        RecyclerView navigationMenuView = findViewById(com.google.android.material.R.id.design_navigation_view);
         navigationMenuView.setNestedScrollingEnabled(false);
 
         setShowOnLockscreen();
