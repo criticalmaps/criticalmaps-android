@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        kotlin_version = "1.9.22"
         dagger_version = "2.52"
     }
 
@@ -10,6 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.11.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.bjoernq:unmockplugin:0.7.9'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
     }
