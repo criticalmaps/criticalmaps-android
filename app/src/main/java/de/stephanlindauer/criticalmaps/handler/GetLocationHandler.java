@@ -40,7 +40,6 @@ public class GetLocationHandler extends AsyncTask<Void, Void, String> {
             if (!response.isSuccessful()) {
                 Timber.d("Get locations unsuccessful with code %d", response.code());
             }
-            //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
             responseString = response.body().string();
             response.body().close();
         } catch (IOException e) {

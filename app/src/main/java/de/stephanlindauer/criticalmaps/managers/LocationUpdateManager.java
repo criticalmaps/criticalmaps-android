@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.squareup.otto.Produce;
@@ -57,7 +58,7 @@ public class LocationUpdateManager {
 
     private final LocationListener locationListener = new LocationListener() {
         @Override
-        public void onLocationChanged(final Location location) {
+        public void onLocationChanged(@NonNull final Location location) {
             if (shouldPublishNewLocation(location)) {
                 publishNewLocation(location);
                 lastPublishedLocation = location;
@@ -74,12 +75,12 @@ public class LocationUpdateManager {
         }
 
         @Override
-        public void onProviderEnabled(String s) {
+        public void onProviderEnabled(@NonNull String s) {
             postStatusEvent();
         }
 
         @Override
-        public void onProviderDisabled(String s) {
+        public void onProviderDisabled(@NonNull String s) {
             postStatusEvent();
         }
     };
@@ -165,16 +166,6 @@ public class LocationUpdateManager {
         if(!isEventBusRegistered) {
             eventBus.register(this);
             isEventBusRegistered = true;
-        }
-
-        // Short-circuit here: if no provider exists don't start listening
-        if (noProviderExists) {
-            return;
-        }
-
-        // If permissions are not granted, don't start listening
-        if (noPermission) {
-            return;
         }
     }
 

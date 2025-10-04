@@ -101,18 +101,15 @@ public class ProcessCameraResultHandler extends AsyncTask<Void, Void, ResultType
 
         builder.setView(view);
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        new ImageUploadHandler(processedImageFile, activity).execute();
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //noinspection ResultOfMethodCallIgnored
-                        processedImageFile.delete();
-                        break;
-                }
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    new ImageUploadHandler(processedImageFile, activity).execute();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //noinspection ResultOfMethodCallIgnored
+                    processedImageFile.delete();
+                    break;
             }
         };
 

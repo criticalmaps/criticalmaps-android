@@ -115,30 +115,29 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener rotationNorthOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            float currentRotation = mapView.getMapOrientation() % 360;
+    private final View.OnClickListener rotationNorthOnClickListener = v -> {
+        /*
+        float currentRotation = mapView.getMapOrientation() % 360;
 
-            if (currentRotation == 0.0f) {
-                // no animation required; also works around bug where map does a full rotation
-                // because of mapView wrapping 360° to 0° while View allows 360°
-                return;
-            }
-
-            if (currentRotation < 0.0f) {
-                currentRotation = 360.0f + currentRotation;
-                binding.mapSetNorthFab.setRotation(currentRotation);
-                mapView.setMapOrientation(currentRotation);
-            }
-
-            float destinationRotation = currentRotation > 180.0f ? 360.0f : 0.0f;
-            ViewCompat.animate(binding.mapSetNorthFab)
-                    .rotation(destinationRotation)
-                    .setDuration(300L)
-                    .setUpdateListener(view -> mapView.setMapOrientation(view.getRotation()))
-                    .start();
+        if (currentRotation == 0.0f) {
+            // no animation required; also works around bug where map does a full rotation
+            // because of mapView wrapping 360° to 0° while View allows 360°
+            return;
         }
+
+        if (currentRotation < 0.0f) {
+            currentRotation = 360.0f + currentRotation;
+            binding.mapSetNorthFab.setRotation(currentRotation);
+            mapView.setMapOrientation(currentRotation);
+        }
+
+        float destinationRotation = currentRotation > 180.0f ? 360.0f : 0.0f;
+        ViewCompat.animate(binding.mapSetNorthFab)
+                .rotation(destinationRotation)
+                .setDuration(300L)
+                .setUpdateListener(view -> mapView.setMapOrientation(view.getRotation()))
+                .start();
+         */
     };
 
     private final View.OnClickListener noGpsOnClickListener = v -> AlertBuilder.show(getActivity(),

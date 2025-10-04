@@ -11,6 +11,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ChatModel {
     private final UserModel userModel;
     private List<ReceivedChatMessage> receivedChatMessages = new ArrayList<>();
 
-    public static int MESSAGE_MAX_LENGTH = 255;
+    public static final int MESSAGE_MAX_LENGTH = 255;
 
     @Inject
     public ChatModel(UserModel userModel) {
@@ -55,8 +56,7 @@ public class ChatModel {
             receivedChatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
 
-        Collections.sort(receivedChatMessages,
-                (oneChatMessages, otherChatMessage) -> oneChatMessages.getTimestamp().compareTo(otherChatMessage.getTimestamp()));
+        receivedChatMessages.sort(Comparator.comparing(ReceivedChatMessage::getTimestamp));
     }
 
     public JSONObject createNewOutgoingMessage(String message) {
