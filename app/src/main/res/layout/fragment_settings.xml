@@ -72,7 +72,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_clear_cache_title"
                         android:layout_alignStart="@id/settings_clear_cache_title"
-                        android:layout_alignLeft="@id/settings_clear_cache_title"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"

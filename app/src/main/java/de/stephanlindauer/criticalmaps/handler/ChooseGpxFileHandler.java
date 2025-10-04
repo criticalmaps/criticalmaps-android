@@ -16,7 +16,6 @@ public class ChooseGpxFileHandler {
         this.activity = activity;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void openChooser() {
         Intent chooseTrack = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         chooseTrack.setType("*/*");

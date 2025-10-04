@@ -226,10 +226,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 ((GradientDrawable) binding.toolbar.getBackground()).setCornerRadius(0F);
 
                 // set statusbar color
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getWindow().setStatusBarColor(
-                            ContextCompat.getColor(this, R.color.main_statusbarcolor_others));
-                }
+                getWindow().setStatusBarColor(
+                        ContextCompat.getColor(this, R.color.main_statusbarcolor_others));
             }
         } else {
             navigateTo(R.id.navigation_map);
@@ -408,15 +406,11 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         if (currentNavId == R.id.navigation_map) {
             // from map to other fragment
             animateToolbar(200, false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                fadeInStatusBarColor(200, false);
-            }
+            fadeInStatusBarColor(200, false);
         } else if (navId == R.id.navigation_map && currentNavId != 0) {
             // from other fragment to map AND not app start
             animateToolbar(500, true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                fadeInStatusBarColor(500, true);
-            }
+            fadeInStatusBarColor(500, true);
         }
 
         currentNavId = navId;
@@ -463,7 +457,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         radiusAnimator.start();
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private void fadeInStatusBarColor(int duration, boolean toMap) {
         int colorMap = ContextCompat.getColor(this, R.color.main_statusbarcolor_map);
         int colorOthers = ContextCompat.getColor(this, R.color.main_statusbarcolor_others);

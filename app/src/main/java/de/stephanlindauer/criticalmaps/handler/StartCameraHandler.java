@@ -44,13 +44,6 @@ public class StartCameraHandler {
                 outputFile);
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        // Workaround for permission issue on older devices, see:
-        // https://medium.com/@quiro91/sharing-files-through-intents-part-2-fixing-the-permissions-before-lollipop-ceb9bb0eec3a
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            cameraIntent.setClipData(ClipData.newRawUri("", imageCaptureUri));
-            cameraIntent.addFlags(
-                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
 
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageCaptureUri);
 

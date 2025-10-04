@@ -2,7 +2,6 @@ package de.stephanlindauer.criticalmaps.provider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
@@ -126,24 +125,16 @@ public class StorageLocationProvider {
 
     private static long getFreeSpaceBytes(File storageDir) {
         long freeSpace;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            // gives more accurate information
-            freeSpace = new StatFs(storageDir.getAbsolutePath()).getAvailableBytes();
-        } else {
-            freeSpace = storageDir.getFreeSpace();
-        }
+        // gives more accurate information
+        freeSpace = new StatFs(storageDir.getAbsolutePath()).getAvailableBytes();
 
         return freeSpace;
     }
 
     private static long getTotalSizeBytes(File storageDir) {
         long totalSize;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            // gives more accurate information
-            totalSize = new StatFs(storageDir.getAbsolutePath()).getTotalBytes(); //TODO
-        } else {
-            totalSize = storageDir.getTotalSpace(); //TODO
-        }
+        // gives more accurate information
+        totalSize = new StatFs(storageDir.getAbsolutePath()).getTotalBytes(); //TODO
 
         return totalSize;
     }
@@ -161,11 +152,7 @@ public class StorageLocationProvider {
     }
 
     private static boolean isPathOnRemovableStorage(File path) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return Environment.isExternalStorageRemovable(path);
-        } else {
-            return Environment.isExternalStorageRemovable();
-        }
+        return Environment.isExternalStorageRemovable(path);
     }
 
     private static boolean isPathAvailableForWrite(Context context, File path) {
