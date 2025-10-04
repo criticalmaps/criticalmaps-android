@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -106,6 +107,18 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawers();
+                } else if (currentNavId != R.id.navigation_map) {
+                    navigateTo(R.id.navigation_map);
+                }
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         binding.drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -273,17 +286,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawers();
-        } else if (currentNavId != R.id.navigation_map) {
-            navigateTo(R.id.navigation_map);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     private void handleCloseRequested() {
