@@ -202,9 +202,7 @@ public class MapFragment extends Fragment {
     public void onActivityCreated(final Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            adjustToWindowsInsets();
-        }
+        adjustToWindowsInsets();
 
         App.components().inject(this);
 
@@ -262,9 +260,7 @@ public class MapFragment extends Fragment {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void adjustToWindowsInsets() {
-        // No-op on < API21
         ViewCompat.setOnApplyWindowInsetsListener(binding.mapOverlayContainerLayout, (v, insets) -> {
             // inset the map overlays for the status bar
             v.setPaddingRelative(
@@ -465,9 +461,6 @@ public class MapFragment extends Fragment {
         binding.mapSetCenterFab.setBackgroundTintList(
                 ContextCompat.getColorStateList(getActivity(), colorResId));
         binding.mapSetCenterFab.setImageResource(iconResId);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            binding.mapSetCenterFab.refreshDrawableState();
-        }
         binding.mapSetCenterFab.setOnClickListener(onClickListener);
     }
 

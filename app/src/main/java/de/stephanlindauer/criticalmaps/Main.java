@@ -107,35 +107,33 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            binding.drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        binding.drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-            // inset the toolbar down by the status bar height
-            ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, (v, insets) -> {
-                ViewGroup.MarginLayoutParams lpToolbar =
-                        (ViewGroup.MarginLayoutParams) binding.toolbar.getLayoutParams();
-                lpToolbar.topMargin += insets.getSystemWindowInsetTop();
+        // inset the toolbar down by the status bar height
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, (v, insets) -> {
+            ViewGroup.MarginLayoutParams lpToolbar =
+                    (ViewGroup.MarginLayoutParams) binding.toolbar.getLayoutParams();
+            lpToolbar.topMargin += insets.getSystemWindowInsetTop();
 
-                binding.toolbar.setLayoutParams(lpToolbar);
+            binding.toolbar.setLayoutParams(lpToolbar);
 
-                // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, null);
-                return insets;
-            });
+            // clear this listener so insets aren't re-applied
+            ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, null);
+            return insets;
+        });
 
-            // inset header in nav drawer down by the status bar height
-            View navHeader = binding.drawerNavigation.getHeaderView(0);
-            ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
-                v.setPaddingRelative(
-                        v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
-                        v.getPaddingEnd(), v.getPaddingBottom());
+        // inset header in nav drawer down by the status bar height
+        View navHeader = binding.drawerNavigation.getHeaderView(0);
+        ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
+            v.setPaddingRelative(
+                    v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
+                    v.getPaddingEnd(), v.getPaddingBottom());
 
-                // clear this listener so insets aren't re-applied
-                ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
-                return insets;
-            });
-        }
+            // clear this listener so insets aren't re-applied
+            ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
+            return insets;
+        });
 
         // This is a little hacky and might break with a materialcomponents lib update
         RecyclerView navigationMenuView = findViewById(com.google.android.material.R.id.design_navigation_view);
