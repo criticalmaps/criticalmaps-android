@@ -38,5 +38,10 @@
             android:icon="@drawable/ic_nav_observer"
             android:title="@string/observer_mode"
             app:actionLayout="@layout/navdrawer_observer_mode_switch" />
+        <item
+            android:id="@+id/navigation_observer_mode_text"
+            android:enabled="false"
+            android:title=""
+            app:actionLayout="@layout/navdrawer_observer_mode_text" />
     </group>
 </menu>

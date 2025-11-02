@@ -33,42 +33,19 @@
                 app:title="@string/section_map" />
         </FrameLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/drawer_scrollview"
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/drawer_navigation"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/colorSurface">
+            android:background="@color/colorSurface"
+            app:elevation="0dp"
+            app:headerLayout="@layout/navdrawer_header"
+            app:itemBackground="@drawable/nav_drawer_item_background_states"
+            app:itemIconTint="@color/nav_item_icon_tint"
+            app:itemTextColor="@color/nav_item_text"
+            app:menu="@menu/menu_navdrawer"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/drawer_navigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:elevation="0dp"
-                    app:headerLayout="@layout/navdrawer_header"
-                    app:itemBackground="@drawable/nav_drawer_item_background_states"
-                    app:itemIconTint="@color/nav_item_icon_tint"
-                    app:itemTextColor="@color/nav_item_text"
-                    app:menu="@menu/menu_navdrawer" />
-
-                <TextView
-                    android:id="@+id/navigation_observer_mode_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="-8dp"
-                    android:layout_marginEnd="22dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/nav_observer_mode_text"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <LinearLayout
