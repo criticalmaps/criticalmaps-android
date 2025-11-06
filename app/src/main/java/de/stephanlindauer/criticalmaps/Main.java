@@ -253,7 +253,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         final boolean isPrivacyPolicyAccepted = privacyPolicyAcceptedPreference.get();
         if (!isPrivacyPolicyAccepted) {
             binding.introductionText.setMovementMethod(LinkMovementMethod.getInstance());
-            binding.introductionText.setText(Html.fromHtml(getString(R.string.introduction_gps)));
+            binding.introductionText.setText(Html.fromHtml(getString(R.string.introduction_gps), Html.FROM_HTML_MODE_LEGACY));
             binding.introductionView.setVisibility(View.VISIBLE);
         }
     }
