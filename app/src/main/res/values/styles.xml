@@ -3,9 +3,8 @@
     <!-- Launch screen theme -->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/background_launch_screen_logo</item>
-        <item name="android:statusBarColor" >@color/colorBackground</item>
-        <item name="android:navigationBarColor" >@color/colorBackground
-        </item>
+        <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
     </style>
 
     <!-- Base application theme -->
@@ -23,13 +22,9 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
-        <item name="android:statusBarColor" >
-            @color/main_statusbarcolor_map
-        </item>
-        <item name="android:navigationBarColor" >@color/main_navbarcolor
-        </item>
-        <!-- needed for background on api 16 below: -->
-        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">

@@ -1,6 +1,5 @@
 package de.stephanlindauer.criticalmaps;
 
-import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,15 +22,17 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -106,6 +107,22 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         App.components().inject(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        // Setup windows inset handling
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setStatusBarContrastEnforced(false);
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
+
+        WindowInsetsControllerCompat insetsController =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        ViewGroupCompat.installCompatInsetsDispatch(binding.getRoot());
+
+        insetsController.setAppearanceLightStatusBars(true);
+        insetsController.setAppearanceLightNavigationBars(true);
+
         setContentView(binding.getRoot());
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -120,37 +137,39 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        binding.drawerLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        // Apply window insets
+        View navHeader = binding.drawerNavigation.getHeaderView(0);
+        final int originalNavHeaderPaddingTop = navHeader.getPaddingTop();
 
-        // inset the toolbar down by the status bar height
-        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.drawerNavigation, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            // Apply insets to toolbar
+            int toolbarMargin = currentNavId == R.id.navigation_map ? getResources().getDimensionPixelSize(R.dimen.map_toolbar_margins) : 0;
             ViewGroup.MarginLayoutParams lpToolbar =
                     (ViewGroup.MarginLayoutParams) binding.toolbar.getLayoutParams();
-            lpToolbar.topMargin += insets.getSystemWindowInsetTop();
 
+            lpToolbar.topMargin = insets.top + toolbarMargin;
+            lpToolbar.leftMargin = insets.left + toolbarMargin;
+            lpToolbar.rightMargin = insets.right + toolbarMargin;
             binding.toolbar.setLayoutParams(lpToolbar);
 
-            // clear this listener so insets aren't re-applied
-            ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, null);
-            return insets;
+            // Apply insets to the NavigationView
+            View navView = binding.drawerNavigation.findViewById(com.google.android.material.R.id.design_navigation_view);
+            navView.setPadding(
+                    insets.left, // navbar horizontal
+                    navView.getPaddingTop(),
+                    navView.getPaddingEnd(),
+                    insets.bottom);
+
+            navHeader.setPadding(
+                    navHeader.getPaddingStart(),
+                    originalNavHeaderPaddingTop + insets.top,
+                    navHeader.getPaddingEnd(),
+                    navHeader.getPaddingBottom());
+
+            return WindowInsetsCompat.CONSUMED;
         });
-
-        // inset header in nav drawer down by the status bar height
-        View navHeader = binding.drawerNavigation.getHeaderView(0);
-        ViewCompat.setOnApplyWindowInsetsListener(navHeader, (v, insets) -> {
-            v.setPaddingRelative(
-                    v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
-                    v.getPaddingEnd(), v.getPaddingBottom());
-
-            // clear this listener so insets aren't re-applied
-            ViewCompat.setOnApplyWindowInsetsListener(navHeader, null);
-            return insets;
-        });
-
-        // This is a little hacky and might break with a materialcomponents lib update
-        RecyclerView navigationMenuView = findViewById(com.google.android.material.R.id.design_navigation_view);
-        navigationMenuView.setNestedScrollingEnabled(false);
 
         setShowOnLockscreen();
         setKeepScreenOn();
@@ -224,10 +243,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
                 // set toolbar background
                 ((GradientDrawable) binding.toolbar.getBackground()).setCornerRadius(0F);
-
-                // set statusbar color
-                getWindow().setStatusBarColor(
-                        ContextCompat.getColor(this, R.color.main_statusbarcolor_others));
             }
         } else {
             navigateTo(R.id.navigation_map);
@@ -402,15 +417,20 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, nextFragment).commit();
 
+        WindowInsetsControllerCompat insetsController =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+
         // animate toolbar and statusbar color
         if (currentNavId == R.id.navigation_map) {
             // from map to other fragment
             animateToolbar(200, false);
-            fadeInStatusBarColor(200, false);
+            insetsController.setAppearanceLightStatusBars(false);
+            insetsController.setAppearanceLightNavigationBars(false);
         } else if (navId == R.id.navigation_map && currentNavId != 0) {
             // from other fragment to map AND not app start
             animateToolbar(500, true);
-            fadeInStatusBarColor(500, true);
+            insetsController.setAppearanceLightStatusBars(true);
+            insetsController.setAppearanceLightNavigationBars(true);
         }
 
         currentNavId = navId;
@@ -455,23 +475,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         marginAnimator.start();
         radiusAnimator.start();
-    }
-
-    private void fadeInStatusBarColor(int duration, boolean toMap) {
-        int colorMap = ContextCompat.getColor(this, R.color.main_statusbarcolor_map);
-        int colorOthers = ContextCompat.getColor(this, R.color.main_statusbarcolor_others);
-        int colorFrom = toMap ? colorOthers : colorMap;
-        int colorTo = toMap ? colorMap : colorOthers;
-
-        ValueAnimator valueAnimator =
-                ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        valueAnimator.setDuration(duration);
-        valueAnimator.addUpdateListener(animation -> {
-            int color = (int) animation.getAnimatedValue();
-            getWindow().setStatusBarColor(color);
-        });
-
-        valueAnimator.start();
     }
 
     @Override

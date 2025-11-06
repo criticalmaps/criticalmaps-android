@@ -22,7 +22,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.squareup.otto.Subscribe;
@@ -260,19 +262,41 @@ public class MapFragment extends Fragment {
     }
 
     private void adjustToWindowsInsets() {
+        // inset the map overlays for the status bar
+        final int originalContainerPaddingTop = binding.mapOverlayContainerLayout.getPaddingTop();
+        final int originalContainerPaddingLeft = binding.mapOverlayContainerLayout.getPaddingLeft();
+        final int originalContainerPaddingRight = binding.mapOverlayContainerLayout.getPaddingRight();
         ViewCompat.setOnApplyWindowInsetsListener(binding.mapOverlayContainerLayout, (v, insets) -> {
-            // inset the map overlays for the status bar
-            v.setPaddingRelative(
-                    v.getPaddingStart(), v.getPaddingTop() + insets.getSystemWindowInsetTop(),
-                    v.getPaddingEnd(), v.getPaddingBottom());
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(
+                    originalContainerPaddingLeft + systemBarsInsets.left,
+                    originalContainerPaddingTop + systemBarsInsets.top,
+                    originalContainerPaddingRight + systemBarsInsets.right,
+                    v.getPaddingBottom());
 
-            // clear this listener so insets aren't re-applied
-            ViewCompat.setOnApplyWindowInsetsListener(binding.mapOverlayContainerLayout, null);
+            if (map != null) {
+                map.getUiSettings().setCompassMargins(
+                        dpToInt(18) + binding.mapOverlayContainerLayout.getPaddingLeft(), // when started
+                        map.getUiSettings().getCompassMarginTop(),
+                        0,
+                        0);
+            }
+
             return insets;
         });
 
-        // without this insets aren't reapplied on fragment changes
-        ViewCompat.requestApplyInsets(binding.mapOverlayContainerLayout);
+        // inset attribution
+        ViewGroup.MarginLayoutParams lpNoticeText =
+                (ViewGroup.MarginLayoutParams) binding.mapOsmNoticeText.getLayoutParams();
+        final int originalNoticeTextBottomMargin = lpNoticeText.bottomMargin;
+        ViewCompat.setOnApplyWindowInsetsListener(binding.mapOsmNoticeText, (v, insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            lpNoticeText.bottomMargin = originalNoticeTextBottomMargin + systemBarsInsets.bottom;
+            v.setLayoutParams(lpNoticeText);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+    }
     }
 
     private void refreshView() {
