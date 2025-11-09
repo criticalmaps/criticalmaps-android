@@ -37,10 +37,10 @@
                     app:srcCompat="@drawable/ic_about_facebook" />
 
                 <ImageButton
-                    android:id="@+id/about_twitter_button"
+                    android:id="@+id/about_instagram_button"
                     style="@style/about_button"
-                    android:contentDescription="@string/twitter"
-                    app:srcCompat="@drawable/ic_about_twitter" />
+                    android:contentDescription="@string/instagram"
+                    app:srcCompat="@drawable/ic_about_instagram" />
 
             </LinearLayout>
 

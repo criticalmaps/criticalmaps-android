@@ -27,7 +27,6 @@ public class AboutFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         LayoutTransition layoutTransition = binding.aboutContentLayout.getLayoutTransition();
         // make LicensePanelView animations look nice
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -38,8 +37,8 @@ public class AboutFragment extends Fragment {
 
         binding.aboutFacebookButton.setOnClickListener(
                 new URLOpenOnActivityOnClickListener("https://www.facebook.com/criticalmaps"));
-        binding.aboutTwitterButton.setOnClickListener(
-                new URLOpenOnActivityOnClickListener("https://twitter.com/CriticalMaps"));
+        binding.aboutInstagramButton.setOnClickListener(
+                new URLOpenOnActivityOnClickListener("https://instagram.com/CriticalMaps"));
         binding.aboutGithubButton.setOnClickListener(
                 new URLOpenOnActivityOnClickListener("https://github.com/criticalmaps/criticalmaps-android"));
     }
