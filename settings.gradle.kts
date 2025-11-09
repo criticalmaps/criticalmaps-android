@@ -1,4 +1,13 @@
 pluginManagement {
+    // Workaround for unmockplugin not being on gradle plugin portal
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "de.mobilej.unmock") {
+                useModule("com.github.bjoernq:unmockplugin:${requested.version}")
+            }
+        }
+    }
+
     repositories {
 
         google {
