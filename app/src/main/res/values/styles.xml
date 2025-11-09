@@ -119,7 +119,6 @@
         <item name="android:gravity">start</item>
     </style>
 
-    <!--
     <style name="map_osm_notice">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -153,7 +152,6 @@
         <item name="android:textAlignment">viewStart</item>
         <item name="android:gravity">start</item>
     </style>
-    -->
 
     <style name="picture_upload_confirmation_text">
         <item name="android:layout_width">wrap_content</item>
