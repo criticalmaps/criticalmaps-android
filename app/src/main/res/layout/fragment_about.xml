@@ -87,20 +87,20 @@
                 app:notice="@string/licenses_notice_aospsupport" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
+                android:id="@+id/about_license_material_components"
+                style="@style/about_license_panel"
+                app:copyright="@string/licenses_copyright_material_components"
+                app:link="@string/licenses_link_material_components"
+                app:name="@string/licenses_name_material_components"
+                app:notice="@string/licenses_notice_material_components" />
+
+            <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_axt"
                 style="@style/about_license_panel"
                 app:copyright="@string/licenses_copyright_axt"
                 app:link="@string/licenses_link_axt"
                 app:name="@string/licenses_name_axt"
                 app:notice="@string/licenses_notice_axt" />
-
-            <de.stephanlindauer.criticalmaps.views.LicensePanelView
-                android:id="@+id/about_license_butterknife"
-                style="@style/about_license_panel"
-                app:copyright="@string/licenses_copyright_butterknife"
-                app:link="@string/licenses_link_butterknife"
-                app:name="@string/licenses_name_butterknife"
-                app:notice="@string/licenses_notice_butterknife" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_dagger2"
@@ -127,20 +127,12 @@
                 app:notice="@string/licenses_notice_okhttp" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
-                android:id="@+id/about_license_osmdroid"
+                android:id="@+id/about_license_maplibre"
                 style="@style/about_license_panel"
-                app:copyright="@string/licenses_copyright_osmdroid"
-                app:link="@string/licenses_link_osmdroid"
-                app:name="@string/licenses_name_osmdroid"
-                app:notice="@string/licenses_notice_osmdroid" />
-
-            <de.stephanlindauer.criticalmaps.views.LicensePanelView
-                android:id="@+id/about_license_osmbonuspack"
-                style="@style/about_license_panel"
-                app:copyright="@string/licenses_copyright_osmbonuspack"
-                app:link="@string/licenses_link_osmbonuspack"
-                app:name="@string/licenses_name_osmbonuspack"
-                app:notice="@string/licenses_notice_osmbonuspack" />
+                app:copyright="@string/licenses_copyright_maplibre"
+                app:link="@string/licenses_link_maplibre"
+                app:name="@string/licenses_name_maplibre"
+                app:notice="@string/licenses_notice_maplibre" />
 
             <de.stephanlindauer.criticalmaps.views.LicensePanelView
                 android:id="@+id/about_license_picasso"
