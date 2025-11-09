@@ -22,7 +22,7 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
-        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">always</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
@@ -119,6 +119,7 @@
         <item name="android:gravity">start</item>
     </style>
 
+    <!--
     <style name="map_osm_notice">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -152,6 +153,7 @@
         <item name="android:textAlignment">viewStart</item>
         <item name="android:gravity">start</item>
     </style>
+    -->
 
     <style name="picture_upload_confirmation_text">
         <item name="android:layout_width">wrap_content</item>

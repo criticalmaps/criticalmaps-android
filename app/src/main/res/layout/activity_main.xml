@@ -45,7 +45,7 @@
             android:layout_gravity="bottom"
             android:text="."
             android:textColor="@android:color/transparent"
-            />
+            tools:ignore="HardcodedText" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

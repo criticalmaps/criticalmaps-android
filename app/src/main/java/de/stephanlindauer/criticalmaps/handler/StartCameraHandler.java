@@ -1,10 +1,8 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 
 import androidx.core.content.FileProvider;

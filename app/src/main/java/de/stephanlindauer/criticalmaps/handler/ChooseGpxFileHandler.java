@@ -1,9 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.content.Intent;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
