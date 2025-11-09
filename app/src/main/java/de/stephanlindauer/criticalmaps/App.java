@@ -3,6 +3,7 @@ package de.stephanlindauer.criticalmaps;
 import android.app.Application;
 
 import org.jetbrains.annotations.NotNull;
+import org.maplibre.android.MapLibre;
 
 import timber.log.Timber;
 
@@ -25,6 +26,7 @@ public class App extends Application {
         }
 
         appComponent = DaggerAppComponent.builder().app(this).build();
+        MapLibre.getInstance(this);
     }
 
     private static class NoOpTree extends Timber.Tree {

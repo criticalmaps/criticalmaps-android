@@ -97,11 +97,6 @@ svoju polohu. Prosím, zvážte aktiváciu lokalizačných služieb v nastavenia
     <string name="settings_cache_cache_mb">Cache: %s</string>
     <string name="settings_cache_free_mb">Voľné: %s</string>
     <string name="settings_cache_currently_used">Práve použitých %s</string>
-    <string name="settings_choose_storage_subheading">Výber miesto pamäti</string>
-    <string name="settings_choose_storage_mb_free"> (%s voľných)</string>
-    <string name="settings_choose_storage_choose_title">Adresa pamäte </string>
-    <string name="settings_choose_storage_confirm_title">Aktuálna cache bude vymazaná</string>
-    <string name="settings_choose_storage_confirm_message">Zmena umiestnenia úložného priestoru vymaže aktuálnu vyrovnávaciu pamäť. Mapové dlaždice sa budú musieť pri prezeraní znova stiahnuť.</string>
     <string name="settings_screen_header">Nastavenia displeja</string>
     <string name="settings_show_on_lockscreen_subheading">Zobraz na uzamknutej obrazovke</string>
     <string name="settings_show_on_lockscreen_summary">Aplikácia zostane bežať v pozadí aj keď bude zablokovaný telefón</string>

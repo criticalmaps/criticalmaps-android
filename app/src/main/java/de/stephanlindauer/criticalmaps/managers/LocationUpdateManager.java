@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import com.squareup.otto.Produce;
 
-import org.osmdroid.util.GeoPoint;
+import org.maplibre.android.geometry.LatLng;
 
 import java.util.List;
 
@@ -232,7 +232,7 @@ public class LocationUpdateManager {
     }
 
     private void publishNewLocation(Location location) {
-        GeoPoint newLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        LatLng newLocation = new LatLng(location);
         ownLocationModel.setLocation(newLocation, location.getAccuracy());
         eventBus.post(Events.NEW_LOCATION_EVENT);
     }

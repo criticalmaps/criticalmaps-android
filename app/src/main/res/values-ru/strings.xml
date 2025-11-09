@@ -97,19 +97,12 @@
     <string name="settings_cache_cache_mb">Кэш %s</string>
     <string name="settings_cache_free_mb">Свободно %s</string>
     <string name="settings_cache_currently_used">Использовано %s</string>
-    <string name="settings_choose_storage_subheading">Выберите место хранения</string>
-    <string name="settings_choose_storage_mb_free">(%s свободно)</string>
-    <string name="settings_choose_storage_choose_title">Место хранения</string>
-    <string name="settings_choose_storage_confirm_title">Кэш будет очищен</string>
-    <string name="settings_choose_storage_confirm_message">Изменение места хранения очистит текущий кэш. Карта будет загружена снова при просмотре.</string>
     <string name="settings_screen_header">Настройки экрана</string>
     <string name="settings_show_on_lockscreen_subheading">Показывать на экране блокировки</string>
     <string name="settings_show_on_lockscreen_summary">Держать приложение на переднем плане даже при блокировке телефона</string>
     <string name="settings_keep_screen_on_subheading">Держать экран включенным</string>
     <string name="settings_keep_screen_on_summary">Предотвратить автоматическое отключение экрана во время использования приложения</string>
     <string name="settings_map_header">Настройки карты</string>
-    <string name="settings_map_rotation_subheading">Поворот</string>
-    <string name="settings_map_rotation_summary">Разрешить поворот карты</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">только что</string>

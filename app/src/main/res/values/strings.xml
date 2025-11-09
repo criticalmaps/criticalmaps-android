@@ -99,25 +99,16 @@
     <string name="settings_cache_cache_mb">Cache: %s</string>
     <string name="settings_cache_free_mb">Free: %s</string>
     <string name="settings_cache_currently_used">Currently using %s</string>
-    <string name="settings_choose_storage_subheading">Choose storage location</string>
-    <string name="settings_choose_storage_mb_free"> (%s free)</string>
-    <string name="settings_choose_storage_choose_title">Storage location</string>
-    <string name="settings_choose_storage_confirm_title">Current cache will be cleared</string>
-    <string name="settings_choose_storage_confirm_message">Changing the storage location will clear the current cache. Map tiles will have to be downloaded again when viewed.</string>
     <string name="settings_screen_header">Screen settings</string>
     <string name="settings_show_on_lockscreen_subheading">Show on Lockscreen</string>
     <string name="settings_show_on_lockscreen_summary">Keep the app in the foreground even when locking the phone</string>
     <string name="settings_keep_screen_on_subheading">Keep screen on</string>
     <string name="settings_keep_screen_on_summary">Prevent the display from turning off automatically while the app is open</string>
     <string name="settings_map_header">Map settings</string>
-    <string name="settings_map_rotation_subheading">Rotation</string>
-    <string name="settings_map_rotation_summary">Allow the map to be rotated</string>
     <string name="settings_show_gpx_subheading">Show GPX-file</string>
     <string name="settings_show_gpx_summary">Show GPX-file on the map</string>
     <string name="settings_choose_gpx_subheading">Choose GPX-file</string>
     <string name="settings_gpx_file_default">None</string>
-    <string name="settings_high_res_tiles_subheading">High quality</string>
-    <string name="settings_high_res_tiles_summary">Looks way better but also uses more bandwidth and storage</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">just now</string>

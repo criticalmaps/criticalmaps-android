@@ -90,19 +90,12 @@ Inni użytkownicy nie zobaczą Twojej lokalizacji, ale nadal możesz śledzić M
     <string name="settings_cache_cache_mb">Pamięć podręczna: %s</string>
     <string name="settings_cache_free_mb">Wolne: %s</string>
     <string name="settings_cache_currently_used">Aktualne wykorzystanie %s</string>
-    <string name="settings_choose_storage_subheading">Wybór miejsca zapisu danych</string>
-    <string name="settings_choose_storage_mb_free">(%s wolne)</string>
-    <string name="settings_choose_storage_choose_title">Miejsce zapisu danych</string>
-    <string name="settings_choose_storage_confirm_title">Obecna pamięć podręczna zostanie wyczyszczona</string>
-    <string name="settings_choose_storage_confirm_message">Zmiana miejsca zapisu danych wyczyści pamięć podręczną. Obszary mapy będą musiały zostać ponownie pobrane w celu wyświetlania.</string>
     <string name="settings_screen_header">Ustawienia ekranu</string>
     <string name="settings_show_on_lockscreen_subheading">Pokaż na zablokowanym ekranie</string>
     <string name="settings_show_on_lockscreen_summary">Wyświetlaj aplikację nawet po zablokowaniu ekranu</string>
     <string name="settings_keep_screen_on_subheading">Zablokuj ekran</string>
     <string name="settings_keep_screen_on_summary">Chroni przed automatycznym wygaszeniem ekranu kiedy aplikacja jest wyłączona</string>
     <string name="settings_map_header">Ustawienia map</string>
-    <string name="settings_map_rotation_subheading">Obracanie ekranu</string>
-    <string name="settings_map_rotation_summary">Pozwól na obracanie ekranu map</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">właśnie teraz</string>

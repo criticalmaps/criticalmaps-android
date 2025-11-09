@@ -1,41 +1,48 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
+import static de.stephanlindauer.criticalmaps.events.Events.NEW_LOCATION_EVENT;
+import static de.stephanlindauer.criticalmaps.utils.MapViewUtils.dpToInt;
+
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
+import android.graphics.Outline;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.JsonObject;
 import com.squareup.otto.Subscribe;
 
-import org.osmdroid.tileprovider.modules.SqlTileWriter;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
+import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.style.sources.GeoJsonSource;
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.geojson.Point;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,11 +57,10 @@ import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.handler.GetLocationHandler;
-import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
+// import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.overlays.LocationMarker;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
@@ -63,9 +69,6 @@ import info.metadude.android.typedpreferences.BooleanPreference;
 
 
 public class MapFragment extends Fragment {
-    private final static String KEY_MAP_ZOOMLEVEL = "map_zoomlevel";
-    private final static String KEY_MAP_POSITION = "map_position";
-    private final static String KEY_MAP_ORIENTATION = "map_orientation";
     private final static String KEY_INITIAL_LOCATION_SET = "initial_location_set";
 
     private final static double DEFAULT_ZOOM_LEVEL = 12;
@@ -87,23 +90,22 @@ public class MapFragment extends Fragment {
     @Inject
     LocationUpdateManager locationUpdateManager;
 
+    /*
     @Inject
     ShowGpxHandler showGpxHandler;
+    */
 
     @Inject
     SharedPreferences sharedPreferences;
 
     private MapView mapView;
-    private InfoWindow observerInfoWindow;
+    private MapLibreMap map;
+    private Style mapStyle;
+    // private InfoWindow observerInfoWindow;
 
-    private final GeoPoint defaultGeoPoint = new GeoPoint(52.499571, 13.4140875, 15);
+    private final LatLng defaultGeoPoint = new LatLng(52.499571, 13.4140875);
     private boolean isInitialLocationSet = false;
     private ObjectAnimator gpsSearchingAnimator;
-
-    // cache drawables
-    private Drawable locationIcon;
-    private Drawable ownLocationIcon;
-    private Drawable ownLocationIconObserver;
 
     private FragmentMapBinding binding;
 
@@ -112,34 +114,12 @@ public class MapFragment extends Fragment {
     private final View.OnClickListener centerLocationOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (ownLocationModel.ownLocation != null)
-                animateToLocation(ownLocationModel.ownLocation);
+            if (ownLocationModel.ownLocation != null) {
+                CameraPosition cameraPosition =
+                        new CameraPosition.Builder().target(ownLocationModel.ownLocation).build();
+                animateToCameraPosition(cameraPosition);
+            }
         }
-    };
-
-    private final View.OnClickListener rotationNorthOnClickListener = v -> {
-        /*
-        float currentRotation = mapView.getMapOrientation() % 360;
-
-        if (currentRotation == 0.0f) {
-            // no animation required; also works around bug where map does a full rotation
-            // because of mapView wrapping 360° to 0° while View allows 360°
-            return;
-        }
-
-        if (currentRotation < 0.0f) {
-            currentRotation = 360.0f + currentRotation;
-            binding.mapSetNorthFab.setRotation(currentRotation);
-            mapView.setMapOrientation(currentRotation);
-        }
-
-        float destinationRotation = currentRotation > 180.0f ? 360.0f : 0.0f;
-        ViewCompat.animate(binding.mapSetNorthFab)
-                .rotation(destinationRotation)
-                .setDuration(300L)
-                .setUpdateListener(view -> mapView.setMapOrientation(view.getRotation()))
-                .start();
-         */
     };
 
     private final View.OnClickListener noGpsOnClickListener = v -> AlertBuilder.show(getActivity(),
@@ -189,13 +169,6 @@ public class MapFragment extends Fragment {
 
         binding = FragmentMapBinding.inflate(inflater, container, false);
 
-        //noinspection ConstantConditions
-        locationIcon = AppCompatResources.getDrawable(getActivity(), R.drawable.ic_map_marker);
-        ownLocationIcon = AppCompatResources.getDrawable(
-                getActivity(), R.drawable.ic_map_marker_own);
-        ownLocationIconObserver = AppCompatResources.getDrawable(
-                getActivity(), R.drawable.ic_map_marker_observer);
-
         return binding.getRoot();
     }
 
@@ -212,49 +185,56 @@ public class MapFragment extends Fragment {
         mapView = MapViewUtils.createMapView(getActivity());
         binding.mapContainerLayout.addView(mapView);
 
-        observerInfoWindow = MapViewUtils.createObserverInfoWindow(mapView);
+        mapView.getMapAsync(map -> {
+            this.map = map;
+
+            // Set shadow on compass
+            // NOTE: Needs to be before updating uiSettings below, otherwise compassView will be null!
+            View compassView = mapView.findViewWithTag("compassView");
+            compassView.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setOval(0, 0, view.getWidth(), view.getHeight());
+                }
+            });
+            compassView.setElevation(dpToInt(6));
+
+            // Set compass y position to align it with other fabs
+            View setCenterFab = binding.getRoot().findViewById(R.id.map_set_center_fab);
+            float setCenterFabY = setCenterFab.getY();
+            map.getUiSettings().setCompassMargins(
+                    dpToInt(18) + binding.mapOverlayContainerLayout.getPaddingLeft(), // when started
+                    Math.round(setCenterFabY + dpToInt(18)),
+                    0,
+                    0);
+
+            // TODO: save sprites and glyphs as local asset,
+            //       see https://github.com/maplibre/flutter-maplibre-gl/issues/338
+            Style.Builder styleBuilder = new Style.Builder().fromUri("asset://styles/versatilescolorful.json");
+
+            map.setStyle(styleBuilder, style -> {
+                mapStyle = style;
+                MapViewUtils.setupSourcesAndLayers(getActivity(), mapStyle);
+
+                // trigger fake location update in case fix was acquired already during map init
+                handleNewLocation(NEW_LOCATION_EVENT);
+            });
+        });
+        mapView.onCreate(savedState); // TODO: Should be onViewCreated
+
+        // observerInfoWindow = MapViewUtils.createObserverInfoWindow(mapView);
 
         binding.mapSetCenterFab.setOnClickListener(centerLocationOnClickListener);
-        binding.mapSetNorthFab.setOnClickListener(rotationNorthOnClickListener);
 
         binding.mapNoDataConnectivityFab.setOnClickListener(v -> AlertBuilder.show(getActivity(),
                 R.string.map_no_internet_connection_title,
                 R.string.map_no_internet_connection_text));
 
-        if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION).get()) {
-            binding.mapSetNorthFab.setVisibility(View.GONE);
-        } else {
-            RotationGestureOverlay rotationGestureOverlay = new RotationGestureOverlay(mapView) {
-                @Override
-                public void onRotate(float deltaAngle) {
-                    super.onRotate(deltaAngle);
-                    binding.mapSetNorthFab.setRotation(mapView.getMapOrientation());
-                }
-            };
-            rotationGestureOverlay.setEnabled(true);
-            mapView.setMultiTouchControls(true);
-            mapView.getOverlays().add(rotationGestureOverlay);
-        }
-
         if (savedState != null) {
-            Double zoomLevel = (Double) savedState.get(KEY_MAP_ZOOMLEVEL);
-            GeoPoint position = savedState.getParcelable(KEY_MAP_POSITION);
-            Float orientation = (Float) savedState.get(KEY_MAP_ORIENTATION);
-
-            if (zoomLevel != null && position != null && orientation != null) {
-                mapView.getController().setZoom(zoomLevel);
-                if (!new BooleanPreference(sharedPreferences, SharedPrefsKeys.DISABLE_MAP_ROTATION)
-                        .get()) {
-                    mapView.setMapOrientation(orientation);
-                }
-                setToLocation(position);
-            }
-
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
         }
-        binding.mapSetNorthFab.setRotation(mapView.getMapOrientation());
 
-        showGpxHandler.showGpx(mapView);
+        // showGpxHandler.showGpx(mapView);
 
         if (!LocationUpdateManager.checkPermission()) {
             zoomToLocation(defaultGeoPoint, NO_GPS_PERMISSION_ZOOM_LEVEL);
@@ -297,48 +277,69 @@ public class MapFragment extends Fragment {
             return WindowInsetsCompat.CONSUMED;
         });
     }
+
+    private FeatureCollection getOtherUsersFeatureCollection() {
+        ArrayList<Feature> features = new ArrayList<>();
+
+        otherUsersLocationModel.getOtherUsersLocations().forEach((deviceId, location) -> {
+            JsonObject properties = new JsonObject();
+            properties.addProperty("deviceId", deviceId);
+            features.add(Feature.fromGeometry(Point.fromLngLat(location.getLongitude(), location.getLatitude()), properties));
+        });
+        return FeatureCollection.fromFeatures(features);
+    }
+
+    private FeatureCollection getOwnUserFeatureCollection() {
+        ArrayList<Feature> features = new ArrayList<>();
+
+        LatLng location = ownLocationModel.ownLocation;
+        JsonObject properties = new JsonObject();
+        properties.addProperty("deviceId", "own");
+        features.add(Feature.fromGeometry(Point.fromLngLat(location.getLongitude(), location.getLatitude()), properties));
+
+        return FeatureCollection.fromFeatures(features);
     }
 
     private void refreshView() {
-        for (Overlay overlay : mapView.getOverlays()) {
-            if (overlay instanceof LocationMarker) {
-                mapView.getOverlays().remove(overlay);
-            }
+        if (map == null || mapStyle == null) {
+            return;
         }
 
-        for (GeoPoint currentOtherUsersLocation : otherUsersLocationModel.getOtherUsersLocations()) {
-            LocationMarker otherPeoplesMarker = new LocationMarker(mapView);
-            otherPeoplesMarker.setPosition(currentOtherUsersLocation);
-            otherPeoplesMarker.setIcon(locationIcon);
-            mapView.getOverlays().add(otherPeoplesMarker);
-        }
+        FeatureCollection otherUsersFeatures = getOtherUsersFeatureCollection();
+        GeoJsonSource otherUsersLocationsSource =
+                (GeoJsonSource) mapStyle.getSource("otherUsersLocationsSource");
+        otherUsersLocationsSource.setGeoJson(otherUsersFeatures);
 
         if (ownLocationModel.ownLocation != null) {
-            GeoPoint currentUserLocation = ownLocationModel.ownLocation;
-            LocationMarker ownMarker = new LocationMarker(mapView);
-            ownMarker.setPosition(currentUserLocation);
-            if (new BooleanPreference(
-                    sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get()) {
-                ownMarker.setIcon(ownLocationIconObserver);
-                ownMarker.setInfoWindow(observerInfoWindow);
-                // since we're currently creating new markers on every refresh, this workaround
-                // is needed to update the info window's position if it's open
-                if (observerInfoWindow.isOpen()) {
-                    ownMarker.showInfoWindow();
-                }
-            } else {
-                observerInfoWindow.close();
-                ownMarker.setIcon(ownLocationIcon);
-            }
-            mapView.getOverlays().add(ownMarker);
-        }
+            FeatureCollection ownUserFeatures = getOwnUserFeatureCollection();
+            FeatureCollection emptyFeatures =
+                    FeatureCollection.fromJson("{\"type\":\"FeatureCollection\",\"features\":[]}");
 
-        mapView.invalidate();
+            GeoJsonSource ownUserLocationSourceObserver =
+                    (GeoJsonSource) mapStyle.getSource("ownUserLocationSourceObserver");
+            GeoJsonSource ownUserLocationSource =
+                    (GeoJsonSource) mapStyle.getSource("ownUserLocationSource");
+
+            if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get()) {
+                ownUserLocationSource.setGeoJson(emptyFeatures);
+                ownUserLocationSourceObserver.setGeoJson(ownUserFeatures);
+            } else {
+                ownUserLocationSource.setGeoJson(ownUserFeatures);
+                ownUserLocationSourceObserver.setGeoJson(emptyFeatures);
+            }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mapView.onResume();
 
         eventBus.register(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(
@@ -348,6 +349,9 @@ public class MapFragment extends Fragment {
     }
 
     private void handleFirstLocationUpdate() {
+        if (map == null) {
+            return;
+        }
         setGpsStatusFixed();
         zoomToLocation(ownLocationModel.ownLocation, DEFAULT_ZOOM_LEVEL);
         isInitialLocationSet = true;
@@ -357,9 +361,9 @@ public class MapFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putDouble(KEY_MAP_ZOOMLEVEL, mapView.getZoomLevelDouble());
-        outState.putParcelable(KEY_MAP_POSITION, (GeoPoint) mapView.getMapCenter());
-        outState.putFloat(KEY_MAP_ORIENTATION, mapView.getMapOrientation());
+        if (mapView != null && !mapView.isDestroyed()) {
+            mapView.onSaveInstanceState(outState);
+        }
         outState.putBoolean(KEY_INITIAL_LOCATION_SET, isInitialLocationSet);
     }
 
@@ -367,6 +371,7 @@ public class MapFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
+        mapView.onPause();
         stopGetLocationTimer();
         eventBus.unregister(this);
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(
@@ -374,15 +379,25 @@ public class MapFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        if (mapView != null && !mapView.isDestroyed()) {
+            mapView.onLowMemory();
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // properly closes the cache db since it's stored in a static field in osmdroid...
-        try {
-            ((SqlTileWriter) mapView.getTileProvider().getTileWriter()).refreshDb();
-        } catch (Exception ignored) {
-            // nothing we can do
-        }
+        mapView.onDestroy();
         mapView = null;
+        map = null;
         binding = null;
     }
 
@@ -494,18 +509,19 @@ public class MapFragment extends Fragment {
         }
     }
 
-    private void zoomToLocation(final GeoPoint location, final double zoomLevel) {
-        // TODO use setCenter() + zoomTo() here; currently broken and ends up in a wrong location
-        mapView.getController().setZoom(zoomLevel);
-        animateToLocation(location);
+    private void zoomToLocation(final LatLng location, final double zoomLevel) {
+        CameraPosition cameraPosition =
+                new CameraPosition.Builder().target(location).zoom(zoomLevel).build();
+        animateToCameraPosition(cameraPosition);
     }
 
-    private void animateToLocation(final GeoPoint location) {
-        mapView.getController().animateTo(location);
-    }
+    private void animateToCameraPosition(final CameraPosition cameraPosition) {
+        if (map == null) {
+            return;
+        }
 
-    private void setToLocation(final GeoPoint location) {
-        mapView.getController().setCenter(location);
+        map.animateCamera(
+                CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null);
     }
 
     private void startGetLocationTimer() {

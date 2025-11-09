@@ -1,3 +1,4 @@
+/*
 package de.stephanlindauer.criticalmaps.model.gpx;
 
 import org.osmdroid.util.GeoPoint;
@@ -22,3 +23,4 @@ public class GpxTrack {
         return waypoints;
     }
 }
+*/

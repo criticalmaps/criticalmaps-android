@@ -1,88 +1,107 @@
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.app.Activity;
-import android.view.ViewGroup;
+import android.view.Gravity;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 
-import org.osmdroid.config.Configuration;
-import org.osmdroid.config.IConfigurationProvider;
-import org.osmdroid.tileprovider.MapTileProviderBasic;
-import org.osmdroid.tileprovider.modules.SqlTileWriter;
-import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.CustomZoomButtonsController;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
-
-import java.io.File;
+import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.MapLibreMapOptions;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.module.http.HttpRequestUtil;
+import org.maplibre.android.style.layers.Layer;
+import org.maplibre.android.style.layers.PropertyFactory;
+import org.maplibre.android.style.layers.SymbolLayer;
+import org.maplibre.android.style.sources.GeoJsonSource;
 
 import de.stephanlindauer.criticalmaps.App;
-import de.stephanlindauer.criticalmaps.BuildConfig;
 import de.stephanlindauer.criticalmaps.R;
-import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
-import timber.log.Timber;
 
 public class MapViewUtils {
     private MapViewUtils() {
     }
 
-    public static MapView createMapView(Activity activity) {
-        IConfigurationProvider configuration = Configuration.getInstance();
-
-        StorageLocationProvider.StorageLocation storageLocation =
-                App.components().storageProvider().getActiveStorageLocation();
-        boolean noStoredTilesExist = storageLocation == null;
-        if (noStoredTilesExist) {
-            storageLocation = App.components().storageProvider().getAndSaveBestStorageLocation();
-        }
-        File osmdroidBasePath = storageLocation.osmdroidBasePath;
-        File osmdroidTileCache = storageLocation.osmdroidTilePath;
-
-        Timber.d("Setting osmdroidBasePath to: %s", osmdroidBasePath.getAbsolutePath());
-        configuration.setOsmdroidBasePath(osmdroidBasePath);
-        Timber.d("Setting osmdroidTileCache to: %s", osmdroidTileCache.getAbsolutePath());
-        configuration.setOsmdroidTileCache(osmdroidTileCache);
-
-        setMaxCacheSize(configuration);
-
-        // TODO Add option to adjust expiration?
-        //      setExpirationExtendedDuration() OR setExpirationOverrideDuration()
-
-        configuration.setMapViewHardwareAccelerated(true);
-        configuration.setUserAgentValue(BuildConfig.APPLICATION_ID + "/"
-                + BuildConfig.VERSION_NAME + " " + org.osmdroid.library.BuildConfig.APPLICATION_ID
-                + "/" + org.osmdroid.library.BuildConfig.VERSION_NAME
-                + " (" + activity.getString(R.string.contact_email) + ")");
-
-        OnlineTileSourceBase onlineTileSourceBase = TileSourceFactory.MAPNIK;
-
-        MapTileProviderBasic mapTileProviderBasic =
-                new MapTileProviderBasic(activity.getApplicationContext(), onlineTileSourceBase);
-
-        MapView mapView = new MapView(activity, mapTileProviderBasic);
-        mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
-
-        mapView.setMultiTouchControls(true);
-        mapView.getController().setZoom(1.0d);
-        mapView.getController().setCenter(new GeoPoint(0.0d, 0.0d));
-        mapView.setClickable(true);
-        mapView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        mapView.setTilesScaledToDpi(true);
-        mapView.getOverlayManager()
-                .getTilesOverlay()
-                .setLoadingBackgroundColor(
-                        ContextCompat.getColor(activity, R.color.map_loading_tile_color));
-        mapView.getOverlayManager()
-                .getTilesOverlay()
-                .setLoadingLineColor(
-                        ContextCompat.getColor(activity, R.color.map_loading_line_color));
-
-        return mapView;
+    public static int dpToInt(int dp) {
+        return Math.round(dp * App.components().app().getResources().getDisplayMetrics().density);
     }
 
+    public static MapView createMapView(Activity activity) {
+        HttpRequestUtil.setOkHttpClient(App.components().okHttpClient());
+
+        MapLibreMapOptions options = MapLibreMapOptions.createFromAttributes(activity);
+
+        options.attributionEnabled(false);
+        options.logoEnabled(false);
+        options.foregroundLoadColor(ContextCompat.getColor(activity, R.color.map_loading_tile_color));
+
+        options.compassEnabled(true);
+        options.compassFadesWhenFacingNorth(true);
+        options.compassMargins(new int[]{dpToInt(18), dpToInt(18), 0, 0}); // LTRB
+        options.compassGravity(Gravity.TOP | GravityCompat.START);
+        options.compassImage(AppCompatResources.getDrawable(activity, R.drawable.ic_map_compass));
+
+        options.camera(
+                new CameraPosition.Builder()
+                        .target(new LatLng(0, 0))
+                        .bearing(0.0)
+                        .zoom(1.0)
+                        .tilt(0.0)
+                        .build()
+        );
+
+        return new MapView(activity, options);
+    }
+
+    public static void setupSourcesAndLayers(Activity activity, Style mapStyle) {
+
+        GeoJsonSource otherUsersLocationsSource = new GeoJsonSource("otherUsersLocationsSource");
+        GeoJsonSource ownUserLocationSource = new GeoJsonSource("ownUserLocationSource");
+        GeoJsonSource ownUserLocationSourceObserver = new GeoJsonSource("ownUserLocationSourceObserver");
+
+        mapStyle.addImage(
+                "otherUser",
+                AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker));
+        mapStyle.addImage(
+                "ownUser",
+                AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker_own));
+        mapStyle.addImage(
+                "ownUserObserver",
+                AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker_observer));
+
+        Layer otherUsersLocationsLayer =
+                new SymbolLayer("otherUsersLocationsLayer", otherUsersLocationsSource.getId());
+        otherUsersLocationsLayer.setProperties(
+                PropertyFactory.iconImage("otherUser"),
+                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconIgnorePlacement(true));
+
+        Layer ownUserLocationLayer =
+                new SymbolLayer("ownUserLocationLayer", ownUserLocationSource.getId());
+        ownUserLocationLayer.setProperties(
+                PropertyFactory.iconImage("ownUser"),
+                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconIgnorePlacement(true));
+
+        Layer ownUserLocationLayerObserver =
+                new SymbolLayer("ownUserLocationLayerObserver", ownUserLocationSourceObserver.getId());
+        ownUserLocationLayerObserver.setProperties(
+                PropertyFactory.iconImage("ownUserObserver"),
+                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconIgnorePlacement(true));
+
+        mapStyle.addLayer(otherUsersLocationsLayer);
+        mapStyle.addLayer(ownUserLocationLayer);
+        mapStyle.addLayer(ownUserLocationLayerObserver);
+        mapStyle.addSource(otherUsersLocationsSource);
+        mapStyle.addSource(ownUserLocationSource);
+        mapStyle.addSource(ownUserLocationSourceObserver);
+    }
+
+    /*
     public static InfoWindow createObserverInfoWindow(MapView mapView) {
         return new InfoWindow(R.layout.view_observer_infowindow, mapView) {
             @Override
@@ -96,30 +115,5 @@ public class MapViewUtils {
             }
         };
     }
-
-    private static void setMaxCacheSize(IConfigurationProvider configuration) {
-        // code adapted from osmdroid's DefaultConfigurationProvider.load()
-        long cacheSize = 0;
-        File dbFile = new File(configuration.getOsmdroidTileCache().getAbsolutePath()
-                + File.separator + SqlTileWriter.DATABASE_FILENAME);
-        if (dbFile.exists()) {
-            cacheSize = dbFile.length();
-        }
-
-        long freeSpace = configuration.getOsmdroidTileCache().getFreeSpace();
-        Timber.d("cacheSize: %d", cacheSize);
-        Timber.d("freeSpace: %d", freeSpace);
-        Timber.d("getTileFileSystemCacheMaxBytes(): %d",
-                configuration.getTileFileSystemCacheMaxBytes());
-
-        if (configuration.getTileFileSystemCacheMaxBytes() > (freeSpace + cacheSize)) {
-            configuration.setTileFileSystemCacheMaxBytes((long) ((freeSpace + cacheSize) * 0.95));
-            configuration.setTileFileSystemCacheTrimBytes((long) ((freeSpace + cacheSize) * 0.90));
-        }
-
-        Timber.d("getTileFileSystemCacheMaxBytes(): %d",
-                configuration.getTileFileSystemCacheMaxBytes());
-        Timber.d("getTileFileSystemCacheTrimBytes(): %d",
-                configuration.getTileFileSystemCacheTrimBytes());
-    }
+    */
 }

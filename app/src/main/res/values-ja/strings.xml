@@ -93,19 +93,12 @@
     <string name="settings_cache_cache_mb">キャッシュ：%s</string>
     <string name="settings_cache_free_mb">空いてる：%s</string>
     <string name="settings_cache_currently_used">現用：%s</string>
-    <string name="settings_choose_storage_subheading">記憶番地選択</string>
-    <string name="settings_choose_storage_mb_free">(%s 空いてる)</string>
-    <string name="settings_choose_storage_choose_title">記憶番地</string>
-    <string name="settings_choose_storage_confirm_title">キャッシュを消す</string>
-    <string name="settings_choose_storage_confirm_message">記憶番地を変えるならキャッシュが消される。その後地図を見たら再ロードが必要。</string>
     <string name="settings_screen_header">スクリーン設定</string>
     <string name="settings_show_on_lockscreen_subheading">ロックスクリーンで見せる</string>
     <string name="settings_show_on_lockscreen_summary">携帯をロックしても、アプリを使える</string>
     <string name="settings_keep_screen_on_subheading">スクリーンが消さない</string>
     <string name="settings_keep_screen_on_summary">スクリーンがアプリを使い中いつでも自動的に消されない</string>
     <string name="settings_map_header">地図設定</string>
-    <string name="settings_map_rotation_subheading">回転</string>
-    <string name="settings_map_rotation_summary">地図を指で回転できる</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">たった今</string>

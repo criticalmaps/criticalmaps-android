@@ -1,3 +1,4 @@
+/*
 package de.stephanlindauer.criticalmaps.model.gpx;
 
 import java.util.ArrayList;
@@ -47,3 +48,4 @@ public class GpxModel {
         uri = null;
     }
 }
+*/

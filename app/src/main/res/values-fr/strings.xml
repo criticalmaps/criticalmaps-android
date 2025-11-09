@@ -97,19 +97,12 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="settings_cache_cache_mb">Cache : %s</string>
     <string name="settings_cache_free_mb">Libre : %s</string>
     <string name="settings_cache_currently_used">Utilisation en cours %s</string>
-    <string name="settings_choose_storage_subheading">Choisir l\'emplacement de stockage</string>
-    <string name="settings_choose_storage_mb_free">(%s libre)</string>
-    <string name="settings_choose_storage_choose_title">Emplacement de stockage</string>
-    <string name="settings_choose_storage_confirm_title">Le cache va être vidé</string>
-    <string name="settings_choose_storage_confirm_message">Changer l\'emplacement de stockage va vider le cache. Les cartes devront être téléchargées à nouveau.</string>
     <string name="settings_screen_header">Paramètres d\'affichage</string>
     <string name="settings_show_on_lockscreen_subheading">Afficher sur l\'écran de verrouillage</string>
     <string name="settings_show_on_lockscreen_summary">Garder l\'app au premier plan même quand le téléphone est verrouillé</string>
     <string name="settings_keep_screen_on_subheading">Garder l\'écran allumé</string>
     <string name="settings_keep_screen_on_summary">Empêcher l\'écran de s\'éteindre quand l\'app est ouverte</string>
     <string name="settings_map_header">Paramètres de la carte</string>
-    <string name="settings_map_rotation_subheading">Rotation</string>
-    <string name="settings_map_rotation_summary">Permettre la rotation de la carte</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">il y a un instant</string>

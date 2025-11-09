@@ -1,9 +1,9 @@
+/*
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.os.Build;
 
 public class GpxUtils {
 
@@ -15,3 +15,4 @@ public class GpxUtils {
         }
     }
 }
+*/

@@ -96,25 +96,16 @@ Ostatní uživatelé vaši polohu neuvidí, ale vy můžete sledovat události.<
     <string name="settings_cache_cache_mb">Mezipaměť: %s</string>
     <string name="settings_cache_free_mb">Volné: %s</string>
     <string name="settings_cache_currently_used">V současnosti používá %s</string>
-    <string name="settings_choose_storage_subheading">Zvolte místo uložení</string>
-    <string name="settings_choose_storage_mb_free"> (%s volný)</string>
-    <string name="settings_choose_storage_choose_title">Umístění úložiště</string>
-    <string name="settings_choose_storage_confirm_title">Aktuální mezipaměť bude vymazána</string>
-    <string name="settings_choose_storage_confirm_message">Změna umístění úložiště vymaže aktuální mezipaměť. Dlaždice mapy bude nutné při prohlížení znovu stáhnout.</string>
     <string name="settings_screen_header">Nastavení obrazovky</string>
     <string name="settings_show_on_lockscreen_subheading">Zobrazení na uzamčené obrazovce</string>
     <string name="settings_show_on_lockscreen_summary">Ponechání aplikace v popředí i při uzamčení telefonu</string>
     <string name="settings_keep_screen_on_subheading">Nechat obrazovku zapnutou</string>
     <string name="settings_keep_screen_on_summary">Zabránit automatickému vypnutí displeje při otevřené aplikaci</string>
     <string name="settings_map_header">Nastavení mapy</string>
-    <string name="settings_map_rotation_subheading">Rotace</string>
-    <string name="settings_map_rotation_summary">Umožnit otáčení mapy</string>
     <string name="settings_show_gpx_subheading">Zobrazit soubor GPX</string>
     <string name="settings_show_gpx_summary">Zobrazení souboru GPX na mapě</string>
     <string name="settings_choose_gpx_subheading">Vybrat GPX soubor</string>
     <string name="settings_gpx_file_default">Žádný</string>
-    <string name="settings_high_res_tiles_subheading">Vysoká kvalita</string>
-    <string name="settings_high_res_tiles_summary">Vypadá mnohem lépe, ale také využívá větší šířku pásma a úložiště.</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">právě teď</string>

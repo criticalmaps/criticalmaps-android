@@ -12,7 +12,6 @@ import de.stephanlindauer.criticalmaps.fragments.ChatFragment;
 import de.stephanlindauer.criticalmaps.fragments.MapFragment;
 import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
-import de.stephanlindauer.criticalmaps.provider.StorageLocationProvider;
 import de.stephanlindauer.criticalmaps.service.ServerSyncService;
 import okhttp3.OkHttpClient;
 
@@ -30,7 +29,6 @@ public interface AppComponent {
     OwnLocationModel ownLocationmodel();
     OkHttpClient okHttpClient();
     SharedPreferences sharedPreferences();
-    StorageLocationProvider storageProvider();
 
     @Component.Builder
     interface Builder {

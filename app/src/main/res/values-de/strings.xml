@@ -94,25 +94,16 @@
     <string name="settings_cache_cache_mb">Cache: %s</string>
     <string name="settings_cache_free_mb">Frei: %s</string>
     <string name="settings_cache_currently_used">Momentan %s verwendet</string>
-    <string name="settings_choose_storage_subheading">Speicherort wählen</string>
-    <string name="settings_choose_storage_mb_free"> (%s frei)</string>
-    <string name="settings_choose_storage_choose_title">Speicherort</string>
-    <string name="settings_choose_storage_confirm_title">Cache wird gelöscht</string>
-    <string name="settings_choose_storage_confirm_message">Wenn du den Speicherort änderst wird der aktuelle Cache gelöscht. Die Kartendaten werden beim Betrachten neu heruntergeladen.</string>
     <string name="settings_screen_header">Bildschirmeinstellungen</string>
     <string name="settings_show_on_lockscreen_subheading">Auf Sperrbildschirm anzeigen</string>
     <string name="settings_show_on_lockscreen_summary">Nutze die App weiter, selbst wenn der Bildschirm gesperrt ist</string>
     <string name="settings_keep_screen_on_subheading">Bildschirm anlassen</string>
     <string name="settings_keep_screen_on_summary">Bildschirm geht nicht automatisch aus, während die App offen ist</string>
     <string name="settings_map_header">Karteneinstellungen</string>
-    <string name="settings_map_rotation_subheading">Drehung</string>
-    <string name="settings_map_rotation_summary">Drehen der Karte erlauben</string>
     <string name="settings_show_gpx_subheading">GPX-Daten anzeigen</string>
     <string name="settings_show_gpx_summary">GPX-Daten auf der Karte anzeigen</string>
     <string name="settings_choose_gpx_subheading">GPX-Daten auswählen</string>
     <string name="settings_gpx_file_default">Nichts</string>
-    <string name="settings_high_res_tiles_subheading">Hohe Qualität</string>
-    <string name="settings_high_res_tiles_summary">Bessere Darstellung, verbraucht aber mehr Daten und Speicherplatz</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">gerade eben</string>
