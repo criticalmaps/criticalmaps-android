@@ -1,0 +1,50 @@
+[versions]
+otto = "1.3.8"
+mapLibre = "12.0.1"
+picasso = "2.8"
+timber = "5.0.1"
+okhttp = "5.3.0"
+typedPreferences = "2.1.0"
+material = "1.13.0"
+core = "1.17.0"
+appcompat = "1.7.1"
+annotation = "1.9.1"
+exifinterface = "1.4.1"
+constraintLayout = "2.2.1"
+dagger = "2.57.2"
+leakcanary = "2.14"
+junit = "4.13.2"
+truth = "1.4.5"
+mockito = "5.20.0"
+junitVersion = "1.3.0"
+androidTest = "1.7.0"
+espressoCore = "3.7.0"
+agp = "8.13.0"
+
+[libraries]
+otto = { group = "com.squareup", name = "otto", version.ref = "otto" }
+maplibre = { group = "org.maplibre.gl", name = "android-sdk", version.ref = "mapLibre" }
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+typed-preferences = { group = "info.metadude.android", name = "typed-preferences", version.ref = "typedPreferences" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+com-google-truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+org-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidTest" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidTest" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidTest" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }

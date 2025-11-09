@@ -1,5 +1,6 @@
-apply plugin: 'com.android.application'
-apply plugin: 'de.mobilej.unmock'
+plugins {
+    alias(libs.plugins.android.application)
+}
 
 // Place actual signing configuration in "keystore.properties"
 // "keystore.properties" is in .gitignore and will not be checked into repo
@@ -11,6 +12,8 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
+    namespace 'de.stephanlindauer.criticalmaps'
+
     signingConfigs {
         releaseConfig {
             keyAlias keystoreProperties['keyAlias']
@@ -20,7 +23,9 @@ android {
         }
     }
 
-    compileSdk 36
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
         applicationId "de.stephanlindauer.criticalmaps"
@@ -69,37 +74,34 @@ android {
     lint {
         warning 'MissingTranslation', 'StringFormatInvalid', 'NewApi', 'InvalidPackage'
     }
-
-    namespace 'de.stephanlindauer.criticalmaps'
 }
 
 dependencies {
-    implementation 'com.squareup:otto:1.3.8'
-    implementation 'org.maplibre.gl:android-sdk:12.0.1'
-    implementation 'com.squareup.picasso:picasso:2.8'
-    implementation 'androidx.core:core:1.17.0'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'androidx.annotation:annotation:1.9.1'
-    implementation 'com.google.android.material:material:1.13.0'
-    implementation 'androidx.exifinterface:exifinterface:1.4.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.jakewharton.timber:timber:5.0.1'
-    implementation 'com.squareup.okhttp3:okhttp:5.3.0'
-    implementation 'info.metadude.android:typed-preferences:2.1.0'
+    implementation libs.otto
+    implementation libs.maplibre
+    implementation libs.picasso
+    implementation libs.timber
+    implementation libs.okhttp
+    implementation libs.typed.preferences
+    implementation libs.material
+    implementation libs.androidx.core
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.annotation
+    implementation libs.androidx.exifinterface
+    implementation libs.androidx.constraintlayout
 
-    implementation "com.google.dagger:dagger:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation libs.dagger
+    annotationProcessor libs.dagger.compiler
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+    debugImplementation libs.leakcanary
 
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'com.google.truth:truth:1.4.5'
-    testImplementation 'org.mockito:mockito-core:5.20.0'
+    testImplementation libs.junit
+    testImplementation libs.com.google.truth
+    testImplementation libs.org.mockito.core
 
-    androidTestImplementation 'androidx.test:core:1.7.0'
-    androidTestImplementation 'androidx.test:runner:1.7.0'
-    androidTestImplementation 'androidx.test:rules:1.7.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.test.core
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.androidx.espresso.core
 }
