@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Карта</string>
     <string name="section_rules">Правила</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">О программе</string>
     <string name="section_chat">Чат</string>
     <string name="section_settings">Настройки</string>
@@ -68,8 +67,6 @@
     <string name="rules_image_source">Изображения criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Все твиты содержащие \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Попробовать еще раз!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Сообщения будут удалены после 30 минут.</string>
@@ -143,9 +140,6 @@
     <string name="cancel">Отмена</string>
     <string name="permissions_rationale_title">Предоставить необходимое разрешение?</string>
     <string name="permissions_open_settings">Открыть настройки</string>
-    <string name="storage_name_internal">Внутреннее хранилище</string>
-    <string name="storage_name_external">Внешнее хранилище</string>
-    <string name="storage_name_emulated">Эмулированная SD-карта</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Пожалуйста, найдите время, чтобы прочитать это краткое введение.</string>

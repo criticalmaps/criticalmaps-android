@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Mappa</string>
     <string name="section_rules">Regole</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Impostazioni</string>
@@ -52,8 +51,6 @@
     <string name="rules_image_source">Immagini di criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Tutti i tweet che contengono\"CriticalMaps\"</string>
-    <string name="twitter_try_again">Riprovaci!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">I messaggi si cancelleranno dopo 30 minuti.</string>

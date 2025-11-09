@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Map</string>
     <string name="section_rules">Rules</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">About</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Settings</string>
@@ -68,10 +67,6 @@
     <string name="rules_fun">Have fun!</string>
     <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
     <string name="rules_image_source">Images by criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
-
-    <!-- fragment_twitter -->
-    <string name="twitter_heading">All Tweets containing \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Try again!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
@@ -154,9 +149,6 @@
     <string name="cancel">Cancel</string>
     <string name="permissions_rationale_title">Grant required permission?</string>
     <string name="permissions_open_settings">Open Settings</string>
-    <string name="storage_name_internal">Internal Storage</string>
-    <string name="storage_name_external">External SD card</string>
-    <string name="storage_name_emulated">Emulated SD card</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Please take some time to read this quick introduction.</string>

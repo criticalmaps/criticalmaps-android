@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Mapa</string>
     <string name="section_rules">Pravidla</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">O nás</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Nastavení</string>
@@ -67,8 +66,6 @@ Ostatní uživatelé vaši polohu neuvidí, ale vy můžete sledovat události.<
     <string name="rules_image_source">Obrázky od criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Všechny tweety obsahující \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Zkuste to znovu!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Zprávy budou po 30 minutách smazány.</string>
@@ -150,9 +147,6 @@ Chcete nahrát svůj obrázek na <a href=\"http://criticalmaps.net\">criticalmap
     <string name="cancel">Zrušit</string>
     <string name="permissions_rationale_title">Udělit potřebné povolení?</string>
     <string name="permissions_open_settings">Otevřít nastavení</string>
-    <string name="storage_name_internal">Interní úložiště</string>
-    <string name="storage_name_external">Externí SD karta</string>
-    <string name="storage_name_emulated">Emulovaná SD karta</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Věnujte prosím trochu času přečtení tohoto stručného úvodu.</string>

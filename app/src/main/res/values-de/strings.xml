@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Map</string>
     <string name="section_rules">Knigge</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Einstellungen</string>
@@ -65,8 +64,6 @@
     <string name="rules_image_source">Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Alle Tweets die \"CriticalMaps\" enthalten</string>
-    <string name="twitter_try_again">Versuch\'s nochmal!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Nachrichten werden nach 30 Minuten wieder gelöscht.</string>
@@ -144,9 +141,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="permissions_rationale_title">Benötigte Rechte erteilen?</string>
     <string name="permissions_open_settings">Einstellungen öffnen</string>
-    <string name="storage_name_internal">Interner Speicher</string>
-    <string name="storage_name_external">Externe SD Karte</string>
-    <string name="storage_name_emulated">Emulierte SD Karte</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Lies dir bitte kurz folgende Infos durch, damit du weißt, was hier abgeht.</string>

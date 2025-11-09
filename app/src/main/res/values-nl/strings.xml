@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Kaart</string>
     <string name="section_rules">Regels</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Over</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Instellingen</string>
@@ -70,8 +69,6 @@
     <string name="rules_image_source">Met afbeeldingen van criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Alle tweets met als onderwerp ‘CriticalMaps’</string>
-    <string name="twitter_try_again">Probeer het opnieuw!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Berichten worden na 30 minuten verwijderd.</string>
@@ -154,9 +151,6 @@
     <string name="cancel">Annuleren</string>
     <string name="permissions_rationale_title">Wil je dit recht verlenen?</string>
     <string name="permissions_open_settings">Instellingen openen</string>
-    <string name="storage_name_internal">Interne opslagruimte</string>
-    <string name="storage_name_external">Externe sd-kaart</string>
-    <string name="storage_name_emulated">Geëmuleerde sd-kaart</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Neem deze introductie door voordat je aan de slag gaat.</string>
