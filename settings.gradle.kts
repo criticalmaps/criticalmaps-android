@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "criticalmaps-android"
-include ':app'
+include(":app")
