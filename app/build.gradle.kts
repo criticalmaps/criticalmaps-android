@@ -80,7 +80,14 @@ android {
     }
 
     lint {
-        warning("MissingTranslation", "StringFormatInvalid", "NewApi", "InvalidPackage")
+        warning.addAll(
+            listOf(
+                "MissingTranslation",
+                "StringFormatInvalid",
+                "NewApi",
+                "InvalidPackage"
+            )
+        )
     }
 }
 
