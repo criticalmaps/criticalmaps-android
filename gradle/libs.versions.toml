@@ -7,6 +7,7 @@ timber = "5.0.1"
 okhttp = "5.3.2"
 typedPreferences = "2.1.0"
 material = "1.13.0"
+material3 = "1.4.0"
 core = "1.17.0"
 appcompat = "1.7.1"
 annotation = "1.9.1"
@@ -22,6 +23,9 @@ androidTest = "1.7.0"
 espressoCore = "3.7.0"
 agp = "8.13.2"
 unmock = "0.9.0"
+kotlin = "2.2.21"
+uiToolingPreview = "1.9.4"
+uiTooling = "1.9.4"
 
 [libraries]
 otto = { group = "com.squareup", name = "otto", version.ref = "otto" }
@@ -31,7 +35,9 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 typed-preferences = { group = "info.metadude.android", name = "typed-preferences", version.ref = "typedPreferences" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
@@ -47,7 +53,11 @@ androidx-test-core = { group = "androidx.test", name = "core", version.ref = "an
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidTest" }
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidTest" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 unmock = {id = "de.mobilej.unmock", version.ref= "unmock"}
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
