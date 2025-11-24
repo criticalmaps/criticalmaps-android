@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Карта</string>
     <string name="section_rules">Правила</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">О программе</string>
     <string name="section_chat">Чат</string>
     <string name="section_settings">Настройки</string>
@@ -68,8 +67,6 @@
     <string name="rules_image_source">Изображения criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Все твиты содержащие \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Попробовать еще раз!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Сообщения будут удалены после 30 минут.</string>
@@ -97,19 +94,12 @@
     <string name="settings_cache_cache_mb">Кэш %s</string>
     <string name="settings_cache_free_mb">Свободно %s</string>
     <string name="settings_cache_currently_used">Использовано %s</string>
-    <string name="settings_choose_storage_subheading">Выберите место хранения</string>
-    <string name="settings_choose_storage_mb_free">(%s свободно)</string>
-    <string name="settings_choose_storage_choose_title">Место хранения</string>
-    <string name="settings_choose_storage_confirm_title">Кэш будет очищен</string>
-    <string name="settings_choose_storage_confirm_message">Изменение места хранения очистит текущий кэш. Карта будет загружена снова при просмотре.</string>
     <string name="settings_screen_header">Настройки экрана</string>
     <string name="settings_show_on_lockscreen_subheading">Показывать на экране блокировки</string>
     <string name="settings_show_on_lockscreen_summary">Держать приложение на переднем плане даже при блокировке телефона</string>
     <string name="settings_keep_screen_on_subheading">Держать экран включенным</string>
     <string name="settings_keep_screen_on_summary">Предотвратить автоматическое отключение экрана во время использования приложения</string>
     <string name="settings_map_header">Настройки карты</string>
-    <string name="settings_map_rotation_subheading">Поворот</string>
-    <string name="settings_map_rotation_summary">Разрешить поворот карты</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">только что</string>
@@ -150,9 +140,6 @@
     <string name="cancel">Отмена</string>
     <string name="permissions_rationale_title">Предоставить необходимое разрешение?</string>
     <string name="permissions_open_settings">Открыть настройки</string>
-    <string name="storage_name_internal">Внутреннее хранилище</string>
-    <string name="storage_name_external">Внешнее хранилище</string>
-    <string name="storage_name_emulated">Эмулированная SD-карта</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Пожалуйста, найдите время, чтобы прочитать это краткое введение.</string>

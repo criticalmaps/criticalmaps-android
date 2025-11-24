@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Mapa</string>
     <string name="section_rules">Normas</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Info</string>
     <string name="section_chat">Chat</string>
     <string name="open_drawer">Abrir cajón</string>
@@ -46,8 +45,6 @@
     <string name="rules_image_source">Imágenes por criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Todos los Tweets que contienen \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Inténtalo de nuevo!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Los mensajes se borrarán después de 30 minutos.</string>

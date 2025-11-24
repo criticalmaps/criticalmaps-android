@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Kaart</string>
     <string name="section_rules">Regels</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Over</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Instellingen</string>
@@ -70,8 +69,6 @@
     <string name="rules_image_source">Met afbeeldingen van criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Alle tweets met als onderwerp ‘CriticalMaps’</string>
-    <string name="twitter_try_again">Probeer het opnieuw!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Berichten worden na 30 minuten verwijderd.</string>
@@ -99,25 +96,16 @@
     <string name="settings_cache_cache_mb">Cache: %s</string>
     <string name="settings_cache_free_mb">Vrije ruimte: %s</string>
     <string name="settings_cache_currently_used">In gebruik: %s</string>
-    <string name="settings_choose_storage_subheading">Kies een opslaglocatie</string>
-    <string name="settings_choose_storage_mb_free"> (%s vrije ruimte)</string>
-    <string name="settings_choose_storage_choose_title">Opslaglocatie</string>
-    <string name="settings_choose_storage_confirm_title">De huidige cache wordt gewist</string>
-    <string name="settings_choose_storage_confirm_message">Door het wijzigen van de opslaglocatie wordt de huidige cache gewist. Kaarttegels moeten daardoor opnieuw worden opgehaald.</string>
     <string name="settings_screen_header">Scherminstellingen</string>
     <string name="settings_show_on_lockscreen_subheading">Tonen op vergrendelschermen</string>
     <string name="settings_show_on_lockscreen_summary">Houd de app actief, ook als je de telefoon vergrendeld</string>
     <string name="settings_keep_screen_on_subheading">Scherm ingeschakeld houden</string>
     <string name="settings_keep_screen_on_summary">Voorkom dat het scherm wordt uitgeschakeld zolang de app geopend is</string>
     <string name="settings_map_header">Kaartinstellingen</string>
-    <string name="settings_map_rotation_subheading">Draaien</string>
-    <string name="settings_map_rotation_summary">Sta toe dat de kaart gedraaid wordt</string>
     <string name="settings_show_gpx_subheading">GPX-bestand tonen</string>
     <string name="settings_show_gpx_summary">Toon een gpx-bestand op de kaart</string>
     <string name="settings_choose_gpx_subheading">Kies een gpx-bestand</string>
     <string name="settings_gpx_file_default">Geen</string>
-    <string name="settings_high_res_tiles_subheading">Hoge kwaliteit</string>
-    <string name="settings_high_res_tiles_summary">Mooier en scherper, maar verbruikt meer mb\'s en opslagruimte</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">Zojuist</string>
@@ -163,9 +151,6 @@
     <string name="cancel">Annuleren</string>
     <string name="permissions_rationale_title">Wil je dit recht verlenen?</string>
     <string name="permissions_open_settings">Instellingen openen</string>
-    <string name="storage_name_internal">Interne opslagruimte</string>
-    <string name="storage_name_external">Externe sd-kaart</string>
-    <string name="storage_name_emulated">Geëmuleerde sd-kaart</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Neem deze introductie door voordat je aan de slag gaat.</string>

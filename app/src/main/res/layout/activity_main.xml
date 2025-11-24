@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:keep="@layout/activity_main">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
+            android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" />
 
-            <FrameLayout
-                android:id="@+id/content_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -31,47 +35,32 @@
                 android:background="@drawable/background_toolbar"
                 android:elevation="4dp"
                 app:title="@string/section_map" />
-        </FrameLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/drawer_scrollview"
-            android:layout_width="280dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/colorSurface">
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <!-- This only exists to make the drawer expand all the way to the bottom -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="."
+            android:textColor="@android:color/transparent"
+            tools:ignore="HardcodedText" />
 
-                <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/drawer_navigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:elevation="0dp"
-                    app:headerLayout="@layout/navdrawer_header"
-                    app:itemBackground="@drawable/nav_drawer_item_background_states"
-                    app:itemIconTint="@color/nav_item_icon_tint"
-                    app:itemTextColor="@color/nav_item_text"
-                    app:menu="@menu/menu_navdrawer" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                <TextView
-                    android:id="@+id/navigation_observer_mode_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="-8dp"
-                    android:layout_marginEnd="22dp"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/nav_observer_mode_text"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </androidx.drawerlayout.widget.DrawerLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/drawer_navigation"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorSurface"
+        app:elevation="0dp"
+        app:headerLayout="@layout/navdrawer_header"
+        app:itemBackground="@drawable/nav_drawer_item_background_states"
+        app:itemIconTint="@color/nav_item_icon_tint"
+        app:itemTextColor="@color/nav_item_text"
+        app:menu="@menu/menu_navdrawer" />
 
     <LinearLayout
         android:id="@+id/introduction_view"
@@ -79,12 +68,12 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_introduction"
         android:clickable="true"
-        android:fitsSystemWindows="true"
         android:focusable="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingTop="@dimen/toolbar_height"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <ImageView
             android:layout_width="102dp"
@@ -119,4 +108,4 @@
             android:theme="@style/AlertDialogTheme" />
     </LinearLayout>
 
-</FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

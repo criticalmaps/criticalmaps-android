@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +19,6 @@ import javax.inject.Singleton;
 
 import de.stephanlindauer.criticalmaps.model.chat.ReceivedChatMessage;
 import de.stephanlindauer.criticalmaps.utils.AeSimpleSHA1;
-import okhttp3.internal.Util;
 import timber.log.Timber;
 
 
@@ -29,7 +28,7 @@ public class ChatModel {
     private final UserModel userModel;
     private List<ReceivedChatMessage> receivedChatMessages = new ArrayList<>();
 
-    public static int MESSAGE_MAX_LENGTH = 255;
+    public static final int MESSAGE_MAX_LENGTH = 255;
 
     @Inject
     public ChatModel(UserModel userModel) {
@@ -48,16 +47,15 @@ public class ChatModel {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-            String device = URLDecoder.decode(jsonObject.getString("device"), Util.UTF_8.name());
-            String identifier = URLDecoder.decode(jsonObject.getString("identifier"), Util.UTF_8.name());
-            String message = URLDecoder.decode(jsonObject.getString("message"), Util.UTF_8.name());
+            String device = URLDecoder.decode(jsonObject.getString("device"), "UTF-8");
+            String identifier = URLDecoder.decode(jsonObject.getString("identifier"), "UTF-8");
+            String message = URLDecoder.decode(jsonObject.getString("message"), "UTF-8");
             Date timestamp = new Date(Long.parseLong(jsonObject.getString("timestamp")) * 1000);
 
             receivedChatMessages.add(new ReceivedChatMessage(message, timestamp));
         }
 
-        Collections.sort(receivedChatMessages,
-                (oneChatMessages, otherChatMessage) -> oneChatMessages.getTimestamp().compareTo(otherChatMessage.getTimestamp()));
+        receivedChatMessages.sort(Comparator.comparing(ReceivedChatMessage::getTimestamp));
     }
 
     public JSONObject createNewOutgoingMessage(String message) {
@@ -74,7 +72,7 @@ public class ChatModel {
 
     private String urlEncodeMessage(String messageToEncode) {
         try {
-            return URLEncoder.encode(messageToEncode, Util.UTF_8.name());
+            return URLEncoder.encode(messageToEncode, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             return "";
         }

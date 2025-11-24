@@ -32,25 +32,11 @@
             tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/map_set_north_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="6dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:rotation="12"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/ic_map_orientation"
-            app:useCompatPadding="true"
-            tools:ignore="RelativeOverlap,RtlHardcoded" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_no_data_connectivity_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/map_set_north_fab"
+            android:layout_toLeftOf="@id/map_set_center_fab"
             android:gravity="center_vertical|center_horizontal"
             android:visibility="invisible"
             app:backgroundTint="@color/map_fab_warning"
@@ -64,7 +50,6 @@
             android:id="@+id/map_osm_notice_text"
             style="@style/map_osm_notice"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:text="@string/osm_credits" />
 

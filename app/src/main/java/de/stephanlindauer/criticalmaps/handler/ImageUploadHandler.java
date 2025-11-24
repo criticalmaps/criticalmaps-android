@@ -58,12 +58,7 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
 
         final OkHttpClient okHttpClient = App.components().okHttpClient();
 
-        final ProgressListener progressListener = new ProgressListener() {
-            @Override
-            public void update(long bytesRead, long contentLength) {
-                publishProgress((int) ((100 * bytesRead) / contentLength));
-            }
-        };
+        final ProgressListener progressListener = (bytesRead, contentLength) -> publishProgress((int) ((100 * bytesRead) / contentLength));
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -79,7 +74,6 @@ public class ImageUploadHandler extends AsyncTask<Void, Integer, ResultType> {
         try {
             Response response = okHttpClient.newCall(request).execute();
 
-            //noinspection ConstantConditions "Returns a non-null value if this response was [...] returned from Call.execute()."
             if (response.isSuccessful() && response.body().string().equals("success")) {
                 return ResultType.SUCCEEDED;
             }

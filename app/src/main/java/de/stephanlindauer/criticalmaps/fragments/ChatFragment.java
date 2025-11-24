@@ -148,24 +148,18 @@ public class ChatFragment extends Fragment {
         // TODO handle UI state while sending, even though it shouldn't be noticeable
 
         JSONObject messageObject = chatModel.createNewOutgoingMessage(message);
-        new PostChatmessagesHandler(messageObject, new Runnable() {
-            @Override
-            public void run() {
-                // TODO check if still alive; else bail!
-                // TODO reset UI state
-                // clearAnimation();
+        new PostChatmessagesHandler(messageObject, () -> {
+            // TODO check if still alive; else bail!
+            // TODO reset UI state
+            // clearAnimation();
 
-                // Restart timer task so sent message shows up in list immediately
-                stopGetChatmessagesTimer();
-                startGetChatmessagesTimer();
-            }
-        }, new Runnable() {
-            @Override
-            public void run() {
-                // TODO check if still alive; else bail!
-                // TODO reset UI state
-                Toast.makeText(getContext(), R.string.something_went_wrong, Toast.LENGTH_LONG).show();
-            }
+            // Restart timer task so sent message shows up in list immediately
+            stopGetChatmessagesTimer();
+            startGetChatmessagesTimer();
+        }, () -> {
+            // TODO check if still alive; else bail!
+            // TODO reset UI state
+            Toast.makeText(getContext(), R.string.something_went_wrong, Toast.LENGTH_LONG).show();
         }).execute();
 
         binding.chatMessageEdittext.setText("");

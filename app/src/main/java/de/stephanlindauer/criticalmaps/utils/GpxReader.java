@@ -1,3 +1,4 @@
+/*
 package de.stephanlindauer.criticalmaps.utils;
 
 import org.jetbrains.annotations.NotNull;
@@ -114,3 +115,4 @@ public class GpxReader {
     }
 
 }
+*/

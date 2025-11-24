@@ -72,7 +72,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_clear_cache_title"
                         android:layout_alignStart="@id/settings_clear_cache_title"
-                        android:layout_alignLeft="@id/settings_clear_cache_title"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"
@@ -113,7 +112,6 @@
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:background="@color/settings_used_space" />
 
                 <TextView
@@ -122,7 +120,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginRight="12dp"
                     tools:text="Used: 16050 MB" />
 
                 <ImageView
@@ -130,7 +127,6 @@
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:background="@color/settings_cache_space" />
 
                 <TextView
@@ -139,15 +135,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginRight="12dp"
-                    tools:text="Cache: 48 MB" />
+                    tools:text="Cache: 126 MB" />
 
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:background="@color/settings_free_space" />
 
                 <TextView
@@ -157,50 +151,6 @@
                     android:layout_gravity="center"
                     tools:text="Free: 1060 MB" />
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:id="@+id/settings_choose_storage_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/title3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:singleLine="true"
-                        android:text="@string/settings_choose_storage_subheading"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-                    <TextView
-                        android:id="@+id/settings_choose_storage_summary_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/title3"
-                        android:layout_alignStart="@id/title3"
-                        android:layout_alignLeft="@id/title3"
-                        android:maxLines="4"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        tools:text="@string/storage_name_internal" />
-                </RelativeLayout>
             </LinearLayout>
 
             <!-- Screen Settings -->
@@ -219,6 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
+                android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight">
 
@@ -245,7 +196,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_show_on_lockscreen_title"
                         android:layout_alignStart="@id/settings_show_on_lockscreen_title"
-                        android:layout_alignLeft="@id/settings_show_on_lockscreen_title"
                         android:maxLines="4"
                         android:text="@string/settings_show_on_lockscreen_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -276,6 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
+                android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight">
 
@@ -302,7 +253,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_keep_screen_on_title"
                         android:layout_alignStart="@id/settings_keep_screen_on_title"
-                        android:layout_alignLeft="@id/settings_keep_screen_on_title"
                         android:maxLines="4"
                         android:text="@string/settings_keep_screen_on_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -325,6 +275,7 @@
             </LinearLayout>
 
             <!-- Map Settings -->
+            <!--
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -335,58 +286,6 @@
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@color/colorSecondary" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/settings_map_rotation_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:singleLine="true"
-                        android:text="@string/settings_map_rotation_subheading"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-                    <TextView
-                        android:id="@+id/settings_map_rotation_summary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/settings_map_rotation_title"
-                        android:layout_alignStart="@id/settings_map_rotation_title"
-                        android:layout_alignLeft="@id/settings_map_rotation_title"
-                        android:maxLines="4"
-                        android:text="@string/settings_map_rotation_summary"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="?android:attr/textColorSecondary" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/widget_frame6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/settings_map_rotation_checkbox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="true" />
-                </LinearLayout>
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/settings_show_gpx_container"
@@ -419,7 +318,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/settings_show_gpx_title"
                         android:layout_alignStart="@id/settings_show_gpx_title"
-                        android:layout_alignLeft="@id/settings_show_gpx_title"
                         android:maxLines="4"
                         android:text="@string/settings_show_gpx_summary"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -472,7 +370,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/title_choose_gpx"
                         android:layout_alignStart="@id/title_choose_gpx"
-                        android:layout_alignLeft="@id/title_choose_gpx"
                         android:maxLines="4"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="?android:attr/textColorSecondary"
@@ -486,6 +383,7 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical" />
             </LinearLayout>
+            -->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

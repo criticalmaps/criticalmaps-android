@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.osmdroid.util.GeoPoint;
+import org.maplibre.android.geometry.LatLng;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,14 +16,14 @@ public class OwnLocationModel {
 
     private static final float ACCURACY_PRECISE_THRESHOLD = 50.0f; //meters
 
-    public GeoPoint ownLocation;
+    public LatLng ownLocation;
     private boolean isLocationPrecise;
 
     @Inject
     public OwnLocationModel() {
     }
 
-    public void setLocation(@NonNull GeoPoint location, float accuracy) {
+    public void setLocation(@NonNull LatLng location, float accuracy) {
         ownLocation = location;
         isLocationPrecise = accuracy < ACCURACY_PRECISE_THRESHOLD;
     }

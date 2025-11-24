@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Mapa</string>
     <string name="section_rules">Normes</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Informació</string>
     <string name="section_chat">Xat</string>
     <string name="open_drawer">Obrir calaix</string>
@@ -46,8 +45,6 @@
     <string name="rules_image_source">Imatges per criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Tots els tuits que contenen \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Torna-ho a provar!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Els missatges s\'esborraran en 30 minuts</string>

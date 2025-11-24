@@ -2,11 +2,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- AOSP Support Libraries -->
-    <string name="licenses_name_aospsupport" translatable="false">AOSP Support Libraries</string>
+    <string name="licenses_name_aospsupport" translatable="false">Android Jetpack</string>
     <string name="licenses_link_aospsupport" translatable="false">https://android.googlesource.com/platform/frameworks/support</string>
-    <string name="licenses_copyright_aospsupport" translatable="false">Copyright 2014 The Android Open Source Project</string>
+    <string name="licenses_copyright_aospsupport" translatable="false">Copyright 2019 The Android Open Source Project</string>
     <string name="licenses_notice_aospsupport" translatable="false" tools:ignore="TypographyOther">
-    Copyright (C) 2014 The Android Open Source Project\n
+    Copyright (C) 2019 The Android Open Source Project\n
+    \n
+    Licensed under the Apache License, Version 2.0 (the "License");\n
+    you may not use this file except in compliance with the License.\n
+    You may obtain a copy of the License at\n
+    \n
+       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
+    \n
+    Unless required by applicable law or agreed to in writing, software\n
+    distributed under the License is distributed on an "AS IS" BASIS,\n
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+    See the License for the specific language governing permissions and\n
+    limitations under the License.
+    </string>
+
+
+    <!-- AOSP Support Libraries -->
+    <string name="licenses_name_material_components" translatable="false">Material Components for Android</string>
+    <string name="licenses_link_material_components" translatable="false">https://github.com/material-components/material-components-android</string>
+    <string name="licenses_copyright_material_components" translatable="false">Copyright 2019 The Android Open Source Project</string>
+    <string name="licenses_notice_material_components" translatable="false" tools:ignore="TypographyOther">
+    Copyright (C) 2019 The Android Open Source Project\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
     you may not use this file except in compliance with the License.\n
@@ -43,33 +64,12 @@
     </string>
 
 
-    <!-- Butterknife -->
-    <string name="licenses_name_butterknife" translatable="false">Butterknife</string>
-    <string name="licenses_link_butterknife" translatable="false">https://github.com/JakeWharton/butterknife</string>
-    <string name="licenses_copyright_butterknife" translatable="false">Copyright 2013 Jake Wharton</string>
-    <string name="licenses_notice_butterknife" translatable="false">
-    Copyright 2013 Jake Wharton\n
-    \n
-    Licensed under the Apache License, Version 2.0 (the "License");\n
-    you may not use this file except in compliance with the License.\n
-    You may obtain a copy of the License at\n
-    \n
-       <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>\n
-    \n
-    Unless required by applicable law or agreed to in writing, software\n
-    distributed under the License is distributed on an "AS IS" BASIS,\n
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
-    See the License for the specific language governing permissions and\n
-    limitations under the License.
-    </string>
-
-
     <!-- Dagger 2 -->
     <string name="licenses_name_dagger2" translatable="false">Dagger 2</string>
     <string name="licenses_link_dagger2" translatable="false">https://github.com/google/dagger</string>
-    <string name="licenses_copyright_dagger2" translatable="false">Copyright 2012 The Dagger Authors</string>
+    <string name="licenses_copyright_dagger2" translatable="false">Copyright 2017 The Dagger Authors</string>
     <string name="licenses_notice_dagger2" translatable="false">
-    Copyright 2012 The Dagger Authors\n
+    Copyright 2017 The Dagger Authors\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
     you may not use this file except in compliance with the License.\n
@@ -109,9 +109,9 @@
     <!-- OkHttp -->
     <string name="licenses_name_okhttp" translatable="false">OkHttp</string>
     <string name="licenses_link_okhttp" translatable="false">https://github.com/square/okhttp</string>
-    <string name="licenses_copyright_okhttp" translatable="false">Copyright 2014 Square, Inc.</string>
+    <string name="licenses_copyright_okhttp" translatable="false">Copyright 2019 Square, Inc.</string>
     <string name="licenses_notice_okhttp" translatable="false">
-    Copyright 2014 Square, Inc.\n
+    Copyright 2019 Square, Inc.\n
     \n
     Licensed under the Apache License, Version 2.0 (the "License");\n
     you may not use this file except in compliance with the License.\n
@@ -127,25 +127,22 @@
     </string>
 
 
-    <!-- osmdroid -->
-    <string name="licenses_name_osmdroid" translatable="false">osmdroid</string>
-    <string name="licenses_link_osmdroid" translatable="false">https://github.com/osmdroid/osmdroid</string>
-    <string name="licenses_copyright_osmdroid" translatable="false">Copyright osmdroid</string>
-    <string name="licenses_notice_osmdroid" translatable="false">
-        Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
-    </string>
-
-
-    <!-- OSMBonusPack -->
-    <string name="licenses_name_osmbonuspack" translatable="false">OSMBonusPack</string>
-    <string name="licenses_link_osmbonuspack" translatable="false">https://github.com/MKergall/osmbonuspack</string>
-    <string name="licenses_copyright_osmbonuspack" translatable="false">Copyright OSMBonusPack</string>
-    <string name="licenses_notice_osmbonuspack" translatable="false">
-    The components inside this GitHub project are under LGPL licence, with an important simplification: The constraints described in Section 5.d and 5.e of the <a href="https://github.com/MKergall/osmbonuspack/blob/master/LICENSE.md">LGPL LICENCE</a> are DISCARDED.\n
+    <!-- MapLibre -->
+    <string name="licenses_name_maplibre" translatable="false">MabLibre Native</string>
+    <string name="licenses_link_maplibre" translatable="false">https://github.com/maplibre/maplibre-native</string>
+    <string name="licenses_copyright_maplibre" translatable="false">Copyright (c) 2021 MapLibre contributors\nCopyright (c) 2018-2021 MapTiler.com\nCopyright (c) 2014-2020 Mapbox</string>
+    <string name="licenses_notice_maplibre" translatable="false">
+    BSD 2-Clause License\n
     \n
-    This means that you are allowed to convey a Combined Work without providing the user any way to recombine or relink the application, and without providing any shared library mechanism.\n
+    Copyright (c) 2021 MapLibre contributors\n
+    Copyright (c) 2018-2021 MapTiler.com\n
+    Copyright (c) 2014-2020 Mapbox\n
     \n
-    In other terms, you are allowed to include the OSMBonusPack library in your Android application, without making your application open source.\n
+    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n
+    - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n
+    - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n
+    \n
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </string>
 
 

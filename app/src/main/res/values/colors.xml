@@ -33,11 +33,6 @@
     <!-- Launch Screen -->
     <color name="launch_screen_background">@color/colorBackground</color>
 
-    <!-- Main activity -->
-    <color name="main_statusbarcolor_map">@color/primaryDark_20pct</color>
-    <color name="main_statusbarcolor_others">@color/colorPrimaryDark</color>
-    <color name="main_navbarcolor">@color/colorPrimaryDark</color>
-
     <!-- Navigation Drawer -->
     <color name="nav_item_icon_tint">@color/colorOnBackground</color>
     <color name="nav_item_text">@color/colorOnBackground</color>
@@ -45,7 +40,6 @@
     <!-- Map -->
     <color name="map_osm_notice">@color/primary_60pct</color>
     <color name="map_loading_tile_color">@color/colorBackground</color>
-    <color name="map_loading_line_color">@color/colorBackground</color>
     <color name="map_fab_warning">@color/material_red_900</color>
     <color name="map_fab_searching">@color/material_orange_600</color>
     <color name="map_marker_foreground">@color/colorOnPrimary</color>

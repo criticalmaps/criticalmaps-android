@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Plan</string>
     <string name="section_rules">Règles</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">À propos</string>
     <string name="section_chat">Messagerie instantanée</string>
     <string name="section_settings">Paramètres</string>
@@ -68,8 +67,6 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="rules_image_source">Images de criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Tout les tweets contenant \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Essaye de nouveau !</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Les messages seront supprimés après 30 minutes.</string>
@@ -97,19 +94,12 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="settings_cache_cache_mb">Cache : %s</string>
     <string name="settings_cache_free_mb">Libre : %s</string>
     <string name="settings_cache_currently_used">Utilisation en cours %s</string>
-    <string name="settings_choose_storage_subheading">Choisir l\'emplacement de stockage</string>
-    <string name="settings_choose_storage_mb_free">(%s libre)</string>
-    <string name="settings_choose_storage_choose_title">Emplacement de stockage</string>
-    <string name="settings_choose_storage_confirm_title">Le cache va être vidé</string>
-    <string name="settings_choose_storage_confirm_message">Changer l\'emplacement de stockage va vider le cache. Les cartes devront être téléchargées à nouveau.</string>
     <string name="settings_screen_header">Paramètres d\'affichage</string>
     <string name="settings_show_on_lockscreen_subheading">Afficher sur l\'écran de verrouillage</string>
     <string name="settings_show_on_lockscreen_summary">Garder l\'app au premier plan même quand le téléphone est verrouillé</string>
     <string name="settings_keep_screen_on_subheading">Garder l\'écran allumé</string>
     <string name="settings_keep_screen_on_summary">Empêcher l\'écran de s\'éteindre quand l\'app est ouverte</string>
     <string name="settings_map_header">Paramètres de la carte</string>
-    <string name="settings_map_rotation_subheading">Rotation</string>
-    <string name="settings_map_rotation_summary">Permettre la rotation de la carte</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">il y a un instant</string>
@@ -151,9 +141,6 @@ Les autres utilisateurs ne peuvent pas voir ta position mais tu peux suivre la C
     <string name="cancel">Annuler</string>
     <string name="permissions_rationale_title">Donner la permission requise ?</string>
     <string name="permissions_open_settings">Ouvrir les Paramètres</string>
-    <string name="storage_name_internal">Stockage interne</string>
-    <string name="storage_name_external">Carte SD externe</string>
-    <string name="storage_name_emulated">Carte SD émulée</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Prends le temps de lire cette petite introduction stp.</string>

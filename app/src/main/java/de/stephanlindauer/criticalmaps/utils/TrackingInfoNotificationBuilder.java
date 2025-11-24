@@ -19,10 +19,7 @@ public class TrackingInfoNotificationBuilder {
     private static final String NOTIFICATION_CHANNEL_ID = "cm_notification_channel_id";
 
     public static Notification getNotification(Application application) {
-        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            pendingIntentFlags += PendingIntent.FLAG_IMMUTABLE;
-        }
+        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT + PendingIntent.FLAG_IMMUTABLE;
 
         Intent openIntent = new Intent(application, Main.class);
         openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -36,25 +33,23 @@ public class TrackingInfoNotificationBuilder {
         PendingIntent closePendingIntent = PendingIntent.getActivity(application, INTENT_CLOSE_ID,
                 closeIntent, pendingIntentFlags);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationManager mNotificationManager =
-                    (NotificationManager) application.getSystemService(Application.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager =
+                (NotificationManager) application.getSystemService(Application.NOTIFICATION_SERVICE);
 
-            NotificationChannel notificationChannel =
-                    new NotificationChannel(NOTIFICATION_CHANNEL_ID,
-                            application.getString(R.string.notification_channel_name),
-                            NotificationManager.IMPORTANCE_LOW); // no sound, status bar visibility
+        NotificationChannel notificationChannel =
+                new NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                        application.getString(R.string.notification_channel_name),
+                        NotificationManager.IMPORTANCE_LOW); // no sound, status bar visibility
 
-            notificationChannel.setDescription(
-                    application.getString(R.string.notification_channel_description_max300chars));
-            notificationChannel.setBypassDnd(true);
-            notificationChannel.setShowBadge(false);
-            notificationChannel.enableLights(false);
-            notificationChannel.enableVibration(false);
-            notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        notificationChannel.setDescription(
+                application.getString(R.string.notification_channel_description_max300chars));
+        notificationChannel.setBypassDnd(true);
+        notificationChannel.setShowBadge(false);
+        notificationChannel.enableLights(false);
+        notificationChannel.enableVibration(false);
+        notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-            mNotificationManager.createNotificationChannel(notificationChannel);
-        }
+        mNotificationManager.createNotificationChannel(notificationChannel);
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(application, NOTIFICATION_CHANNEL_ID)

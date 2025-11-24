@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Mapa</string>
     <string name="section_rules">Pravidla</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">O nás</string>
     <string name="section_chat">Chat</string>
     <string name="section_settings">Nastavení</string>
@@ -67,8 +66,6 @@ Ostatní uživatelé vaši polohu neuvidí, ale vy můžete sledovat události.<
     <string name="rules_image_source">Obrázky od criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">Všechny tweety obsahující \"CriticalMaps\"</string>
-    <string name="twitter_try_again">Zkuste to znovu!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Zprávy budou po 30 minutách smazány.</string>
@@ -96,25 +93,16 @@ Ostatní uživatelé vaši polohu neuvidí, ale vy můžete sledovat události.<
     <string name="settings_cache_cache_mb">Mezipaměť: %s</string>
     <string name="settings_cache_free_mb">Volné: %s</string>
     <string name="settings_cache_currently_used">V současnosti používá %s</string>
-    <string name="settings_choose_storage_subheading">Zvolte místo uložení</string>
-    <string name="settings_choose_storage_mb_free"> (%s volný)</string>
-    <string name="settings_choose_storage_choose_title">Umístění úložiště</string>
-    <string name="settings_choose_storage_confirm_title">Aktuální mezipaměť bude vymazána</string>
-    <string name="settings_choose_storage_confirm_message">Změna umístění úložiště vymaže aktuální mezipaměť. Dlaždice mapy bude nutné při prohlížení znovu stáhnout.</string>
     <string name="settings_screen_header">Nastavení obrazovky</string>
     <string name="settings_show_on_lockscreen_subheading">Zobrazení na uzamčené obrazovce</string>
     <string name="settings_show_on_lockscreen_summary">Ponechání aplikace v popředí i při uzamčení telefonu</string>
     <string name="settings_keep_screen_on_subheading">Nechat obrazovku zapnutou</string>
     <string name="settings_keep_screen_on_summary">Zabránit automatickému vypnutí displeje při otevřené aplikaci</string>
     <string name="settings_map_header">Nastavení mapy</string>
-    <string name="settings_map_rotation_subheading">Rotace</string>
-    <string name="settings_map_rotation_summary">Umožnit otáčení mapy</string>
     <string name="settings_show_gpx_subheading">Zobrazit soubor GPX</string>
     <string name="settings_show_gpx_summary">Zobrazení souboru GPX na mapě</string>
     <string name="settings_choose_gpx_subheading">Vybrat GPX soubor</string>
     <string name="settings_gpx_file_default">Žádný</string>
-    <string name="settings_high_res_tiles_subheading">Vysoká kvalita</string>
-    <string name="settings_high_res_tiles_summary">Vypadá mnohem lépe, ale také využívá větší šířku pásma a úložiště.</string>
 
     <!-- time to word -->
     <string name="timetoword_justnow">právě teď</string>
@@ -159,9 +147,6 @@ Chcete nahrát svůj obrázek na <a href=\"http://criticalmaps.net\">criticalmap
     <string name="cancel">Zrušit</string>
     <string name="permissions_rationale_title">Udělit potřebné povolení?</string>
     <string name="permissions_open_settings">Otevřít nastavení</string>
-    <string name="storage_name_internal">Interní úložiště</string>
-    <string name="storage_name_external">Externí SD karta</string>
-    <string name="storage_name_emulated">Emulovaná SD karta</string>
 
     <!-- introduction -->
     <string name="introduction_heading">Věnujte prosím trochu času přečtení tohoto stručného úvodu.</string>

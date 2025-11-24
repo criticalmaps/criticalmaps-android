@@ -1,3 +1,4 @@
+/*
 package de.stephanlindauer.criticalmaps.model.gpx;
 
 import org.osmdroid.util.GeoPoint;
@@ -20,3 +21,4 @@ public class GpxPoi {
         return position;
     }
 }
+*/

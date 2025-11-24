@@ -1,3 +1,4 @@
+/*
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.content.SharedPreferences;
@@ -90,3 +91,4 @@ public class ShowGpxHandler {
         mapView.getOverlayManager().add(marker);
     }
 }
+ */

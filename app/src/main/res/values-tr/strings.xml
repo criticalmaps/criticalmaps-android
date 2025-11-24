@@ -3,7 +3,6 @@
     <!-- nav -->
     <string name="section_map">Harita</string>
     <string name="section_rules">Kurallar</string>
-    <string name="section_twitter">Twitter</string>
     <string name="section_about">Hakkında</string>
     <string name="section_chat">Sohbet</string>
     <string name="section_settings">Ayarlar</string>
@@ -50,8 +49,6 @@
     <string name="rules_image_source">Resimler criticalmass-hh.de tarafından (CC BY-NC-ND 3.0 DE) lisanslı</string>
 
     <!-- fragment_twitter -->
-    <string name="twitter_heading">miyav</string>
-    <string name="twitter_try_again">Tekrar deneyin!</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Mesajlar 30 dakika sonra silinecek.</string>
@@ -95,7 +92,6 @@
     <string name="something_went_wrong">Bir terslik oluştu</string>
     <string name="ok">Tamam</string>
     <string name="cancel">İptal</string>
-    <string name="storage_name_internal">Dahili Hafıza</string>
     <!-- introduction -->
     <string name="introduction_heading">Lütfen hızlı tanıtıma biraz zaman ayırın.</string>
     <string name="introduction_own_icon">Böyle gözüküyorsun:\u0020</string>

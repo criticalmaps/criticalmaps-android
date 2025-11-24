@@ -1,9 +1,6 @@
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.content.Intent;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.fragments.SettingsFragment;
@@ -16,7 +13,6 @@ public class ChooseGpxFileHandler {
         this.activity = activity;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void openChooser() {
         Intent chooseTrack = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         chooseTrack.setType("*/*");
