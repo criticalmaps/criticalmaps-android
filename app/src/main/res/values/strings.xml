@@ -66,7 +66,7 @@
     <string name="rules_friendly_explain">Don\'t allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.</string>
     <string name="rules_fun">Have fun!</string>
     <string name="rules_fun_explain">Enjoy reclaimed streets. Go checkout the Sound Bikes. Chat with motorists, pedestrian and let them know what\'s going on. Most importantly: Have fun!</string>
-    <string name="rules_image_source">Images by criticalmass-hh.de (CC BY-NC-ND 3.0 DE)</string>
+    <string name="rules_image_source">Images by Critical Mass Hamburg (CC BY-NC-ND 3.0 DE)</string>
 
     <!-- fragment_chat -->
     <string name="chat_heading">Messages will be deleted after 30 minutes.</string>
