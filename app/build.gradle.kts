@@ -4,6 +4,8 @@ import java.io.FileInputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.unmock)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 // Place actual signing configuration in "keystore.properties"
@@ -74,9 +76,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 
     lint {
@@ -99,7 +106,10 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.typed.preferences)
     implementation(libs.material)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
     implementation(libs.androidx.core)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.exifinterface)
@@ -109,6 +119,7 @@ dependencies {
     annotationProcessor(libs.dagger.compiler)
 
     debugImplementation(libs.leakcanary)
+    debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)
     testImplementation(libs.com.google.truth)
