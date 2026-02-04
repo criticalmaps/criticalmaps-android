@@ -1,8 +1,7 @@
-/*
 package de.stephanlindauer.criticalmaps.utils;
 
 import org.jetbrains.annotations.NotNull;
-import org.osmdroid.util.GeoPoint;
+import org.maplibre.android.geometry.LatLng;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -59,7 +58,7 @@ public class GpxReader {
         NodeList wptList = gpxElement.getElementsByTagName(ELEMENT_WPT);
         for (int i = 0; i < wptList.getLength(); i++) {
             Element wpt = (Element) wptList.item(i);
-            GeoPoint location = parsePoint(wpt);
+            LatLng location = parsePoint(wpt);
             String pointName = parseName(wpt);
             gpxModel.getPoiList().add(new GpxPoi(pointName, location));
         }
@@ -69,15 +68,15 @@ public class GpxReader {
         NodeList trkList = gpxElement.getElementsByTagName(ELEMENT_TRK);
         for (int i = 0; i < trkList.getLength(); i++) {
             Element track = (Element) trkList.item(i);
-            List<GeoPoint> trackPoints = getTrackPoints(track);
+            List<LatLng> trackPoints = getTrackPoints(track);
             String trackName = parseName(track);
             gpxModel.getTracks().add(new GpxTrack(trackName, trackPoints));
         }
     }
 
     @NotNull
-    private List<GeoPoint> getTrackPoints(Element track) {
-        List<GeoPoint> trackPoints = new ArrayList<>();
+    private List<LatLng> getTrackPoints(Element track) {
+        List<LatLng> trackPoints = new ArrayList<>();
         NodeList trksegList = track.getElementsByTagName(ELEMENT_TRKSEG);
         for (int j = 0; j < trksegList.getLength(); j++) {
             Element trkseg = (Element) trksegList.item(j);
@@ -99,20 +98,19 @@ public class GpxReader {
     }
 
     @NotNull
-    private GeoPoint parsePoint(Element point) {
-        GeoPoint newPoint;
+    private LatLng parsePoint(Element point) {
+        LatLng newPoint;
         double lat = Double.parseDouble(point.getAttributes().getNamedItem(ATTRIBUTE_LAT).getNodeValue());
         double lon = Double.parseDouble(point.getAttributes().getNamedItem(ATTRIBUTE_LON).getNodeValue());
 
         NodeList eleList = point.getElementsByTagName(ELEMENT_ELE);
         if (eleList.getLength() > 0) {
             double ele = Double.parseDouble(eleList.item(0).getTextContent());
-            newPoint = new GeoPoint(lat, lon, ele);
+            newPoint = new LatLng(lat, lon, ele);
         } else {
-            newPoint = new GeoPoint(lat, lon);
+            newPoint = new LatLng(lat, lon);
         }
         return newPoint;
     }
 
 }
-*/

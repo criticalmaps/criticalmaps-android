@@ -1,6 +1,10 @@
 package de.stephanlindauer.criticalmaps.utils;
 
+import static org.maplibre.android.style.layers.Property.LINE_CAP_ROUND;
+import static org.maplibre.android.style.layers.Property.TEXT_ANCHOR_BOTTOM_RIGHT;
+
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.Gravity;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -14,6 +18,7 @@ import org.maplibre.android.maps.MapView;
 import org.maplibre.android.maps.Style;
 import org.maplibre.android.module.http.HttpRequestUtil;
 import org.maplibre.android.style.layers.Layer;
+import org.maplibre.android.style.layers.LineLayer;
 import org.maplibre.android.style.layers.PropertyFactory;
 import org.maplibre.android.style.layers.SymbolLayer;
 import org.maplibre.android.style.sources.GeoJsonSource;
@@ -58,10 +63,15 @@ public class MapViewUtils {
 
     public static void setupSourcesAndLayers(Activity activity, Style mapStyle) {
 
+        GeoJsonSource gpxTrackSource = new GeoJsonSource("gpxTrackSource");
+        GeoJsonSource gpxPoiSource = new GeoJsonSource("gpxPoiSource");
         GeoJsonSource otherUsersLocationsSource = new GeoJsonSource("otherUsersLocationsSource");
         GeoJsonSource ownUserLocationSource = new GeoJsonSource("ownUserLocationSource");
         GeoJsonSource ownUserLocationSourceObserver = new GeoJsonSource("ownUserLocationSourceObserver");
 
+        mapStyle.addImage(
+                "gpxPoi",
+                AppCompatResources.getDrawable(activity, R.drawable.ic_location)); //FIXME Icon
         mapStyle.addImage(
                 "otherUser",
                 AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker));
@@ -71,6 +81,27 @@ public class MapViewUtils {
         mapStyle.addImage(
                 "ownUserObserver",
                 AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker_observer));
+
+        Layer gpxTrackLayer =
+                new LineLayer("gpxTrackLayer", gpxTrackSource.getId());
+        gpxTrackLayer.setProperties(
+                PropertyFactory.lineWidth(6f),
+                PropertyFactory.lineCap(LINE_CAP_ROUND),
+                PropertyFactory.lineColor(Color.RED)
+        );
+
+        Layer gpxPoiLayer =
+                new SymbolLayer("gpxPoiLayer", gpxPoiSource.getId());
+        gpxPoiLayer.setProperties(
+                PropertyFactory.iconImage("gpxPoi"),
+                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconIgnorePlacement(true),
+                PropertyFactory.iconOptional(false),
+                PropertyFactory.textFont(new String[]{"noto_sans_regular"}),
+                PropertyFactory.textSize(10f),
+                PropertyFactory.textAnchor(TEXT_ANCHOR_BOTTOM_RIGHT),
+                PropertyFactory.textField("{label}")
+        );
 
         Layer otherUsersLocationsLayer =
                 new SymbolLayer("otherUsersLocationsLayer", otherUsersLocationsSource.getId());
@@ -93,9 +124,13 @@ public class MapViewUtils {
                 PropertyFactory.iconAllowOverlap(true),
                 PropertyFactory.iconIgnorePlacement(true));
 
+        mapStyle.addLayer(gpxTrackLayer);
+        mapStyle.addLayer(gpxPoiLayer);
         mapStyle.addLayer(otherUsersLocationsLayer);
         mapStyle.addLayer(ownUserLocationLayer);
         mapStyle.addLayer(ownUserLocationLayerObserver);
+        mapStyle.addSource(gpxTrackSource);
+        mapStyle.addSource(gpxPoiSource);
         mapStyle.addSource(otherUsersLocationsSource);
         mapStyle.addSource(ownUserLocationSource);
         mapStyle.addSource(ownUserLocationSourceObserver);

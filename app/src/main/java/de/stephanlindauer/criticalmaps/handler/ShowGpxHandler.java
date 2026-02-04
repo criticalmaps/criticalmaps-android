@@ -1,18 +1,24 @@
-/*
 package de.stephanlindauer.criticalmaps.handler;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.widget.Toast;
 
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Polyline;
+import com.google.gson.JsonObject;
+
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.style.sources.GeoJsonSource;
+
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.geojson.LineString;
+import org.maplibre.geojson.Point;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,7 +26,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxModel;
-import de.stephanlindauer.criticalmaps.model.gpx.GpxPoi;
 import de.stephanlindauer.criticalmaps.model.gpx.GpxTrack;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.utils.GpxReader;
@@ -43,7 +48,7 @@ public class ShowGpxHandler {
         this.gpxReader = gpxReader;
     }
 
-    public void showGpx(MapView mapView) {
+    public void showGpx(Style mapStyle) {
         boolean showTrack = new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_GPX).get();
         if (!showTrack) {
             return;
@@ -54,7 +59,7 @@ public class ShowGpxHandler {
             readFile(gpxUri);
         }
 
-        showModelOnMap(mapView);
+        showModelOnMap(mapStyle);
     }
 
     private void readFile(String gpxUri) {
@@ -66,29 +71,44 @@ public class ShowGpxHandler {
         }
     }
 
-    private void showModelOnMap(MapView mapView) {
+    private void showModelOnMap(Style mapStyle) {
+        addTracksToMap(mapStyle);
+        addPoisToMap(mapStyle);
+    }
+
+    private void addTracksToMap(Style mapStyle) {
+        ArrayList<Feature> features = new ArrayList<>();
+
         for (GpxTrack track : gpxModel.getTracks()) {
-            addTrackToMap(mapView, track);
+            ArrayList<Point> points = new ArrayList<>();
+
+            for (LatLng location : track.getWaypoints()) {
+                points.add(Point.fromLngLat(location.getLongitude(), location.getLatitude()));
+            }
+
+            JsonObject properties = new JsonObject();
+            properties.addProperty("label", track.getName());
+            features.add(Feature.fromGeometry(LineString.fromLngLats(points), properties));
         }
 
-        for (GpxPoi poi : gpxModel.getPoiList()) {
-            addPoiToMap(mapView, poi);
-        }
+        GeoJsonSource gpxTrackSource =
+                (GeoJsonSource) mapStyle.getSource("gpxTrackSource");
+        gpxTrackSource.setGeoJson(FeatureCollection.fromFeatures(features));
     }
 
-    private void addTrackToMap(MapView mapView, GpxTrack track) {
-        Polyline trackLine = new Polyline(mapView);
-        trackLine.setPoints(track.getWaypoints());
-        trackLine.setTitle(track.getName());
-        trackLine.getOutlinePaint().setColor(Color.RED);
-        mapView.getOverlayManager().add(trackLine);
-    }
+    private void addPoisToMap(Style mapStyle) {
+        ArrayList<Feature> features = new ArrayList<>();
 
-    private void addPoiToMap(MapView mapView, GpxPoi poi) {
-        Marker marker = new Marker(mapView);
-        marker.setPosition(poi.getPosition());
-        marker.setTitle(poi.getName());
-        mapView.getOverlayManager().add(marker);
+        gpxModel.getPoiList().forEach((gpxPoi) -> {
+            LatLng location = gpxPoi.getPosition();
+            JsonObject properties = new JsonObject();
+            properties.addProperty("label", gpxPoi.getName());
+            features.add(Feature.fromGeometry(
+                    Point.fromLngLat(location.getLongitude(), location.getLatitude()), properties));
+        });
+
+        GeoJsonSource gpxPoiSource =
+                (GeoJsonSource) mapStyle.getSource("gpxPoiSource");
+        gpxPoiSource.setGeoJson(FeatureCollection.fromFeatures(features));
     }
 }
- */
