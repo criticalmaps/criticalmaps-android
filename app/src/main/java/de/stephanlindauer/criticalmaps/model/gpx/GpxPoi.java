@@ -1,14 +1,13 @@
-/*
 package de.stephanlindauer.criticalmaps.model.gpx;
 
-import org.osmdroid.util.GeoPoint;
+import org.maplibre.android.geometry.LatLng;
 
 public class GpxPoi {
 
     private final String name;
-    private final GeoPoint position;
+    private final LatLng position;
 
-    public GpxPoi(String name, GeoPoint position) {
+    public GpxPoi(String name, LatLng position) {
         this.name = name;
         this.position = position;
     }
@@ -17,8 +16,7 @@ public class GpxPoi {
         return name;
     }
 
-    public GeoPoint getPosition() {
+    public LatLng getPosition() {
         return position;
     }
 }
-*/

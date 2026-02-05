@@ -57,7 +57,7 @@ import de.stephanlindauer.criticalmaps.events.NetworkConnectivityChangedEvent;
 import de.stephanlindauer.criticalmaps.events.NewLocationEvent;
 import de.stephanlindauer.criticalmaps.events.NewServerResponseEvent;
 import de.stephanlindauer.criticalmaps.handler.GetLocationHandler;
-// import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
+import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
@@ -90,10 +90,8 @@ public class MapFragment extends Fragment {
     @Inject
     LocationUpdateManager locationUpdateManager;
 
-    /*
     @Inject
     ShowGpxHandler showGpxHandler;
-    */
 
     @Inject
     SharedPreferences sharedPreferences;
@@ -216,6 +214,8 @@ public class MapFragment extends Fragment {
                 mapStyle = style;
                 MapViewUtils.setupSourcesAndLayers(getActivity(), mapStyle);
 
+                showGpxHandler.showGpx(mapStyle);
+
                 // trigger fake location update in case fix was acquired already during map init
                 handleNewLocation(NEW_LOCATION_EVENT);
             });
@@ -233,8 +233,6 @@ public class MapFragment extends Fragment {
         if (savedState != null) {
             isInitialLocationSet = savedState.getBoolean(KEY_INITIAL_LOCATION_SET, false);
         }
-
-        // showGpxHandler.showGpx(mapView);
 
         if (!LocationUpdateManager.checkPermission()) {
             zoomToLocation(defaultGeoPoint, NO_GPS_PERMISSION_ZOOM_LEVEL);
