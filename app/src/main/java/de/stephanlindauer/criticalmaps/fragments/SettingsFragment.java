@@ -1,13 +1,13 @@
 package de.stephanlindauer.criticalmaps.fragments;
 
-// import android.annotation.SuppressLint;
-// import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-// import android.database.Cursor;
-// import android.net.Uri;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-// import android.provider.OpenableColumns;
+import android.provider.OpenableColumns;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +22,15 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.App;
 import de.stephanlindauer.criticalmaps.R;
 import de.stephanlindauer.criticalmaps.databinding.FragmentSettingsBinding;
-// import de.stephanlindauer.criticalmaps.handler.ChooseGpxFileHandler;
+import de.stephanlindauer.criticalmaps.handler.ChooseGpxFileHandler;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.model.StorageLocation;
-// import de.stephanlindauer.criticalmaps.vo.RequestCodes;
+import de.stephanlindauer.criticalmaps.vo.RequestCodes;
 import info.metadude.android.typedpreferences.BooleanPreference;
-// import info.metadude.android.typedpreferences.StringPreference;
+import info.metadude.android.typedpreferences.StringPreference;
 import timber.log.Timber;
 
-// import static de.stephanlindauer.criticalmaps.utils.GpxUtils.persistPermissionOnFile;
+import static de.stephanlindauer.criticalmaps.utils.GpxUtils.persistPermissionOnFile;
 
 import org.maplibre.android.offline.OfflineManager;
 
@@ -70,7 +70,7 @@ public class SettingsFragment extends Fragment {
 
         updateClearCachePref();
         updateStorageGraph();
-        // updateGpxFileName();
+        updateGpxFileName();
 
         binding.settingsShowOnLockscreenCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ON_LOCKSCREEN).get());
@@ -78,10 +78,8 @@ public class SettingsFragment extends Fragment {
         binding.settingsKeepScreenOnCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).get());
 
-        /*
         binding.settingsShowGpxCheckbox.setChecked(
                 new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_GPX).get());
-        */
 
         binding.settingsClearCacheButton.setOnClickListener(v -> handleClearCacheClicked());
 
@@ -89,18 +87,16 @@ public class SettingsFragment extends Fragment {
                 (buttonView, isChecked) -> handleShowOnLockscreenChecked(isChecked));
         binding.settingsKeepScreenOnCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleKeepScreenOnChecked(isChecked));
-        /*
+
         binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleShowTrack(isChecked));
         binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
-         */
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        /*
         if (requestCode == RequestCodes.CHOOSE_GPX_RESULT_CODE && resultCode == Activity.RESULT_OK) {
             Uri fileUri = data.getData();
             if (fileUri == null) {
@@ -112,7 +108,6 @@ public class SettingsFragment extends Fragment {
             persistPermissionOnFile(data, app.getContentResolver());
             updateGpxFileName();
         }
-        */
     }
 
     private void updateStorageGraph() {
@@ -141,7 +136,6 @@ public class SettingsFragment extends Fragment {
                         Formatter.formatShortFileSize(getActivity(), currentSize)));
     }
 
-    /*
     @SuppressLint("Range")
     private void updateGpxFileName() {
         String gpxFile = new StringPreference(
@@ -157,7 +151,6 @@ public class SettingsFragment extends Fragment {
 
         binding.settingsChooseGpxSummaryText.setText(filename);
     }
-    */
 
     void handleClearCacheClicked() {
         OfflineManager.getInstance(getActivity()).clearAmbientCache(new OfflineManager.FileSourceCallback() {
@@ -185,7 +178,6 @@ public class SettingsFragment extends Fragment {
                 sharedPreferences, SharedPrefsKeys.KEEP_SCREEN_ON).set(isChecked);
     }
 
-    /*
     void handleShowTrack(boolean isChecked) {
         new BooleanPreference(
                 sharedPreferences, SharedPrefsKeys.SHOW_GPX).set(isChecked);
@@ -194,7 +186,6 @@ public class SettingsFragment extends Fragment {
     void handleChooseTrackClicked() {
         new ChooseGpxFileHandler(this).openChooser();
     }
-    */
 
     @Override
     public void onDestroyView() {

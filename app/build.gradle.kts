@@ -4,7 +4,6 @@ import java.io.FileInputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.unmock)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -37,8 +36,8 @@ android {
         applicationId = "de.stephanlindauer.criticalmaps"
         minSdk = 26
         targetSdk = 36
-        versionCode = 101
-        versionName = "3.0.0"
+        versionCode = 102
+        versionName = "3.1.0"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -76,10 +75,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -95,6 +90,12 @@ android {
                 "InvalidPackage"
             )
         )
+    }
+}
+
+kotlin {
+    compilerOptions {
+        languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
     }
 }
 

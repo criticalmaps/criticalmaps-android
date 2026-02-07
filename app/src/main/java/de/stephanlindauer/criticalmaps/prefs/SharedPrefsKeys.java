@@ -11,10 +11,8 @@ public interface SharedPrefsKeys {
             BuildConfig.APPLICATION_ID + ".SHOW_ON_LOCKSCREEN";
     String KEEP_SCREEN_ON =
             BuildConfig.APPLICATION_ID + ".KEEP_SCREEN_ON";
-    /*
     String SHOW_GPX =
             BuildConfig.APPLICATION_ID + ".SHOW_GPX";
     String GPX_FILE =
             BuildConfig.APPLICATION_ID + ".GPX_FILE";
-    */
 }

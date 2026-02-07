@@ -1,4 +1,3 @@
-/*
 package de.stephanlindauer.criticalmaps.utils;
 
 import android.annotation.SuppressLint;
@@ -15,4 +14,3 @@ public class GpxUtils {
         }
     }
 }
-*/

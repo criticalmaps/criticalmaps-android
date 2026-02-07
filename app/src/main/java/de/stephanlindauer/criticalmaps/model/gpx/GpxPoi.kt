@@ -1,10 +1,8 @@
-/*
 package de.stephanlindauer.criticalmaps.model.gpx
 
-import org.osmdroid.util.GeoPoint
+import org.maplibre.android.geometry.LatLng
 
 data class GpxPoi(
     val name: String,
-    val position: GeoPoint
+    val position: LatLng
 )
-*/

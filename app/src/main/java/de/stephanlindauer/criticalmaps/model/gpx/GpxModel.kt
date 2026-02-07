@@ -1,4 +1,3 @@
-/*
 package de.stephanlindauer.criticalmaps.model.gpx
 
 import javax.inject.Inject
@@ -17,4 +16,3 @@ class GpxModel @Inject constructor() {
         uri = null
     }
 }
-*/
