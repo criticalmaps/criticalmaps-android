@@ -76,10 +76,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -95,6 +91,12 @@ android {
                 "InvalidPackage"
             )
         )
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
