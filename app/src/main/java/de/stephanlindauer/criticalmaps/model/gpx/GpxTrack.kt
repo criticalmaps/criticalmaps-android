@@ -1,10 +1,8 @@
-/*
 package de.stephanlindauer.criticalmaps.model.gpx
 
-import org.osmdroid.util.GeoPoint
+import org.maplibre.android.geometry.LatLng
 
 data class GpxTrack(
     val name: String,
-    val waypoints: List<GeoPoint>
+    val waypoints: List<LatLng>
 )
-*/
