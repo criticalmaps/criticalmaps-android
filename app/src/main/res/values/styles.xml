@@ -22,7 +22,7 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">always</item>
+
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
