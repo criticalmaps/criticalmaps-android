@@ -20,7 +20,7 @@ mockito = "5.21.0"
 junitVersion = "1.3.0"
 androidTest = "1.7.0"
 espressoCore = "3.7.0"
-agp = "8.13.2"
+agp = "9.1.1"
 unmock = "0.9.0"
 
 [libraries]
