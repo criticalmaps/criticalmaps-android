@@ -23,9 +23,9 @@ androidTest = "1.7.0"
 espressoCore = "3.7.0"
 agp = "9.1.1"
 unmock = "0.9.0"
-kotlin = "2.2.21"
-uiToolingPreview = "1.9.4"
-uiTooling = "1.9.4"
+kotlin = "2.4.0"
+uiToolingPreview = "1.11.2"
+uiTooling = "1.11.2"
 
 [libraries]
 otto = { group = "com.squareup", name = "otto", version.ref = "otto" }
