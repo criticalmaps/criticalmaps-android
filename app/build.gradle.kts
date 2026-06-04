@@ -29,13 +29,13 @@ android {
     }
 
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     defaultConfig {
         applicationId = "de.stephanlindauer.criticalmaps"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 103
         versionName = "3.1.1"
         vectorDrawables.useSupportLibrary = true
@@ -110,7 +110,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.core)
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.exifinterface)

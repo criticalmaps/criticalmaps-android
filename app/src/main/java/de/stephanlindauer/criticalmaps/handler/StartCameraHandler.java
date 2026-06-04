@@ -42,6 +42,7 @@ public class StartCameraHandler {
                 outputFile);
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageCaptureUri);
 
