@@ -35,8 +35,8 @@ android {
         applicationId = "de.stephanlindauer.criticalmaps"
         minSdk = 26
         targetSdk = 37
-        versionCode = 103
-        versionName = "3.1.1"
+        versionCode = 104
+        versionName = "3.1.2"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
