@@ -9,6 +9,10 @@
     android:layout_height="match_parent"
     tools:keep="@layout/activity_main">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -48,19 +52,6 @@
             tools:ignore="HardcodedText" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/drawer_navigation"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorSurface"
-        app:elevation="0dp"
-        app:headerLayout="@layout/navdrawer_header"
-        app:itemBackground="@drawable/nav_drawer_item_background_states"
-        app:itemIconTint="@color/nav_item_icon_tint"
-        app:itemTextColor="@color/nav_item_text"
-        app:menu="@menu/menu_navdrawer" />
 
     <LinearLayout
         android:id="@+id/introduction_view"
@@ -107,5 +98,20 @@
             android:textColor="@color/colorBackground"
             android:theme="@style/AlertDialogTheme" />
     </LinearLayout>
+
+    </FrameLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/drawer_navigation"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorSurface"
+        app:elevation="0dp"
+        app:headerLayout="@layout/navdrawer_header"
+        app:itemBackground="@drawable/nav_drawer_item_background_states"
+        app:itemIconTint="@color/nav_item_icon_tint"
+        app:itemTextColor="@color/nav_item_text"
+        app:menu="@menu/menu_navdrawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
