@@ -91,6 +91,14 @@ public class SettingsFragment extends Fragment {
         binding.settingsShowGpxCheckbox.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> handleShowTrack(isChecked));
         binding.settingsChooseGpxContainer.setOnClickListener(v -> handleChooseTrackClicked());
+
+        binding.settingsShowActiveRidersOnlyCheckbox.setChecked(
+                new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ACTIVE_RIDERS_ONLY).get());
+
+        binding.settingsShowActiveRidersOnlyCheckbox.setOnCheckedChangeListener(
+                (buttonView, isChecked) ->
+                        new BooleanPreference(sharedPreferences, SharedPrefsKeys.SHOW_ACTIVE_RIDERS_ONLY)
+                                .set(isChecked));
     }
 
     @Override

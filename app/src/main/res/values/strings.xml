@@ -42,6 +42,8 @@
     <string name="map_location_permissions_rationale_text">Location and notification access is crucial for the app to work. It is required to view your location on the map, share you location with other users, write chat messages and upload images. Notifications are required to inform you that the app is still running in the background. Without it you can still follow the Mass, but remember that the app depends on as many people as possible sharing their location.\nDo you want to grant the permission now?</string>
     <string name="map_oberserver_mode_info_heading">Observer mode is active</string>
     <string name="map_observer_mode_info_text">Already joined the mass?\nNice! Please disable observer mode now to help others see where you\'re going!</string>
+    <string name="settings_show_active_riders_only_subheading">Show active riders only</string>
+    <string name="settings_show_active_riders_only_summary">Highlights cyclists riding in groups. Solo or stationary riders are hidden.</string>
 
     <!-- notification -->
     <string name="notification_tracking_title">Critical Maps Tracking</string>

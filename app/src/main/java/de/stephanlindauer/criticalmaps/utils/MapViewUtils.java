@@ -17,6 +17,7 @@ import org.maplibre.android.maps.MapLibreMapOptions;
 import org.maplibre.android.maps.MapView;
 import org.maplibre.android.maps.Style;
 import org.maplibre.android.module.http.HttpRequestUtil;
+import org.maplibre.android.style.expressions.Expression;
 import org.maplibre.android.style.layers.Layer;
 import org.maplibre.android.style.layers.LineLayer;
 import org.maplibre.android.style.layers.PropertyFactory;
@@ -81,6 +82,9 @@ public class MapViewUtils {
         mapStyle.addImage(
                 "ownUserObserver",
                 AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker_observer));
+//        mapStyle.addImage(
+//                "otherUserActive",
+//                AppCompatResources.getDrawable(activity, R.drawable.ic_map_marker_active));
 
         Layer gpxTrackLayer =
                 new LineLayer("gpxTrackLayer", gpxTrackSource.getId());
@@ -106,9 +110,31 @@ public class MapViewUtils {
         Layer otherUsersLocationsLayer =
                 new SymbolLayer("otherUsersLocationsLayer", otherUsersLocationsSource.getId());
         otherUsersLocationsLayer.setProperties(
-                PropertyFactory.iconImage("otherUser"),
+                PropertyFactory.iconImage(
+                        Expression.match(
+                                Expression.get("isActive"),
+                                Expression.literal("otherUser"),           // default: grey
+                                Expression.stop("true", "otherUserActive") // active: red
+                        )
+                ),
+                PropertyFactory.iconSize(
+                        Expression.match(
+                                Expression.get("isActive"),
+                                Expression.literal(1.0f),
+                                Expression.stop("true", 1.0f),
+                                Expression.stop("false", 0.75f)            // inactive: 75% scale
+                        )
+                ),
+                PropertyFactory.iconOpacity(
+                        Expression.match(
+                                Expression.get("isActive"),
+                                Expression.literal(1.0f),
+                                Expression.stop("false", 0.45f)            // inactive: dimmed
+                        )
+                ),
                 PropertyFactory.iconAllowOverlap(true),
-                PropertyFactory.iconIgnorePlacement(true));
+                PropertyFactory.iconIgnorePlacement(true)
+        );
 
         Layer ownUserLocationLayer =
                 new SymbolLayer("ownUserLocationLayer", ownUserLocationSource.getId());
@@ -135,6 +161,8 @@ public class MapViewUtils {
         mapStyle.addSource(ownUserLocationSource);
         mapStyle.addSource(ownUserLocationSourceObserver);
     }
+
+
 
     /*
     public static InfoWindow createObserverInfoWindow(MapView mapView) {

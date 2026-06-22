@@ -43,6 +43,7 @@ import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.geojson.Point;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -277,13 +278,26 @@ public class MapFragment extends Fragment {
     }
 
     private FeatureCollection getOtherUsersFeatureCollection() {
+        boolean filterActive = new BooleanPreference(
+                sharedPreferences, SharedPrefsKeys.SHOW_ACTIVE_RIDERS_ONLY).get();
+
+        Set<String> activeIds = otherUsersLocationModel.getActiveRiderIds();
         ArrayList<Feature> features = new ArrayList<>();
 
         otherUsersLocationModel.getOtherUsersLocations().forEach((deviceId, location) -> {
+            boolean isActive = activeIds.contains(deviceId);
+
+            // When filter is ON, skip inactive riders entirely
+            if (filterActive && !isActive) return;
+
             JsonObject properties = new JsonObject();
             properties.addProperty("deviceId", deviceId);
-            features.add(Feature.fromGeometry(Point.fromLngLat(location.getLongitude(), location.getLatitude()), properties));
+            properties.addProperty("isActive", String.valueOf(isActive));
+            features.add(Feature.fromGeometry(
+                    Point.fromLngLat(location.getLongitude(), location.getLatitude()),
+                    properties));
         });
+
         return FeatureCollection.fromFeatures(features);
     }
 
