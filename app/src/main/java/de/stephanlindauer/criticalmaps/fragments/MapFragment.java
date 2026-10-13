@@ -34,6 +34,7 @@ import com.squareup.otto.Subscribe;
 import org.maplibre.android.camera.CameraPosition;
 import org.maplibre.android.camera.CameraUpdateFactory;
 import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.gestures.MoveGestureDetector;
 import org.maplibre.android.maps.MapLibreMap;
 import org.maplibre.android.maps.MapView;
 import org.maplibre.android.maps.Style;
@@ -103,22 +104,23 @@ public class MapFragment extends Fragment {
 
     private final LatLng defaultGeoPoint = new LatLng(52.499571, 13.4140875);
     private boolean isInitialLocationSet = false;
+    private boolean isCenteringOnOwn = false;
     private ObjectAnimator gpsSearchingAnimator;
 
     private FragmentMapBinding binding;
 
     private Timer timerGetLocation;
 
-    private final View.OnClickListener centerLocationOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (ownLocationModel.ownLocation != null) {
-                CameraPosition cameraPosition =
-                        new CameraPosition.Builder().target(ownLocationModel.ownLocation).build();
-                animateToCameraPosition(cameraPosition);
-            }
+    private final View.OnClickListener centerLocationOnClickListener = v -> centerLocationOnOwn();
+
+    private void centerLocationOnOwn() {
+        isCenteringOnOwn = true;
+        if (ownLocationModel.ownLocation != null) {
+            CameraPosition cameraPosition =
+                    new CameraPosition.Builder().target(ownLocationModel.ownLocation).build();
+            animateToCameraPosition(cameraPosition);
         }
-    };
+    }
 
     private final View.OnClickListener noGpsOnClickListener = v -> AlertBuilder.show(getActivity(),
             R.string.map_no_gps_title,
@@ -218,6 +220,20 @@ public class MapFragment extends Fragment {
 
                 // trigger fake location update in case fix was acquired already during map init
                 handleNewLocation(NEW_LOCATION_EVENT);
+            });
+
+            map.addOnMoveListener(new MapLibreMap.OnMoveListener() {
+                @Override
+                public void onMoveBegin(@NonNull MoveGestureDetector detector) {
+                    isCenteringOnOwn = false;
+                }
+                @Override
+                public void onMove(@NonNull MoveGestureDetector detector) {
+                }
+
+                @Override
+                public void onMoveEnd(@NonNull MoveGestureDetector detector) {
+                }
             });
         });
         mapView.onCreate(savedState); // TODO: Should be onViewCreated
@@ -410,7 +426,9 @@ public class MapFragment extends Fragment {
         if (ownLocationModel.ownLocation != null && !isInitialLocationSet) {
             handleFirstLocationUpdate();
         }
-
+        if (isCenteringOnOwn) {
+            centerLocationOnOwn();
+        }
         refreshView();
     }
 
