@@ -1,0 +1,49 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- runFlow: common/setup_without_permissions.yaml
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+
+- tapOn:
+    id: settings_clear_cache_button
+- assertVisible: "Currently using .*"
+
+- tapOn:
+    id: settings_keep_screen_on_checkbox
+- assertVisible:
+    id: settings_keep_screen_on_checkbox
+    checked: true
+- tapOn:
+    id: settings_show_on_lockscreen_checkbox
+- assertVisible:
+    id: settings_show_on_lockscreen_checkbox
+    checked: true
+
+# Options survive leaving the screen
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: map
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+- assertVisible:
+    id: settings_keep_screen_on_checkbox
+    checked: true
+- assertVisible:
+    id: settings_show_on_lockscreen_checkbox
+    checked: true
+
+- tapOn:
+    id: settings_keep_screen_on_checkbox
+- assertVisible:
+    id: settings_keep_screen_on_checkbox
+    checked: false
+- tapOn:
+    id: settings_show_on_lockscreen_checkbox
+- assertVisible:
+    id: settings_show_on_lockscreen_checkbox
+    checked: false

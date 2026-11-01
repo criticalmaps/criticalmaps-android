@@ -1,0 +1,21 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- runFlow: common/setup_without_permissions.yaml
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: about
+- scrollUntilVisible:
+    element:
+      id: about_github_button
+    direction: DOWN
+- assertVisible:
+    id: about_github_button
+- scrollUntilVisible:
+    element:
+      id: about_license_typed_preferences
+    direction: DOWN
+- assertVisible:
+    id: about_license_okhttp
+- assertVisible:
+    id: about_license_maplibre

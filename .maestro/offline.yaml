@@ -1,0 +1,70 @@
+appId: de.stephanlindauer.criticalmaps
+onFlowComplete:
+  - setAirplaneMode: disabled
+---
+- runScript: scripts/pick_position.js
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+- runFlow: common/setup_without_permissions.yaml
+- runFlow: common/enable_observer.yaml
+- runFlow: common/allow_location.yaml
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+
+- setAirplaneMode: enabled
+- extendedWaitUntil:
+    visible:
+      id: map_no_data_connectivity_fab
+    timeout: 30000
+- tapOn:
+    id: map_no_data_connectivity_fab
+- assertVisible: "No internet connection"
+- tapOn: "OK"
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: chat
+- assertVisible: "No internet connection .*"
+- assertVisible:
+    id: chat_message_edittext
+    enabled: false
+- assertVisible:
+    id: chat_send_button
+    enabled: false
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: map
+
+# The offline indicator was asserted above, so this upload can't reach the
+# public gallery and has to fail.
+- tapOn:
+    id: take_picture
+- tapOn:
+    id: shutter_button
+- tapOn:
+    id: done_button
+- assertVisible:
+    id: picture_preview
+- tapOn: "UPLOAD IMAGE!"
+- extendedWaitUntil:
+    visible: "Image upload failed"
+    timeout: 30000
+- tapOn: "OK"
+
+- setAirplaneMode: disabled
+- extendedWaitUntil:
+    notVisible:
+      id: map_no_data_connectivity_fab
+    timeout: 30000
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: chat
+- assertVisible:
+    id: chat_message_edittext
+    enabled: true
+- stopApp

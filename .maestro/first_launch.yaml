@@ -1,0 +1,40 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- assertVisible: ".*shares your anonymous GPS information.*"
+- tapOn:
+    id: understand_button
+- assertVisible: ".*access this device.s location.*"
+- tapOn:
+    id: permission_deny_button
+- assertVisible: ".*send you notifications.*"
+- tapOn:
+    id: permission_deny_button
+- assertVisible:
+    id: map_osm_notice_text
+- assertNotVisible:
+    id: understand_button
+
+# GPS button without permission explains why it is needed
+- tapOn:
+    id: map_set_center_fab
+- assertVisible: "Grant required permission.*"
+- tapOn: "NOPE"
+
+# Camera needs a position first
+- tapOn:
+    id: take_picture
+- assertVisible: ".*without a GPS.*"
+- tapOn: "OK"
+
+# The intro only shows once
+- launchApp:
+    permissions:
+      all: deny
+- assertVisible:
+    id: map_osm_notice_text
+- assertNotVisible:
+    id: understand_button

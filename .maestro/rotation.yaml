@@ -1,0 +1,45 @@
+appId: de.stephanlindauer.criticalmaps
+onFlowComplete:
+  - setOrientation: PORTRAIT
+---
+- runFlow: common/setup_without_permissions.yaml
+
+- setOrientation: LANDSCAPE_LEFT
+- assertVisible:
+    id: map_osm_notice_text
+- assertVisible: "Map"
+- setOrientation: PORTRAIT
+
+# Typed text and the current screen survive rotating
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: chat
+- tapOn:
+    id: chat_message_edittext
+- inputText: "Testtext"
+- setOrientation: LANDSCAPE_LEFT
+- assertVisible:
+    id: chat_message_edittext
+    text: "Testtext"
+- assertVisible: "Chat"
+- setOrientation: PORTRAIT
+- assertVisible:
+    id: chat_message_edittext
+    text: "Testtext"
+- tapOn:
+    id: chat_message_edittext
+- eraseText: 8
+- hideKeyboard
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+- setOrientation: LANDSCAPE_LEFT
+- assertVisible:
+    id: settings_scrollview
+- assertVisible: "Settings"
+- setOrientation: PORTRAIT
+- assertVisible:
+    id: settings_scrollview

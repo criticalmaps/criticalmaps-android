@@ -1,0 +1,22 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# position_published proves the same setup does publish without observer mode.
+- runScript: scripts/pick_position.js
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+- runFlow: common/setup_without_permissions.yaml
+- runFlow: common/enable_observer.yaml
+- runFlow: common/allow_location.yaml
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+
+# Long enough for a 30 s heartbeat and the feed's 60 s cache
+- runFlow:
+    file: common/wait.yaml
+    env:
+      MILLIS: "100000"
+- runScript: scripts/find_position.js
+- assertTrue: ${output.position.found == false}
+- stopApp

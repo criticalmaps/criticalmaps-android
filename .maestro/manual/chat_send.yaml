@@ -1,0 +1,21 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# Posts to the public chat, see README.md. Seeing the message arrive also covers
+# how received messages are displayed.
+- evalScript: ${output.chatText = 'Automated app test, please ignore ' + Date.now()}
+- runFlow: ../common/setup_without_permissions.yaml
+- runFlow:
+    file: ../common/open_screen.yaml
+    env:
+      SCREEN: chat
+- tapOn:
+    id: chat_message_edittext
+- inputText: ${output.chatText}
+- tapOn:
+    id: chat_send_button
+- extendedWaitUntil:
+    visible:
+      id: chatmessage_message_text
+      text: ${output.chatText}
+    timeout: 60000
+- stopApp

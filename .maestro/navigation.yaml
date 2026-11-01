@@ -1,0 +1,46 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- runFlow: common/setup_without_permissions.yaml
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: chat
+- assertVisible: "Chat"
+- assertVisible:
+    id: chat_message_edittext
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: rules
+- assertVisible: "Rules"
+- assertVisible:
+    id: rules_container_scrollview
+- assertVisible: "Oncoming traffic"
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+- assertVisible: "Settings"
+- assertVisible:
+    id: settings_scrollview
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: about
+- assertVisible: "About"
+- assertVisible:
+    id: about_container_scrollview
+
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: map
+- assertVisible: "Map"
+- assertVisible:
+    id: map_osm_notice_text
+- assertVisible:
+    id: map_set_center_fab

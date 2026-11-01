@@ -1,0 +1,35 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# Publishes a rider on the public map, see README.md.
+- runScript: scripts/pick_position.js
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- tapOn:
+    id: understand_button
+# The sync service only starts when the app resumes with the policy accepted
+- launchApp:
+    permissions:
+      all: allow
+- assertVisible:
+    id: map_osm_notice_text
+
+- repeat:
+    times: 8
+    while:
+      true: ${!output.position.found}
+    commands:
+      - setLocation:
+          latitude: ${output.testLat}
+          longitude: ${output.testLon}
+      - runFlow:
+          file: common/wait.yaml
+          env:
+            MILLIS: "30000"
+      - runScript: scripts/find_position.js
+- assertTrue: ${output.position.found}
+- stopApp

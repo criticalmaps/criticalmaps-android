@@ -1,0 +1,19 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# Back returns to the map, but Main.handleOnBackPressed keeps the old title and
+# the old drawer selection. Closing the drawer then jumps back to the old screen.
+- runFlow: ../common/setup_without_permissions.yaml
+- runFlow:
+    file: ../common/open_screen.yaml
+    env:
+      SCREEN: about
+- back
+- assertVisible:
+    id: map_osm_notice_text
+- assertVisible: "Map"
+- assertNotVisible: "About"
+- tapOn: "Open drawer"
+- back
+- assertVisible:
+    id: map_osm_notice_text
+- assertVisible: "Map"

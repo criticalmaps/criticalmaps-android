@@ -1,0 +1,28 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# Only discards the photo: an upload would go to the public gallery.
+- runScript: scripts/pick_position.js
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+- runFlow: common/setup_without_permissions.yaml
+- runFlow: common/enable_observer.yaml
+- runFlow: common/allow_location.yaml
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+
+- tapOn:
+    id: take_picture
+- tapOn:
+    id: shutter_button
+- tapOn:
+    id: done_button
+- assertVisible:
+    id: picture_preview
+- tapOn: 'NOPE :-\('
+- assertVisible:
+    id: map_osm_notice_text
+- assertNotVisible:
+    id: picture_preview
+- stopApp
