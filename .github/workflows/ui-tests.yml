@@ -50,14 +50,18 @@ jobs:
           api-level: 36
           target: default
           arch: x86_64
-          profile: pixel_6
+          # Everything renders in software here, so fewer pixels keep the system responsive
+          profile: Nexus 4
           cores: 4
           ram-size: 4096M
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back emulated
-          # System UI is slow with software rendering, and its "isn't responding"
-          # dialog would block every flow. A crashed app still fails its flow.
+          # An "isn't responding" dialog from the system would block every flow, while
+          # a crashed app still fails its flow. Android only reads this setting on a
+          # configuration change, which switching the UI mode triggers.
           script: |
             adb shell settings put global hide_error_dialogs 1
+            adb shell cmd uimode night yes
+            adb shell cmd uimode night no
             ./scripts/run-ui-tests.sh
 
       - name: Upload Test Results
