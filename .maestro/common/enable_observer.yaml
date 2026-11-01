@@ -1,0 +1,12 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- tapOn: "Open drawer"
+- tapOn:
+    id: navigation_observer_mode
+- assertVisible:
+    id: navigation_observer_mode_switch
+    checked: true
+- tapOn:
+    id: navigation_map
+- assertVisible:
+    id: map_osm_notice_text

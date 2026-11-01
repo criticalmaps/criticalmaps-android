@@ -1,0 +1,56 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# run-ui-tests.sh pushes the fixtures to the Download folder.
+- runFlow: common/setup_without_permissions.yaml
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+- scrollUntilVisible:
+    element:
+      id: settings_show_gpx_checkbox
+    direction: DOWN
+- tapOn:
+    id: settings_show_gpx_checkbox
+- assertVisible:
+    id: settings_show_gpx_checkbox
+    checked: true
+
+- scrollUntilVisible:
+    element:
+      id: settings_choose_gpx_container
+    direction: DOWN
+- tapOn:
+    id: settings_choose_gpx_container
+- tapOn: "route.gpx"
+- assertVisible:
+    id: settings_choose_gpx_summary_text
+    text: "route.gpx"
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: map
+- assertVisible:
+    id: map_osm_notice_text
+
+# A broken file must not take the app down
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+- scrollUntilVisible:
+    element:
+      id: settings_choose_gpx_container
+    direction: DOWN
+- tapOn:
+    id: settings_choose_gpx_container
+- tapOn: "broken.gpx"
+- assertVisible:
+    id: settings_choose_gpx_summary_text
+    text: "broken.gpx"
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: map
+- assertVisible:
+    id: map_osm_notice_text

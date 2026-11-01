@@ -1,0 +1,17 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# launchApp allows every permission by default, see README.md
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- tapOn:
+    id: understand_button
+- assertVisible: ".*access this device.s location.*"
+- tapOn:
+    id: permission_deny_button
+- assertVisible: ".*send you notifications.*"
+- tapOn:
+    id: permission_deny_button
+- assertVisible:
+    id: map_osm_notice_text

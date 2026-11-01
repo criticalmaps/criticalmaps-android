@@ -1,0 +1,7 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# Maestro has no plain sleep, so this waits for something that never appears.
+- extendedWaitUntil:
+    visible: "__never_visible__"
+    timeout: ${MILLIS}
+    optional: true

@@ -1,0 +1,23 @@
+appId: de.stephanlindauer.criticalmaps
+onFlowComplete:
+  - setDarkMode: disabled
+---
+- runFlow: common/setup_without_permissions.yaml
+- setDarkMode: enabled
+- assertVisible:
+    id: map_osm_notice_text
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: settings
+- assertVisible:
+    id: settings_scrollview
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: map
+- assertVisible:
+    id: map_osm_notice_text
+- setDarkMode: disabled
+- assertVisible:
+    id: map_osm_notice_text

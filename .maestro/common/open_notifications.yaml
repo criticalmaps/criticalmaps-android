@@ -1,0 +1,10 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- swipe:
+    start: "50%, 0%"
+    end: "50%, 80%"
+    duration: 500
+- extendedWaitUntil:
+    visible: "Notifications|Silent|No notifications"
+    timeout: 5000
+    optional: true

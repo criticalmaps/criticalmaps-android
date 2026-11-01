@@ -1,0 +1,37 @@
+appId: de.stephanlindauer.criticalmaps
+---
+# Never taps send: messages reach everyone in the public chat.
+- runFlow: common/setup_without_permissions.yaml
+- runFlow:
+    file: common/open_screen.yaml
+    env:
+      SCREEN: chat
+- assertVisible:
+    id: chat_send_button
+    enabled: false
+
+- tapOn:
+    id: chat_message_edittext
+- inputText: "Testtext"
+- assertVisible:
+    id: chat_message_edittext
+    text: "Testtext"
+- assertVisible:
+    id: chat_send_button
+    enabled: true
+- eraseText: 8
+- assertVisible:
+    id: chat_send_button
+    enabled: false
+
+# Messages are limited to 255 characters
+- evalScript: ${output.longText = 'x'.repeat(300)}
+- inputText: ${output.longText}
+- copyTextFrom:
+    id: chat_message_edittext
+- assertTrue: ${maestro.copiedText.length == 255}
+- eraseText: 255
+- assertVisible:
+    id: chat_send_button
+    enabled: false
+- hideKeyboard

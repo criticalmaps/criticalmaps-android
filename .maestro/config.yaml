@@ -1,0 +1,20 @@
+# Only flows directly in this folder run by default, so manual/ and
+# known-bugs/ have to be started explicitly.
+flows:
+  - "*"
+executionOrder:
+  continueOnFailure: true
+  flowsOrder:
+    - first_launch
+    - navigation
+    - chat_input
+    - settings
+    - about
+    - rotation
+    - dark_mode
+    - gpx
+    - camera
+    - notification
+    - observer_mode
+    - offline
+    - position_published

@@ -1,0 +1,34 @@
+appId: de.stephanlindauer.criticalmaps
+---
+- runScript: scripts/pick_position.js
+- setLocation:
+    latitude: ${output.testLat}
+    longitude: ${output.testLon}
+- runFlow: common/setup_without_permissions.yaml
+- runFlow: common/enable_observer.yaml
+- runFlow: common/allow_location.yaml
+
+# OPEN brings the app back from the background
+- pressKey: Home
+- runFlow: common/open_notifications.yaml
+- tapOn: "OPEN"
+- assertVisible:
+    id: map_osm_notice_text
+
+# CLOSE asks first
+- runFlow: common/open_notifications.yaml
+- tapOn: "CLOSE"
+- assertVisible: "Really close the app.*"
+- tapOn: "NOPE"
+- assertVisible:
+    id: map_osm_notice_text
+
+# Confirming ends the service, and with it the notification
+- runFlow: common/open_notifications.yaml
+- tapOn: "CLOSE"
+- tapOn: "YES"
+- assertNotVisible:
+    id: map_osm_notice_text
+- runFlow: common/open_notifications.yaml
+- assertNotVisible: "Critical Maps Tracking"
+- pressKey: Back
