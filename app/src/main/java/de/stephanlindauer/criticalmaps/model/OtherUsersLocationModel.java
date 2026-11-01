@@ -7,9 +7,12 @@ import org.maplibre.android.geometry.LatLng;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import de.stephanlindauer.criticalmaps.utils.RiderActivityFilter;
 
 @Singleton
 public class OtherUsersLocationModel {
@@ -40,5 +43,9 @@ public class OtherUsersLocationModel {
 
     public Map<String, LatLng> getOtherUsersLocations() {
         return otherUsersLocations;
+    }
+
+    public Set<String> getActiveRiderIds() {
+        return RiderActivityFilter.classify(otherUsersLocations);
     }
 }

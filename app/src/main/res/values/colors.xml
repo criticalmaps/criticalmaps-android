@@ -63,4 +63,6 @@
     <color name="border_top_background">@color/colorBackground</color>
     <color name="border_top_divider">@color/colorPrimaryLight</color>
 
+    <color name="map_marker_active_foreground">@color/colorOnPrimary</color>
+    <color name="map_marker_active_background">@color/colorSecondary</color> <!-- material red 600 -->
 </resources>
