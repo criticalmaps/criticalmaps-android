@@ -37,4 +37,6 @@ if [ "${1:-}" = "--public-chat" ]; then
         --format junit --output "$OUT/report-chat.xml" --debug-output "$OUT/debug-chat" || status=$?
 fi
 
+adb logcat -d > "$OUT/logcat.txt"
+
 exit "$status"

@@ -50,6 +50,8 @@ jobs:
           target: default
           arch: x86_64
           profile: pixel_6
+          cores: 4
+          ram-size: 4096M
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back emulated
           script: ./scripts/run-ui-tests.sh
 
@@ -59,3 +61,6 @@ jobs:
         with:
           name: ui-test-results
           path: build/ui-tests
+          # Maestro keeps its screenshots and logs in a .maestro folder
+          include-hidden-files: true
+          retention-days: 14
