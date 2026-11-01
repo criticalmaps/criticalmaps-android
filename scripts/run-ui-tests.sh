@@ -17,6 +17,7 @@ export MAESTRO_DRIVER_STARTUP_TIMEOUT=180000
 
 set -e
 mkdir -p "$OUT"
+adb logcat -G 16M
 adb install -r "$APK"
 for permission in CAMERA RECORD_AUDIO ACCESS_FINE_LOCATION ACCESS_COARSE_LOCATION; do
     adb shell pm grant com.android.camera2 "android.permission.$permission"
@@ -38,5 +39,6 @@ if [ "${1:-}" = "--public-chat" ]; then
 fi
 
 adb logcat -d > "$OUT/logcat.txt"
+adb shell dumpsys dropbox --print SYSTEM_TOMBSTONE > "$OUT/tombstones.txt"
 
 exit "$status"
