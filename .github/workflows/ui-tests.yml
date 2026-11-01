@@ -49,7 +49,7 @@ jobs:
           api-level: '37.0'
           target: default
           arch: x86_64
-          profile: pixel_8
+          profile: pixel_6
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back emulated
           script: ./scripts/run-ui-tests.sh
 
