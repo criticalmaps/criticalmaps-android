@@ -17,6 +17,7 @@ import org.maplibre.android.maps.MapLibreMapOptions;
 import org.maplibre.android.maps.MapView;
 import org.maplibre.android.maps.Style;
 import org.maplibre.android.module.http.HttpRequestUtil;
+import org.maplibre.android.style.layers.FillLayer;
 import org.maplibre.android.style.layers.Layer;
 import org.maplibre.android.style.layers.LineLayer;
 import org.maplibre.android.style.layers.PropertyFactory;
@@ -68,6 +69,7 @@ public class MapViewUtils {
         GeoJsonSource otherUsersLocationsSource = new GeoJsonSource("otherUsersLocationsSource");
         GeoJsonSource ownUserLocationSource = new GeoJsonSource("ownUserLocationSource");
         GeoJsonSource ownUserLocationSourceObserver = new GeoJsonSource("ownUserLocationSourceObserver");
+        GeoJsonSource privateRegionsSource = new GeoJsonSource("privateRegionsSource");
 
         mapStyle.addImage(
                 "gpxPoi",
@@ -124,11 +126,28 @@ public class MapViewUtils {
                 PropertyFactory.iconAllowOverlap(true),
                 PropertyFactory.iconIgnorePlacement(true));
 
+        FillLayer privateRegionsFillLayer =
+                new FillLayer("privateRegionsFillLayer", privateRegionsSource.getId());
+        privateRegionsFillLayer.setProperties(
+                PropertyFactory.fillColor(ContextCompat.getColor(activity, R.color.colorSecondary)),
+                PropertyFactory.fillOpacity(0.2f)
+        );
+
+        LineLayer privateRegionsLineLayer =
+                new LineLayer("privateRegionsLineLayer", privateRegionsSource.getId());
+        privateRegionsLineLayer.setProperties(
+                PropertyFactory.lineWidth(2f),
+                PropertyFactory.lineColor(ContextCompat.getColor(activity, R.color.colorSecondary))
+        );
+
+        mapStyle.addLayer(privateRegionsFillLayer);
+        mapStyle.addLayer(privateRegionsLineLayer);
         mapStyle.addLayer(gpxTrackLayer);
         mapStyle.addLayer(gpxPoiLayer);
         mapStyle.addLayer(otherUsersLocationsLayer);
         mapStyle.addLayer(ownUserLocationLayer);
         mapStyle.addLayer(ownUserLocationLayerObserver);
+        mapStyle.addSource(privateRegionsSource);
         mapStyle.addSource(gpxTrackSource);
         mapStyle.addSource(gpxPoiSource);
         mapStyle.addSource(otherUsersLocationsSource);

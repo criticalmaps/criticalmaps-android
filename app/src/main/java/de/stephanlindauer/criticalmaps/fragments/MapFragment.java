@@ -8,6 +8,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Outline;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -16,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
@@ -44,6 +47,7 @@ import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.geojson.Point;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -62,11 +66,11 @@ import de.stephanlindauer.criticalmaps.handler.ShowGpxHandler;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OtherUsersLocationModel;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.model.PrivateRegion;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.provider.EventBus;
 import de.stephanlindauer.criticalmaps.utils.AlertBuilder;
 import de.stephanlindauer.criticalmaps.utils.MapViewUtils;
-import info.metadude.android.typedpreferences.BooleanPreference;
 
 
 public class MapFragment extends Fragment {
@@ -222,6 +226,11 @@ public class MapFragment extends Fragment {
                 handleNewLocation(NEW_LOCATION_EVENT);
             });
 
+            map.addOnMapLongClickListener(point -> {
+                handleMapLongClick(point);
+                return true;
+            });
+
             map.addOnMoveListener(new MapLibreMap.OnMoveListener() {
                 @Override
                 public void onMoveBegin(@NonNull MoveGestureDetector detector) {
@@ -324,6 +333,12 @@ public class MapFragment extends Fragment {
                 (GeoJsonSource) mapStyle.getSource("otherUsersLocationsSource");
         otherUsersLocationsSource.setGeoJson(otherUsersFeatures);
 
+        GeoJsonSource privateRegionsSource =
+                (GeoJsonSource) mapStyle.getSource("privateRegionsSource");
+        if (privateRegionsSource != null) {
+            privateRegionsSource.setGeoJson(getPrivateRegionsFeatureCollection());
+        }
+
         if (ownLocationModel.ownLocation != null) {
             FeatureCollection ownUserFeatures = getOwnUserFeatureCollection();
             FeatureCollection emptyFeatures =
@@ -334,7 +349,7 @@ public class MapFragment extends Fragment {
             GeoJsonSource ownUserLocationSource =
                     (GeoJsonSource) mapStyle.getSource("ownUserLocationSource");
 
-            if (new BooleanPreference(sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get()) {
+            if (PrivateRegion.isEffectiveGhostModeActive(sharedPreferences, ownLocationModel)) {
                 ownUserLocationSource.setGeoJson(emptyFeatures);
                 ownUserLocationSourceObserver.setGeoJson(ownUserFeatures);
             } else {
@@ -342,6 +357,110 @@ public class MapFragment extends Fragment {
                 ownUserLocationSourceObserver.setGeoJson(emptyFeatures);
             }
         }
+    }
+
+    private void handleMapLongClick(LatLng point) {
+        if (!isAdded() || getContext() == null) {
+            return;
+        }
+
+        List<PrivateRegion> regions = PrivateRegion.getSavedRegions(sharedPreferences);
+        PrivateRegion clickedRegion = regions.stream()
+                .filter(region -> {
+                    float[] results = new float[1];
+                    Location.distanceBetween(
+                            point.getLatitude(),
+                            point.getLongitude(),
+                            region.getLatitude(),
+                            region.getLongitude(),
+                            results
+                    );
+                    return results[0] <= region.getRadius();
+                })
+                .findFirst()
+                .orElse(null);
+
+        if (clickedRegion != null) {
+            final PrivateRegion regionToDelete = clickedRegion;
+            new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme)
+                    .setTitle(R.string.private_region_delete_title)
+                    .setMessage(R.string.private_region_delete_message)
+                    .setNegativeButton(R.string.no, null)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        if (!isAdded()) {
+                            return;
+                        }
+                        List<PrivateRegion> updatedRegions = new ArrayList<>(PrivateRegion.getSavedRegions(sharedPreferences));
+                        updatedRegions.removeIf(r -> r.getId().equals(regionToDelete.getId()));
+                        PrivateRegion.saveRegions(sharedPreferences, updatedRegions);
+                        refreshView();
+                        Toast.makeText(requireContext(), R.string.private_region_deleted, Toast.LENGTH_SHORT).show();
+                    })
+                    .create()
+                    .show();
+        } else {
+            View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_private_region, null);
+            SeekBar seekBar = dialogView.findViewById(R.id.seekBarRadius);
+            TextView tvRadius = dialogView.findViewById(R.id.tvRadiusValue);
+
+            seekBar.setMax(1800); // 0 to 1800 -> 200m to 2000m
+            int defaultRadius = 500;
+            seekBar.setProgress(defaultRadius - 200);
+            tvRadius.setText(getString(R.string.private_region_radius_display, defaultRadius));
+
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    int radius = progress + 200;
+                    tvRadius.setText(getString(R.string.private_region_radius_display, radius));
+                }
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {}
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {}
+            });
+
+            new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme)
+                    .setTitle(R.string.private_region_add_title)
+                    .setView(dialogView)
+                    .setNegativeButton(R.string.no, null)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        if (!isAdded()) {
+                            return;
+                        }
+                        int radius = seekBar.getProgress() + 200;
+                        PrivateRegion newRegion = new PrivateRegion(point.getLatitude(), point.getLongitude(), radius);
+                        List<PrivateRegion> updatedRegions = new ArrayList<>(PrivateRegion.getSavedRegions(sharedPreferences));
+                        updatedRegions.add(newRegion);
+                        PrivateRegion.saveRegions(sharedPreferences, updatedRegions);
+                        refreshView();
+                        Toast.makeText(requireContext(), R.string.private_region_added, Toast.LENGTH_SHORT).show();
+                    })
+                    .create()
+                    .show();
+        }
+    }
+
+    private FeatureCollection getPrivateRegionsFeatureCollection() {
+        ArrayList<Feature> features = new ArrayList<>();
+        List<PrivateRegion> regions = PrivateRegion.getSavedRegions(sharedPreferences);
+        for (PrivateRegion region : regions) {
+            features.add(createCirclePolygon(region.getLatitude(), region.getLongitude(), region.getRadius()));
+        }
+        return FeatureCollection.fromFeatures(features);
+    }
+
+    private static Feature createCirclePolygon(double centerLat, double centerLon, double radiusMeters) {
+        List<Point> points = new ArrayList<>();
+        int steps = 64;
+        for (int i = 0; i <= steps; i++) {
+            double theta = (double) i / steps * 2.0 * Math.PI;
+            double dLat = (radiusMeters / 111320.0) * Math.cos(theta);
+            double dLon = (radiusMeters / (111320.0 * Math.cos(Math.toRadians(centerLat)))) * Math.sin(theta);
+            points.add(Point.fromLngLat(centerLon + dLon, centerLat + dLat));
+        }
+        org.maplibre.geojson.Polygon polygon = org.maplibre.geojson.Polygon.fromLngLats(java.util.Collections.singletonList(points));
+        return Feature.fromGeometry(polygon);
     }
 
     @Override
