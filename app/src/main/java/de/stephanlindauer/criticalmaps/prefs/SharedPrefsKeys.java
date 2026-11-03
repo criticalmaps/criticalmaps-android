@@ -15,4 +15,6 @@ public interface SharedPrefsKeys {
             BuildConfig.APPLICATION_ID + ".SHOW_GPX";
     String GPX_FILE =
             BuildConfig.APPLICATION_ID + ".GPX_FILE";
+    String PRIVATE_REGIONS =
+            BuildConfig.APPLICATION_ID + ".PRIVATE_REGIONS";
 }

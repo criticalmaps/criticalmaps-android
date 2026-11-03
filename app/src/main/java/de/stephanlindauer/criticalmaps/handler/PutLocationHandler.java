@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import de.stephanlindauer.criticalmaps.BuildConfig;
 import de.stephanlindauer.criticalmaps.managers.LocationUpdateManager;
 import de.stephanlindauer.criticalmaps.model.OwnLocationModel;
+import de.stephanlindauer.criticalmaps.model.PrivateRegion;
 import de.stephanlindauer.criticalmaps.model.UserModel;
 import de.stephanlindauer.criticalmaps.prefs.SharedPrefsKeys;
 import de.stephanlindauer.criticalmaps.vo.Endpoints;
@@ -50,10 +51,10 @@ public class PutLocationHandler extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        final boolean isObserverModeActive = new BooleanPreference(
-                sharedPreferences, SharedPrefsKeys.OBSERVER_MODE_ACTIVE).get();
+        final boolean isEffectiveGhostModeActive =
+                PrivateRegion.isEffectiveGhostModeActive(sharedPreferences, ownLocationModel);
 
-        if (!isObserverModeActive && ownLocationModel.hasPreciseLocation()
+        if (!isEffectiveGhostModeActive && ownLocationModel.hasPreciseLocation()
                 && locationUpdateManager.isUpdating()) {
             Timber.d("Heartbeat preconditions are fulfilled.");
         } else {
